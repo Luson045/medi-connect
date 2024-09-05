@@ -1,0 +1,131 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;
+  color: #333;
+}
+
+.App-header {
+  background-color: #007bff;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.App-header nav {
+  margin-top: 15px;
+}
+
+.App-header nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.home-page {
+  padding: 50px;
+}
+
+.home-page h2 {
+  font-size: 2.5rem;
+  color: #007bff;
+}
+
+.home-page p {
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+.register-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.opd-registration-form div {
+  margin-bottom: 15px;
+}
+
+.opd-registration-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.opd-registration-form input,
+.opd-registration-form select,
+.opd-registration-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.opd-registration-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.opd-registration-form button:hover {
+  background-color: #0056b3;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.success-message {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #28a745;
+  border-radius: 10px;
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.success-message h2 {
+  color: #28a745;
+}

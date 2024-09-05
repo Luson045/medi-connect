@@ -1,0 +1,27 @@
+.navbar {
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.7rem;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #007bff; /* Subtle blue accent */
+}
