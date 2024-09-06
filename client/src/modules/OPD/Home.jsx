@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Home.css';
 import Navbar from '../common/Navbar';
+import DynamicLineChart from './Chart';
 
 function Home() {
   return (
@@ -35,10 +36,10 @@ function Home() {
           </div>
         </div>
       </section>
-
+      <DynamicLineChart/>
       {/* Reviews Section */}
       <section className="reviews-section">
-        <h2>What Our Patients Say</h2>
+        <h2>What Our Patients will Say</h2>
         <div className="reviews">
           <div className="review">
             <p>"The online registration process was so easy and convenient. I didn't have to wait in line at all!"</p>
