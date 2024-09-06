@@ -42,7 +42,7 @@ function Home() {
         <div className="reviews">
           <div className="review">
             <p>"The online registration process was so easy and convenient. I didn't have to wait in line at all!"</p>
-            <span>- John Doe</span>
+            <span>- John Does</span>
           </div>
           <div className="review">
             <p>"Great service and experienced doctors. Highly recommend!"</p>
