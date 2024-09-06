@@ -1,27 +1,96 @@
+/* src/styles/Navbar.css */
+
 .navbar {
-  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.7rem;
+  background-color: #333; /* Change to your desired color */
+  padding: 10px 20px;
+  color: #fff;
+  position: relative;
 }
 
-.navbar-logo {
+.navbar-logo a {
+  color: #fff;
+  text-decoration: none;
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-links a {
-  margin: 0 15px;
+  color: #fff;
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  margin-left: 20px;
   transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
-  color: #007bff; /* Subtle blue accent */
+  color: #ddd; /* Change hover color as desired */
+}
+
+.navbar-menu-icon {
+  display: none; /* Hidden on desktop */
+  cursor: pointer;
+}
+
+.hamburger {
+  width: 25px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger .bar {
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navbar-menu-icon {
+    display: block; /* Show hamburger on mobile */
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 60px; /* Adjust based on navbar height */
+    left: 0;
+    right: 0;
+    background-color: #333; /* Match navbar background */
+    flex-direction: column;
+    align-items: center;
+    display: none; /* Hidden by default */
+    z-index: 1000;
+  }
+
+  .navbar-links.active {
+    display: flex; /* Show menu when active */
+  }
+
+  .navbar-links a {
+    margin: 15px 0;
+    font-size: 18px;
+  }
 }

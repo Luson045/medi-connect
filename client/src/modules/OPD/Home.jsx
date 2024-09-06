@@ -13,7 +13,7 @@ function Home() {
         <div className="hero-content">
           <h1>Online OPD Registration</h1>
           <p>Skip the queue and get the care you need faster.</p>
-          <Link to="/register" className="hero-button">Register Now</Link>
+          <Link to="/registerOPD" className="hero-button">Register Now</Link>
         </div>
       </section>
 
