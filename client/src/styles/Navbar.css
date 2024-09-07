@@ -9,7 +9,10 @@
   color: #fff;
   position: relative;
 }
-
+.logo-image{
+  max-height: 150px;
+  max-width: 200px;
+}
 .navbar-logo a {
   color: #fff;
   text-decoration: none;

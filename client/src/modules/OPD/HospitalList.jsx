@@ -76,13 +76,13 @@ const HospitalsList = () => {
               <h2>Hospitals</h2>
       
               {/* Search bar */}
-              <input
+              <center><input
                   type="text"
                   className="search-bar"
                   placeholder="Search by name or address..."
                   value={searchQuery}
                   onChange={handleSearch}
-              />
+              /></center>
       
               <div className="hospital-list">
                   {filteredHospitals.map((hospital) => (
@@ -99,7 +99,7 @@ const HospitalsList = () => {
                           <p>Departments: {hospital.departments?.join(', ') || 'N/A'}</p>
                           <p>Available Services: {hospital.availableServices?.join(', ') || 'N/A'}</p>
                           <p>Ratings: {hospital.ratings || 'N/A'}/5</p>
-                          <p>Running Appointments: {hospital.runningAppointments || 'N/A'}</p>
+                          <p>Running Appointments: {hospital.appointments.length || 'N/A'}</p>
       
                           <button onClick={() => setSelectedHospital(hospital)}>Book Appointment</button>
       

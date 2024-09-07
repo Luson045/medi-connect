@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">Logo</Link>
+        <Link to="/"><img className="logo-image"src="logo.png"></img></Link>
       </div>
 
       {/* Hamburger menu icon for mobile */}
