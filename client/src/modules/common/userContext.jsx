@@ -13,6 +13,13 @@ export const UserProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        // If no token, consider the user as not authenticated
+        setAuth(false);
+        setUser(null);
+        return;
+      }
+      
       const response = await fetch('http://localhost:5000/auth/profile', {
         method: 'GET',
         headers: {
@@ -27,8 +34,11 @@ export const UserProvider = ({ children }) => {
         setUser(data);
         setAuth(true);
       } else {
+        // Handle cases where token might be invalid or expired
         setAuth(false);
         setUser(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('userid');
       }
     } catch (err) {
       console.error('Error fetching profile:', err);
@@ -39,7 +49,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProfile();
-  }, [location]); // Refetch profile when location changes
+  }, [location.pathname]); // Refetch profile when location changes or on refresh
 
   const handleLogout = () => {
     localStorage.removeItem('token');
