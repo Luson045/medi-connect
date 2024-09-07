@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Home.css';
 import Navbar from '../common/Navbar';
-import DynamicLineChart from './Chart';
+import StaticLineChart from './Chart';
 
 function Home() {
   return (
@@ -37,7 +37,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <DynamicLineChart/>
+      <StaticLineChart/>
       {/* Reviews Section */}
       <section className="reviews-section">
         <h2>What Our Patients will Say</h2>
