@@ -4,6 +4,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.7rem;
+  background-color:lightgoldenrodyellow;
   background-color: #333; /* Change to your desired color */
   padding: 10px 20px;
   color: #fff;
@@ -30,7 +34,7 @@
 }
 
 .navbar-links a:hover {
-  color: #ddd; /* Change hover color as desired */
+  color: whitesmoke; /* Subtle blue accent */
 }
 
 .navbar-menu-icon {

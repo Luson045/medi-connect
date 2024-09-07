@@ -6,7 +6,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  background: rgb(168,211,255);
+  background:lightblue;
   background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%);
 }
 
@@ -17,9 +17,10 @@ body {
   background-position: center;
   padding: 100px 20px;
   text-align: center;
-  color: #fff;
+  color: black;
   justify-items: center;
   height:80vh;
+  background-color: aquamarine;
 }
 
 .hero-content h1 {
@@ -33,7 +34,7 @@ body {
 }
 
 .hero-button {
-  background-color: #007bff;
+  background-color: #ff0040;
   color: #fff;
   padding: 15px 30px;
   font-size: 1.2rem;
@@ -48,7 +49,7 @@ body {
 
 /* Features Section */
 .features-section {
-  background-color: #fff;
+  background-color: lightcyan;
   padding: 60px 20px;
   text-align: center;
 }
@@ -66,7 +67,7 @@ body {
 }
 
 .card {
-  background-color: #f8f9fa;
+  background-color:lightgreen;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -86,7 +87,7 @@ body {
 
 /* Reviews Section */
 .reviews-section {
-  background-color: #e9ecef;
+  background-color:lightcyan;
   padding: 60px 20px;
   text-align: center;
 }
@@ -104,7 +105,7 @@ body {
 }
 
 .review {
-  background-color: #fff;
+  background-color: lightseagreen;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
