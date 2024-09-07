@@ -40,7 +40,7 @@ function Home() {
       </section>
       <div>
       <h2>Research and Data</h2>
-      <img className="data" src="data1.jpg"></img>
+      <center><img className="data" src="data1.jpg"></img></center>
       <StaticLineChart/>
       </div>
       <section className="reviews-section">
