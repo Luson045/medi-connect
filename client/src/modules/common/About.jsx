@@ -6,34 +6,34 @@ import Navbar from '../common/Navbar';
 // Team member data
 const teamMembers = [
   {
-    name: 'Team Lead Name',
+    name: 'Luson Basumatary',
     role: 'Lead Developer',
-    description: 'As the Lead Developer, Team Lead Name brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, [he/she/they] leads the development team in creating a robust, secure, and user-friendly platform.',
+    description: 'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
   },
   {
-    name: 'Frontend Developer Name',
+    name: 'Rohit Bansal',
     role: 'Frontend Developer',
-    description: 'Frontend Developer Name specializes in crafting intuitive and visually appealing user interfaces. [He/She/They] is dedicated to enhancing the user experience by translating complex requirements into simple, accessible designs.',
+    description: 'As the Frontend Developer,Rohit Bansal  specializes in crafting intuitive and visually appealing user interfaces. He is dedicated to enhancing the user experience by translating complex requirements into simple, accessible designs.',
   },
   {
-    name: 'Designer 1 Name',
+    name: 'Kalpesh Jain',
     role: 'UI/UX Designer',
-    description: 'Designer 1 Name is focused on making our platform user-friendly and engaging. With a background in user experience design and a passion for visual storytelling, [he/she/they] creates seamless interactions and visually appealing layouts.',
+    description: 'kalpesh Jain is focused on making our platform user-friendly and engaging. With a background in user experience design and a passion for visual storytelling, He creates seamless interactions and visually appealing layouts.',
   },
   {
-    name: 'Designer 2 Name',
+    name: 'Simranpreet Kaur',
     role: 'Graphic Designer',
-    description: 'As our Graphic Designer, Designer 2 Name brings a flair for creativity and a strong sense of visual aesthetics. [He/She/They] creates compelling graphics, icons, and visual elements that enhance our platform.',
+    description: 'As our Graphic Designer, Simranpreet Kaur brings a flair for creativity and a strong sense of visual aesthetics. She creates compelling graphics, icons, and visual elements that enhance our platform.',
   },
   {
-    name: 'Researcher 1 Name',
+    name: 'Kartik Kaushal',
     role: 'Healthcare Researcher',
-    description: 'Healthcare Researcher 1 Name brings expertise in medical research and data analysis. [He/She/They] focuses on understanding the latest trends and needs in outpatient care to ensure our platform meets high standards.',
+    description: 'Kartik Kaushal brings expertise in medical research and data analysis. He focuses on understanding the latest trends and needs in outpatient care to ensure our platform meets high standards.',
   },
   {
-    name: 'Researcher 2 Name',
+    name: 'Shubham',
     role: 'Technology Researcher',
-    description: 'Technology Researcher 2 Name explores emerging technologies and trends to enhance our platform’s functionality. [He/She/They] conducts in-depth research to identify innovative solutions and integrate cutting-edge features.',
+    description: 'Shubham explores emerging technologies and trends to enhance our platform’s functionality. He conducts in-depth research to identify innovative solutions and integrate cutting-edge features.',
   },
 ];
 
