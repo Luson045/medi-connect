@@ -14,7 +14,7 @@ const HospitalAppointments = () => {
         // Check if user is loaded and authenticated
         if (user && isAuthenticated) {
             // Fetch appointments
-            axios.get(`http://localhost:5000/hospitalapi/appointments/${user._id}`)
+            axios.get(`https://medi-connect-f671.onrender.com/hospitalapi/appointments/${user._id}`)
                 .then(res => {
                     setAppointments(res.data);
                     setLoading(false);
@@ -31,7 +31,7 @@ const HospitalAppointments = () => {
 
     const deleteAppointment = (id) => {
         if (window.confirm("Are you sure you want to delete this appointment?")) {
-            axios.delete(`http://localhost:5000/hospitalapi/appointments/${id}`)
+            axios.delete(`https://medi-connect-f671.onrender.com/hospitalapi/appointments/${id}`)
                 .then(() => {
                     setAppointments(appointments.filter(appointment => appointment._id !== id));
                 })

@@ -26,7 +26,7 @@ function OPDRegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const userId="luson";
-    axios.post(`http://localhost:5000/register`, { data: formData })
+    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: formData })
     .then(response => {
       console.error('Successful registering!', response.data);
     })

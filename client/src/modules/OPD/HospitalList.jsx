@@ -16,7 +16,7 @@ const HospitalsList = () => {
     useEffect(() => {
         const fetchHospitals = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/hospitalapi/');
+                const response = await axios.get('https://medi-connect-f671.onrender.com/hospitalapi/');
                 setHospitals(response.data);
                 setFilteredHospitals(response.data);
             } catch (error) {
@@ -31,7 +31,7 @@ const HospitalsList = () => {
     const handleBooking = async (hospitalId) => {
         const userId = '66da14479e0fb718bffca688'; // Replace with actual user ID
         try {
-            const response = await axios.post(`http://localhost:5000/hospitalapi/hospitals/${hospitalId}/book`, {
+            const response = await axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/hospitals/${hospitalId}/book`, {
                 userId,
                 ...bookingData,
             });
