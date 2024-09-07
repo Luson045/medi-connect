@@ -6,6 +6,7 @@ import DynamicLineChart from './Chart';
 
 function Home() {
   return (
+    
     <>
     <Navbar/>
     <div className="home-page">
