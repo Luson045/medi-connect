@@ -1,12 +1,12 @@
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f8ff;
+  background-color: lightgreen;
   color: #333;
 }
 
 .App-header {
-  background-color: #007bff;
+  background-color: lightgreen;
   padding: 20px;
   color: white;
 }
