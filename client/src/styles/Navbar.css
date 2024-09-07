@@ -6,6 +6,7 @@
   padding: 15px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.7rem;
+  background-color:lightgoldenrodyellow;
 }
 
 .navbar-logo {
@@ -23,5 +24,5 @@
 }
 
 .navbar-links a:hover {
-  color: #007bff; /* Subtle blue accent */
+  color: whitesmoke; /* Subtle blue accent */
 }
