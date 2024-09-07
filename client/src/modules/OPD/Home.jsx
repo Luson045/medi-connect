@@ -36,9 +36,10 @@ function Home() {
             <p>We are here to assist you any time of the day.</p>
           </div>
         </div>
+        
       </section>
       <StaticLineChart/>
-      {/* Reviews Section */}
+      
       <section className="reviews-section">
         <h2>What Our Patients will Say</h2>
         <div className="reviews">
