@@ -71,7 +71,7 @@ const AboutPage = () => {
         <VisionSection>
           <VisionTitle>Our Vision</VisionTitle>
           <VisionText>
-            At [Platform Name], we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere.
+            At Medi-Connect, we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere.
           </VisionText>
         </VisionSection>
         <JoinUsSection>
