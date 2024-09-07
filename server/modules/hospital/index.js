@@ -111,5 +111,114 @@ router.post('/hospitals/:id/book', async (req, res) => {
       res.status(500).json({ message: 'Error booking appointment', error });
   }
 });
+router.get('/appointments/:hospitalId', async (req, res) => {
+    try {
+        const hospital = await Hospital.findById(req.params.hospitalId).populate('appointments.userId', 'name email');
+        if (!hospital) return res.status(404).send({ message: 'Hospital not found' });
+
+        res.status(200).json(hospital.appointments);
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error });
+    }
+});
+
+// Route to add a new appointment
+router.post('/appointments/:hospitalId',async (req, res) => {
+    try {
+        const { userId, date, reason } = req.body;
+
+        const hospital = await Hospital.findById(req.params.hospitalId);
+        if (!hospital) return res.status(404).send({ message: 'Hospital not found' });
+
+        const newAppointment = { userId, date, reason, status: 'pending' };
+        hospital.appointments.push(newAppointment);
+        await hospital.save();
+
+        res.status(201).json(newAppointment);
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error });
+    }
+});
+
+// Route to update an existing appointment
+router.put('/appointments/:appointmentId', async (req, res) => {
+    try {
+        const { appointmentId } = req.params;
+        const { date, reason, status } = req.body;
+
+        const hospital = await Hospital.findOneAndUpdate(
+            { 'appointments._id': appointmentId },
+            {
+                $set: {
+                    'appointments.$.date': date,
+                    'appointments.$.reason': reason,
+                    'appointments.$.status': status
+                }
+            },
+            { new: true }
+        );
+
+        if (!hospital) return res.status(404).send({ message: 'Appointment not found' });
+
+        const updatedAppointment = hospital.appointments.id(appointmentId);
+        res.status(200).json(updatedAppointment);
+    } catch (error) {
+        res.status(500).send({ message: 'Server error', error });
+    }
+});
+
+router.delete('/appointments/:appointmentId', async (req, res) => {
+    try {
+        const { appointmentId } = req.params;
+        console.log(`Attempting to delete appointment: ${appointmentId}`);
+
+        // Step 1: Find the hospital with the appointment
+        const hospital = await Hospital.findOne({ 'appointments._id': appointmentId });
+
+        if (!hospital) {
+            console.log('Hospital not found');
+            return res.status(404).send({ message: 'Appointment not found in hospital records' });
+        }
+
+        // Step 2: Get the specific appointment to retrieve userId before deletion
+        const appointmentToDelete = hospital.appointments.find(appointment => appointment._id.toString() === appointmentId);
+
+        if (!appointmentToDelete) {
+            console.log('Appointment not found in hospital');
+            return res.status(404).send({ message: 'Appointment not found in hospital records' });
+        }
+
+        const userId = appointmentToDelete.userId;
+        console.log(`UserId associated with appointment: ${userId}`);
+
+        // Step 3: Delete the appointment from the hospital's records
+        const updatedHospital = await Hospital.findOneAndUpdate(
+            { 'appointments._id': appointmentId },
+            { $pull: { appointments: { _id: appointmentId } } },
+            { new: true }
+        );
+
+        console.log('Hospital update result:', updatedHospital ? 'Success' : 'Failed');
+
+        // Step 4: Find the user and delete the appointment from user's records
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { appointments: { hospitalId: hospital._id, _id: appointmentId } } },
+            { new: true }
+        );
+
+        console.log('User update result:', updatedUser ? 'Success' : 'Failed');
+
+        if (!updatedUser) {
+            console.log('User not found or appointment not in user records');
+            return res.status(404).send({ message: 'User not found or appointment not in user records' });
+        }
+
+        res.status(200).json({ message: 'Appointment deleted from hospital and user records' });
+    } catch (error) {
+        console.error('Error deleting appointment:', error);
+        res.status(500).send({ message: 'Server error', error: error.message });
+    }
+});
 
 module.exports = router;

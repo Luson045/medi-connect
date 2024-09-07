@@ -47,6 +47,11 @@ function Navbar() {
                 <Link to="/hospitals">Hospitals</Link>
               </>
             )}
+            {user && user.role === "hospital" && (
+              <>
+                <Link to="/panal">OPD Panal</Link>
+              </>
+            )}
           </>
         )}
 

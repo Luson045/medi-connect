@@ -1,0 +1,91 @@
+.appointment-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.appointment-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.appointment-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  width: 300px;
+  padding: 20px;
+  text-align: left;
+  position: relative;
+}
+
+.appointment-card:hover {
+  transform: scale(1.05);
+}
+
+.card-content {
+  margin-bottom: 20px;
+}
+
+.appointment-reason {
+  font-size: 1.5rem;
+  color: #007BFF;
+  margin-bottom: 10px;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.pending {
+  color: #FFA500; /* Orange */
+}
+
+.status.completed {
+  color: #28A745; /* Green */
+}
+
+.status.canceled {
+  color: #DC3545; /* Red */
+}
+
+.card-actions {
+  text-align: right;
+}
+
+.delete-button {
+  background-color: #DC3545;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #C82333;
+}
+
+.no-appointments {
+  font-size: 1.2rem;
+  color: #999;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007BFF;
+}

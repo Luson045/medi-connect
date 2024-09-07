@@ -4,6 +4,7 @@ import OPDRegistrationForm from './modules/OPD/Registration';
 import HospitalsList from './modules/OPD/HospitalList';
 import Success from './modules/OPD/Success';
 import Home from './modules/OPD/Home';
+import HospitalAppointments from './modules/OPD/HospitalPanal';
 import { UserProvider } from './modules/common/userContext';
 import ProfilePage from './modules/common/Profile';
 import AboutPage from './modules/common/About';
@@ -14,8 +15,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div className="App">
-      <UserProvider>
       <Router>
+      <UserProvider>
             <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -25,12 +26,13 @@ function App() {
                     <Route path="/login" element={<AuthPage />} />
                     <Route path="/register" element={<AuthPage />} />
                     <Route path="/hospitals" element={<HospitalsList />} />
+                    <Route path="/panal" element={<HospitalAppointments />} />
                     <Route path="/profile" element={<ProfilePage />} />
                 </Routes>
             </div>
+          </UserProvider>
         </Router>
         <ToastContainer/>
-        </UserProvider>
     </div>
   );
 }
