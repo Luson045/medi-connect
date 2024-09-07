@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Success from './Success';
+import axios from 'axios';
 import Navbar from '../common/Navbar';
 import '../../styles/OPD.css'
 
@@ -24,13 +25,17 @@ function OPDRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const userId="luson";
+    axios.post(`http://localhost:5000/register`, { data: formData })
+    .then(response => {
+      console.error('Successful registering!', response.data);
+    })
+    .catch(error => {
+      console.error('There was an error registering!', error);
+    });
     console.log('Form Data Submitted:', formData);
     setIsSubmitted(true);
   };
-
-  if (isSubmitted) {
-    return <Success />;
-  }
 
   return (
     <>
