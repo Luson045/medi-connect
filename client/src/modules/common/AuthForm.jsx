@@ -65,8 +65,8 @@ const AuthPage = () => {
                     window.location.href = "/";
                 }
             } else {
-                notify(data.msg, "warn");
-                console.error(data.msg);
+                notify(data.message, "warn");
+                console.error(data.message);
             }
         } catch (error) {
             notify("Error connecting to the server", "error");

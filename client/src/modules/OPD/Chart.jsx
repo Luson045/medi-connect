@@ -30,7 +30,6 @@ const StaticLineChart = () => {
 
   return (
     <section className="chart-section">
-      <h2>Queue & Waiting Time Monitoring</h2>
       <Line
         data={chartData}
         options={{

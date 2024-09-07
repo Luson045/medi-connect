@@ -9,7 +9,9 @@ body {
   background:lightblue;
   background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%);
 }
-
+.data{
+  max-width:100%;
+}
 /* Hero Section */
 .hero-section {
   background-image: url('https://www.example.com/hero-image.jpg'); /* Replace with actual image URL */

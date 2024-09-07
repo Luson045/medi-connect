@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 const Hospital = require('../../models/hospital');
-const jwtSecret="123";
+require('dotenv').config({ path: "../.env" });
+const jwtSecret=process.env.JWT;
 const router = express.Router();
 // Middleware to authenticate using token
 const authenticateToken = (req, res, next) => {
