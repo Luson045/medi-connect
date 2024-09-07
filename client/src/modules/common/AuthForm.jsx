@@ -125,25 +125,8 @@ const AuthPage = () => {
                             />
                         </div>
 
-                        <div className="form-section">
-                            <label>Date of Birth:</label>
-                            <input
-                                type="date"
-                                name="dateOfBirth"
-                                value={formData.dateOfBirth}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
 
-                        <div className="form-section">
-                            <label>Gender:</label>
-                            <select name="gender" value={formData.gender} onChange={handleChange}>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
+
                     </>
                 )}
 
