@@ -29,10 +29,9 @@ const HospitalsList = () => {
 
     // Handle appointment booking
     const handleBooking = async (hospitalId) => {
-        const userId = '66da14479e0fb718bffca688'; // Replace with actual user ID
         try {
             const response = await axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/hospitals/${hospitalId}/book`, {
-                userId,
+                hospitalId,
                 ...bookingData,
             });
 
