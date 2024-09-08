@@ -28,7 +28,7 @@ mongoose.connect(`mongodb+srv://yuria4489:${process.env.PASSDB}@medi-connect.xpb
 .catch((error) => console.error('MongoDB connection failed:', error));
 //ping
 app.get('/ping', async(req,res)=>{
-return res.status(200).json({message: 'Active'});
+res.status(200).json({message: 'Active'});
 })
 // Get all todos for a specific user
 app.post('/register', async (req, res) => {
