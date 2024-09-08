@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useContext, useState } from 'react';
 import axios from 'axios';
 import '../../styles/HospitalList.css';
 import Navbar from '../common/Navbar';
+import { UserContext } from '../common/userContext';
 
 const HospitalsList = () => {
+    const { user, isAuthenticated } = useContext(UserContext);
     const [hospitals, setHospitals] = useState([]);
     const [filteredHospitals, setFilteredHospitals] = useState([]);
     const [selectedHospital, setSelectedHospital] = useState(null);
@@ -30,8 +32,9 @@ const HospitalsList = () => {
     // Handle appointment booking
     const handleBooking = async (hospitalId) => {
         try {
+            const userId = user._id;
             const response = await axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/hospitals/${hospitalId}/book`, {
-                hospitalId,
+                userId,
                 ...bookingData,
             });
 
