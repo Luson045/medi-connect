@@ -42,6 +42,8 @@ function Home() {
       <h2>Research and Data</h2>
       <center><img className="data" src="data1.jpg"></img></center>
       <StaticLineChart/>
+      <center><img className="data" src="data2.jpg"></img></center>
+      <center><img className="data" src="data3.jpg"></img></center>
       </div>
       <section className="reviews-section">
         <h2>What Our Patients will Say</h2>
