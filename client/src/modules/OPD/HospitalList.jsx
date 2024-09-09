@@ -32,7 +32,7 @@ const HospitalsList = () => {
     // Handle appointment booking
     const handleBooking = async (hospitalId) => {
         try {
-            const userId="";
+            let userId="";
             if (user){
                 userId = user._id;
             }else{
