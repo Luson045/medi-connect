@@ -256,5 +256,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 For any inquiries or support, please contact:
 
-- **Your Name**
+- **Luson Basumatary**
 - **Email:** yuria4489@gmail.com
