@@ -1,7 +1,8 @@
 <div align="center" width="100%">
-    <img src="./public/logo.png" width="128" alt="" />
+    <img src=".client/public/logo.svg" width="128" alt="" />
 </div>
-# Medi-Connect [Appointment Booking System]
+
+# Medi-Connect (Appointment Booking System)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/tech-React.js-blue.svg)
