@@ -1,5 +1,5 @@
 <div align="center" width="100%">
-    <img src=".client/public/logo.svg" width="128" alt="" />
+    <img src="logo.svg" width="328" alt="" />
 </div>
 
 # Medi-Connect (Appointment Booking System)
