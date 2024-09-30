@@ -143,8 +143,8 @@ Ensure you have the following installed on your local machine:
 
      ```env
      PORT=5000
-     MONGO_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret
+     PASSDB=your_mongodb_connection_string
+     JWT=your_jwt_secret
      ```
 
 ## Usage
@@ -153,12 +153,17 @@ Ensure you have the following installed on your local machine:
 
    ```bash
    cd backend
-   npm start
+   node index
+   ```
+   or
+    ```bash
+   cd backend
+   nodemon index
    ```
 
    The backend server should be running at `http://localhost:5000`.
 
-2. **Start the Frontend Server**
+3. **Start the Frontend Server**
 
    In a new terminal window:
 
@@ -169,7 +174,7 @@ Ensure you have the following installed on your local machine:
 
    The frontend application should be running at `http://localhost:3000`.
 
-3. **Access the Application**
+4. **Access the Application**
 
    Open your web browser and navigate to `http://localhost:3000` to access the Hospital Management System.
 
