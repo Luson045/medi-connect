@@ -66,9 +66,15 @@ Now that everything is set up, start the development server:
 
 #### Start the Backend
 
-```bash
-npm run index
-```
+  ```bash
+   cd backend
+   node index
+  ```
+  or
+  ```bash
+    cd backend
+    nodemon index
+  ```
 
 This will start the Node.js backend on `http://localhost:5000` to handle APIs for appointments, user management, and hospital data.
 
