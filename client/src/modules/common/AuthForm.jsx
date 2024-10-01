@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../common/Navbar';
 import { notify } from './notification';
-
+import '../../styles/Login.css';
 const AuthPage = () => {
     const [isRegistering, setIsRegistering] = useState(false);
     const [formData, setFormData] = useState({
@@ -77,6 +77,8 @@ const AuthPage = () => {
     return (
       <>
         <Navbar />
+        <div className='auth-maindiv'>
+
         <div className="auth-container">
             <h2>{isRegistering ? 'Register' : 'Login'}</h2>
 
@@ -97,10 +99,11 @@ const AuthPage = () => {
                             <input
                                 type="text"
                                 name="name"
+                                placeholder='Jhon Doe'
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                            />
+                                />
                         </div>
 
                         <div className="form-section">
@@ -108,10 +111,11 @@ const AuthPage = () => {
                             <input
                                 type="text"
                                 name="phone"
+                                placeholder='9898989898'
                                 value={formData.phone}
                                 onChange={handleChange}
                                 required
-                            />
+                                />
                         </div>
 
                         <div className="form-section">
@@ -119,10 +123,11 @@ const AuthPage = () => {
                             <input
                                 type="text"
                                 name="address"
+                                placeholder='Enter address'
                                 value={formData.address}
                                 onChange={handleChange}
                                 required
-                            />
+                                />
                         </div>
 
 
@@ -135,10 +140,11 @@ const AuthPage = () => {
                     <input
                         type="email"
                         name="email"
+                        placeholder='example@gmail.com'
                         value={formData.email}
                         onChange={handleChange}
                         required
-                    />
+                        />
                 </div>
 
                 <div className="form-section">
@@ -146,10 +152,11 @@ const AuthPage = () => {
                     <input
                         type="password"
                         name="password"
+                        placeholder='password'
                         value={formData.password}
                         onChange={handleChange}
                         required
-                    />
+                        />
                 </div>
 
                 {isRegistering && (
@@ -158,16 +165,19 @@ const AuthPage = () => {
                         <input
                             type="password"
                             name="confirmPassword"
+                            placeholder='Re-type password'
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
-                        />
+                            />
                     </div>
                 )}
-
-                <button type="submit" className="auth-button">
-                    {isRegistering ? 'Register' : 'Login'}
-                </button>
+                <div className='register-button'>
+                    <button type="submit" className="auth-button">
+                        {isRegistering ? 'Register' : 'Login'}
+                    </button>
+                </div>
+                
             </form>
 
             <button onClick={toggleAuthMode} className="toggle-auth-button">
@@ -175,6 +185,7 @@ const AuthPage = () => {
                     ? 'Already have an account? Login'
                     : "Don't have an account? Register"}
             </button>
+        </div>
         </div>
       </>
     );
