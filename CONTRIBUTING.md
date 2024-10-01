@@ -25,88 +25,31 @@ git clone https://github.com/Luson045/medi-connect.git
 Always create a new branch for your changes:
 
 ```bash
-git checkout -b feature/your-feature-name
+git checkout -b your_branch
 ```
 
-### 4. Set Up MongoDB and `.env`
+### 3. Do staging in it
 
-#### Create Your MongoDB Database
-
-- You can use a local instance of MongoDB or opt for a cloud database like [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
-
-#### Add the `.env` File
-
-In the root of your project directory, create a `.env` file and add the following:
-
-```bash
-PASSDB="your-mongodb-connection-password"
-JWT="your-jwt-secret"
-```
-
-Replace `"your-mongodb-connection-password"` with your MongoDB connection password, and `"your-jwt-secret"` with a secret key for JWT authentication.
-
-Example:
-
-```bash
-PASSDB="mySecurePassword123"
-JWT="superSecretJWTKey"
-```
-
-### 5. Install Dependencies
-
-To install the required dependencies, run:
-
-```bash
-npm install
-```
-
-### 6. Run the Development Server
-
-Now that everything is set up, start the development server:
-
-#### Start the Backend
-
-  ```bash
-   cd backend
-   node index
-  ```
-  or
-  ```bash
-    cd backend
-    nodemon index
-  ```
-
-This will start the Node.js backend on `http://localhost:5000` to handle APIs for appointments, user management, and hospital data.
-
-#### Start the Frontend
-
-```bash
-npm start
-```
-
-This will start the React frontend on `http://localhost:3000`.
-
-### 7. Make Your Changes
-
-Now that the project is running, you can start coding. Whether you're fixing bugs, adding features, or improving documentation, ensure your code is clean and well-commented.
-
-### 8. Test Your Changes
-
-Before pushing your changes, thoroughly test them to ensure everything works as expected.
-
-### 9. Commit and Push
-
-When you're ready to share your changes, commit and push your code to your fork:
+Make Your Changes
 
 ```bash
 git add .
-git commit -m "Add detailed description of your changes"
-git push origin your-branch-name
 ```
 
-### 10. Create a Pull Request (PR)
+6. **Commit Your Changes:**
 
-Head to your forked repository on GitHub, and click the "New Pull Request" button. Ensure you provide a detailed description of what you've done in the PR description.
+```
+git commit -m "Relevant message"
+```
+
+7. **Push to Your Branch:**
+
+```
+git push origin your_branch
+```
+
+8. **Create a Pull Request:**
+   - Go to your forked repository on GitHub and create a pull request to the main repository _and i'll merge it as soon as i can._
 
 ## 🌟 What Can You Contribute?
 
@@ -128,27 +71,13 @@ To maintain quality and consistency, please adhere to the following guidelines:
 4. **Testing**: Ensure that your changes are well-tested locally and don’t break existing functionality.
 5. **Environment Setup**: Make sure your `.env` file and MongoDB connection are properly configured.
 
-## 🛠️ Running the Project Locally
-
-1. **Start the Backend Server**:
-
-   ```bash
-   npm run index
-   ```
-
-2. **Start the React Frontend**:
-
-   ```bash
-   npm start
-   ```
-
 ## 🎉 Hacktoberfest 2024 Participation
 
 We are proud participants of **Hacktoberfest 2024**! Contribute between **October 1st** and **October 31st** and get the chance to earn exclusive Hacktoberfest swag 🏅. Here's how to get started:
 
 - [Register for Hacktoberfest](https://hacktoberfest.com) to get started.
 - Open at least 4 quality PRs during October and help us improve **Medi-Connect**!
-  
+
 Make sure your PRs are:
 
 - **Focused**: Try to keep them small and meaningful.
