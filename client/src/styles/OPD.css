@@ -5,6 +5,7 @@
   margin: 50px auto;
   padding: 30px;
   background-color: #ffffff;
+  
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
@@ -39,7 +40,7 @@ input[type="number"],
 input[type="tel"],
 select,
 textarea {
-  width: 100%;
+  width: 99%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -59,6 +60,16 @@ textarea:focus {
 textarea {
   height: 120px;
   resize: vertical;
+}
+
+select {
+  width: 90vh;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
 }
 
 .submit-btn {
