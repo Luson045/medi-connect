@@ -6,8 +6,9 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  background:lightblue;
-  background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%);
+  /* background:lightblue; */
+  /* background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%); */
+  background: linear-gradient(90deg, #fbd8e5, #fff);
 }
 .data{
   max-width:100%;
@@ -22,17 +23,22 @@ body {
   color: black;
   justify-items: center;
   height:80vh;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
+  background: linear-gradient(90deg, #fbd8e5, #fff);
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
+  font-weight: 800;
+  color: rgb(161, 114, 222);
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 40px;
+  color:rgb(220, 51, 147)
+  
 }
 
 .hero-button {
