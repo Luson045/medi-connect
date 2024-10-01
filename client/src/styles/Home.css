@@ -12,6 +12,32 @@ body {
 .data{
   max-width:100%;
 }
+
+/* --------- */
+/*Scrollbar   */
+/* --------- */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px !important; /* Force width */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e5e2eb !important; /* Force track color */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(178, 121, 216, 0.959) !important; /* Force handle color */
+  border-radius: 12px !important; /* Force handle radius */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(222, 130, 235, 0.911) !important; /* Force hover color */
+  border-radius: 12px !important;
+}
+
 /* Hero Section */
 .hero-section {
   background-image: url('https://www.example.com/hero-image.jpg'); /* Replace with actual image URL */
