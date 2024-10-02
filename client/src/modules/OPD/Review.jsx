@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { useMediaQuery } from 'react-responsive';
 
 const reviews = [
   {
@@ -58,6 +59,9 @@ const reviews = [
   }
 ];
 
+// Duplicate the first and last reviews for infinite scroll effect
+const infiniteReviews = [reviews[reviews.length -1], ...reviews, reviews[0]];
+
 const ReviewCard = ({ review }) => (
   <div className="bg-white rounded-lg hover:shadow-xl p-4 flex flex-col justify-between h-full transition-shadow duration-300 transform hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
     <div>
@@ -83,14 +87,16 @@ const ReviewCard = ({ review }) => (
 );
 
 const Review = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1); // Start at the first real review
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 641px)' });
 
   const nextReview = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % infiniteReviews.length);
   }, []);
 
   const prevReview = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + reviews.length) % reviews.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + infiniteReviews.length) % infiniteReviews.length);
   }, []);
 
   useEffect(() => {
@@ -98,9 +104,8 @@ const Review = () => {
     return () => clearInterval(timer);
   }, [nextReview]);
 
-  const getReviewIndex = (index) => {
-    return (index + reviews.length) % reviews.length;
-  };
+  // Calculate the width of each review based on screen size
+  const reviewWidth = isSmallScreen ? 100 : 100 / 3; // Adjust width for small screens or large screens
 
   return (
     <section className="py-16 px-4">
@@ -110,11 +115,11 @@ const Review = () => {
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+              style={{ transform: `translateX(-${(currentIndex - 1) * reviewWidth}%)` }} // Adjust index for translation
             >
-              {[...Array(reviews.length * 3)].map((_, index) => (
-                <div key={index} className="w-full sm:w-1/3 flex-shrink-0 px-4">
-                  <ReviewCard review={reviews[getReviewIndex(index)]} />
+              {infiniteReviews.map((review, index) => (
+                <div key={index} className={`w-full ${isSmallScreen ? 'flex-shrink-0' : 'sm:w-1/3 flex-shrink-0'} px-2`}>
+                  <ReviewCard review={review} />
                 </div>
               ))}
             </div>
@@ -133,12 +138,13 @@ const Review = () => {
           </button>
         </div>
         <div className="flex justify-center mt-8">
-          {reviews.map((_, index) => (
+          {/* Show all dots for smaller screens, and minus two for larger screens */}
+          {infiniteReviews.slice(1, isLargeScreen ? infiniteReviews.length : infiniteReviews.length - 1).map((_, index) => (
             <div
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => setCurrentIndex(index +1)}
               className={`w-2 h-2 mx-1 rounded-full cursor-pointer transition-colors duration-200 ${
-                index === currentIndex ? 'bg-indigo-600' : 'bg-gray-300'
+                index + 1 === currentIndex ? 'bg-indigo-600' : 'bg-gray-300'
               }`}
             />
           ))}
