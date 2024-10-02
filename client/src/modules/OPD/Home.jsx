@@ -57,9 +57,9 @@ function Home() {
               <StaticLineChart />
             </div>
           </div>
-          <div className='flex justify-center gap-8 mt-10'>
-            <center><img className="data h-[200px] md:h-[250px] object-cover" src="data2.jpg" alt="Data Image 2" /></center>
-            <center><img className="data h-[200px] md:h-[250px] object-cover" src="data3.jpg" alt="Data Image 3" /></center>
+          <div className='flex flex-wrap justify-center gap-8 mt-10'>
+            <center><img className="data h-[200px] md:h-[250px] object-cover" src="data2.png" alt="Data Image 2" /></center>
+            <center><img className="data h-[200px] md:h-[250px] object-cover" src="data3.png" alt="Data Image 3" /></center>
           </div>
         </section>
 
