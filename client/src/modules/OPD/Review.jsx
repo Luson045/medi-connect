@@ -4,7 +4,8 @@ import { FaStar } from 'react-icons/fa';
 import { Avatar } from 'flowbite-react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import 'swiper/css/autoplay';
+import { Pagination,Autoplay } from 'swiper/modules';
 import profilePic from '../../assets/profile.jpg';
 import profilePic2 from '../../assets/profile2.jpg';
 
@@ -18,12 +19,15 @@ function Review() {
                 slidesPerView={1}
                 spaceBetween={30}
                 pagination={{ clickable: true }}
+                centeredSlides={true}
+                centerInsufficientSlides={true}
+                autoplay={{ delay: 3000, disableOnInteraction: false }}
                 breakpoints={{
                     640: { slidesPerView: 1, spaceBetween: 20 },
                     768: { slidesPerView: 2, spaceBetween: 40 },
                     1024: { slidesPerView: 3, spaceBetween: 50 },
                 }}
-                modules={[Pagination]}
+                modules={[Pagination, Autoplay]} 
                 className="mySwiper"
             >
                 <SwiperSlide className='shadow-2xl bg-white py-8 px-4 md:m-5 rounded-lg border'>
@@ -69,9 +73,7 @@ function Review() {
                         date="15/08/2024"
                     />
                 </SwiperSlide>
-
-
-                {/* Add more SwiperSlides as needed */}
+                
             </Swiper>
         </div>
     );
@@ -93,7 +95,7 @@ function Testimonial({ name, role, review, imgSrc, place, date }) {
                 <Avatar img={imgSrc} alt={`avatar of ${name}`} rounded className='w-10 mb-4' />
                 <h5 className='text-lg font-medium'>{name}</h5>
                 <p className='text-base'>{place}</p>
-                <span >{role}</span> <span>| {date}</span>
+                <span>{role}</span> <span>| {date}</span>
             </div>
         </div>
     );
