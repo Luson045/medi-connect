@@ -14,7 +14,7 @@
     "react-dom": "^18.3.1",
     "react-fast-marquee": "^1.6.5",
     "react-router-dom": "^6.26.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-spring": "^9.7.4",
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.13",
@@ -46,6 +46,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-webpack-plugin": "^4.2.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13"
   }
