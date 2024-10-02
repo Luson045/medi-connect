@@ -15,20 +15,51 @@ function OPDRegistrationForm() {
     symptoms: ''
   });
 
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.age || formData.age <= 0) newErrors.age = 'Age must be a positive number';
+    if (!formData.gender) newErrors.gender = 'Gender is required';
+    if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
+    if (!formData.address.trim()) newErrors.address = 'Address is required';
+    if (formData.address.trim().length < 5) newErrors.address = 'Address must be at least 5 characters long';
+    if (!formData.department) newErrors.department = 'Department is required';
+    if (!formData.symptoms.trim()) newErrors.symptoms = 'Symptoms description is required';
+
+    return newErrors;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: '' }); 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validationErrors = validate();
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
     axios.post(`https://medi-connect-f671.onrender.com/register`, { data: formData })
       .then(response => {
         console.log('Successfully registered!', response.data);
+        // Optionally reset the form or redirect
       })
       .catch(error => {
         console.error('There was an error registering!', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
+      
     console.log('Form Data Submitted:', formData);
   };
 
@@ -48,6 +79,7 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             />
+            {errors.name && <span className="error">{errors.name}</span>}
           </div>
 
           <div className="form-group">
@@ -60,6 +92,7 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             />
+            {errors.age && <span className="error">{errors.age}</span>}
           </div>
 
           <div className="form-group">
@@ -70,6 +103,7 @@ function OPDRegistrationForm() {
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
+            {errors.gender && <span className="error">{errors.gender}</span>}
           </div>
 
           <div className="form-group">
@@ -82,6 +116,7 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             />
+            {errors.contact && <span className="error">{errors.contact}</span>}
           </div>
 
           <div className="form-group">
@@ -94,6 +129,7 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             />
+            {errors.address && <span className="error">{errors.address}</span>}
           </div>
 
           <div className="form-group">
@@ -106,6 +142,7 @@ function OPDRegistrationForm() {
               <option value="Gynecology">Gynecology</option>
               <option value="Dermatology">Dermatology</option>
             </select>
+            {errors.department && <span className="error">{errors.department}</span>}
           </div>
 
           <div className="form-group">
@@ -117,9 +154,12 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             ></textarea>
+            {errors.symptoms && <span className="error">{errors.symptoms}</span>}
           </div>
 
-          <button type="submit" className="submit-btn">Register</button>
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Registering...' : 'Register'}
+          </button>
           <Link to="/" className="back-button">Back to Home</Link>
         </form>
       </section>

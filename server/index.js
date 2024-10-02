@@ -10,15 +10,21 @@ require('dotenv').config({ path: "../.env" });
 const app = express();
 const port = 5000;
 const corsOptions = {
-  origin: ['https://learnstocks.netlify.app','https://console.cron-job.org/','https://prodez-ai.netlify.app','https://medi-connect-in.netlify.app','http://localhost:3000'], // Replace with your frontend's URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
-  credentials: true,
+	origin: [
+		'https://learnstocks.netlify.app',
+		'https://console.cron-job.org/',
+		'https://prodez-ai.netlify.app',
+		'https://medi-connect-in.netlify.app',
+		'http://localhost:3000',
+	], // Replace with your frontend's URL
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
+	credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
 mongoose.connect(`mongodb+srv://yuria4489:${process.env.PASSDB}@medi-connect.xpbcr.mongodb.net/?retryWrites=true&w=majority&appName=Medi-Connect`, {
@@ -40,9 +46,9 @@ const userSchema = z.object({
   symptoms: z.array(z.string()).min(1, 'At least one symptom is required'),
 });
 //ping
-app.get('/ping', async(req,res)=>{
-res.status(200).json({message: 'Active'});
-})
+app.get('/ping', async (req, res) => {
+	res.status(200).json({ message: 'Active' });
+});
 // Get all todos for a specific user
 app.post('/register', async (req, res) => {
   try {
@@ -58,9 +64,8 @@ app.post('/register', async (req, res) => {
   }
 });
 
-
 app.use('/auth', authRoutes);
 app.use('/hospitalapi', hospitalroute);
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+	console.log(`Server is running on http://localhost:${port}`);
 });
