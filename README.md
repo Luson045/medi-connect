@@ -151,7 +151,7 @@ JWT=your_jwt_secret
 
 ## Usage
 
-The backend server should be running at `http://localhost:5000`.
+The backend server should be running at `https://medi-connect-f671.onrender.com`.
 
 **Start the Frontend Server**
 

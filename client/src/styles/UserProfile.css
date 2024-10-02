@@ -1,0 +1,146 @@
+/* General Styles */
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(90deg, #fbd8e5, #fff);
+	color: #333;
+}
+
+/* Navbar Styles */
+.navbar {
+	background-color: #333;
+	color: #fff;
+	padding: 1rem;
+	text-align: center;
+}
+
+/* Container for ProfilePage */
+.container {
+	padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.user-page {
+	padding: 5rem;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 1rem;
+	}
+}
+
+/* Heading Styles */
+.user-page h2 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	color: #333;
+}
+
+.user-page h3 {
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+	text-align: center;
+	color: black;
+}
+
+/* User Info Section */
+.user-info {
+	background: #f9f9f9;
+	padding: 1.5rem;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	margin-bottom: 2rem;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	cursor: pointer;
+}
+
+.user-info:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-info p {
+	font-size: 1.125rem;
+	color: #666;
+	line-height: 1.6;
+}
+
+.user-info p strong {
+	color: #c229b8;
+	font-weight: bold;
+}
+
+/* Appointments Section */
+.appointments-section {
+	margin: 2rem 0;
+}
+
+.appointments-section table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	background-color: #f9f9f9;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.appointments-section table:hover {
+	transform: scale(1.02);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.appointments-section table th,
+.appointments-section table td {
+	padding: 0.75rem;
+	border: 1px solid #ddd;
+	text-align: left;
+	font-size: 1rem;
+	color: #333;
+}
+
+.appointments-section table th {
+	background-color: #c229b8;
+	color: #fff;
+}
+
+.appointments-section table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.appointments-section table tr:hover {
+	background-color: #e0e0e0;
+}
+
+/* Section Titles */
+.section-title {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	color: #c229b8;
+}
+
+/* Vision and Join Us Sections */
+.vision-section,
+.join-us-section {
+	margin: 3rem 0;
+}
+
+.vision-text,
+.join-us-text {
+	font-size: 1.125rem;
+	color: #333;
+	line-height: 1.6;
+}
+
+/* Loading State */
+.loading {
+	font-size: 1.2rem;
+	color: #666;
+	text-align: center;
+	margin-top: 2rem;
+}
