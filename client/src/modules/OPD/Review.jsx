@@ -18,6 +18,8 @@ function Review() {
                 slidesPerView={1}
                 spaceBetween={30}
                 pagination={{ clickable: true }}
+                centeredSlides={true}
+                centerInsufficientSlides={true}
                 breakpoints={{
                     640: { slidesPerView: 1, spaceBetween: 20 },
                     768: { slidesPerView: 2, spaceBetween: 40 },
@@ -69,9 +71,7 @@ function Review() {
                         date="15/08/2024"
                     />
                 </SwiperSlide>
-
-
-                {/* Add more SwiperSlides as needed */}
+                
             </Swiper>
         </div>
     );
@@ -93,7 +93,7 @@ function Testimonial({ name, role, review, imgSrc, place, date }) {
                 <Avatar img={imgSrc} alt={`avatar of ${name}`} rounded className='w-10 mb-4' />
                 <h5 className='text-lg font-medium'>{name}</h5>
                 <p className='text-base'>{place}</p>
-                <span >{role}</span> <span>| {date}</span>
+                <span>{role}</span> <span>| {date}</span>
             </div>
         </div>
     );
