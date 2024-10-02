@@ -7,23 +7,34 @@ body {
 	color: #333;
 }
 
-/* Navbar Styles */
-.navbar {
-	background-color: #333;
-	color: #fff;
-	padding: 1rem;
-	text-align: center;
-}
-
-/* Container for ProfilePage */
-.container {
-	padding: 2rem;
-	max-width: 1200px;
-	margin: 0 auto;
+@media (max-width: 768px) {
+	.container {
+		padding: 1rem;
+	}
 }
 
 .user-page {
-	padding: 5rem;
+	padding: 4rem;
+	max-width: 840px;
+	margin: 0 auto;
+}
+
+@media (max-width: 425px) {
+	.user-page {
+		padding: 0.75rem;
+	}
+}
+
+@media (max-width: 375px) {
+	.user-page {
+		padding: 0.5rem;
+	}
+}
+
+@media (max-width: 320px) {
+	.user-page {
+		padding: 0.25rem;
+	}
 }
 
 @media (max-width: 768px) {
@@ -34,7 +45,7 @@ body {
 
 /* Heading Styles */
 .user-page h2 {
-	font-size: 2rem;
+	font-size: 2.5rem;
 	margin-bottom: 1rem;
 	text-align: center;
 	color: #333;
@@ -44,7 +55,7 @@ body {
 	font-size: 1.5rem;
 	margin-bottom: 1.5rem;
 	text-align: center;
-	color: black;
+	color: #666;
 }
 
 /* User Info Section */
@@ -143,4 +154,89 @@ body {
 	color: #666;
 	text-align: center;
 	margin-top: 2rem;
+}
+
+/* Mobile Responsiveness */
+/* For 425px devices */
+@media (max-width: 425px) {
+	.container {
+		padding: 1rem;
+	}
+
+	.user-page h2 {
+		font-size: 2rem;
+	}
+
+	.user-page h3 {
+		font-size: 1.25rem;
+	}
+
+	.user-info {
+		padding: 1rem;
+	}
+
+	.user-info p {
+		font-size: 1rem;
+	}
+
+	.appointments-section table th,
+	.appointments-section table td {
+		padding: 0.5rem;
+	}
+}
+
+/* For 375px devices */
+@media (max-width: 375px) {
+	.container {
+		padding: 1rem;
+	}
+
+	.user-page h2 {
+		font-size: 1.8rem;
+	}
+
+	.user-page h3 {
+		font-size: 1.2rem;
+	}
+
+	.user-info {
+		padding: 1rem;
+	}
+
+	.user-info p {
+		font-size: 0.95rem;
+	}
+
+	.appointments-section table th,
+	.appointments-section table td {
+		padding: 0.4rem;
+	}
+}
+
+/* For 320px devices */
+@media (max-width: 320px) {
+	.container {
+		padding: 0.5rem;
+	}
+
+	.user-page h2 {
+		font-size: 1.6rem;
+	}
+
+	.user-page h3 {
+		font-size: 1rem;
+	}
+
+	.user-info {
+		padding: 0.75rem;
+	}
+
+	.user-info p {
+		font-size: 0.875rem;
+	}
+
+	.appointments-section table th,
+	.appointments-section table td {
+		padding-left: 0rem;
+	}
 }
