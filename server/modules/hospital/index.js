@@ -7,7 +7,8 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
 const { z } = require("zod");
-const { default: sendMail } = require("../mail/sendMail");
+const { sendMail } = require("../mail/sendMail");
+
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;

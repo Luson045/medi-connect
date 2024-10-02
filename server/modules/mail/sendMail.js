@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 const sendMail = (htmlContent, receiverEmail) => {
   const port = process.env.SMTP_PORT;
@@ -33,4 +33,4 @@ const sendMail = (htmlContent, receiverEmail) => {
 
 }
 
-export default sendMail
+exports.sendMail = sendMail;
