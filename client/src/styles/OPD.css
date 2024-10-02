@@ -37,6 +37,8 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="tel"],
+input[type="email"],
+input[type="password"],
 select,
 textarea {
   width: 100%; /* Ensure it takes full width */
@@ -69,6 +71,7 @@ textarea {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  width: 40%;
   transition: background-color 0.3s ease;
 }
 
