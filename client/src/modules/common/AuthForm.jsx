@@ -14,21 +14,25 @@ const AuthPage = () => {
     confirmPassword: "",
     phone: "",
     address: "",
+
   });
   const [errors, setErrors] = useState({
     frontend: {},
     backend: {},
+
   });
   const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === "/register") setIsRegistering(true);
+
     if (location.pathname === "/login") setIsRegistering(false);
   }, [location.pathname]);
 
   const toggleAuthMode = () => {
     setIsRegistering(!isRegistering);
     setErrors({ frontend: {}, backend: {} }); // Clear errors when toggling
+
   };
 
   const handleChange = (e) => {
@@ -36,6 +40,7 @@ const AuthPage = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+
     setErrors((prev) => ({
       ...prev,
       frontend: {
@@ -65,12 +70,14 @@ const AuthPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors((prev) => ({
         ...prev,
         frontend: validationErrors,
       }));
+
       return;
     }
 
@@ -107,6 +114,7 @@ const AuthPage = () => {
           window.location.href = "/";
         }
       } else {
+
         if (data.errors) {
           const backendErrors = {};
           data.errors.forEach((error) => {
@@ -123,10 +131,13 @@ const AuthPage = () => {
     } catch (error) {
       notify("Error connecting to the server", "error");
       console.error("Network Error:", error);
+
+    
     }
   };
 
   return (
+
     <>
       <Navbar />
       <div className="auth-container">
@@ -236,6 +247,116 @@ const AuthPage = () => {
         </button>
       </div>
     </>
+
+    <div className="login_background">
+      <Navbar />
+      <div className="auth-maindiv">
+        <div className="auth-container">
+          <h2>{isRegistering ? "Register" : "Login"}</h2>
+
+          {/* Form Section */}
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className="form-section">
+              <label>User Type:</label>
+              <select name="type" value={formData.type} onChange={handleChange}>
+                <option value="user">User</option>
+                <option value="hospital">Hospital</option>
+              </select>
+            </div>
+
+            {isRegistering && (
+              <>
+                <div className="form-section">
+                  <label>Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-section">
+                  <label>Phone:</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="9898989898"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-section">
+                  <label>Address:</label>
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="Enter address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="form-section">
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="example@gmail.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-section">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {isRegistering && (
+              <div className="form-section">
+                <label>Confirm Password:</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Re-type password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            )}
+            <div className="register-button">
+              <button type="submit" className="auth-button">
+                {isRegistering ? "Register" : "Login"}
+              </button>
+            </div>
+          </form>
+
+          <button onClick={toggleAuthMode} className="toggle-auth-button">
+            {isRegistering
+              ? "Already have an account? Login"
+              : "Don't have an account? Register"}
+          </button>
+        </div>
+      </div>
+    </div>
+
   );
 };
 
