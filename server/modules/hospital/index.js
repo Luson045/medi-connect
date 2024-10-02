@@ -7,6 +7,7 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
 const { z } = require("zod");
+const { default: sendMail } = require("../mail/sendMail");
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;
@@ -352,7 +353,10 @@ router.post(
       profile.appointments.push(appointment);
       await hospital.save();
       await profile.save();
-
+      await sendMail(
+        `Your appointment has been booked at ${hospital.name} on ${date}`,
+        profile.email
+      );
       res.status(200).json({
         message: "Appointment booked successfully",
         appointment,
