@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../common/Navbar';
 import { notify } from './notification';
+import '../.././styles/Authform.css';
+
 
 const AuthPage = () => {
 	const [isRegistering, setIsRegistering] = useState(false);
