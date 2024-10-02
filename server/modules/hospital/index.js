@@ -306,12 +306,13 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
     res.status(500).send({ message: "Server error", error });
   }
 });
-
+//31.394162, 75.537599
 router.post(
   "/emergency",
   asyncHandler(async (req, res) => {
     const { name, email, age, gender, contact, pincode, reason, date } =
       req.body;
+    console.log("name:",name);
     if (!pincode) {
       return res.status(400).json({ message: "Pincode is required" });
     }
@@ -327,6 +328,7 @@ router.post(
     for (let hospital of hospitals) {
       const hospitalLat = hospital.lat;
       const hospitalLong = hospital.long;
+      console.log(hospitalLat,hospitalLong);
       const route = await axios.get(
         `https://router.project-osrm.org/route/v1/driving/${userLong},${userLat};${hospitalLong},${hospitalLat}?overview=false`
       );
@@ -357,6 +359,7 @@ router.post(
       profile.appointments.push(appointment);
       await hospital.save();
       await profile.save();
+      console.log(`Your appointment has been booked at ${hospital.name} on ${appointment.date}`)
       await sendMail(
         `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
         profile.email

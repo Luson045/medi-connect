@@ -10,7 +10,7 @@ const sendMail = (htmlContent, receiverEmail) => {
     port: port,
     secure: true,
     auth: {
-      user: host,
+      user: senderEmail,
       pass: password,
     },
   });
