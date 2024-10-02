@@ -309,9 +309,9 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
 
 router.post(
   "/emergency",
-  authenticateToken,
   asyncHandler(async (req, res) => {
-    const { pincode, reason, date } = req.body;
+    const { name, email, age, gender, contact, pincode, reason, date } =
+      req.body;
     if (!pincode) {
       return res.status(400).json({ message: "Pincode is required" });
     }
@@ -336,12 +336,17 @@ router.post(
         nearestHospital = hospital;
       }
     }
-    const profile = await User.findById(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: "Profile not found" });
-    }
+    const password = Math.random().toString(36).slice(-8);
+    const profile = new User({
+      name,
+      email,
+      age,
+      password,
+      gender,
+      phone: contact,
+    });
     const appointment = {
-      userId: req.user.id,
+      userId: profile._id,
       date,
       reason,
       status: "pending",
