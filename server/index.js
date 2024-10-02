@@ -5,7 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./modules/dashboard/authRoute');
 const hospitalroute = require('./modules/hospital/index');
-require('dotenv').config({ path: '../.env' });
+const {z}=require('zod')
+require('dotenv').config({ path: "../.env" });
 const app = express();
 const port = 5000;
 const corsOptions = {
@@ -25,33 +26,42 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.json());
-//mNXMrz3yBrdzw2hq,yuria4489
-mongoose
-	.connect(
-		`mongodb+srv://yuria4489:${process.env.PASSDB}@medi-connect.xpbcr.mongodb.net/?retryWrites=true&w=majority&appName=Medi-Connect`,
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		}
-	)
-	.then(() => console.log('Connected to MongoDB'))
-	.catch((error) => console.error('MongoDB connection failed:', error));
+// mNXMrz3yBrdzw2hq,yuria4489
+mongoose.connect(`mongodb+srv://yuria4489:${process.env.PASSDB}@medi-connect.xpbcr.mongodb.net/?retryWrites=true&w=majority&appName=Medi-Connect`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((error) => console.error('MongoDB connection failed:', error));
+
+
+
+const userSchema = z.object({
+  name: z.string().min(2, 'Name should be at least 2 characters long'),
+  age: z.number().min(18, 'Age must be at least 18'),
+  gender: z.enum(['male', 'female', 'other'], 'Invalid gender'),
+  contact: z.string().regex(/^\d{10}$/, 'Contact must be a 10-digit number'),
+  address: z.string().min(1,'Address is required'),
+  department: z.string().min(1,'Department is required'),
+  symptoms: z.array(z.string()).min(1, 'At least one symptom is required'),
+});
 //ping
 app.get('/ping', async (req, res) => {
 	res.status(200).json({ message: 'Active' });
 });
 // Get all todos for a specific user
 app.post('/register', async (req, res) => {
-	const { data } = req.body;
-	const name = data.name;
-	const age = data.age;
-	const gender = data.gender;
-	const contact = data.contact;
-	const address = data.address;
-	const department = data.department;
-	const symptoms = data.symptoms;
-	console.log('welcome: ', name);
-	return res.status(200).json({ message: 'Successfull' });
+  try {
+    const validatedData = userSchema.parse(req.body.data); // Validate incoming data
+    console.log("User registered:", validatedData.name);
+
+    // Registration logic goes here
+
+    return res.status(200).json({ message: 'Registration successful' });
+  } catch (error) {
+    // If validation fails, send back Zod error
+    return res.status(400).json({ message: error.errors });
+  }
 });
 
 app.use('/auth', authRoutes);
