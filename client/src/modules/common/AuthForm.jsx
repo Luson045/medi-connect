@@ -76,7 +76,7 @@ const AuthPage = () => {
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors((prev) => ({
 				...prev,
-				frontend: validationErrors, // Display frontend validation errors
+				frontend: validationErrors, 
 			}));
 			return;
 		}
