@@ -288,16 +288,17 @@ router.post(
     const userLat = results[0].latitude;
     const userLong = results[0].longitude;
     const hospitals = await Hospital.find({}, { lat: 1, long: 1, _id: 1 });
-    let minDistance = Infinity;
+    let minTime = Infinity;
     let nearestHospital = null;
     for (let hospital of hospitals) {
       const hospitalLat = hospital.lat;
       const hospitalLong = hospital.long;
-      const distance = await axios.get(
+      const route = await axios.get(
         `https://router.project-osrm.org/route/v1/driving/${userLong},${userLat};${hospitalLong},${hospitalLat}?overview=false`
       );
-      if (distance.data.routes[0].distance < minDistance) {
-        minDistance = distance.data.routes[0].distance / 1000;
+      const time = route.data.routes[0].duration;
+      if (time < minTime) {
+        minTime = time;
         nearestHospital = hospital;
       }
     }
@@ -311,13 +312,28 @@ router.post(
       reason,
       status: "pending",
     };
+    try {
     const hospital = await Hospital.findById(nearestHospital._id);
     hospital.appointments.push(appointment);
     profile.appointments.push(appointment);
     await hospital.save();
     await profile.save();
-    res.status(200).json({ message: "Appointment booked successfully" });
+
+
+    res.status(200).json({
+      message: "Appointment booked successfully",
+      appointment,
+      hospital: {
+        id: hospital._id,
+        name: hospital.name,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error booking appointment", error });
+  }
   })
 );
+
+
 
 module.exports = router;
