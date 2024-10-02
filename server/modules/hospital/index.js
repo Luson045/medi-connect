@@ -358,10 +358,10 @@ router.post(
         profile.email
       );
       /* Sending SMS confirmation */
-      sendSMS(
-        `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
-        `+91${profile.phone}`
-      );
+      // sendSMS(
+      //   `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
+      //   `+91${profile.phone}`
+      // );
       res.status(200).json({
         message: "Appointment booked successfully",
         appointment,
