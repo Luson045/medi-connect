@@ -19,32 +19,6 @@ body {
 .data{
   max-width:100%;
 }
-
-/* --------- */
-/*Scrollbar   */
-/* --------- */
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 7px !important; /* Force width */
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #e5e2eb !important; /* Force track color */
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgba(178, 121, 216, 0.959) !important; /* Force handle color */
-  border-radius: 12px !important; /* Force handle radius */
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(222, 130, 235, 0.911) !important; /* Force hover color */
-  border-radius: 12px !important;
-}
-
 /* Hero Section */
 .hero-section {
   background-image: url('https://www.example.com/hero-image.jpg'); /* Replace with actual image URL */
@@ -55,22 +29,17 @@ body {
   color: black;
   justify-items: center;
   height:80vh;
-  /* background-color: aquamarine; */
-  background: linear-gradient(90deg, #fbd8e5, #fff);
+  background-color: aquamarine;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  font-weight: 800;
-  color: rgb(161, 114, 222);
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 40px;
-  color:rgb(220, 51, 147)
-  
 }
 
 .hero-button {
