@@ -354,7 +354,7 @@ router.post(
       await hospital.save();
       await profile.save();
       await sendMail(
-        `Your appointment has been booked at ${hospital.name} on ${date}`,
+        `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
         profile.email
       );
       res.status(200).json({
