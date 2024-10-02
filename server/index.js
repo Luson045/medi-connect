@@ -10,7 +10,7 @@ const { z } = require("zod");
 require("dotenv").config({ path: "../.env" });
 
 const app = express();
-const port = 3001;
+const port = 3000;
 const corsOptions = {
   origin: [
     "https://learnstocks.netlify.app",
