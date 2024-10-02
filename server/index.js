@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
-mongoose.connect(`mongodb+srv://yuria4489:${process.env.PASSDB}@medi-connect.xpbcr.mongodb.net/?retryWrites=true&w=majority&appName=Medi-Connect`, {
+mongoose.connect(process.env.MONOGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

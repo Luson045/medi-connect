@@ -40,18 +40,26 @@ function OPDRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  
+
+    const updatedFormData = {
+      ...formData,
+      age: Number(formData.age), 
+      symptoms: formData.symptoms.split(',').map(symptom => symptom.trim()), 
+    };
+  
     const validationErrors = validate();
-    
+  
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-
+  
     setIsSubmitting(true);
-    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: formData })
+    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
-        // Optionally reset the form or redirect
+
       })
       .catch(error => {
         console.error('There was an error registering!', error);
@@ -59,9 +67,10 @@ function OPDRegistrationForm() {
       .finally(() => {
         setIsSubmitting(false);
       });
-      
-    console.log('Form Data Submitted:', formData);
+  
+    console.log('Form Data Submitted:', updatedFormData);
   };
+  
 
   return (
     <>
