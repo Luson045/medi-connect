@@ -56,7 +56,7 @@ function OPDRegistrationForm() {
     }
   // https://medi-connect-f671.onrender.com
     setIsSubmitting(true);
-    axios.post(`http://localhost:3000/register`, { data: updatedFormData })
+    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
 
