@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
 const { z } = require("zod");
 const { sendMail } = require("../notifications/sendMail");
-const sendSMS = require("../notifications/sendSMS");
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;
