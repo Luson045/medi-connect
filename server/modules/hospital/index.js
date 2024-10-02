@@ -17,7 +17,6 @@ const options = {
   apiKey: process.env.OPENCAGE_API_KEY,
 };
 const geocoder = NodeGeocoder(options);
-
 const authenticateToken = (req, res, next) => {
   const token = req.header("x-auth-token");
   if (!token)
