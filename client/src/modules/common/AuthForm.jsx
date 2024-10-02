@@ -75,7 +75,7 @@ const AuthPage = () => {
     };
 
     return (
-      <>
+      <div className='login_background'>
         <Navbar />
         <div className='auth-maindiv'>
 
@@ -99,7 +99,7 @@ const AuthPage = () => {
                             <input
                                 type="text"
                                 name="name"
-                                placeholder='Jhon Doe'
+                                placeholder='John Doe'
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
@@ -187,7 +187,7 @@ const AuthPage = () => {
             </button>
         </div>
         </div>
-      </>
+      </div>
     );
 };
 
