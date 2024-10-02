@@ -20,6 +20,7 @@ const corsOptions = {
     "https://prodez-ai.netlify.app",
     "https://medi-connect-in.netlify.app",
     "http://localhost:3000",
+    "http://localhost:3001"
   ], // Replace with your frontend's URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
@@ -44,7 +45,9 @@ mongoose.connect(process.env.MONOGO_URI, {
 
 const userSchema = z.object({
   name: z.string().min(2, 'Name should be at least 2 characters long'),
+  email: z.string().email('Invalid email format'),
   age: z.number().min(18, 'Age must be at least 18'),
+
   gender: z.enum(['male', 'female', 'other'], 'Invalid gender'),
   contact: z.string().regex(/^\d{10}$/, 'Contact must be a 10-digit number'),
   address: z.string().min(1,'Address is required'),

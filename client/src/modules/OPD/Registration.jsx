@@ -54,9 +54,9 @@ function OPDRegistrationForm() {
       setErrors(validationErrors);
       return;
     }
-  
+  // https://medi-connect-f671.onrender.com
     setIsSubmitting(true);
-    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: updatedFormData })
+    axios.post(`http://localhost:3000/register`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
 
@@ -92,6 +92,19 @@ function OPDRegistrationForm() {
           </div>
 
           <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errors.name && <span className="error">{errors.name}</span>}
+          </div>
+
+          <div className="form-group">
             <label>Age:</label>
             <input
               type="number"
@@ -108,9 +121,9 @@ function OPDRegistrationForm() {
             <label>Gender:</label>
             <select name="gender" value={formData.gender} onChange={handleChange} required>
               <option value="" disabled>Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
             {errors.gender && <span className="error">{errors.gender}</span>}
           </div>
@@ -158,7 +171,7 @@ function OPDRegistrationForm() {
             <label>Symptoms:</label>
             <textarea
               name="symptoms"
-              placeholder="Describe your symptoms"
+              placeholder="Describe your symptoms with commas"
               value={formData.symptoms}
               onChange={handleChange}
               required
