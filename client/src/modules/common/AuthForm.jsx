@@ -19,6 +19,7 @@ const AuthPage = () => {
     frontend: {},
     backend: {},
   });
+	
   const location = useLocation();
 
   useEffect(() => {
@@ -35,7 +36,8 @@ const AuthPage = () => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
+	});
+	  
     setErrors((prev) => ({
       ...prev,
       frontend: {
