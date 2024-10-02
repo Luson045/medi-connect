@@ -12,12 +12,15 @@ const AuthPage = () => {
 		confirmPassword: '',
 		phone: '',
 		address: '',
-		dateOfBirth: '',
-		gender: 'male',
+	});
+	const [errors, setErrors] = useState({
+		frontend: {},
+		backend: {},
 	});
 
 	const toggleAuthMode = () => {
 		setIsRegistering(!isRegistering);
+		setErrors({ frontend: {}, backend: {} }); // Clear errors when toggling
 	};
 
 	const handleChange = (e) => {
@@ -25,13 +28,56 @@ const AuthPage = () => {
 			...formData,
 			[e.target.name]: e.target.value,
 		});
+		setErrors((prev) => ({
+			...prev,
+			frontend: {
+				...prev.frontend,
+				[e.target.name]: '', // Clear frontend error for the field being edited
+			},
+		}));
+	};
+
+	const validateForm = () => {
+		const newErrors = {};
+		if (isRegistering) {
+			if (!formData.name) {
+				newErrors.name = 'Name is required';
+			} else if (formData.name.length < 3) {
+			    newErrors.name = 'Name must be at least 3 characters long';
+		    }
+			if (!formData.phone) {
+				newErrors.phone = 'Phone number is required';
+			} else if (!/^\d{10}$/.test(formData.phone)) {
+				newErrors.phone = 'Phone number must be exactly 10 digits';
+			}
+			if (!formData.address) newErrors.address = 'Address is required';
+		}
+		if (!formData.email) {
+			newErrors.email = 'Email is required (frontend)';
+		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+			newErrors.email = 'Please enter a valid email address';
+		}
+		if (!formData.password) {
+			newErrors.password = 'Password is required';
+		} else if (formData.password.length < 8) {
+			newErrors.password = 'Password must be at least 8 characters long';
+		}
+		if (isRegistering && formData.password !== formData.confirmPassword) {
+			newErrors.confirmPassword = 'Passwords do not match';
+		}
+
+		return newErrors;
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (isRegistering && formData.password !== formData.confirmPassword) {
-			notify('Passwords do not match', 'warn');
+		const validationErrors = validateForm();
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors((prev) => ({
+				...prev,
+				frontend: validationErrors, // Display frontend validation errors
+			}));
 			return;
 		}
 
@@ -68,12 +114,25 @@ const AuthPage = () => {
 					window.location.href = '/';
 				}
 			} else {
-				notify(data.message, 'warn');
-				console.error(data.message);
+				console.error('Server Response Error:', data); // Debugging
+
+				if (data.errors) {
+					// Backend validation errors
+					const backendErrors = {};
+					data.errors.forEach((error) => {
+						backendErrors[error.field] = `${error.message} (backend)`; 
+					});
+					setErrors((prev) => ({
+						...prev,
+						backend: backendErrors, 
+					}));
+				} else {
+					notify(data.message || 'An error occurred. Please try again.', 'warn');
+				}
 			}
 		} catch (error) {
+			console.error('Network Error:', error); // Debugging
 			notify('Error connecting to the server', 'error');
-			console.error(error);
 		}
 	};
 
@@ -104,6 +163,8 @@ const AuthPage = () => {
 									onChange={handleChange}
 									required
 								/>
+								{errors.frontend.name && <span className='error'>{errors.frontend.name}</span>}
+								{errors.backend.name && <span className='error'>{errors.backend.name}</span>}
 							</div>
 
 							<div className='form-section'>
@@ -115,6 +176,8 @@ const AuthPage = () => {
 									onChange={handleChange}
 									required
 								/>
+								{errors.frontend.phone && <span className='error'>{errors.frontend.phone}</span>}
+								{errors.backend.phone && <span className='error'>{errors.backend.phone}</span>}
 							</div>
 
 							<div className='form-section'>
@@ -126,6 +189,8 @@ const AuthPage = () => {
 									onChange={handleChange}
 									required
 								/>
+								{errors.frontend.address && <span className='error'>{errors.frontend.address}</span>}
+								{errors.backend.address && <span className='error'>{errors.backend.address}</span>}
 							</div>
 						</>
 					)}
@@ -139,6 +204,8 @@ const AuthPage = () => {
 							onChange={handleChange}
 							required
 						/>
+						{errors.frontend.email && <span className='error'>{errors.frontend.email}</span>}
+						{errors.backend.email && <span className='error'>{errors.backend.email}</span>}
 					</div>
 
 					<div className='form-section'>
@@ -150,6 +217,8 @@ const AuthPage = () => {
 							onChange={handleChange}
 							required
 						/>
+						{errors.frontend.password && <span className='error'>{errors.frontend.password}</span>}
+						{errors.backend.password && <span className='error'>{errors.backend.password}</span>}
 					</div>
 
 					{isRegistering && (
@@ -162,6 +231,8 @@ const AuthPage = () => {
 								onChange={handleChange}
 								required
 							/>
+							{errors.frontend.confirmPassword && <span className='error'>{errors.frontend.confirmPassword}</span>}
+							{errors.backend.confirmPassword && <span className='error'>{errors.backend.confirmPassword}</span>}
 						</div>
 					)}
 
