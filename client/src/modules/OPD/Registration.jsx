@@ -5,147 +5,166 @@ import Navbar from '../common/Navbar';
 import '../../styles/OPD.css';
 
 function OPDRegistrationForm() {
-	const [formData, setFormData] = useState({
-		name: '',
-		age: '',
-		gender: '',
-		contact: '',
-		address: '',
-		department: '',
-		symptoms: '',
-	});
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    gender: '',
+    contact: '',
+    address: '',
+    department: '',
+    symptoms: ''
+  });
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
-	};
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		axios
-			.post(`https://medi-connect-f671.onrender.com/register`, {
-				data: formData,
-			})
-			.then((response) => {
-				console.log('Successfully registered!', response.data);
-			})
-			.catch((error) => {
-				console.error('There was an error registering!', error);
-			});
-		console.log('Form Data Submitted:', formData);
-	};
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.age || formData.age <= 0) newErrors.age = 'Age must be a positive number';
+    if (!formData.gender) newErrors.gender = 'Gender is required';
+    if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
+    if (!formData.address.trim()) newErrors.address = 'Address is required';
+    if (formData.address.trim().length < 5) newErrors.address = 'Address must be at least 5 characters long';
+    if (!formData.department) newErrors.department = 'Department is required';
+    if (!formData.symptoms.trim()) newErrors.symptoms = 'Symptoms description is required';
 
-	return (
-		<>
-			<Navbar />
-			<section className='form-container'>
-				<h2>OPD Registration</h2>
-				<form onSubmit={handleSubmit} className='opd-registration-form'>
-					<div className='form-group'>
-						<label>Name:</label>
-						<input
-							type='text'
-							name='name'
-							placeholder='Enter your full name'
-							value={formData.name}
-							onChange={handleChange}
-							required
-						/>
-					</div>
+    return newErrors;
+  };
 
-					<div className='form-group'>
-						<label>Age:</label>
-						<input
-							type='number'
-							name='age'
-							placeholder='Enter your age'
-							value={formData.age}
-							onChange={handleChange}
-							required
-						/>
-					</div>
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: '' }); 
+  };
 
-					<div className='form-group'>
-						<label>Gender:</label>
-						<select
-							name='gender'
-							value={formData.gender}
-							onChange={handleChange}
-							required
-						>
-							<option value='' disabled>
-								Select gender
-							</option>
-							<option value='Male'>Male</option>
-							<option value='Female'>Female</option>
-							<option value='Other'>Other</option>
-						</select>
-					</div>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-					<div className='form-group'>
-						<label>Contact Number:</label>
-						<input
-							type='tel'
-							name='contact'
-							placeholder='Enter your contact number'
-							value={formData.contact}
-							onChange={handleChange}
-							required
-						/>
-					</div>
+    setIsSubmitting(true);
+    axios.post(`https://medi-connect-f671.onrender.com/register`, { data: formData })
+      .then(response => {
+        console.log('Successfully registered!', response.data);
+        // Optionally reset the form or redirect
+      })
+      .catch(error => {
+        console.error('There was an error registering!', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+      
+    console.log('Form Data Submitted:', formData);
+  };
 
-					<div className='form-group'>
-						<label>Address:</label>
-						<input
-							type='text'
-							name='address'
-							placeholder='Enter your address'
-							value={formData.address}
-							onChange={handleChange}
-							required
-						/>
-					</div>
+  return (
+    <>
+      <Navbar />
+      <section className="form-container">
+        <h2>OPD Registration</h2>
+        <form onSubmit={handleSubmit} className="opd-registration-form">
+          <div className="form-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            {errors.name && <span className="error">{errors.name}</span>}
+          </div>
 
-					<div className='form-group'>
-						<label>Department:</label>
-						<select
-							name='department'
-							value={formData.department}
-							onChange={handleChange}
-							required
-						>
-							<option value='' disabled>
-								Select Department
-							</option>
-							<option value='General Medicine'>General Medicine</option>
-							<option value='Pediatrics'>Pediatrics</option>
-							<option value='Orthopedics'>Orthopedics</option>
-							<option value='Gynecology'>Gynecology</option>
-							<option value='Dermatology'>Dermatology</option>
-						</select>
-					</div>
+          <div className="form-group">
+            <label>Age:</label>
+            <input
+              type="number"
+              name="age"
+              placeholder="Enter your age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            />
+            {errors.age && <span className="error">{errors.age}</span>}
+          </div>
 
-					<div className='form-group'>
-						<label>Symptoms:</label>
-						<textarea
-							name='symptoms'
-							placeholder='Describe your symptoms'
-							value={formData.symptoms}
-							onChange={handleChange}
-							required
-						></textarea>
-					</div>
+          <div className="form-group">
+            <label>Gender:</label>
+            <select name="gender" value={formData.gender} onChange={handleChange} required>
+              <option value="" disabled>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.gender && <span className="error">{errors.gender}</span>}
+          </div>
 
-					<button type='submit' className='submit-btn'>
-						Register
-					</button>
-					<Link to='/' className='back-button'>
-						Back to Home
-					</Link>
-				</form>
-			</section>
-		</>
-	);
+          <div className="form-group">
+            <label>Contact Number:</label>
+            <input
+              type="tel"
+              name="contact"
+              placeholder="Enter your contact number"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+            />
+            {errors.contact && <span className="error">{errors.contact}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Address:</label>
+            <input
+              type="text"
+              name="address"
+              placeholder="Enter your address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
+            {errors.address && <span className="error">{errors.address}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Department:</label>
+            <select name="department" value={formData.department} onChange={handleChange} required>
+              <option value="" disabled>Select Department</option>
+              <option value="General Medicine">General Medicine</option>
+              <option value="Pediatrics">Pediatrics</option>
+              <option value="Orthopedics">Orthopedics</option>
+              <option value="Gynecology">Gynecology</option>
+              <option value="Dermatology">Dermatology</option>
+            </select>
+            {errors.department && <span className="error">{errors.department}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Symptoms:</label>
+            <textarea
+              name="symptoms"
+              placeholder="Describe your symptoms"
+              value={formData.symptoms}
+              onChange={handleChange}
+              required
+            ></textarea>
+            {errors.symptoms && <span className="error">{errors.symptoms}</span>}
+          </div>
+
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Registering...' : 'Register'}
+          </button>
+          <Link to="/" className="back-button">Back to Home</Link>
+        </form>
+      </section>
+    </>
+  );
 }
 
 export default OPDRegistrationForm;
