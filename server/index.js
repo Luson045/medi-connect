@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
@@ -5,25 +6,30 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./modules/dashboard/authRoute');
 const hospitalroute = require('./modules/hospital/index');
+
 const {z}=require('zod')
 require('dotenv').config({ path: "../.env" });
+
 const app = express();
-const port = 5000;
+const port = 3000;
 const corsOptions = {
-	origin: [
-		'https://learnstocks.netlify.app',
-		'https://console.cron-job.org/',
-		'https://prodez-ai.netlify.app',
-		'https://medi-connect-in.netlify.app',
-		'http://localhost:3000',
-	], // Replace with your frontend's URL
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
-	credentials: true,
+
+  origin: [
+    "https://learnstocks.netlify.app",
+    "https://console.cron-job.org/",
+    "https://prodez-ai.netlify.app",
+    "https://medi-connect-in.netlify.app",
+    "http://localhost:3000",
+  ], // Replace with your frontend's URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
+  credentials: true,
+
 };
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+
 app.use(express.static('public'));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
