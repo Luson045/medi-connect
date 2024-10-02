@@ -10,7 +10,6 @@ const { z } = require("zod");
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;
-
 // Set up the OpenCage provider
 const options = {
   provider: "opencage",
