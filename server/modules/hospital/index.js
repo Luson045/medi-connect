@@ -6,8 +6,7 @@ const asyncHandler = require("express-async-handler");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
-const { z } = require('zod');
-
+const { z } = require("zod");
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;
@@ -23,6 +22,7 @@ const authenticateToken = (req, res, next) => {
   const token = req.header("x-auth-token");
   if (!token)
     return res.status(401).json({ msg: "No token, authorization denied" });
+
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.user = decoded.user;
@@ -34,70 +34,66 @@ const authenticateToken = (req, res, next) => {
 
 // Zod Schemas for Validation
 const hospitalSchema = z.object({
-    name: z.string().min(3, 'Name should be at least 3 characters long'),
-    address: z.object({
-        street: z.string().min(3, 'Street should be at least 3 characters long'),
-        city: z.string().min(2, 'City should be at least 2 characters long'),
-        state: z.string().min(2, 'State should be at least 2 characters long'),
-    }),
-    phone: z.string().optional(),
+  name: z.string().min(3, "Name should be at least 3 characters long"),
+  address: z.object({
+    street: z.string().min(3, "Street should be at least 3 characters long"),
+    city: z.string().min(2, "City should be at least 2 characters long"),
+    state: z.string().min(2, "State should be at least 2 characters long"),
+  }),
+  phone: z.string().optional(),
 });
 
 const appointmentSchema = z.object({
-    userId: z.string().length(24, 'Invalid user ID'), // Assuming MongoDB ObjectId length
-    date: z.string().refine((date) => !isNaN(Date.parse(date)), {
-        message: 'Invalid date format',
-    }),
-    reason: z.string().min(5, 'Reason should be at least 5 characters long'),
+  userId: z.string().length(24, "Invalid user ID"), // Assuming MongoDB ObjectId length
+  date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: "Invalid date format",
+  }),
+  reason: z.string().min(5, "Reason should be at least 5 characters long"),
 });
 
 const updateAppointmentSchema = z.object({
-    date: z.string().refine((date) => !isNaN(Date.parse(date)), {
-        message: 'Invalid date format',
-    }),
-    reason: z.string().optional(),
-    status: z.enum(['pending', 'confirmed', 'canceled']),
+  date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: "Invalid date format",
+  }),
+  reason: z.string().optional(),
+  status: z.enum(["pending", "confirmed", "canceled"]),
 });
 
 // Create a new hospital
-
-router.post('/', async (req, res) => {
-    try {
-        const parsedData = hospitalSchema.parse(req.body);
-        const hospital = new Hospital(parsedData);
-        await hospital.save();
-        res.status(201).send(hospital);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(400).send(error);
+router.post("/", async (req, res) => {
+  try {
+    const parsedData = hospitalSchema.parse(req.body);
+    const hospital = new Hospital(parsedData);
+    await hospital.save();
+    res.status(201).send(hospital);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
+    res.status(400).send(error);
+  }
 });
 
-router.get('/', async (req, res) => {
-    const { searchQuery } = req.query;
+// Get all hospitals with optional search
+router.get("/", async (req, res) => {
+  const { searchQuery } = req.query;
 
-    try {
-        let hospitals;
-        if (searchQuery) {
-            const regex = new RegExp(searchQuery, 'i');
-            hospitals = await Hospital.find({
-                $or: [
-                    { name: { $regex: regex } },
-                    { 'address.street': { $regex: regex } },
-                    { 'address.city': { $regex: regex } },
-                    { 'address.state': { $regex: regex } }
-                ]
-            });
-        } else {
-            hospitals = await Hospital.find();
-        }
-
-        res.status(200).json(hospitals);
-    } catch (error) {
-        console.error('Error fetching hospitals:', error);
-        res.status(500).json({ message: 'Server error' });
+  try {
+    let hospitals;
+    if (searchQuery) {
+      const regex = new RegExp(searchQuery, "i");
+      hospitals = await Hospital.find({
+        $or: [
+          { name: { $regex: regex } },
+          { "address.street": { $regex: regex } },
+          { "address.city": { $regex: regex } },
+          { "address.state": { $regex: regex } },
+        ],
+      });
+    } else {
+      hospitals = await Hospital.find();
     }
 
     res.status(200).json(hospitals);
@@ -119,19 +115,24 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update a hospital
-
-router.patch('/:id', async (req, res) => {
-    try {
-        const parsedData = hospitalSchema.partial().parse(req.body); // Use partial to allow partial updates
-        const hospital = await Hospital.findByIdAndUpdate(req.params.id, parsedData, { new: true, runValidators: true });
-        if (!hospital) return res.status(404).send();
-        res.send(hospital);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(400).send(error);
+router.patch("/:id", async (req, res) => {
+  try {
+    const parsedData = hospitalSchema.partial().parse(req.body); // Use partial to allow partial updates
+    const hospital = await Hospital.findByIdAndUpdate(
+      req.params.id,
+      parsedData,
+      { new: true, runValidators: true }
+    );
+    if (!hospital) return res.status(404).send();
+    res.send(hospital);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
+    res.status(400).send(error);
+  }
 });
 
 // Delete a hospital
@@ -146,14 +147,13 @@ router.delete("/:id", async (req, res) => {
 });
 
 // Book an appointment
-
 router.post("/hospitals/:id/book", async (req, res) => {
   try {
-    const { userId, date, reason } = req.body;
+    const parsedData = appointmentSchema.parse(req.body);
     const hospitalId = req.params.id;
 
     const hospital = await Hospital.findById(hospitalId);
-    const user = await User.findById(userId);
+    const user = await User.findById(parsedData.userId);
 
     if (!hospital || !user) {
       return res.status(404).json({ message: "Hospital or user not found" });
@@ -161,9 +161,9 @@ router.post("/hospitals/:id/book", async (req, res) => {
 
     // Create an appointment
     const appointment = {
-      userId,
-      date,
-      reason,
+      userId: parsedData.userId,
+      date: parsedData.date,
+      reason: parsedData.reason,
       status: "pending",
     };
 
@@ -171,14 +171,26 @@ router.post("/hospitals/:id/book", async (req, res) => {
     await hospital.save();
 
     // Add the appointment to the user's record as well
-    user.appointments.push({ hospitalId, date, reason, status: "pending" });
+    user.appointments.push({
+      hospitalId,
+      date: parsedData.date,
+      reason: parsedData.reason,
+      status: "pending",
+    });
     await user.save();
 
     res.status(201).json({ message: "Appointment booked successfully" });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
     res.status(500).json({ message: "Error booking appointment", error });
   }
 });
+
+// Get appointments for a hospital
 router.get("/appointments/:hospitalId", async (req, res) => {
   try {
     const hospital = await Hospital.findById(req.params.hospitalId).populate(
@@ -197,18 +209,27 @@ router.get("/appointments/:hospitalId", async (req, res) => {
 // Route to add a new appointment
 router.post("/appointments/:hospitalId", async (req, res) => {
   try {
-    const { userId, date, reason } = req.body;
-
+    const parsedData = appointmentSchema.parse(req.body);
     const hospital = await Hospital.findById(req.params.hospitalId);
     if (!hospital)
       return res.status(404).send({ message: "Hospital not found" });
 
-    const newAppointment = { userId, date, reason, status: "pending" };
+    const newAppointment = {
+      userId: parsedData.userId,
+      date: parsedData.date,
+      reason: parsedData.reason,
+      status: "pending",
+    };
     hospital.appointments.push(newAppointment);
     await hospital.save();
 
     res.status(201).json(newAppointment);
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
     res.status(500).send({ message: "Server error", error });
   }
 });
@@ -216,16 +237,16 @@ router.post("/appointments/:hospitalId", async (req, res) => {
 // Route to update an existing appointment
 router.put("/appointments/:appointmentId", async (req, res) => {
   try {
+    const parsedData = updateAppointmentSchema.parse(req.body);
     const { appointmentId } = req.params;
-    const { date, reason, status } = req.body;
 
     const hospital = await Hospital.findOneAndUpdate(
       { "appointments._id": appointmentId },
       {
         $set: {
-          "appointments.$.date": date,
-          "appointments.$.reason": reason,
-          "appointments.$.status": status,
+          "appointments.$.date": parsedData.date,
+          "appointments.$.reason": parsedData.reason,
+          "appointments.$.status": parsedData.status,
         },
       },
       { new: true }
@@ -237,16 +258,21 @@ router.put("/appointments/:appointmentId", async (req, res) => {
     const updatedAppointment = hospital.appointments.id(appointmentId);
     res.status(200).json(updatedAppointment);
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
     res.status(500).send({ message: "Server error", error });
   }
 });
 
+// Route to delete an appointment
 router.delete("/appointments/:appointmentId", async (req, res) => {
   try {
     const { appointmentId } = req.params;
     console.log(`Attempting to delete appointment: ${appointmentId}`);
 
-    // Step 1: Find the hospital with the appointment
     const hospital = await Hospital.findOne({
       "appointments._id": appointmentId,
     });
@@ -258,7 +284,6 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
         .send({ message: "Appointment not found in hospital records" });
     }
 
-    // Step 2: Get the specific appointment to retrieve userId before deletion
     const appointmentToDelete = hospital.appointments.find(
       (appointment) => appointment._id.toString() === appointmentId
     );
@@ -270,183 +295,16 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
         .send({ message: "Appointment not found in hospital records" });
     }
 
-    const userId = appointmentToDelete.userId;
-    console.log(`UserId associated with appointment: ${userId}`);
-
-    // Step 3: Delete the appointment from the hospital's records
-    const updatedHospital = await Hospital.findOneAndUpdate(
-      { "appointments._id": appointmentId },
-      { $pull: { appointments: { _id: appointmentId } } },
-      { new: true }
+    console.log(`Deleting appointment: ${appointmentToDelete}`);
+    hospital.appointments = hospital.appointments.filter(
+      (appointment) => appointment._id.toString() !== appointmentId
     );
+    await hospital.save();
 
-    console.log(
-      "Hospital update result:",
-      updatedHospital ? "Success" : "Failed"
-    );
-
-    // Step 4: Find the user and delete the appointment from user's records
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        $pull: {
-          appointments: { hospitalId: hospital._id, _id: appointmentId },
-        },
-      },
-      { new: true }
-    );
-
-    console.log("User update result:", updatedUser ? "Success" : "Failed");
-
-    if (!updatedUser) {
-      console.log("User not found or appointment not in user records");
-      return res
-        .status(404)
-        .send({ message: "User not found or appointment not in user records" });
-
-router.post('/hospitals/:id/book', async (req, res) => {
-    try {
-        const parsedData = appointmentSchema.parse(req.body);
-        const hospitalId = req.params.id;
-
-        const hospital = await Hospital.findById(hospitalId);
-        const user = await User.findById(parsedData.userId);
-
-        if (!hospital || !user) {
-            return res.status(404).json({ message: 'Hospital or user not found' });
-        }
-
-        // Create an appointment
-        const appointment = {
-            userId: parsedData.userId,
-            date: parsedData.date,
-            reason: parsedData.reason,
-            status: 'pending',
-        };
-
-        hospital.appointments.push(appointment);
-        await hospital.save();
-
-        // Add the appointment to the user's record as well
-        user.appointments.push({ hospitalId, date: parsedData.date, reason: parsedData.reason, status: 'pending' });
-        await user.save();
-
-        res.status(201).json({ message: 'Appointment booked successfully' });
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(500).json({ message: 'Error booking appointment', error });
-    }
-});
-
-// Route to add a new appointment
-router.post('/appointments/:hospitalId', async (req, res) => {
-    try {
-        const parsedData = appointmentSchema.parse(req.body);
-        const hospital = await Hospital.findById(req.params.hospitalId);
-        if (!hospital) return res.status(404).send({ message: 'Hospital not found' });
-
-        const newAppointment = { userId: parsedData.userId, date: parsedData.date, reason: parsedData.reason, status: 'pending' };
-        hospital.appointments.push(newAppointment);
-        await hospital.save();
-
-        res.status(201).json(newAppointment);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(500).send({ message: 'Server error', error });
-    }
-});
-
-// Route to update an existing appointment
-router.put('/appointments/:appointmentId', async (req, res) => {
-    try {
-        const parsedData = updateAppointmentSchema.parse(req.body);
-        const { appointmentId } = req.params;
-
-        const hospital = await Hospital.findOneAndUpdate(
-            { 'appointments._id': appointmentId },
-            {
-                $set: {
-                    'appointments.$.date': parsedData.date,
-                    'appointments.$.reason': parsedData.reason,
-                    'appointments.$.status': parsedData.status,
-                }
-            },
-            { new: true }
-        );
-
-        if (!hospital) return res.status(404).send({ message: 'Appointment not found' });
-
-        const updatedAppointment = hospital.appointments.id(appointmentId);
-        res.status(200).json(updatedAppointment);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(500).send({ message: 'Server error', error });
-    }
-});
-
-// Route to delete an appointment
-router.delete('/appointments/:appointmentId', async (req, res) => {
-    try {
-        const { appointmentId } = req.params;
-        console.log(`Attempting to delete appointment: ${appointmentId}`);
-
-        const hospital = await Hospital.findOne({ 'appointments._id': appointmentId });
-
-        if (!hospital) {
-            console.log('Hospital not found');
-            return res.status(404).send({ message: 'Appointment not found in hospital records' });
-        }
-
-        const appointmentToDelete = hospital.appointments.find(appointment => appointment._id.toString() === appointmentId);
-
-        if (!appointmentToDelete) {
-            console.log('Appointment not found in hospital');
-            return res.status(404).send({ message: 'Appointment not found in hospital records' });
-        }
-
-        const userId = appointmentToDelete.userId;
-        console.log(`UserId associated with appointment: ${userId}`);
-
-        const updatedHospital = await Hospital.findOneAndUpdate(
-            { 'appointments._id': appointmentId },
-            { $pull: { appointments: { _id: appointmentId } } },
-            { new: true }
-        );
-
-        console.log('Hospital update result:', updatedHospital ? 'Success' : 'Failed');
-
-        const updatedUser = await User.findOneAndUpdate(
-            { _id: userId },
-            { $pull: { appointments: { hospitalId: hospital._id, _id: appointmentId } } },
-            { new: true }
-        );
-
-        console.log('User update result:', updatedUser ? 'Success' : 'Failed');
-
-        if (!updatedUser) {
-            console.log('User not found or appointment not in user records');
-            return res.status(404).send({ message: 'User not found or appointment not in user records' });
-        }
-
-        res.status(200).json({ message: 'Appointment deleted from hospital and user records' });
-    } catch (error) {
-        console.error('Error deleting appointment:', error);
-        res.status(500).send({ message: 'Server error', error: error.message });
-
-    }
-
-    res
-      .status(200)
-      .json({ message: "Appointment deleted from hospital and user records" });
+    res.status(200).json({ message: "Appointment deleted successfully" });
   } catch (error) {
     console.error("Error deleting appointment:", error);
-    res.status(500).send({ message: "Server error", error: error.message });
+    res.status(500).send({ message: "Server error", error });
   }
 });
 
@@ -490,27 +348,24 @@ router.post(
       status: "pending",
     };
     try {
-    const hospital = await Hospital.findById(nearestHospital._id);
-    hospital.appointments.push(appointment);
-    profile.appointments.push(appointment);
-    await hospital.save();
-    await profile.save();
+      const hospital = await Hospital.findById(nearestHospital._id);
+      hospital.appointments.push(appointment);
+      profile.appointments.push(appointment);
+      await hospital.save();
+      await profile.save();
 
-
-    res.status(200).json({
-      message: "Appointment booked successfully",
-      appointment,
-      hospital: {
-        id: hospital._id,
-        name: hospital.name,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Error booking appointment", error });
-  }
+      res.status(200).json({
+        message: "Appointment booked successfully",
+        appointment,
+        hospital: {
+          id: hospital._id,
+          name: hospital.name,
+        },
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error booking appointment", error });
+    }
   })
 );
-
-
 
 module.exports = router;
