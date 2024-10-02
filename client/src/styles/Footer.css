@@ -1,51 +1,95 @@
-.footer-container {
-    background-color: #2c3e50;
+.footer {
+    background-color: #2c2c2c;
     color: white;
     padding: 20px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
   }
   
-  .footer-content {
+  .footer-sections {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
   }
   
-  .footer-section {
+  .footer-column {
     flex: 1;
-    margin-right: 20px;
+    margin: 15px;
   }
   
-  .footer-section h3 {
-    font-size: 1.5rem;
+  .footer-column h3 {
+    font-weight: bold;
     margin-bottom: 15px;
   }
   
-  .footer-section ul {
-    list-style: none;
+  .footer-column ul {
+    list-style-type: none;
     padding: 0;
   }
   
-  .footer-section ul li {
+  .footer-column ul li {
     margin-bottom: 10px;
   }
   
-  .footer-section ul li a {
+  .footer-column ul li a {
     color: white;
     text-decoration: none;
   }
   
-  .footer-section p {
-    line-height: 1.8;
+  .footer-column ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .follow-us .social-icons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .social-icons li {
+    margin: 0 10px;
+  }
+  
+  .social-icons li i {
+    font-size: 24px;
+  }
+  
+  .disclaimer {
+    margin-bottom: 20px;
+  }
+  
+  .disclaimer p {
+    margin: 5px 0;
   }
   
   .footer-bottom {
-    text-align: center;
-    padding: 10px;
-    background-color: #1a252f;
-    color: #ccc;
-    font-size: 0.9rem;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+  }
+  .social-icons img {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
   }
   
+  .social-icons a {
+    display: inline-block;
+    width: 50px; /* Size of the circle */
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular */
+    background-color: white; /* Background color for the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .social-icons a:hover {
+    opacity: 0.8;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+  }
