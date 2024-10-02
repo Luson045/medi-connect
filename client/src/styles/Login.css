@@ -118,5 +118,6 @@
 }
 .login_background{
     
-    background-color: white;
+  background: radial-gradient(circle, pink, white);
+
 }
