@@ -115,6 +115,7 @@ Ensure you have the following installed on your local machine:
 - [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/)
 - [MongoDB](https://www.mongodb.com/) (if using MongoDB as the database)
+- [Docker](https://docs.docker.com/engine/install/)
 
 ### Installation
 
@@ -165,6 +166,8 @@ JWT=your_jwt_secret
    ```
 
 3. To close the running containers run `docker compose down`
+ 
+4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
 
 ## Usage
 
