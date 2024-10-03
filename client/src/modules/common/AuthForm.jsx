@@ -8,7 +8,7 @@ import "../../styles/Login.css";
 // Constants for cleaner code
 const API_BASE_URL = 'https://medi-connect-f671.onrender.com';
 const EMAIL_PATTERN = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const PASSWORD_PATTERN = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
 const AuthPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -141,7 +141,6 @@ const AuthPage = () => {
 
             <FormField label="Password" type="password" register={register("password", {
               required: "Password is required",
-              minLength: { value: 8, message: "Password must be at least 8 characters long" },
               pattern: { value: PASSWORD_PATTERN, message: "Password must contain at least one letter and one number" }
             })} error={errors.password} />
 

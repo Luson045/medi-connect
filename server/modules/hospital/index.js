@@ -310,7 +310,7 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
 router.post(
   "/emergency",
   asyncHandler(async (req, res) => {
-    const { name, email, age, gender, contact, pincode, reason, date } =
+    const { name, email, age, gender, contact, pincode, symptoms, date } =
       req.body;
     console.log("name:",name);
     if (!pincode) {

@@ -5,9 +5,10 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    phone: String,
+    contact: String,
     dob: Date,
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
+    symptoms: [String],
     address: {
         street: String,
         city: String,

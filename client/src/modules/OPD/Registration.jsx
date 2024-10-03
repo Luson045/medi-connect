@@ -17,7 +17,11 @@ function OPDRegistrationForm() {
       symptoms: formData.symptoms.split(',').map(symptom => symptom.trim()),
     };
 
-    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, { data: updatedFormData })
+    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, updatedFormData, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
       .then(response => {
         console.log('Successfully registered!', response.data);
       })
@@ -40,7 +44,7 @@ function OPDRegistrationForm() {
           <FormField
             label="Name"
             name="name"
-            register={register("name", { 
+            register={register("name", {
               required: "Name is required",
               minLength: { value: 2, message: "Name must be at least 2 characters long" }
             })}
@@ -51,7 +55,7 @@ function OPDRegistrationForm() {
             label="Email"
             name="email"
             type="email"
-            register={register("email", { 
+            register={register("email", {
               required: "Email is required",
               pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
             })}
@@ -62,7 +66,7 @@ function OPDRegistrationForm() {
             label="Age"
             name="age"
             type="number"
-            register={register("age", { 
+            register={register("age", {
               required: "Age is required",
               min: { value: 1, message: "Age must be a positive number" }
             })}
@@ -83,7 +87,7 @@ function OPDRegistrationForm() {
           <FormField
             label="Contact Number"
             name="contact"
-            register={register("contact", { 
+            register={register("contact", {
               required: "Contact number is required",
               pattern: { value: /^\d{10}$/, message: "Contact number must be 10 digits" }
             })}
@@ -93,7 +97,7 @@ function OPDRegistrationForm() {
           <FormField
             label="Address"
             name="address"
-            register={register("address", { 
+            register={register("address", {
               required: "Address is required",
               minLength: { value: 5, message: "Address must be at least 5 characters long" }
             })}
