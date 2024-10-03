@@ -37,9 +37,11 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="tel"],
+input[type="email"],
+input[type="password"],
 select,
 textarea {
-  width: 100%;
+  width: 100%; /* Ensure it takes full width */
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -69,11 +71,17 @@ textarea {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  width: 40%;
   transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
   background-color: #0056b3;
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc; /* Light gray for disabled state */
+  cursor: not-allowed;
 }
 
 .back-button {
@@ -88,6 +96,13 @@ textarea {
 
 .back-button:hover {
   color: #0056b3;
+}
+
+/* Error Message Styling */
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 /* Responsive Design */

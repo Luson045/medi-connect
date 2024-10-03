@@ -1,26 +1,52 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../../models/user');
-const Hospital = require('../../models/hospital');
-require('dotenv').config({ path: "../.env" });
-const jwtSecret=process.env.JWT;
+
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../../models/user");
+const Hospital = require("../../models/hospital");
+require("dotenv").config({ path: "../.env" });
+const jwtSecret = process.env.JWT;
+
+const {z}=require('zod')
+
+
+
 const router = express.Router();
+
+// Zod Schemas for Validation
+const userSchema = z.object({
+  type: z.enum(['user', 'hospital']),
+  name: z.string().min(3, 'Name should be at least 3 characters long'),
+  email: z.string().email('Invalid email format'),
+  password: z.string().min(6, 'Password should be at least 6 characters long'),
+  phone: z.string().optional()
+});
+
+const loginSchema = z.object({
+  type: z.enum(['user', 'hospital']),
+  email: z.string().email('Invalid email format'),
+  password: z.string().min(6, 'Password should be at least 6 characters long'),
+});
+
+
 // Middleware to authenticate using token
 const authenticateToken = (req, res, next) => {
-  const token = req.header('x-auth-token');
-  if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
+  const token = req.header("x-auth-token");
+  if (!token)
+    return res.status(401).json({ msg: "No token, authorization denied" });
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
+    res.status(401).json({ msg: "Token is not valid" });
   }
 };
 
+
+
 // Profile route to fetch current user's or hospital's profile
-router.get('/profile', authenticateToken, async (req, res) => {
+router.get("/profile", authenticateToken, async (req, res) => {
   try {
     // Check if the logged-in person is a user or hospital
     let profile = await User.findById(req.user.id);
@@ -28,15 +54,15 @@ router.get('/profile', authenticateToken, async (req, res) => {
       // If not a user, check if it's a hospital
       profile = await Hospital.findById(req.user.id);
       if (!profile) {
-        return res.status(404).json({ msg: 'Profile not found' });
+        return res.status(404).json({ msg: "Profile not found" });
       }
       // Include the role 'hospital' in the response
-      return res.json({ ...profile.toObject(), role: 'hospital' });
+      return res.json({ ...profile.toObject(), role: "hospital" });
     }
     // Include the role 'user' in the response
-    res.json({ ...profile.toObject(), role: 'user' });
+    res.json({ ...profile.toObject(), role: "user" });
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
@@ -71,40 +97,55 @@ router.post('/register', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ message: 'Error registering user/hospital', error });
+
     }
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Send Zod validation error response
+      return res.status(400).json({ message: 'Validation error', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Error registering user/hospital', error });
+  }
 });
 
 // Login
+
 router.post('/login', async (req, res) => {
-    try {
-        const { type, email, password } = req.body;
+  try {
+    // Validate login request body using Zod
+    const parsedData = loginSchema.parse(req.body);
 
-        let userOrHospital;
+    const { type, email, password } = parsedData;
 
-        if (type === 'user'){
-            userOrHospital = await User.findOne({ email });
-        } else if (type === 'hospital') {
-            userOrHospital = await Hospital.findOne({ email });
-        }
+    let userOrHospital;
 
-        if (!userOrHospital) {
-            return res.status(400).json({ message: 'Invalid email or password' });
-        }
-
-        const isMatch = await bcrypt.compare(password, userOrHospital.password);
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid email or password' });
-        }
-
-        
-        const payload = { user: { id: userOrHospital.id } };
-        jwt.sign(payload, jwtSecret, { expiresIn: 3600*3*24 }, (err, token) => {
-            if (err) throw err;
-            res.json({ token, message: `${type} logged in successfully` });
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+    if (type === 'user') {
+      userOrHospital = await User.findOne({ email });
+    } else if (type === 'hospital') {
+      userOrHospital = await Hospital.findOne({ email });
     }
+
+    if (!userOrHospital) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, userOrHospital.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid email or password' });
+    }
+    const payload = { user: { id: userOrHospital.id } };
+    jwt.sign(payload, jwtSecret, { expiresIn: 3600 * 3 * 24 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token, message: `${type} logged in successfully` });
+    });
+  } catch (error) {
+
+    console.error('Login error:', error); // Log the error
+    if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: 'Validation error', errors: error.errors });
+    }
+    res.status(500).json({ message: 'Error logging in', error: error.message || 'An unknown error occurred' });
+}
 });
 
 module.exports = router;

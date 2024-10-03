@@ -19,9 +19,10 @@ const AuthPage = () => {
     });
 	const [type, setType] = useState('password');
 
-    const toggleAuthMode = () => {
-        setIsRegistering(!isRegistering);
-    };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
 
     const handleChange = (e) => {
         setFormData({
@@ -41,10 +42,18 @@ const AuthPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (isRegistering && formData.password !== formData.confirmPassword) {
-            notify("Passwords do not match", "warn");
-            return;
+
+    try {
+      const response = await fetch(
+        `https://medi-connect-f671.onrender.com${endpoint}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
         }
+      );
 
        const endpoint = isRegistering ? '/auth/register' : '/auth/login';
         const payload = isRegistering
@@ -84,8 +93,14 @@ const AuthPage = () => {
         } catch (error) {
             notify("Error connecting to the server", "error");
             console.error(error);
+
         }
-    };
+      }
+    } catch (error) {
+      notify("Error connecting to the server", "error");
+      console.error("Network Error:", error);
+    }
+  };
 
     return (
       <>
@@ -217,6 +232,7 @@ const AuthPage = () => {
 			</div>
       </>
     );
+
 };
 
 export default AuthPage;
