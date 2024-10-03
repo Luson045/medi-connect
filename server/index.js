@@ -32,7 +32,7 @@ app.use(express.static("public"));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
 mongoose
-  .connect(process.env.MONOGO_URI, {
+  .connect(`mongodb+srv://shreyasnandanwar0400:${process.env.PASSDB}@cluster0.gtmyg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

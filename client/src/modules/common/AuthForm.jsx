@@ -1,28 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useLocation } from "react-router-dom";
-import Navbar from "../common/Navbar";
-import { notify } from "./notification";
+import Navbar from '../common/Navbar';
+import { notify } from './notification';
 import "../../styles/Login.css";
+
+// Constants for cleaner code
+const API_BASE_URL = 'https://medi-connect-f671.onrender.com';
+const EMAIL_PATTERN = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const PASSWORD_PATTERN = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 const AuthPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
-  const [formData, setFormData] = useState({
-    type: "hospital",
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phone: "",
-    address: "",
-  });
-
-  const [errors, setErrors] = useState({
-    frontend: {},
-    backend: {},
-  });
-
   const location = useLocation();
 
+  // React Hook Form Setup
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setError,
+    reset
+  } = useForm({
+    defaultValues: {
+      type: "hospital",
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
+      address: "",
+    }
+  });
+
+  // Effect to handle URL-based mode switching (login/register)
   useEffect(() => {
     if (location.pathname === "/register") setIsRegistering(true);
     if (location.pathname === "/login") setIsRegistering(false);
@@ -30,251 +42,139 @@ const AuthPage = () => {
 
   const toggleAuthMode = () => {
     setIsRegistering(!isRegistering);
-    setErrors({ frontend: {}, backend: {} }); // Clear errors when toggling
+    reset(); // Clear form when toggling
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    setErrors((prev) => ({
-      ...prev,
-      frontend: {
-        ...prev.frontend,
-        [e.target.name]: "", // Clear frontend error for the field being edited
-      },
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (isRegistering) {
-      if (!formData.name) newErrors.name = "Name is required";
-      if (!formData.phone || !/^\d{10}$/.test(formData.phone))
-        newErrors.phone = "Phone number must be exactly 10 digits";
-      if (!formData.address) newErrors.address = "Address is required";
-    }
-    if (!formData.email) newErrors.email = "Email is required (frontend)";
-    if (!formData.password || formData.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters long";
-    if (isRegistering && formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
-
-    return newErrors;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors((prev) => ({
-        ...prev,
-        frontend: validationErrors,
-      }));
+  // Handle form submission
+  const onSubmit = async (formData) => {
+    // Frontend validation for matching passwords
+    if (isRegistering && formData.password !== formData.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: "Passwords do not match",
+      });
       return;
     }
 
-    const endpoint = isRegistering ? "/auth/register" : "/auth/login";
-    const payload = isRegistering
-      ? { ...formData }
-      : {
-          type: formData.type,
-          email: formData.email,
-          password: formData.password,
-        };
+    const endpoint = isRegistering ? '/auth/register' : '/auth/login';
+    const payload = isRegistering ? { ...formData } : {
+      type: formData.type,
+      email: formData.email,
+      password: formData.password,
+    };
 
     try {
-      const response = await fetch(
-        `https://medi-connect-f671.onrender.com${endpoint}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
       const data = await response.json();
-
       if (response.ok) {
         if (isRegistering) {
           notify("Registration successful", "success");
-          toggleAuthMode();
+          toggleAuthMode(); // Switch to login mode after successful registration
         } else {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem('token', data.token);
           notify("Login successful", "success");
           window.location.href = "/";
         }
       } else {
-        if (data.errors) {
-          const backendErrors = {};
-          data.errors.forEach((error) => {
-            backendErrors[error.field] = `${error.message} (backend)`;
-          });
-          setErrors((prev) => ({
-            ...prev,
-            backend: backendErrors,
-          }));
-        } else {
-          notify(data.message || "An error occurred. Please try again.", "warn");
-        }
+        handleBackendErrors(data.errors || { message: data.message });
       }
     } catch (error) {
       notify("Error connecting to the server", "error");
-      console.error("Network Error:", error);
     }
   };
+
+  const handleBackendErrors = (backendErrors) => {
+    // Set backend errors to display in the form (for form fields)
+    if (backendErrors instanceof Array) {
+      backendErrors.forEach(error => {
+        setError(error.field, { type: "backend", message: error.message });
+      });
+    } else {
+      notify(backendErrors.message || "An error occurred", "warn");
+    }
+  };
+
+  // Watch the password for validation
+  const password = watch('password');
 
   return (
     <div className="login_background">
       <Navbar />
       <div className="auth-maindiv">
-      <div className="auth-container">
-        <h2>{isRegistering ? "Register" : "Login"}</h2>
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-section">
-            <label>User Type:</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
-              <option value="user">User</option>
-              <option value="hospital">Hospital</option>
-            </select>
-          </div>
+        <div className="auth-container">
+          <h2>{isRegistering ? 'Register' : 'Login'}</h2>
 
-          {isRegistering && (
-            <>
-              <div className="form-section">
-                <label>Name:</label>
-                <input
-                  type="text"
-                    name="name"
-                    placeholder="John Doe"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-                {errors.frontend.name && (
-                  <span className="error">{errors.frontend.name}</span>
-                )}
-                {errors.backend.name && (
-                  <span className="error">{errors.backend.name}</span>
-                )}
-              </div>
-
-              <div className="form-section">
-                <label>Phone:</label>
-                <input
-                  type="text"
-                    name="phone"
-                    placeholder="9898989898"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-                {errors.frontend.phone && (
-                  <span className="error">{errors.frontend.phone}</span>
-                )}
-                {errors.backend.phone && (
-                  <span className="error">{errors.backend.phone}</span>
-                )}
-              </div>
-
-              <div className="form-section">
-                <label>Address:</label>
-                <input
-                  type="text"
-                    name="address"
-                    placeholder="Enter address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
-                {errors.frontend.address && (
-                  <span className="error">{errors.frontend.address}</span>
-                )}
-                {errors.backend.address && (
-                  <span className="error">{errors.backend.address}</span>
-                )}
-              </div>
-            </>
-          )}
-
-          <div className="form-section">
-            <label>Email:</label>
-            <input
-              type="email"
-                name="email"
-                placeholder="example@gmail.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            {errors.frontend.email && (
-              <span className="error">{errors.frontend.email}</span>
-            )}
-            {errors.backend.email && (
-              <span className="error">{errors.backend.email}</span>
-            )}
-          </div>
-
-          <div className="form-section">
-            <label>Password:</label>
-            <input
-              type="password"
-                name="password"
-                placeholder="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            {errors.frontend.password && (
-              <span className="error">{errors.frontend.password}</span>
-            )}
-            {errors.backend.password && (
-              <span className="error">{errors.backend.password}</span>
-            )}
-          </div>
-
-          {isRegistering && (
+          <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
+            {/* User Type */}
             <div className="form-section">
-              <label>Confirm Password:</label>
-              <input
-                type="password"
-                  name="confirmPassword"
-                  placeholder="Re-type password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-              {errors.frontend.confirmPassword && (
-                <span className="error">
-                  {errors.frontend.confirmPassword}
-                </span>
-              )}
-              {errors.backend.confirmPassword && (
-                <span className="error">{errors.backend.confirmPassword}</span>
-              )}
+              <label>User Type:</label>
+              <select {...register("type", { required: true })}>
+                <option value="user">User</option>
+                <option value="hospital">Hospital</option>
+              </select>
             </div>
-          )}
 
-          <div className="register-button">
+            {/* Conditional Registration Fields */}
+            {isRegistering && (
+              <>
+                <FormField label="Name" type="text" register={register("name", { required: "Name is required" })} error={errors.name} />
+                <FormField label="Phone" type="text" register={register("phone", {
+                  required: "Phone number is required",
+                  pattern: { value: /^\d{10}$/, message: "Phone number must be 10 digits" }
+                })} error={errors.phone} />
+                <FormField label="Address" type="text" register={register("address", { required: "Address is required" })} error={errors.address} />
+              </>
+            )}
+
+            {/* Common Fields */}
+            <FormField label="Email" type="email" register={register("email", {
+              required: "Email is required",
+              pattern: { value: EMAIL_PATTERN, message: "Invalid email format" }
+            })} error={errors.email} />
+
+            <FormField label="Password" type="password" register={register("password", {
+              required: "Password is required",
+              minLength: { value: 8, message: "Password must be at least 8 characters long" },
+              pattern: { value: PASSWORD_PATTERN, message: "Password must contain at least one letter and one number" }
+            })} error={errors.password} />
+
+            {isRegistering && (
+              <FormField label="Confirm Password" type="password" register={register("confirmPassword", {
+                required: "Please confirm your password",
+                validate: value => value === password || "Passwords do not match"
+              })} error={errors.confirmPassword} />
+            )}
+
+            <div className="register-button">
               <button type="submit" className="auth-button">
-                {isRegistering ? "Register" : "Login"}
+                {isRegistering ? 'Register' : 'Login'}
               </button>
             </div>
-        </form>
+          </form>
 
-        <button onClick={toggleAuthMode} className="toggle-auth-button">
-          {isRegistering
-            ? "Already have an account? Login"
-            : "Don't have an account? Register"}
-        </button>
+          <button onClick={toggleAuthMode} className="toggle-auth-button">
+            {isRegistering ? "Already have an account? Login" : "Don't have an account? Register"}
+          </button>
         </div>
-        </div>
+      </div>
     </div>
   );
 };
+
+// Reusable form field component
+const FormField = ({ label, type, register, error }) => (
+  <div className="form-section">
+    <label>{label}:</label>
+    <input type={type} {...register} />
+    {error && <p className="error">{error.message}</p>}
+  </div>
+);
 
 export default AuthPage;
