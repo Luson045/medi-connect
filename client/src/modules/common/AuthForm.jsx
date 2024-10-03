@@ -38,7 +38,7 @@ const AuthPage = () => {
     try {
       const response = await fetch(`https://medi-connect-f671.onrender.com${endpoint}`, {
         method: "POST",
-        headers: {
+        headers:  {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
