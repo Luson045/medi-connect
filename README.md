@@ -169,6 +169,13 @@ JWT=your_jwt_secret
  
 4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
 
+*** Video Guide for how to run project via Docker
+
+
+https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
+
+
+
 ## Usage
 
 The backend server should be running at `https://medi-connect-f671.onrender.com`.
