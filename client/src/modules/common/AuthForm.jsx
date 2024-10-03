@@ -149,7 +149,8 @@ const AuthPage = () => {
                 <label>Name:</label>
                 <input
                   type="text"
-                  name="name"
+                    name="name"
+                    placeholder="John Doe"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -166,7 +167,8 @@ const AuthPage = () => {
                 <label>Phone:</label>
                 <input
                   type="text"
-                  name="phone"
+                    name="phone"
+                    placeholder="9898989898"
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -183,7 +185,8 @@ const AuthPage = () => {
                 <label>Address:</label>
                 <input
                   type="text"
-                  name="address"
+                    name="address"
+                    placeholder="Enter address"
                   value={formData.address}
                   onChange={handleChange}
                   required
@@ -202,7 +205,8 @@ const AuthPage = () => {
             <label>Email:</label>
             <input
               type="email"
-              name="email"
+                name="email"
+                placeholder="example@gmail.com"
               value={formData.email}
               onChange={handleChange}
               required
@@ -219,7 +223,8 @@ const AuthPage = () => {
             <label>Password:</label>
             <input
               type="password"
-              name="password"
+                name="password"
+                placeholder="password"
               value={formData.password}
               onChange={handleChange}
               required
@@ -237,7 +242,8 @@ const AuthPage = () => {
               <label>Confirm Password:</label>
               <input
                 type="password"
-                name="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Re-type password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
