@@ -149,6 +149,23 @@ PASSDB=your_mongodb_connection_string
 JWT=your_jwt_secret
 ```
 
+### Installation via Docker
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/Luson045/medi-connect
+   cd medi-connect
+   ```
+
+2. Run the following commands
+   ```
+       docker compose build
+       docker compose up
+   ```
+
+3. To close the running containers run `docker compose down`
+
 ## Usage
 
 The backend server should be running at `https://medi-connect-f671.onrender.com`.
