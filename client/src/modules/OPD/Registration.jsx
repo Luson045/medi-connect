@@ -60,7 +60,7 @@ function OPDRegistrationForm() {
     }
 
     setIsSubmitting(true);
-    axios.post(`https://medi-connect-f671.onrender.com/emergency`, { data: updatedFormData })
+    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
       })
