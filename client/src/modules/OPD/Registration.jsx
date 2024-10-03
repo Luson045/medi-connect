@@ -7,12 +7,15 @@ import '../../styles/OPD.css';
 function OPDRegistrationForm() {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',  // Added email field in the state
     age: '',
     gender: '',
     contact: '',
     address: '',
     department: '',
-    symptoms: ''
+    pincode: '',  // Added pincode field
+    reason: '',    // Added reason field
+    date: ''       // Added date field
   });
 
   const [errors, setErrors] = useState({});
@@ -21,13 +24,16 @@ function OPDRegistrationForm() {
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';  // Validation for email
     if (!formData.age || formData.age <= 0) newErrors.age = 'Age must be a positive number';
     if (!formData.gender) newErrors.gender = 'Gender is required';
     if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
     if (!formData.address.trim()) newErrors.address = 'Address is required';
     if (formData.address.trim().length < 5) newErrors.address = 'Address must be at least 5 characters long';
     if (!formData.department) newErrors.department = 'Department is required';
-    if (!formData.symptoms.trim()) newErrors.symptoms = 'Symptoms description is required';
+    if (!formData.pincode.trim()) newErrors.pincode = 'Pincode is required';  // Validation for pincode
+    if (!formData.reason.trim()) newErrors.reason = 'Reason is required';      // Validation for reason
+    if (!formData.date) newErrors.date = 'Date is required';                   // Validation for date
 
     return newErrors;
   };
@@ -41,11 +47,9 @@ function OPDRegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-
     const updatedFormData = {
       ...formData,
       age: Number(formData.age), 
-      symptoms: formData.symptoms.split(',').map(symptom => symptom.trim()), 
     };
   
     const validationErrors = validate();
@@ -54,12 +58,11 @@ function OPDRegistrationForm() {
       setErrors(validationErrors);
       return;
     }
-  // https://medi-connect-f671.onrender.com
+
     setIsSubmitting(true);
     axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
-
       })
       .catch(error => {
         console.error('There was an error registering!', error);
@@ -94,14 +97,14 @@ function OPDRegistrationForm() {
           <div className="form-group">
             <label>Email:</label>
             <input
-              type="text"
+              type="email"  // Changed input type to email
               name="email"
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
               required
             />
-            {errors.name && <span className="error">{errors.name}</span>}
+            {errors.email && <span className="error">{errors.email}</span>} 
           </div>
 
           <div className="form-group">
@@ -155,28 +158,41 @@ function OPDRegistrationForm() {
           </div>
 
           <div className="form-group">
-            <label>Department:</label>
-            <select name="department" value={formData.department} onChange={handleChange} required>
-              <option value="" disabled>Select Department</option>
-              <option value="General Medicine">General Medicine</option>
-              <option value="Pediatrics">Pediatrics</option>
-              <option value="Orthopedics">Orthopedics</option>
-              <option value="Gynecology">Gynecology</option>
-              <option value="Dermatology">Dermatology</option>
-            </select>
-            {errors.department && <span className="error">{errors.department}</span>}
+            <label>Pincode:</label>
+            <input
+              type="text"
+              name="pincode"
+              placeholder="Enter your pincode"
+              value={formData.pincode}
+              onChange={handleChange}
+              required
+            />
+            {errors.pincode && <span className="error">{errors.pincode}</span>}  
           </div>
 
+
           <div className="form-group">
-            <label>Symptoms:</label>
+            <label>Reason:</label>
             <textarea
-              name="symptoms"
-              placeholder="Describe your symptoms with commas"
-              value={formData.symptoms}
+              name="reason"
+              placeholder="Enter the reason for your visit"
+              value={formData.reason}
               onChange={handleChange}
               required
             ></textarea>
-            {errors.symptoms && <span className="error">{errors.symptoms}</span>}
+            {errors.reason && <span className="error">{errors.reason}</span>} 
+          </div>
+
+          <div className="form-group">
+            <label>Date:</label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+            />
+            {errors.date && <span className="error">{errors.date}</span>}  
           </div>
 
           <button type="submit" className="submit-btn" disabled={isSubmitting}>
