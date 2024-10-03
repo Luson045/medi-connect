@@ -29,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +54,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13"
   }
 }
