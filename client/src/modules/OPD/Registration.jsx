@@ -47,6 +47,7 @@ function OPDRegistrationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
+    console.log()
     const updatedFormData = {
       ...formData,
       age: Number(formData.age), 
@@ -59,20 +60,25 @@ function OPDRegistrationForm() {
       return;
     }
 
+    console.log('Validation passed. Submitting form...'); // Debugging log
     setIsSubmitting(true);
-    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, { data: updatedFormData })
+    
+    axios.post(`http://localhost:3000/hospitalapi/emergency`, updatedFormData)
       .then(response => {
-        console.log('Successfully registered!', response.data);
+        console.log('Successfully registered!', response.data); // Debugging log
+        alert('Registration Successful!'); // Optional success feedback
       })
       .catch(error => {
         console.error('There was an error registering!', error);
+        alert('Registration failed. Please try again.'); // Optional error feedback
       })
       .finally(() => {
         setIsSubmitting(false);
       });
   
-    console.log('Form Data Submitted:', updatedFormData);
-  };
+    console.log('Form Data Submitted:', updatedFormData); // Debugging log
+};
+
   
 
   return (
@@ -80,7 +86,7 @@ function OPDRegistrationForm() {
       <Navbar />
       <section className="form-container">
         <h2>OPD Registration</h2>
-        <form onSubmit={handleSubmit} className="opd-registration-form">
+        <form onSubmit={(e) => {console.log("Form submitted"); handleSubmit(e);}} className="opd-registration-form">
           <div className="form-group">
             <label>Name:</label>
             <input
@@ -124,9 +130,9 @@ function OPDRegistrationForm() {
             <label>Gender:</label>
             <select name="gender" value={formData.gender} onChange={handleChange} required>
               <option value="" disabled>Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
             {errors.gender && <span className="error">{errors.gender}</span>}
           </div>
@@ -170,6 +176,24 @@ function OPDRegistrationForm() {
             {errors.pincode && <span className="error">{errors.pincode}</span>}  
           </div>
 
+          <div className="form-group">
+            <label>Department:</label>
+            <select 
+              name="department" 
+              value={formData.department} 
+              onChange={handleChange} 
+              required
+            >
+              <option value="" disabled>Select Department</option>
+              <option value="cardiology">Cardiology</option>
+              <option value="neurology">Neurology</option>
+              <option value="orthopedics">Orthopedics</option>
+              <option value="pediatrics">Pediatrics</option>
+              <option value="gynecology">Gynecology</option>
+              <option value="dermatology">Dermatology</option>
+            </select>
+            {errors.department && <span className="error">{errors.department}</span>}
+          </div>
 
           <div className="form-group">
             <label>Reason:</label>
