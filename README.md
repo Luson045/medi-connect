@@ -164,6 +164,15 @@ Open your web browser and navigate to `http://localhost:3000` to access the Medi
 - **backend/**: Contains the server-side code, including API routes, controllers, models, and configuration files.
 - **frontend/**: Contains the client-side code built with React.js, including components, pages, context, and services.
 
+**Code Formatting**
+
+To ensure consistent code formatting across the project, you can use the following scripts:
+
+- Run `npm run format` to format your code according to Prettier's rules.
+- Run `npm run format-check` to check if the code is formatted correctly.
+
+Make sure to run these commands in both the `client` and `server` directories.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
