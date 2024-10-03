@@ -28,8 +28,8 @@
   }
   .eye-button{
     position: absolute;
-  top: 50%;
-  right: 0px;
+  top: 25%;
+  right: 25px;
   transform: translateY(-50%);
   border: none;
   cursor: pointer;
