@@ -127,3 +127,29 @@
   background: radial-gradient(circle, pink, white);
 
 }
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 2.5rem; /* Leave space for the icon */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: gray;
+}
+
+.password-toggle:hover {
+  background-color: white; /* Change background color on hover */
+
+}
