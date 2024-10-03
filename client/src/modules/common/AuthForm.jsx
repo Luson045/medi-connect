@@ -13,9 +13,9 @@ const AuthPage = () => {
         password: '',
         confirmPassword: '',
         phone: '',
-        address: '',
+        pincode: '',
         dateOfBirth: '',
-        gender: 'male',
+        gender: '',
     });
 	const [type, setType] = useState('password');
 
@@ -46,7 +46,7 @@ const AuthPage = () => {
             return;
         }
 
-        const endpoint = isRegistering ? '/auth/register' : '/auth/login';
+       const endpoint = isRegistering ? '/auth/register' : '/auth/login';
         const payload = isRegistering
             ? { ...formData }
             : {
@@ -57,11 +57,13 @@ const AuthPage = () => {
 
         try {
             const response = await fetch(`https://medi-connect-f671.onrender.com${endpoint}`, {
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(payload),
+               body: JSON.stringify(payload),
+			   
             });
 
             const data = await response.json();
@@ -126,6 +128,18 @@ const AuthPage = () => {
 							</div>
 
 							<div className='form-group'>
+								<label>Pincode:</label>
+								<input
+									type='text'
+									name='pincode'
+									placeholder='pincode'
+									value={formData.pincode}
+									onChange={handleChange}
+									
+								/>
+							</div>
+
+							{/* <div className='form-group'>
 								<label>Address:</label>
 								<input
 									type='text'
@@ -134,7 +148,7 @@ const AuthPage = () => {
 									onChange={handleChange}
 									
 								/>
-							</div>
+							</div> */}
 						</>
 					)}
 

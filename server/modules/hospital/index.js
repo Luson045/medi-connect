@@ -5,7 +5,7 @@ const User = require('../../models/user');
 const router = express.Router();
 
 // Create a new hospital
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
         const hospital = new Hospital(req.body);
         await hospital.save();

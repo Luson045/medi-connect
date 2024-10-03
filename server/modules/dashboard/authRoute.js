@@ -44,8 +44,7 @@ module.exports = router;
 
 router.post('/register', async (req, res) => {
     try {
-        const { type, name, email, password, phone } = req.body;
-
+        const { type, name, email, password, phone ,pincode} = req.body;
         if (type === 'user') {
             const user = new User({ name, email, password, phone });
             const salt = await bcrypt.genSalt(10);
@@ -53,11 +52,20 @@ router.post('/register', async (req, res) => {
             await user.save();
             res.status(201).json({ message: 'User registered successfully' });
         } else if (type === 'hospital') {
-            const hospital = new Hospital({ name, email, phone });
-            const salt = await bcrypt.genSalt(10);
-            hospital.password = await bcrypt.hash(password, salt); // For future login if necessary
-            await hospital.save();
-            res.status(201).json({ message: 'Hospital registered successfully' });
+              const response= await fetch(`https://nominatim.openstreetmap.org/search.php?q=${pincode}&format=jsonv2`,{
+                method: 'GET',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      }
+              });
+              const data = await response.json();
+                const hospital = new Hospital({ name, email, phone });
+                const salt = await bcrypt.genSalt(10);
+                hospital.address.postalCode = pincode;
+                hospital.password = await bcrypt.hash(password, salt); // For future login if necessary
+                await hospital.save();
+                res.status(201).json({ message: 'Hospital registered successfully' });
+            
         } else {
             res.status(400).json({ message: 'Invalid type' });
         }
