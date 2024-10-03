@@ -6,7 +6,7 @@
   align-items: center;
   padding: 15px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   background-color:lightgoldenrodyellow;
   background-color: #333; /* Change to your desired color */
   padding: 10px 20px;
@@ -25,8 +25,10 @@
 }
 
 .navbar-links {
+  margin-right: 3rem;
   display: flex;
   align-items: center;
+  gap: 4rem;
 }
 
 .navbar-links a {
@@ -38,6 +40,19 @@
 
 .navbar-links a:hover {
   color: whitesmoke; /* Subtle blue accent */
+}
+
+.tab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: 0.3s ease-in;
+}
+
+.tab:hover{
+  text-decoration: underline;
+
 }
 
 .navbar-menu-icon {
