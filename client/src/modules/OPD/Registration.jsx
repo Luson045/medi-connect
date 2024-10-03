@@ -63,7 +63,7 @@ function OPDRegistrationForm() {
     console.log('Validation passed. Submitting form...'); // Debugging log
     setIsSubmitting(true);
     
-    axios.post(`http://localhost:3000/hospitalapi/emergency`, updatedFormData)
+    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, updatedFormData)
       .then(response => {
         console.log('Successfully registered!', response.data); // Debugging log
         alert('Registration Successful!'); // Optional success feedback
