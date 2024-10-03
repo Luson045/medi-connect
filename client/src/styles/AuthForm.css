@@ -27,7 +27,7 @@
     position: relative;
   }
   .eye-button{
-    position: absolute;
+  position: absolute;
   top: 25%;
   right: 25px;
   transform: translateY(-50%);
