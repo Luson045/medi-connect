@@ -131,6 +131,7 @@ const AuthPage = () => {
   return (
     <div className="login_background">
       <Navbar />
+      <div className="auth-maindiv">
       <div className="auth-container">
         <h2>{isRegistering ? "Register" : "Login"}</h2>
         <form onSubmit={handleSubmit} className="auth-form">
@@ -252,9 +253,11 @@ const AuthPage = () => {
             </div>
           )}
 
-          <button type="submit" className="auth-button">
-            {isRegistering ? "Register" : "Login"}
-          </button>
+          <div className="register-button">
+              <button type="submit" className="auth-button">
+                {isRegistering ? "Register" : "Login"}
+              </button>
+            </div>
         </form>
 
         <button onClick={toggleAuthMode} className="toggle-auth-button">
@@ -262,7 +265,8 @@ const AuthPage = () => {
             ? "Already have an account? Login"
             : "Don't have an account? Register"}
         </button>
-      </div>
+        </div>
+        </div>
     </div>
   );
 };
