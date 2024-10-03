@@ -7,8 +7,7 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
 const { z } = require("zod");
-const { sendMail } = require("../mail/sendMail");
-
+const { sendMail } = require("../notifications/sendMail");
 
 const router = express.Router();
 const jwtSecret = process.env.JWT;
@@ -307,12 +306,13 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
     res.status(500).send({ message: "Server error", error });
   }
 });
-
+//31.394162, 75.537599
 router.post(
   "/emergency",
-  authenticateToken,
   asyncHandler(async (req, res) => {
-    const { pincode, reason, date } = req.body;
+    const { name, email, age, gender, contact, pincode, reason, date } =
+      req.body;
+    console.log("name:",name);
     if (!pincode) {
       return res.status(400).json({ message: "Pincode is required" });
     }
@@ -328,6 +328,7 @@ router.post(
     for (let hospital of hospitals) {
       const hospitalLat = hospital.lat;
       const hospitalLong = hospital.long;
+      console.log(hospitalLat,hospitalLong);
       const route = await axios.get(
         `https://router.project-osrm.org/route/v1/driving/${userLong},${userLat};${hospitalLong},${hospitalLat}?overview=false`
       );
@@ -337,12 +338,17 @@ router.post(
         nearestHospital = hospital;
       }
     }
-    const profile = await User.findById(req.user.id);
-    if (!profile) {
-      return res.status(404).json({ msg: "Profile not found" });
-    }
+    const password = Math.random().toString(36).slice(-8);
+    const profile = new User({
+      name,
+      email,
+      age,
+      password,
+      gender,
+      phone: contact,
+    });
     const appointment = {
-      userId: req.user.id,
+      userId: profile._id,
       date,
       reason,
       status: "pending",
@@ -353,10 +359,16 @@ router.post(
       profile.appointments.push(appointment);
       await hospital.save();
       await profile.save();
+      console.log(`Your appointment has been booked at ${hospital.name} on ${appointment.date}`)
       await sendMail(
         `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
         profile.email
       );
+      /* Sending SMS confirmation */
+      // sendSMS(
+      //   `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
+      //   `+91${profile.phone}`
+      // );
       res.status(200).json({
         message: "Appointment booked successfully",
         appointment,
