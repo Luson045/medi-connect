@@ -14,18 +14,23 @@ const AuthPage = () => {
     confirmPassword: "",
     phone: "",
     address: "",
-    dateOfBirth: "",
-    gender: "male",
   });
+
+  const [errors, setErrors] = useState({
+    frontend: {},
+    backend: {},
+  });
+
   const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === "/register") setIsRegistering(true);
-
     if (location.pathname === "/login") setIsRegistering(false);
   }, [location.pathname]);
+
   const toggleAuthMode = () => {
     setIsRegistering(!isRegistering);
+    setErrors({ frontend: {}, backend: {} }); // Clear errors when toggling
   };
 
   const handleChange = (e) => {
@@ -33,13 +38,41 @@ const AuthPage = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setErrors((prev) => ({
+      ...prev,
+      frontend: {
+        ...prev.frontend,
+        [e.target.name]: "", // Clear frontend error for the field being edited
+      },
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (isRegistering) {
+      if (!formData.name) newErrors.name = "Name is required";
+      if (!formData.phone || !/^\d{10}$/.test(formData.phone))
+        newErrors.phone = "Phone number must be exactly 10 digits";
+      if (!formData.address) newErrors.address = "Address is required";
+    }
+    if (!formData.email) newErrors.email = "Email is required (frontend)";
+    if (!formData.password || formData.password.length < 8)
+      newErrors.password = "Password must be at least 8 characters long";
+    if (isRegistering && formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isRegistering && formData.password !== formData.confirmPassword) {
-      notify("Passwords do not match", "warn");
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors((prev) => ({
+        ...prev,
+        frontend: validationErrors,
+      }));
       return;
     }
 
@@ -76,12 +109,22 @@ const AuthPage = () => {
           window.location.href = "/";
         }
       } else {
-        notify(data.message, "warn");
-        console.error(data.message);
+        if (data.errors) {
+          const backendErrors = {};
+          data.errors.forEach((error) => {
+            backendErrors[error.field] = `${error.message} (backend)`;
+          });
+          setErrors((prev) => ({
+            ...prev,
+            backend: backendErrors,
+          }));
+        } else {
+          notify(data.message || "An error occurred. Please try again.", "warn");
+        }
       }
     } catch (error) {
       notify("Error connecting to the server", "error");
-      console.error(error);
+      console.error("Network Error:", error);
     }
   };
 
@@ -89,110 +132,147 @@ const AuthPage = () => {
     <div className="login_background">
       <Navbar />
       <div className="auth-maindiv">
-        <div className="auth-container">
-          <h2>{isRegistering ? "Register" : "Login"}</h2>
+      <div className="auth-container">
+        <h2>{isRegistering ? "Register" : "Login"}</h2>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-section">
+            <label>User Type:</label>
+            <select name="type" value={formData.type} onChange={handleChange}>
+              <option value="user">User</option>
+              <option value="hospital">Hospital</option>
+            </select>
+          </div>
 
-          {/* Form Section */}
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-section">
-              <label>User Type:</label>
-              <select name="type" value={formData.type} onChange={handleChange}>
-                <option value="user">User</option>
-                <option value="hospital">Hospital</option>
-              </select>
-            </div>
-
-            {isRegistering && (
-              <>
-                <div className="form-section">
-                  <label>Name:</label>
-                  <input
-                    type="text"
+          {isRegistering && (
+            <>
+              <div className="form-section">
+                <label>Name:</label>
+                <input
+                  type="text"
                     name="name"
                     placeholder="John Doe"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-section">
-                  <label>Phone:</label>
-                  <input
-                    type="text"
-                    name="phone"
-                    placeholder="9898989898"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-section">
-                  <label>Address:</label>
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="Enter address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </>
-            )}
-
-            <div className="form-section">
-              <label>Email:</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="example@gmail.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-section">
-              <label>Password:</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {isRegistering && (
-              <div className="form-section">
-                <label>Confirm Password:</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Re-type password"
-                  value={formData.confirmPassword}
+                  value={formData.name}
                   onChange={handleChange}
                   required
                 />
+                {errors.frontend.name && (
+                  <span className="error">{errors.frontend.name}</span>
+                )}
+                {errors.backend.name && (
+                  <span className="error">{errors.backend.name}</span>
+                )}
               </div>
+
+              <div className="form-section">
+                <label>Phone:</label>
+                <input
+                  type="text"
+                    name="phone"
+                    placeholder="9898989898"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+                {errors.frontend.phone && (
+                  <span className="error">{errors.frontend.phone}</span>
+                )}
+                {errors.backend.phone && (
+                  <span className="error">{errors.backend.phone}</span>
+                )}
+              </div>
+
+              <div className="form-section">
+                <label>Address:</label>
+                <input
+                  type="text"
+                    name="address"
+                    placeholder="Enter address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                />
+                {errors.frontend.address && (
+                  <span className="error">{errors.frontend.address}</span>
+                )}
+                {errors.backend.address && (
+                  <span className="error">{errors.backend.address}</span>
+                )}
+              </div>
+            </>
+          )}
+
+          <div className="form-section">
+            <label>Email:</label>
+            <input
+              type="email"
+                name="email"
+                placeholder="example@gmail.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {errors.frontend.email && (
+              <span className="error">{errors.frontend.email}</span>
             )}
-            <div className="register-button">
+            {errors.backend.email && (
+              <span className="error">{errors.backend.email}</span>
+            )}
+          </div>
+
+          <div className="form-section">
+            <label>Password:</label>
+            <input
+              type="password"
+                name="password"
+                placeholder="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            {errors.frontend.password && (
+              <span className="error">{errors.frontend.password}</span>
+            )}
+            {errors.backend.password && (
+              <span className="error">{errors.backend.password}</span>
+            )}
+          </div>
+
+          {isRegistering && (
+            <div className="form-section">
+              <label>Confirm Password:</label>
+              <input
+                type="password"
+                  name="confirmPassword"
+                  placeholder="Re-type password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              {errors.frontend.confirmPassword && (
+                <span className="error">
+                  {errors.frontend.confirmPassword}
+                </span>
+              )}
+              {errors.backend.confirmPassword && (
+                <span className="error">{errors.backend.confirmPassword}</span>
+              )}
+            </div>
+          )}
+
+          <div className="register-button">
               <button type="submit" className="auth-button">
                 {isRegistering ? "Register" : "Login"}
               </button>
             </div>
-          </form>
+        </form>
 
-          <button onClick={toggleAuthMode} className="toggle-auth-button">
-            {isRegistering
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
-          </button>
+        <button onClick={toggleAuthMode} className="toggle-auth-button">
+          {isRegistering
+            ? "Already have an account? Login"
+            : "Don't have an account? Register"}
+        </button>
         </div>
-      </div>
+        </div>
     </div>
   );
 };
