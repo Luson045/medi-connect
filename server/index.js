@@ -10,7 +10,7 @@ const { z } = require("zod");
 require("dotenv").config({ path: "../.env" });
 
 const app = express();
-const port = 3000;
+const port = 5000;
 const corsOptions = {
   origin: [
     "https://learnstocks.netlify.app",
@@ -32,7 +32,7 @@ app.use(express.static("public"));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
 mongoose
-  .connect(process.env.MONOGO_URI, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

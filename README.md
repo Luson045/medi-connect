@@ -115,6 +115,7 @@ Ensure you have the following installed on your local machine:
 - [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/)
 - [MongoDB](https://www.mongodb.com/) (if using MongoDB as the database)
+- [Docker](https://docs.docker.com/engine/install/)
 
 ### Installation
 
@@ -148,6 +149,32 @@ PORT=5000
 PASSDB=your_mongodb_connection_string
 JWT=your_jwt_secret
 ```
+
+### Installation via Docker
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/Luson045/medi-connect
+   cd medi-connect
+   ```
+
+2. Run the following commands
+   ```
+       docker compose build
+       docker compose up
+   ```
+
+3. To close the running containers run `docker compose down`
+ 
+4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
+
+*** Video Guide for how to run project via Docker
+
+
+https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
+
+
 
 ## Usage
 
