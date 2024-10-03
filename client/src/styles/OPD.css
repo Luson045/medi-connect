@@ -5,7 +5,6 @@
   margin: 50px auto;
   padding: 30px;
   background-color: #ffffff;
-  
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
@@ -38,9 +37,11 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="tel"],
+input[type="email"],
+input[type="password"],
 select,
 textarea {
-  width: 99%;
+  width: 100%; /* Ensure it takes full width */
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -62,16 +63,6 @@ textarea {
   resize: vertical;
 }
 
-select {
-  width: 90vh;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 1rem;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
 .submit-btn {
   background-color: #007bff;
   color: #fff;
@@ -80,11 +71,17 @@ select {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  width: 40%;
   transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
   background-color: #0056b3;
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc; /* Light gray for disabled state */
+  cursor: not-allowed;
 }
 
 .back-button {
@@ -99,6 +96,13 @@ select {
 
 .back-button:hover {
   color: #0056b3;
+}
+
+/* Error Message Styling */
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 /* Responsive Design */
