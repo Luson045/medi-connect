@@ -1,0 +1,10 @@
+*.env
+.env
+.env.*
+/.vscode
+./dist
+build/
+node_modules/
+**/*.snap
+public/
+coverage/

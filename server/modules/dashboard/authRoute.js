@@ -1,4 +1,3 @@
-
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -6,28 +5,32 @@ const User = require("../../models/user");
 const Hospital = require("../../models/hospital");
 require("dotenv").config({ path: "../.env" });
 const jwtSecret = process.env.JWT;
+const NodeGeocoder = require("node-geocoder");
 
-const {z}=require('zod')
-
-
+const { z } = require("zod");
+const options = {
+  provider: "opencage",
+  apiKey: process.env.OPENCAGE_API_KEY,
+};
+const geocoder = NodeGeocoder(options);
 
 const router = express.Router();
 
 // Zod Schemas for Validation
 const userSchema = z.object({
-  type: z.enum(['user', 'hospital']),
-  name: z.string().min(3, 'Name should be at least 3 characters long'),
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(6, 'Password should be at least 6 characters long'),
-  phone: z.string().optional()
+  type: z.enum(["user", "hospital"]),
+  name: z.string().min(3, "Name should be at least 3 characters long"),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password should be at least 6 characters long"),
+  phone: z.string().optional(),
+  pincode: z.string().optional(),
 });
 
 const loginSchema = z.object({
-  type: z.enum(['user', 'hospital']),
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(6, 'Password should be at least 6 characters long'),
+  type: z.enum(["user", "hospital"]),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password should be at least 6 characters long"),
 });
-
 
 // Middleware to authenticate using token
 const authenticateToken = (req, res, next) => {
@@ -42,8 +45,6 @@ const authenticateToken = (req, res, next) => {
     res.status(401).json({ msg: "Token is not valid" });
   }
 };
-
-
 
 // Profile route to fetch current user's or hospital's profile
 router.get("/profile", authenticateToken, async (req, res) => {
@@ -68,49 +69,58 @@ router.get("/profile", authenticateToken, async (req, res) => {
 
 module.exports = router;
 
-router.post('/register', async (req, res) => {
-    try {
-        const { type, name, email, password, phone ,pincode} = req.body;
-        if (type === 'user') {
-            const user = new User({ name, email, password, phone });
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
-            await user.save();
-            res.status(201).json({ message: 'User registered successfully' });
-        } else if (type === 'hospital') {
-              const response= await fetch(`https://nominatim.openstreetmap.org/search.php?q=${pincode}&format=jsonv2`,{
-                method: 'GET',
-                      headers: {
-                          'Content-Type': 'application/json',
-                      }
-              });
-              const data = await response.json();
-                const hospital = new Hospital({ name, email, phone });
-                const salt = await bcrypt.genSalt(10);
-                hospital.address.postalCode = pincode;
-                hospital.password = await bcrypt.hash(password, salt); // For future login if necessary
-                await hospital.save();
-                res.status(201).json({ message: 'Hospital registered successfully' });
-            
-        } else {
-            res.status(400).json({ message: 'Invalid type' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Error registering user/hospital', error });
+router.post("/register", async (req, res) => {
+  try {
+    // Validate the request body using Zod
+    const parsedData = userSchema.parse(req.body);
 
+    const { type, name, email, password, phone, pincode } = parsedData;
+
+    if (type === "user") {
+      const user = new User({ name, email, password, phone });
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+      await user.save();
+      res.status(201).json({ message: "User registered successfully" });
+    } else if (type === "hospital") {
+      if (!pincode) {
+        return res.status(400).json({ message: "Pincode is required" });
+      }
+      const hospital = new Hospital({ name, email, phone });
+      const salt = await bcrypt.genSalt(10);
+      hospital.password = await bcrypt.hash(password, salt); // For future login if necessary
+
+      const results = await geocoder.geocode(pincode + " India");
+      if (results.length === 0) {
+        return res.status(404).json({ message: "Location not found" });
+      }
+      const hospitalLat = results[0].latitude;
+      const hospitalLong = results[0].longitude;
+      hospital.lat = hospitalLat;
+      hospital.long = hospitalLong;
+      hospital.address.postalCode = pincode;
+
+      await hospital.save();
+      res
+        .status(201)
+        .json({ message: "Hospital registered successfully", hospital });
+    } else {
+      res.status(400).json({ message: "Invalid type" });
     }
   } catch (error) {
     if (error instanceof z.ZodError) {
       // Send Zod validation error response
-      return res.status(400).json({ message: 'Validation error', errors: error.errors });
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
-    res.status(500).json({ message: 'Error registering user/hospital', error });
+    res.status(500).json({ message: "Error registering user/hospital", error });
   }
 });
 
 // Login
 
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     // Validate login request body using Zod
     const parsedData = loginSchema.parse(req.body);
@@ -119,19 +129,19 @@ router.post('/login', async (req, res) => {
 
     let userOrHospital;
 
-    if (type === 'user') {
+    if (type === "user") {
       userOrHospital = await User.findOne({ email });
-    } else if (type === 'hospital') {
+    } else if (type === "hospital") {
       userOrHospital = await Hospital.findOne({ email });
     }
 
     if (!userOrHospital) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, userOrHospital.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
     const payload = { user: { id: userOrHospital.id } };
     jwt.sign(payload, jwtSecret, { expiresIn: 3600 * 3 * 24 }, (err, token) => {
@@ -139,13 +149,17 @@ router.post('/login', async (req, res) => {
       res.json({ token, message: `${type} logged in successfully` });
     });
   } catch (error) {
-
-    console.error('Login error:', error); // Log the error
+    console.error("Login error:", error); // Log the error
     if (error instanceof z.ZodError) {
-        return res.status(400).json({ message: 'Validation error', errors: error.errors });
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
-    res.status(500).json({ message: 'Error logging in', error: error.message || 'An unknown error occurred' });
-}
+    res.status(500).json({
+      message: "Error logging in",
+      error: error.message || "An unknown error occurred",
+    });
+  }
 });
 
 module.exports = router;
