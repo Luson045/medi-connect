@@ -28,7 +28,6 @@ function OPDRegistrationForm() {
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else {
-      // Basic email format validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
         newErrors.email = 'Invalid email format';
@@ -51,16 +50,18 @@ function OPDRegistrationForm() {
     if (!formData.reason.trim()) newErrors.reason = 'Reason is required';
     if (!formData.date) newErrors.date = 'Date is required';
 
-    // Optional: Validate file type and size if a file is uploaded
-    if (formData.report) {
+    if (formData.report.length > 0) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-      if (!allowedTypes.includes(formData.report.type)) {
-        newErrors.report = 'Only PDF, JPEG, and PNG files are allowed';
-      }
       const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-      if (formData.report.size > maxSizeInBytes) {
-        newErrors.report = 'File size should not exceed 5MB';
-      }
+
+      formData.report.forEach((file) => {
+        if (!allowedTypes.includes(file.type)) {
+          newErrors.report = 'Only PDF, JPEG, and PNG files are allowed';
+        }
+        if (file.size > maxSizeInBytes) {
+          newErrors.report = 'File size should not exceed 5MB';
+        }
+      });
     }
 
     return newErrors;
@@ -69,18 +70,16 @@ function OPDRegistrationForm() {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'report') {
-      // Convert FileList to array and set it in state
       setFormData((prevData) => ({
         ...prevData,
-        report: [...prevData.report, ...Array.from(files)], // Add new files to the existing array
+        report: [...prevData.report, ...Array.from(files)], 
       }));
-      setErrors({ ...errors, report: '' }); // Clear report errors
+      setErrors({ ...errors, report: '' }); 
     } else {
       setFormData({ ...formData, [name]: value });
       setErrors({ ...errors, [name]: '' });
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,33 +93,21 @@ function OPDRegistrationForm() {
   
     setIsSubmitting(true);
   
-    // Create FormData to handle file upload
     const submissionData = new FormData();
-    submissionData.append('name', formData.name);
-    submissionData.append('email', formData.email);
-    submissionData.append('age', formData.age);
-    submissionData.append('gender', formData.gender);
-    submissionData.append('contact', formData.contact);
-    submissionData.append('address', formData.address);
-    submissionData.append('department', formData.department);
-    submissionData.append('pincode', formData.pincode);
-    submissionData.append('reason', formData.reason);
-    submissionData.append('date', formData.date);
-    
-    // Append each file in the report array to FormData
-    formData.report.forEach((file) => {
-      submissionData.append('report', file);
+    Object.keys(formData).forEach((key) => {
+      if (key === 'report') {
+        formData.report.forEach((file) => submissionData.append('report', file));
+      } else {
+        submissionData.append(key, formData[key]);
+      }
     });
   
     axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then(response => {
         console.log('Successfully registered!', response.data);
         alert('Registration Successful!');
-        // Optionally, reset the form
         setFormData({
           name: '',
           email: '',
@@ -143,7 +130,6 @@ function OPDRegistrationForm() {
         setIsSubmitting(false);
       });
   };
-  
 
   return (
     <>
@@ -151,7 +137,6 @@ function OPDRegistrationForm() {
       <section className="form-container">
         <h2>OPD Registration</h2>
         <form onSubmit={handleSubmit} className="opd-registration-form">
-          {/* Name Field */}
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -166,7 +151,6 @@ function OPDRegistrationForm() {
             {errors.name && <span className="error">{errors.name}</span>}
           </div>
 
-          {/* Email Field */}
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
@@ -181,7 +165,6 @@ function OPDRegistrationForm() {
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
 
-          {/* Age Field */}
           <div className="form-group">
             <label htmlFor="age">Age:</label>
             <input
@@ -196,7 +179,6 @@ function OPDRegistrationForm() {
             {errors.age && <span className="error">{errors.age}</span>}
           </div>
 
-          {/* Gender Field */}
           <div className="form-group">
             <label htmlFor="gender">Gender:</label>
             <select
@@ -214,7 +196,6 @@ function OPDRegistrationForm() {
             {errors.gender && <span className="error">{errors.gender}</span>}
           </div>
 
-          {/* Contact Number Field */}
           <div className="form-group">
             <label htmlFor="contact">Contact Number:</label>
             <input
@@ -229,7 +210,6 @@ function OPDRegistrationForm() {
             {errors.contact && <span className="error">{errors.contact}</span>}
           </div>
 
-          {/* Address Field */}
           <div className="form-group">
             <label htmlFor="address">Address:</label>
             <input
@@ -244,7 +224,6 @@ function OPDRegistrationForm() {
             {errors.address && <span className="error">{errors.address}</span>}
           </div>
 
-          {/* Pincode Field */}
           <div className="form-group">
             <label htmlFor="pincode">Pincode:</label>
             <input
@@ -259,7 +238,6 @@ function OPDRegistrationForm() {
             {errors.pincode && <span className="error">{errors.pincode}</span>}
           </div>
 
-          {/* Department Field */}
           <div className="form-group">
             <label htmlFor="department">Department:</label>
             <select
@@ -280,7 +258,6 @@ function OPDRegistrationForm() {
             {errors.department && <span className="error">{errors.department}</span>}
           </div>
 
-          {/* Reason Field */}
           <div className="form-group">
             <label htmlFor="reason">Reason:</label>
             <textarea
@@ -294,7 +271,6 @@ function OPDRegistrationForm() {
             {errors.reason && <span className="error">{errors.reason}</span>}
           </div>
 
-          {/* Date Field */}
           <div className="form-group">
             <label htmlFor="date">Date:</label>
             <input
@@ -308,29 +284,26 @@ function OPDRegistrationForm() {
             {errors.date && <span className="error">{errors.date}</span>}
           </div>
 
-          {/* Optional Report Upload Field */}
-         {/* Optional Report Upload Field */}
           <div className="form-group">
             <label htmlFor="report">Upload Report (Optional):</label>
             <input
               type="file"
               id="report"
               name="report"
-              accept=".pdf, .jpg, .jpeg, .png"
+              multiple
               onChange={handleChange}
-              multiple // Allow multiple file selections
             />
             {errors.report && <span className="error">{errors.report}</span>}
           </div>
 
-
-          {/* Submit Button */}
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Registering...' : 'Register'}
-          </button>
-
-          {/* Back to Home Link */}
-          <Link to="/" className="back-button">Back to Home</Link>
+          <div className="form-actions">
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Registering...' : 'Register'}
+            </button>
+            <Link to="/" className="back-btn">
+              Back to Home
+            </Link>
+          </div>
         </form>
       </section>
     </>
