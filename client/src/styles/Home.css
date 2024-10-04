@@ -6,10 +6,16 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  /* background:lightblue; */
-  /* background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%); */
   background: linear-gradient(90deg, #fbd8e5, #fff);
 }
+.bg-image-section {
+  background-image: url('../../public/doctor.png');
+  background-repeat: no-repeat;
+  background-position: right 1000px; /* Moves the image 20% from the top */
+  background-size: contain; /* You can use contain or cover depending on how much space you want the image to take */
+}
+
+
 .data{
   max-width:100%;
 }
@@ -41,7 +47,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background-image: url('https://www.example.com/hero-image.jpg'); /* Replace with actual image URL */
+  background-image: url('../../public/doctor.png'); /* Replace with actual image URL */
   background-size: cover;
   background-position: center;
   padding: 100px 20px;
