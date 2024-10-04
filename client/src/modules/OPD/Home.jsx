@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/Home.css";
@@ -11,6 +12,7 @@ import "aos/dist/aos.css";
 import d1 from "../../assets/images/d1.jpg";
 import d2 from "../../assets/images/d2.jpg";
 import d3 from "../../assets/images/d3.jpg";
+
 
 AOS.init({
   duration: 2000,
@@ -93,6 +95,7 @@ function Home() {
         <section className="py-20 mt-20">
           <Review />
         </section>
+
       </div>
     </>
   );
