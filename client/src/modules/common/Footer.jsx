@@ -1,11 +1,38 @@
-import React from "react";
-import '../../styles/Footer.css';  
+import React, { useState, useEffect } from 'react';
+import '../../styles/Footer.css';
 import instagram from '../../assets/instagram-brands-solid.svg';
 import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
+import { FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 200) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+  };
+
+  //function for scrolling to the top:
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // Attach scroll event listener
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <footer className="footer">
       <div className="footer-sections">
@@ -42,22 +69,38 @@ const Footer = () => {
           <h3>Follow us on</h3>
           <ul className="social-icons">
             <li>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={instagram} alt="Instagram" />
               </a>
             </li>
             <li>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={facebook} alt="Facebook" />
               </a>
             </li>
             <li>
-              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={twitter} alt="Twitter" />
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={linkedin} alt="LinkedIn" />
               </a>
             </li>
@@ -68,13 +111,25 @@ const Footer = () => {
       <div className="disclaimer">
         <p>DISCLAIMER</p>
         <p>
-          “The information provided on Medi-Connect is intended for general informational purposes only and should not be considered as medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider for any medical condition or treatment. Medi-Connect facilitates OPD appointment booking and hospital data sharing, but it does not endorse or guarantee the quality of services provided by healthcare providers.”
+          “The information provided on Medi-Connect is intended for general
+          informational purposes only and should not be considered as medical
+          advice, diagnosis, or treatment. Always seek the advice of a qualified
+          healthcare provider for any medical condition or treatment.
+          Medi-Connect facilitates OPD appointment booking and hospital data
+          sharing, but it does not endorse or guarantee the quality of services
+          provided by healthcare providers.”
         </p>
       </div>
 
       <div className="footer-bottom">
         <p>Medi connect ©2024</p>
       </div>
+
+      {showScrollTop && (
+        <button onClick={scrollToTop} className="scroll-to-top">
+          <FaArrowUp size={24} />
+        </button>
+      )}
     </footer>
   );
 };
