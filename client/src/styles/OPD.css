@@ -34,11 +34,11 @@ label {
   font-size: 1.1rem;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="tel"],
-input[type="email"],
-input[type="password"],
+input[type='text'],
+input[type='number'],
+input[type='tel'],
+input[type='email'],
+input[type='password'],
 select,
 textarea {
   width: 100%; /* Ensure it takes full width */
