@@ -35,13 +35,13 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(178, 121, 216, 0.959) !important; /* Force handle color */
+  background: #64a5e5 !important; /* Force handle color */
   border-radius: 12px !important; /* Force handle radius */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(222, 130, 235, 0.911) !important; /* Force hover color */
+  background: #057ef5 !important; /* Force hover color */
   border-radius: 12px !important;
 }
 

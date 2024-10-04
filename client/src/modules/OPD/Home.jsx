@@ -8,6 +8,7 @@ import Review from './Review';
 import TableComponent from './TableComponent';
 import PatientDistributionChart from './PatientDistributionChart';
 import FloatingIcons from '../common/FloatingIcons';
+import '../../styles/Home.css'
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <motion.div
@@ -21,7 +22,7 @@ const ServiceCard = ({ icon: Icon, title, details }) => (
   >
     <Icon size={48} className="text-blue-500 mb-4" />
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{details}</p>
+    <p className="text-blue-600">{details}</p>
   </motion.div>
 );
 
