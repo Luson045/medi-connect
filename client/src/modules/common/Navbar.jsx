@@ -9,8 +9,19 @@ import {
   FaHospital,
   FaClipboardList,
   FaHamburger,
+  FaInfoCircle,
+  FaUser,
+  FaUserPlus,
 } from 'react-icons/fa';
-import { IoClose, IoLogInSharp, IoMenu } from 'react-icons/io5';
+import {
+  IoClose,
+  IoHome,
+  IoLogInSharp,
+  IoMenu,
+  IoPerson,
+} from 'react-icons/io5';
+import { MdLogin, MdOutlineLocalHospital } from 'react-icons/md';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 // function Navbar() {
 //   const { user, isAuthenticated = true, handleLogout } = useContext(UserContext);
@@ -125,39 +136,43 @@ const Navbar = () => {
         <div className="bg-[#333333]  absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
           <NavLink
             className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''}`
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
             }
             to="/"
+            onClick={() => setMobileMenuOpen(false)}
           >
-            Home
+            <IoHome /> <p>Home</p>
           </NavLink>
           {isAuthenticated ? (
             <>
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'border-b border-white ' : ''}`
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
                 }
                 to="/about"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                About
+                <AiOutlineInfoCircle /> <p>About</p>
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  `${isActive ? 'border-b border-white ' : ''}`
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
                 }
                 to="/profile"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Profile
+                <FaUser /> <p>Profile</p>
               </NavLink>
               {user && user.role === 'user' && (
                 <>
                   <NavLink
                     className={({ isActive }) =>
-                      `${isActive ? 'border-b border-white ' : ''}`
+                      `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
                     }
                     to="/hospitals"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    Hospitals
+                    <FaHospital /> <p>Hospitals</p>
                   </NavLink>
                 </>
               )}
@@ -165,11 +180,13 @@ const Navbar = () => {
                 <>
                   <NavLink
                     className={({ isActive }) =>
-                      `${isActive ? 'border-b border-white ' : ''}`
+                      `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
                     }
                     to="/panal"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    OPD Panal
+                    <MdOutlineLocalHospital />
+                    <p>OPD Panal</p>
                   </NavLink>
                 </>
               )}
@@ -177,10 +194,12 @@ const Navbar = () => {
           ) : (
             <NavLink
               className={({ isActive }) =>
-                `${isActive ? 'border-b border-white ' : ''}`
+                `${isActive ? 'border-b border-white ' : ''} flex items-center gap-2`
               }
               to="/registerOPD"
+              onClick={() => setMobileMenuOpen(false)}
             >
+              <MdOutlineLocalHospital />
               Instant OPD
             </NavLink>
           )}
@@ -195,19 +214,21 @@ const Navbar = () => {
             <div className="flex gap-5">
               <NavLink
                 className={({ isActive }) =>
-                  `bg-white px-5 py-1 rounded-lg text-black`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black`
                 }
                 to="/login"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Login
+                <MdLogin /> Login
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  ` bg-white px-5 py-1 rounded-lg text-black`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black`
                 }
                 to="/register"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Register
+                <FaUserPlus /> <p> Register</p>
               </NavLink>
             </div>
           )}
@@ -215,47 +236,66 @@ const Navbar = () => {
       )}
       <div className=" hidden lg:flex items-center gap-32">
         <div className="flex items-center gap-10">
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/" className={`flex justify-center items-center gap-2`}>
+            <FaHome />
+            <p>Home</p>
+          </NavLink>
           {isAuthenticated ? (
             <>
-              <NavLink to="/about">About</NavLink>
-              <NavLink to="/profile">Profile</NavLink>
+              <NavLink
+                to="/about"
+                className={`flex justify-center items-center gap-2`}
+              >
+                <AiOutlineInfoCircle /> <p>About</p>
+              </NavLink>
+              <NavLink to="/profile" className={`flex items-baseline gap-2`}>
+                <FaUser /> <p>Profile</p>
+              </NavLink>
               {user && user.role === 'user' && (
                 <>
-                  <NavLink to="/hospitals">Hospitals</NavLink>
+                  <NavLink
+                    to="/hospitals"
+                    className={`flex items-baseline gap-2`}
+                  >
+                    <FaHospital /> <p>Hospitals</p>
+                  </NavLink>
                 </>
               )}
               {user && user.role === 'hospital' && (
                 <>
-                  <NavLink to="/panal">OPD Panal</NavLink>
+                  <NavLink to="/panal" className={`flex items-baseline gap-2`}>
+                    <MdOutlineLocalHospital /> <p>OPD Panal</p>
+                  </NavLink>
                 </>
               )}
             </>
           ) : (
-            <NavLink to="/registerOPD">Instant OPD</NavLink>
+            <NavLink to="/registerOPD" className={`flex items-center gap-2`}>
+              <MdOutlineLocalHospital /> <p>Instant OPD</p>
+            </NavLink>
           )}
         </div>
         <div className="flex gap-5">
           {isAuthenticated ? (
             <button
               className="bg-white px-5 py-1 rounded-lg text-black"
-             onClick={handleLogout}
+              onClick={handleLogout}
             >
               Log Out
             </button>
           ) : (
             <>
               <NavLink
-                className="bg-white px-5 py-1 rounded-lg text-black"
+            className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
                 to="/login"
               >
-                Login
+                <MdLogin /> Login
               </NavLink>
               <NavLink
-                className="bg-white px-5 py-1 rounded-lg text-black"
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
                 to="/register"
               >
-                Register
+                <FaUserPlus /> <p> Register</p>
               </NavLink>
             </>
           )}
