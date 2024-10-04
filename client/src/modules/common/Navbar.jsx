@@ -4,7 +4,9 @@ import React, { useContext,useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Navbar.css'; // Ensure the path is correct
 import { UserContext } from './userContext';
-import {FaUser,FaPowerOff} from 'react-icons/fa';
+import { FaHome , FaHospital  , FaClipboardList} from "react-icons/fa";
+import { IoLogInSharp } from "react-icons/io5";
+
 function Navbar() {
   const { user, isAuthenticated, handleLogout } = useContext(UserContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +22,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/"><img className="logo-image"src="./logo.png"></img></Link>
+        <Link to="/"><img className="logo-image"src="logo.png"></img></Link>
       </div>
 
       {/* Hamburger menu icon for mobile */}
@@ -34,7 +36,10 @@ function Navbar() {
 
       {/* Navigation links */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className="home tab">
+          <FaHome/>
         <Link to="/">Home</Link>
+        </div>
 
         {isAuthenticated && (
           <>
@@ -58,9 +63,20 @@ function Navbar() {
         {/* Authentication links */}
         {!isAuthenticated ? (
           <>
-            <Link to="/registerOPD">OPD</Link>
-            <Link to="/register"><FaPowerOff icon="fa-solid fa-power-off" /></Link>
-            <Link to="/login"><FaUser icon="fa-solid fa-user" /></Link>
+            <div className="tab">
+              <FaHospital/>
+            <Link to="/registerOPD">Instant OPD</Link>
+            </div>
+            
+            <div className="tab">
+              <IoLogInSharp/>
+            <Link to="/login">Login</Link>
+            </div>
+
+            <div className="tab">
+              <FaClipboardList/>
+            <Link to="/register">Register</Link>
+            </div>
           </>
         ) : (
           <>

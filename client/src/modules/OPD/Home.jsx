@@ -12,6 +12,7 @@ import "aos/dist/aos.css";
 import d1 from "../../assets/images/d1.jpg";
 import d2 from "../../assets/images/d2.jpg";
 import d3 from "../../assets/images/d3.jpg";
+import { Calendar, Clock } from "lucide-react";
 
 
 AOS.init({
@@ -28,18 +29,48 @@ function Home() {
 
   return (
     <>
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
       <Navbar />
       <div className="home-page">
-        <section className="w-full h-auto hero-box">
-          <div className='flex flex-col height:100dvh p-20'>
-            <h1 className='text-[2.5rem] sm:text-[3rem] md:text-[4rem] font-bold text-white'>Online OPD Registration</h1>
-            <p className='text-[1rem] sm:text-[1.5rem] md:text-[2rem] text-white italic'>Skip the queue and get the care you need faster.</p>
-            <div className='flex flex-col sm:flex-row gap-4 justify-center md:justify-start'>
-              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-custom-blue text-white hover:bg-white hover:text-custom-blue cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/registerOPD">Instant OPD</Link></button>
-              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-custom-blue text-white hover:bg-white hover:text-custom-blue cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/register">Explore</Link></button>
+      <section className="w-full min-h-screen flex items-center justify-center mt-[-60px]">
+            <div className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between">
+              {/* Text Section */}
+              <div className="md:w-1/2 mb-12 md:mb-0 text-center md:text-left">
+                <h1 className="text-5xl md:text-6xl font-bold text-blue-800 mb-6" data-aos="fade-up">
+                  Online OPD Registration
+                </h1>
+                <p className="text-2xl md:text-3xl text-gray-700 mb-10" data-aos="fade-up">
+                  Skip the queue and get the care you need faster.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+                  <Link
+                    to="/registerOPD"
+                    className="flex items-center justify-center px-8 py-4 text-xl font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+                    data-aos="fade-up"
+                  >
+                    <Calendar className="mr-2" /> Instant OPD
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex items-center justify-center px-8 py-4 text-xl font-semibold rounded-lg bg-green-600 text-white hover:bg-green-700 transition duration-300 ease-in-out"
+                    data-aos="fade-up"
+                  >
+                    <Clock className="mr-2" /> Explore Services
+                  </Link>
+                </div>
+              </div>
+
+              {/* Image Section */}
+              <div className="md:w-1/2 flex justify-center">
+                <img
+                  src="doctor.png"
+                  alt="Doctor with patient"
+                  className="object-cover rounded-2xl w-full max-w-2xl h-auto"
+                  data-aos="fade-left"
+                />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
         <section className="mt-20">
           <div className="flex flex-col justify-center items-center">
@@ -96,6 +127,7 @@ function Home() {
           <Review />
         </section>
 
+      </div>
       </div>
     </>
   );

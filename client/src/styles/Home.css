@@ -6,17 +6,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-
-  /* background:lightblue; */
-  /* background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%); */
-  /* background: linear-gradient(90deg, #fbd8e5, #fff); */
-}
-.hero-box{
-  background-image: url('../assets/images/bg-hero1.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-
+  background: linear-gradient(90deg, #fbd8e5, #fff);
 }
 .bg-image-section {
   background-image: url('../../public/doctor.png');
