@@ -25,7 +25,7 @@ function Home() {
         <Navbar />
         <div className="home-page">
 
-          <section className="w-full min-h-screen flex items-center justify-center">
+          <section className="w-full min-h-screen flex items-center justify-center mt-[-60px]">
             <div className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between">
               {/* Text Section */}
               <div className="md:w-1/2 mb-12 md:mb-0 text-center md:text-left">
