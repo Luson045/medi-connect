@@ -10,7 +10,7 @@ module.exports = {
         '40': '1.1'
       },
       colors:{
-        'custom-green':'#31ab91'
+        'custom-blue':'#057ef5'
       }
     },
   },

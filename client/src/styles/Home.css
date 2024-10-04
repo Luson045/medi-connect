@@ -11,7 +11,7 @@ body {
   /* background: linear-gradient(90deg, #fbd8e5, #fff); */
 }
 .hero-box{
-  background-image: url('../assets/images/hero-bg.png');
+  background-image: url('../assets/images/bg-hero1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

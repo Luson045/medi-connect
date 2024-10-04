@@ -33,15 +33,15 @@ function Home() {
             <h1 className='text-[2.5rem] sm:text-[3rem] md:text-[4rem] font-bold text-white'>Online OPD Registration</h1>
             <p className='text-[1rem] sm:text-[1.5rem] md:text-[2rem] text-white italic'>Skip the queue and get the care you need faster.</p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center md:justify-start'>
-              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-white text-custom-green hover:bg-custom-green hover:text-white cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/registerOPD">Instant OPD</Link></button>
-              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-white text-custom-green hover:bg-custom-green hover:text-white cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/register">Explore</Link></button>
+              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-custom-blue text-white hover:bg-white hover:text-custom-blue cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/registerOPD">Instant OPD</Link></button>
+              <button className='btn p-2 w-full sm:w-[13rem] text-[1.1rem] mt-6 bg-custom-blue text-white hover:bg-white hover:text-custom-blue cursor-pointer rounded-full z-10  py-3 px-6' data-aos="fade-up"><Link to="/register">Explore</Link></button>
             </div>
           </div>
         </section>
 
         <section className="mt-20">
           <div className="flex flex-col justify-center items-center">
-          <h1 className="text-center text-[2.5rem] sm:text-[3rem] md:text-[4rem]  text-custom-green font-medium">
+          <h1 className="text-center text-[2.5rem] sm:text-[3rem] md:text-[4rem]  text-custom-blue font-medium">
             Our Services
           </h1>
           <p className="text-[16px] font-normal m-4">Asperiores sunt consectetur impedit nulla molestiae delectus repellat laborum dolores doloremque accusantium</p>
@@ -58,7 +58,7 @@ function Home() {
         </section>
 
         <section className="mt-20">
-          <h2 className="text-center text-[2.5rem] sm:text-[3rem] md:text-[4rem] font-bold text-custom-green">
+          <h2 className="text-center text-[2.5rem] sm:text-[3rem] md:text-[4rem] font-bold text-custom-blue">
             Research and Data
           </h2>
           <div className="flex flex-col lg:flex-col justify-between items-center mt-10 gap-10">
