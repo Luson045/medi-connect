@@ -12,13 +12,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../src/modules/common/Footer'; // Import Footer
+import Navbar from './modules/common/Navbar';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <UserProvider>
-          <div>
+          <Navbar/>
+          <div className='mt-14'>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<AboutPage />} />
