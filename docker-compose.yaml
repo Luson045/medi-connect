@@ -1,0 +1,30 @@
+
+services:
+    frontend:
+        build:
+          context: ./client
+        ports:
+            - "3000:3000"
+        container_name: "medi-connect-frontend"
+
+    backend:
+        build:
+          context: ./server
+        ports:
+            - "5000:5000"
+        container_name: "medi-connect-backend"
+        environment:
+            MONGO_URI: mongodb://mongodb:27017/mydatabase   
+        depends_on:
+           - mongodb    
+
+    mongodb:
+        image: mongo:latest
+        container_name: "medi-connect-mongodb"
+        ports:
+            - "27017:27017" 
+        volumes:
+            - mongo-data:/data/db
+
+volumes:
+   mongo-data:

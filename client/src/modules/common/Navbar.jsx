@@ -4,6 +4,8 @@ import React, { useContext,useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Navbar.css'; // Ensure the path is correct
 import { UserContext } from './userContext';
+import { FaHome , FaHospital  , FaClipboardList} from "react-icons/fa";
+import { IoLogInSharp } from "react-icons/io5";
 
 function Navbar() {
   const { user, isAuthenticated, handleLogout } = useContext(UserContext);
@@ -34,7 +36,10 @@ function Navbar() {
 
       {/* Navigation links */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className="home tab">
+          <FaHome/>
         <Link to="/">Home</Link>
+        </div>
 
         {isAuthenticated && (
           <>
@@ -58,9 +63,20 @@ function Navbar() {
         {/* Authentication links */}
         {!isAuthenticated ? (
           <>
+            <div className="tab">
+              <FaHospital/>
             <Link to="/registerOPD">Instant OPD</Link>
+            </div>
+            
+            <div className="tab">
+              <IoLogInSharp/>
             <Link to="/login">Login</Link>
+            </div>
+
+            <div className="tab">
+              <FaClipboardList/>
             <Link to="/register">Register</Link>
+            </div>
           </>
         ) : (
           <>
