@@ -30,6 +30,8 @@
 
 .home-page {
   padding: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-page h2 {

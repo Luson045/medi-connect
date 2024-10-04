@@ -11,7 +11,9 @@
   background-color: #333; /* Change to your desired color */
   padding: 10px 20px;
   color: #fff;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .logo-image{
   max-height: 150px;

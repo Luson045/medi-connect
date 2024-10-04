@@ -59,6 +59,7 @@ const updateAppointmentSchema = z.object({
 });
 
 // Create a new hospital
+
 router.post("/", async (req, res) => {
   try {
     const parsedData = hospitalSchema.parse(req.body);
@@ -70,6 +71,7 @@ router.post("/", async (req, res) => {
       return res
         .status(400)
         .json({ message: "Validation error", errors: error.errors });
+
     }
     res.status(400).send(error);
   }
