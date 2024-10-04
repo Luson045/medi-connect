@@ -109,7 +109,7 @@ const Navbar = () => {
     setMobileMenuOpen((prev) => !prev);
   };
   return (
-    <nav className="bg-slate-900 relative py-4 flex justify-between items-center w-full px-5 md:px-10 text-white">
+    <nav className="bg-[#333333] relative py-4 flex justify-between items-center w-full px-5 md:px-10 text-white">
       <NavLink to="/">
         <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" />
       </NavLink>
@@ -122,7 +122,7 @@ const Navbar = () => {
         )}
       </div>
       {isMobileMenuOpen && (
-        <div className="bg-slate-900  absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
+        <div className="bg-[#333333]  absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
           <NavLink
             className={({ isActive }) =>
               `${isActive ? 'border-b border-white ' : ''}`
