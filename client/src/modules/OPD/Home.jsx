@@ -8,6 +8,7 @@ import Review from './Review';
 import TableComponent from './TableComponent';
 import PatientDistributionChart from './PatientDistributionChart';
 import FloatingIcons from '../common/FloatingIcons';
+import '../../styles/Home.css'
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <>

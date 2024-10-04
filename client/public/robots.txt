@@ -1,3 +1,10 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for https://med-space.vercel.app/
+
 User-agent: *
-Disallow:
+Allow: /                         # Allow crawling of the homepage
+Disallow: /*                     # Disallow crawling of all other pages
+
+# Sitemap declaration (optional)
+# Sitemap: https://med-space.vercel.app/sitemap.xml
+
+# End of file
