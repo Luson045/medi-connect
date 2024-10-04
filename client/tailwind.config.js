@@ -8,6 +8,9 @@ module.exports = {
     extend: {
       scale:{
         '40': '1.1'
+      },
+      colors:{
+        'custom-green':'#31ab91'
       }
     },
   },

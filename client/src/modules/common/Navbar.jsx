@@ -4,7 +4,7 @@ import React, { useContext,useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Navbar.css'; // Ensure the path is correct
 import { UserContext } from './userContext';
-
+import {FaUser,FaPowerOff} from 'react-icons/fa';
 function Navbar() {
   const { user, isAuthenticated, handleLogout } = useContext(UserContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/"><img className="logo-image"src="logo.png"></img></Link>
+        <Link to="/"><img className="logo-image"src="./logo.png"></img></Link>
       </div>
 
       {/* Hamburger menu icon for mobile */}
@@ -58,9 +58,9 @@ function Navbar() {
         {/* Authentication links */}
         {!isAuthenticated ? (
           <>
-            <Link to="/registerOPD">Instant OPD</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/registerOPD">OPD</Link>
+            <Link to="/register"><FaPowerOff icon="fa-solid fa-power-off" /></Link>
+            <Link to="/login"><FaUser icon="fa-solid fa-user" /></Link>
           </>
         ) : (
           <>
