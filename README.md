@@ -2,7 +2,7 @@
     <img src="logo.svg" width="328" alt="" />
 </div>
 
-# Medi-Connect (Appointment Booking System)
+# Med-Space (Appointment Booking System)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/tech-React.js-blue.svg)
