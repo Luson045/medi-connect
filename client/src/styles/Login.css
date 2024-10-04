@@ -14,7 +14,9 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   will-change: transform, opacity;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,9 +38,11 @@
   left: -50px;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg,
-      rgba(255, 255, 255, 0.4),
-      rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0)
+  );
   transform: rotate(0deg);
   animation: shine 3s infinite;
   pointer-events: none;
@@ -52,7 +56,6 @@
   100% {
     transform: rotate(0deg) translateX(100%);
   }
-
 }
 
 @keyframes fadeInScale {
@@ -82,7 +85,6 @@
   flex-direction: column;
   gap: 5px;
   width: 70%;
-
 }
 
 .form-section {
@@ -92,7 +94,6 @@
 }
 
 .form-section input {
-
   box-sizing: border-box;
 }
 
@@ -109,12 +110,9 @@
 }
 
 .toggle-auth-button {
-
   background-color: rgba(247, 179, 179, 0);
   color: rgb(61, 59, 59);
   padding-top: 0px;
-
-
 }
 
 .toggle-auth-button:hover {
@@ -128,9 +126,7 @@
 }
 
 .login_background {
-
   background: radial-gradient(circle, pink, white);
-
 }
 
 .password-wrapper {
@@ -156,5 +152,4 @@
 
 .password-toggle:hover {
   background-color: white; /* Change background color on hover */
-
 }

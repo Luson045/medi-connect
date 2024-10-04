@@ -8,32 +8,38 @@ const teamMembers = [
   {
     name: 'Luson Basumatary',
     role: 'Lead Developer',
-    description: 'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
+    description:
+      'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
   },
   {
     name: 'Rohit Bansal',
     role: 'Frontend Developer',
-    description: 'As the Frontend Developer,Rohit Bansal  specializes in crafting intuitive and visually appealing user interfaces. He is dedicated to enhancing the user experience by translating complex requirements into simple, accessible designs.',
+    description:
+      'As the Frontend Developer,Rohit Bansal  specializes in crafting intuitive and visually appealing user interfaces. He is dedicated to enhancing the user experience by translating complex requirements into simple, accessible designs.',
   },
   {
     name: 'Kalpesh Jain',
     role: 'UI/UX Designer',
-    description: 'kalpesh Jain is focused on making our platform user-friendly and engaging. With a background in user experience design and a passion for visual storytelling, He creates seamless interactions and visually appealing layouts.',
+    description:
+      'kalpesh Jain is focused on making our platform user-friendly and engaging. With a background in user experience design and a passion for visual storytelling, He creates seamless interactions and visually appealing layouts.',
   },
   {
     name: 'Simranpreet Kaur',
     role: 'Graphic Designer',
-    description: 'As our Graphic Designer, Simranpreet Kaur brings a flair for creativity and a strong sense of visual aesthetics. She creates compelling graphics, icons, and visual elements that enhance our platform.',
+    description:
+      'As our Graphic Designer, Simranpreet Kaur brings a flair for creativity and a strong sense of visual aesthetics. She creates compelling graphics, icons, and visual elements that enhance our platform.',
   },
   {
     name: 'Kartik Kaushal',
     role: 'Healthcare Researcher',
-    description: 'Kartik Kaushal brings expertise in medical research and data analysis. He focuses on understanding the latest trends and needs in outpatient care to ensure our platform meets high standards.',
+    description:
+      'Kartik Kaushal brings expertise in medical research and data analysis. He focuses on understanding the latest trends and needs in outpatient care to ensure our platform meets high standards.',
   },
   {
     name: 'Shubham',
     role: 'Technology Researcher',
-    description: 'Shubham explores emerging technologies and trends to enhance our platform’s functionality. He conducts in-depth research to identify innovative solutions and integrate cutting-edge features.',
+    description:
+      'Shubham explores emerging technologies and trends to enhance our platform’s functionality. He conducts in-depth research to identify innovative solutions and integrate cutting-edge features.',
   },
 ];
 
@@ -52,36 +58,42 @@ const AboutPage = () => {
 
   return (
     <>
-    <Navbar/>
-    <Container>
-      <animated.div style={fadeIn}>
-        <Title>About Us</Title>
-        <Subtitle>Meet the Team</Subtitle>
-        <TeamGrid>
-          {teamMembers.map((member, index) => (
-            <animated.div key={index} style={slideIn}>
-              <TeamCard>
-                <Role>{member.role}</Role>
-                <Name>{member.name}</Name>
-                <Description>{member.description}</Description>
-              </TeamCard>
-            </animated.div>
-          ))}
-        </TeamGrid>
-        <VisionSection>
-          <VisionTitle>Our Vision</VisionTitle>
-          <VisionText>
-            At Medi-Connect, we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere.
-          </VisionText>
-        </VisionSection>
-        <JoinUsSection>
-          <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
-          <JoinUsText>
-            We are excited about the future and the positive impact we can make on healthcare through our online OPD platform. If you have any questions or feedback, feel free to reach out to us. Together, we can create a better, more connected healthcare experience.
-          </JoinUsText>
-        </JoinUsSection>
-      </animated.div>
-    </Container>
+      <Container>
+        <animated.div style={fadeIn}>
+          <Title>About Us</Title>
+          <Subtitle>Meet the Team</Subtitle>
+          <TeamGrid>
+            {teamMembers.map((member, index) => (
+              <animated.div key={index} style={slideIn}>
+                <TeamCard>
+                  <Role>{member.role}</Role>
+                  <Name>{member.name}</Name>
+                  <Description>{member.description}</Description>
+                </TeamCard>
+              </animated.div>
+            ))}
+          </TeamGrid>
+          <VisionSection>
+            <VisionTitle>Our Vision</VisionTitle>
+            <VisionText>
+              At Medi-Connect, we envision a world where accessing outpatient
+              care is as simple as a few clicks. By leveraging technology and
+              innovation, we aim to provide a platform that bridges the gap
+              between patients and healthcare providers, making high-quality
+              care accessible to everyone, anywhere.
+            </VisionText>
+          </VisionSection>
+          <JoinUsSection>
+            <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
+            <JoinUsText>
+              We are excited about the future and the positive impact we can
+              make on healthcare through our online OPD platform. If you have
+              any questions or feedback, feel free to reach out to us. Together,
+              we can create a better, more connected healthcare experience.
+            </JoinUsText>
+          </JoinUsSection>
+        </animated.div>
+      </Container>
     </>
   );
 };
