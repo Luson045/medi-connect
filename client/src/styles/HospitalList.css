@@ -1,39 +1,64 @@
 .hospital-list-container {
   padding: 20px;
+  background-color: #f9f9f9; /* From second set */
 }
 
 .hospital-card {
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* From first set */
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
 }
+
 .search-bar {
   margin-bottom: 10px;
   max-width: 80%;
 }
+
+.card-header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
 .booking-form {
   margin-top: 10px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .booking-form input {
   display: block;
   margin-bottom: 10px;
-  padding: 8px;
+  padding: 10px;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid #ccc;
 }
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #3498db; /* Unified color */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #2e6da4; /* Unified hover color */
 }
