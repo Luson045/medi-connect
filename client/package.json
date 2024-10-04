@@ -12,9 +12,11 @@
     "flowbite-react": "^0.10.2",
     "lucide-react": "^0.447.0",
     "react": "^18.3.1",
+    "react-animated-cursor": "^2.11.2",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-fast-marquee": "^1.6.5",
+    "react-hook-form": "^7.53.0",
     "react-icons": "^5.3.0",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.26.1",
@@ -29,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +56,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13"
+    "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.13",
+    "@babel/plugin-proposal-private-property-in-object": "^7.18.6"
   }
 }

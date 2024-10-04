@@ -1,3 +1,5 @@
+// server/index.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
@@ -32,7 +34,7 @@ app.use(express.static("public"));
 app.use(express.json());
 // mNXMrz3yBrdzw2hq,yuria4489
 mongoose
-  .connect(process.env.MONOGO_URI, {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -74,4 +76,3 @@ app.use("/hospitalapi", hospitalroute);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-

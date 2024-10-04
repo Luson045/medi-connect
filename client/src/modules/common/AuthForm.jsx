@@ -15,6 +15,7 @@ const AuthPage = () => {
     confirmPassword: "",
     phone: "",
     address: "",
+    pincode: "",
   });
 
   const [errors, setErrors] = useState({
@@ -60,6 +61,8 @@ const AuthPage = () => {
       if (!formData.phone || !/^\d{10}$/.test(formData.phone))
         newErrors.phone = "Phone number must be exactly 10 digits";
       if (!formData.address) newErrors.address = "Address is required";
+      if (!formData.pincode || formData.pincode.length < 2)
+        newErrors.password = "Invalid Pincode";
     }
     if (!formData.email) newErrors.email = "Email is required (frontend)";
     if (!formData.password || formData.password.length < 8)
@@ -87,8 +90,11 @@ const AuthPage = () => {
       ? { ...formData }
       : {
           type: formData.type,
+          name: formData.name,
           email: formData.email,
           password: formData.password,
+          phone: formData.phone,
+          pincode: formData.pincode,
         };
 
     try {
@@ -112,7 +118,7 @@ const AuthPage = () => {
         } else {
           localStorage.setItem("token", data.token);
           notify("Login successful", "success");
-          window.location.href = "/";
+          window.location.href = "/profile";
         }
       } else {
         if (data.errors) {
@@ -213,7 +219,24 @@ const AuthPage = () => {
                 </div>
               </>
             )}
-
+            {isRegistering && (<div className="form-section">
+              <label>PIN:</label>
+              <input
+                type="text"
+                name="pincode"
+                placeholder="114011"
+                value={formData.pincode}
+                onChange={handleChange}
+                required
+              />
+              {errors.frontend.phone && ( 
+                <span className="error">{errors.frontend.phone}</span>
+              )}
+              {errors.backend.phone && (
+                <span className="error">{errors.backend.phone}</span>
+              )}
+            </div>)
+            }
             <div className="form-section">
               <label>Email:</label>
               <input

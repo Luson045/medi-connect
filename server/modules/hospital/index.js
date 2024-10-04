@@ -306,29 +306,31 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
     res.status(500).send({ message: "Server error", error });
   }
 });
-//31.394162, 75.537599
 router.post(
   "/emergency",
   asyncHandler(async (req, res) => {
-    const { data } = req.body;
-    const { name, email, age, gender, contact, pincode, reason, date } = data;
-    // console.log("name:", name);
+    const { name, email, age, gender, contact, pincode, reason, date } = req.body;
+    console.log("name:", name);
     if (!pincode) {
       return res.status(400).json({ message: "Pincode is required" });
     }
+
     const results = await geocoder.geocode(pincode + " India");
     // console.log(results);
     if (results.length === 0) {
       return res.status(404).json({ message: "Location not found" });
     }
+
     const userLat = results[0].latitude;
     const userLong = results[0].longitude;
     const hospitals = await Hospital.find({}, { lat: 1, long: 1, _id: 1 });
     let minTime = Infinity;
     let nearestHospital = null;
+
     for (let hospital of hospitals) {
       const hospitalLat = hospital.lat;
       const hospitalLong = hospital.long;
+      console.log(hospitalLat, hospitalLong);
       const route = await axios.get(
         `https://router.project-osrm.org/route/v1/driving/${userLong},${userLat};${hospitalLong},${hospitalLat}?overview=false`
       );
@@ -338,37 +340,43 @@ router.post(
         nearestHospital = hospital;
       }
     }
-    const password = Math.random().toString(36).slice(-8);
-    const profile = new User({
-      name,
-      email,
-      age,
-      password,
-      gender,
-      phone: contact,
-    });
+
+    // Check if a user with the provided email already exists
+    let profile = await User.findOne({ email });
+
+    if (!profile) {
+      // If no user exists, create a new one
+      const password = Math.random().toString(36).slice(-8);
+      profile = new User({
+        name,
+        email,
+        age,
+        password,
+        gender,
+        phone: contact,
+      });
+    }
+
     const appointment = {
       userId: profile._id,
       date,
       reason,
       status: "pending",
     };
+
     try {
       const hospital = await Hospital.findById(nearestHospital._id);
       hospital.appointments.push(appointment);
       profile.appointments.push(appointment);
       await hospital.save();
       await profile.save();
-      console.log(`Your appointment has been booked at ${hospital.name} on ${appointment.date}`)
+
+      console.log(`Your appointment has been booked at ${hospital.name} on ${appointment.date}`);
       await sendMail(
         `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
         profile.email
       );
-      /* Sending SMS confirmation */
-      // sendSMS(
-      //   `Your appointment has been booked at ${hospital.name} on ${appointment.date}`,
-      //   `+91${profile.phone}`
-      // );
+
       res.status(200).json({
         message: "Appointment booked successfully",
         appointment,

@@ -115,6 +115,7 @@ Ensure you have the following installed on your local machine:
 - [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/)
 - [MongoDB](https://www.mongodb.com/) (if using MongoDB as the database)
+- [Docker](https://docs.docker.com/engine/install/)
 
 ### Installation
 
@@ -149,6 +150,32 @@ PASSDB=your_mongodb_connection_string
 JWT=your_jwt_secret
 ```
 
+### Installation via Docker
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/Luson045/medi-connect
+   cd medi-connect
+   ```
+
+2. Run the following commands
+   ```
+       docker compose build
+       docker compose up
+   ```
+
+3. To close the running containers run `docker compose down`
+ 
+4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
+
+*** Video Guide for how to run project via Docker
+
+
+https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
+
+
+
 ## Usage
 
 The backend server should be running at `https://medi-connect-f671.onrender.com`.
@@ -163,6 +190,15 @@ Open your web browser and navigate to `http://localhost:3000` to access the Medi
 
 - **backend/**: Contains the server-side code, including API routes, controllers, models, and configuration files.
 - **frontend/**: Contains the client-side code built with React.js, including components, pages, context, and services.
+
+**Code Formatting**
+
+To ensure consistent code formatting across the project, you can use the following scripts:
+
+- Run `npm run format` to format your code according to Prettier's rules.
+- Run `npm run format-check` to check if the code is formatted correctly.
+
+Make sure to run these commands in both the `client` and `server` directories.
 
 ## License
 
