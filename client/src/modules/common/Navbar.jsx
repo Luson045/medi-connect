@@ -114,7 +114,7 @@ const Navbar = () => {
         <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" />
       </NavLink>
 
-      <div className=" absolute z-[101] right-3 md:right-8 *:text-3xl *:md:text-4xl">
+      <div className=" lg:hidden block absolute z-[101] right-3 md:right-8 *:text-3xl *:md:text-4xl">
         {isMobileMenuOpen ? (
           <IoClose className="" onClick={toggleMobileMenu} />
         ) : (
@@ -122,7 +122,7 @@ const Navbar = () => {
         )}
       </div>
       {isMobileMenuOpen && (
-        <div className="bg-slate-900  md:bg-lime-600 absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-20 w-full left-0 py-7 md:py-20 h-fit">
+        <div className="bg-slate-900  absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
           <NavLink
             className={({ isActive }) =>
               `${isActive ? 'border-b border-white ' : ''}`
