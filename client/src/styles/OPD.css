@@ -32,11 +32,11 @@ label {
   font-size: 1.1rem;
 }
 
-input[type='text'],
-input[type='number'],
-input[type='tel'],
-input[type='email'],
-input[type='password'],
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+input[type="password"],
 select,
 textarea,
 input[type="file"] {
@@ -138,4 +138,25 @@ input[type="file"] {
   .back-button {
     font-size: 0.85rem;
   }
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column; /* Ensures vertical stacking of elements */
+  align-items: center;    /* Centers the Register button horizontally */
+  margin-top: 20px;       /* Adjust spacing as needed */
+}
+
+.submit-btn {
+  margin-bottom: 15px;    /* Add spacing between the buttons */
+}
+
+.back-home-container {
+  text-align: center;     /* Centers the Back to Home link */
+}
+
+.back-btn {
+  text-decoration: none;  /* Style adjustments for the Back to Home link */
+  color: #007BFF;
+  font-size: 16px;
 }
