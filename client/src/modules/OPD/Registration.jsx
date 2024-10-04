@@ -16,7 +16,7 @@ function OPDRegistrationForm() {
     pincode: '',
     reason: '',
     date: '',
-    report: null, // Added report field for file upload
+    report: [], 
   });
 
   const [errors, setErrors] = useState({});
@@ -69,26 +69,31 @@ function OPDRegistrationForm() {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'report') {
-      setFormData({ ...formData, report: files[0] });
-      setErrors({ ...errors, report: '' });
+      // Convert FileList to array and set it in state
+      setFormData((prevData) => ({
+        ...prevData,
+        report: [...prevData.report, ...Array.from(files)], // Add new files to the existing array
+      }));
+      setErrors({ ...errors, report: '' }); // Clear report errors
     } else {
       setFormData({ ...formData, [name]: value });
       setErrors({ ...errors, [name]: '' });
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     const validationErrors = validate();
-
+  
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-
+  
     setIsSubmitting(true);
-
+  
     // Create FormData to handle file upload
     const submissionData = new FormData();
     submissionData.append('name', formData.name);
@@ -101,10 +106,12 @@ function OPDRegistrationForm() {
     submissionData.append('pincode', formData.pincode);
     submissionData.append('reason', formData.reason);
     submissionData.append('date', formData.date);
-    if (formData.report) {
-      submissionData.append('report', formData.report);
-    }
-
+    
+    // Append each file in the report array to FormData
+    formData.report.forEach((file) => {
+      submissionData.append('report', file);
+    });
+  
     axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -125,7 +132,7 @@ function OPDRegistrationForm() {
           pincode: '',
           reason: '',
           date: '',
-          report: null,
+          report: [],
         });
       })
       .catch(error => {
@@ -136,6 +143,7 @@ function OPDRegistrationForm() {
         setIsSubmitting(false);
       });
   };
+  
 
   return (
     <>
@@ -301,6 +309,7 @@ function OPDRegistrationForm() {
           </div>
 
           {/* Optional Report Upload Field */}
+         {/* Optional Report Upload Field */}
           <div className="form-group">
             <label htmlFor="report">Upload Report (Optional):</label>
             <input
@@ -309,9 +318,11 @@ function OPDRegistrationForm() {
               name="report"
               accept=".pdf, .jpg, .jpeg, .png"
               onChange={handleChange}
+              multiple // Allow multiple file selections
             />
             {errors.report && <span className="error">{errors.report}</span>}
           </div>
+
 
           {/* Submit Button */}
           <button type="submit" className="submit-btn" disabled={isSubmitting}>
