@@ -58,18 +58,10 @@ body {
   margin-bottom: 20px;
   font-weight: 800;
   color: rgb(161, 114, 222);
-
 }
-.navbar-glow {
- 
-  background-image:url('https://t4.ftcdn.net/jpg/02/82/32/23/240_F_282322321_ocPkbTz09ZYGJ81LCjkbmjD7m6Bg0uue.jpg');
- 
-  background-size:cover ; /* Ensures the image covers the entire element */
-  background-position: center; 
 
-  /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-
+.hero-content p {
+  font-size: 1.5rem;
   margin-bottom: 40px;
   color:rgb(220, 51, 147)
   
