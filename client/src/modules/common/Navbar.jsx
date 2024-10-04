@@ -109,7 +109,7 @@ const Navbar = () => {
     setMobileMenuOpen((prev) => !prev);
   };
   return (
-    <nav className="bg-[#333333] relative py-4 flex justify-between items-center w-full px-5 md:px-10 text-white">
+    <nav className="bg-[#333333] top-0 fixed z-[100] py-4 flex justify-between items-center w-full px-5  lg:py-2 md:px-10 text-white">
       <NavLink to="/">
         <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" />
       </NavLink>
