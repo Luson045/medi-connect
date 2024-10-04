@@ -229,7 +229,7 @@ const AuthPage = () => {
                 onChange={handleChange}
                 required
               />
-              {errors.frontend.phone && (
+              {errors.frontend.phone && ( 
                 <span className="error">{errors.frontend.phone}</span>
               )}
               {errors.backend.phone && (
