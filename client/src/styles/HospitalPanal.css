@@ -39,7 +39,7 @@
 
 .appointment-reason {
   font-size: 1.5rem;
-  color: #007BFF;
+  color: #007bff;
   margin-bottom: 10px;
 }
 
@@ -48,15 +48,15 @@
 }
 
 .status.pending {
-  color: #FFA500; /* Orange */
+  color: #ffa500; /* Orange */
 }
 
 .status.completed {
-  color: #28A745; /* Green */
+  color: #28a745; /* Green */
 }
 
 .status.canceled {
-  color: #DC3545; /* Red */
+  color: #dc3545; /* Red */
 }
 
 .card-actions {
@@ -64,7 +64,7 @@
 }
 
 .delete-button {
-  background-color: #DC3545;
+  background-color: #dc3545;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -74,7 +74,7 @@
 }
 
 .delete-button:hover {
-  background-color: #C82333;
+  background-color: #c82333;
 }
 
 .no-appointments {
@@ -87,5 +87,5 @@
 .loading {
   text-align: center;
   font-size: 1.5rem;
-  color: #007BFF;
+  color: #007bff;
 }

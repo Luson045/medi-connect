@@ -10,8 +10,8 @@ body {
   /* background: linear-gradient(90deg, rgba(168,211,255,1) 7%, rgba(145,232,255,1) 37%, rgba(0,202,255,1) 100%); */
   background: linear-gradient(90deg, #fbd8e5, #fff);
 }
-.data{
-  max-width:100%;
+.data {
+  max-width: 100%;
 }
 
 /* --------- */
@@ -48,7 +48,7 @@ body {
   text-align: center;
   color: black;
   justify-items: center;
-  height:80vh;
+  height: 80vh;
   /* background-color: aquamarine; */
   background: linear-gradient(90deg, #fbd8e5, #fff);
 }
@@ -63,8 +63,7 @@ body {
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 40px;
-  color:rgb(220, 51, 147)
-  
+  color: rgb(220, 51, 147);
 }
 
 .hero-button {
@@ -101,7 +100,7 @@ body {
 }
 
 .card {
-  background-color:lightgreen;
+  background-color: lightgreen;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -121,7 +120,7 @@ body {
 
 /* Reviews Section */
 .reviews-section {
-  background-color:lightcyan;
+  background-color: lightcyan;
   padding: 60px 20px;
   text-align: center;
 }
@@ -208,11 +207,13 @@ body {
     font-size: 1.8rem;
   }
 
-  .cards, .reviews {
+  .cards,
+  .reviews {
     flex-direction: column;
   }
 
-  .card, .review {
+  .card,
+  .review {
     max-width: 100%;
     margin-bottom: 20px;
   }

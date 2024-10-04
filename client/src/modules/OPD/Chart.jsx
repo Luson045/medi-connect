@@ -1,12 +1,40 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend } from 'chart.js';
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+  Legend,
+);
 
 const StaticLineChart = () => {
   const chartData = {
-    labels: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30'],
+    labels: [
+      '10:00',
+      '10:30',
+      '11:00',
+      '11:30',
+      '12:00',
+      '12:30',
+      '1:00',
+      '1:30',
+      '2:00',
+      '2:30',
+    ],
     datasets: [
       {
         label: 'People in Queue',
@@ -65,7 +93,10 @@ const StaticLineChart = () => {
 
   return (
     <section className="chart-section">
-      <div className="w-full" style={{ height: '300px', maxWidth: '100%', margin: '0 auto' }}>
+      <div
+        className="w-full"
+        style={{ height: '300px', maxWidth: '100%', margin: '0 auto' }}
+      >
         {/* Ensures responsiveness by setting height and using width of the parent container */}
         <Line data={chartData} options={options} />
       </div>

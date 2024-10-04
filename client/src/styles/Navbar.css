@@ -7,13 +7,13 @@
   padding: 15px 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.5rem;
-  background-color:lightgoldenrodyellow;
+  background-color: lightgoldenrodyellow;
   background-color: #333; /* Change to your desired color */
   padding: 10px 20px;
   color: #fff;
   position: relative;
 }
-.logo-image{
+.logo-image {
   max-height: 150px;
   max-width: 200px;
 }
@@ -42,7 +42,7 @@
   color: whitesmoke; /* Subtle blue accent */
 }
 
-.tab{
+.tab {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,9 +50,8 @@
   transition: 0.3s ease-in;
 }
 
-.tab:hover{
+.tab:hover {
   text-decoration: underline;
-
 }
 
 .navbar-menu-icon {

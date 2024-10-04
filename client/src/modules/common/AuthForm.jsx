@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import Navbar from "../common/Navbar";
-import { notify } from "./notification";
-import "../../styles/Login.css";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Navbar from '../common/Navbar';
+import { notify } from './notification';
+import '../../styles/Login.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const AuthPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
-    type: "hospital",
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phone: "",
-    address: "",
+    type: 'hospital',
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    address: '',
   });
 
   const [errors, setErrors] = useState({
@@ -30,8 +30,8 @@ const AuthPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/register") setIsRegistering(true);
-    if (location.pathname === "/login") setIsRegistering(false);
+    if (location.pathname === '/register') setIsRegistering(true);
+    if (location.pathname === '/login') setIsRegistering(false);
   }, [location.pathname]);
 
   const toggleAuthMode = () => {
@@ -48,7 +48,7 @@ const AuthPage = () => {
       ...prev,
       frontend: {
         ...prev.frontend,
-        [e.target.name]: "", // Clear frontend error for the field being edited
+        [e.target.name]: '', // Clear frontend error for the field being edited
       },
     }));
   };
@@ -56,16 +56,16 @@ const AuthPage = () => {
   const validateForm = () => {
     const newErrors = {};
     if (isRegistering) {
-      if (!formData.name) newErrors.name = "Name is required";
+      if (!formData.name) newErrors.name = 'Name is required';
       if (!formData.phone || !/^\d{10}$/.test(formData.phone))
-        newErrors.phone = "Phone number must be exactly 10 digits";
-      if (!formData.address) newErrors.address = "Address is required";
+        newErrors.phone = 'Phone number must be exactly 10 digits';
+      if (!formData.address) newErrors.address = 'Address is required';
     }
-    if (!formData.email) newErrors.email = "Email is required (frontend)";
+    if (!formData.email) newErrors.email = 'Email is required (frontend)';
     if (!formData.password || formData.password.length < 8)
-      newErrors.password = "Password must be at least 8 characters long";
+      newErrors.password = 'Password must be at least 8 characters long';
     if (isRegistering && formData.password !== formData.confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
+      newErrors.confirmPassword = 'Passwords do not match';
 
     return newErrors;
   };
@@ -82,7 +82,7 @@ const AuthPage = () => {
       return;
     }
 
-    const endpoint = isRegistering ? "/auth/register" : "/auth/login";
+    const endpoint = isRegistering ? '/auth/register' : '/auth/login';
     const payload = isRegistering
       ? { ...formData }
       : {
@@ -95,24 +95,24 @@ const AuthPage = () => {
       const response = await fetch(
         `https://medi-connect-f671.onrender.com${endpoint}`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const data = await response.json();
 
       if (response.ok) {
         if (isRegistering) {
-          notify("Registration successful", "success");
+          notify('Registration successful', 'success');
           toggleAuthMode();
         } else {
-          localStorage.setItem("token", data.token);
-          notify("Login successful", "success");
-          window.location.href = "/";
+          localStorage.setItem('token', data.token);
+          notify('Login successful', 'success');
+          window.location.href = '/';
         }
       } else {
         if (data.errors) {
@@ -125,12 +125,15 @@ const AuthPage = () => {
             backend: backendErrors,
           }));
         } else {
-          notify(data.message || "An error occurred. Please try again.", "warn");
+          notify(
+            data.message || 'An error occurred. Please try again.',
+            'warn',
+          );
         }
       }
     } catch (error) {
-      notify("Error connecting to the server", "error");
-      console.error("Network Error:", error);
+      notify('Error connecting to the server', 'error');
+      console.error('Network Error:', error);
     }
   };
 
@@ -143,10 +146,9 @@ const AuthPage = () => {
 
   return (
     <div className="login_background">
-
       <div className="auth-maindiv">
         <div className="auth-container">
-          <h2>{isRegistering ? "Register" : "Login"}</h2>
+          <h2>{isRegistering ? 'Register' : 'Login'}</h2>
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-section">
               <label>User Type:</label>
@@ -236,7 +238,7 @@ const AuthPage = () => {
               <label>Password:</label>
               <div className="password-wrapper">
                 <input
-                  type={showPassword.password ? "text" : "password"}
+                  type={showPassword.password ? 'text' : 'password'}
                   name="password"
                   placeholder="password"
                   value={formData.password}
@@ -245,7 +247,7 @@ const AuthPage = () => {
                 />
                 <button
                   type="button"
-                  onClick={() => togglePasswordVisibility("password")}
+                  onClick={() => togglePasswordVisibility('password')}
                   className="password-toggle"
                 >
                   {showPassword.password ? <FaEyeSlash /> : <FaEye />}
@@ -264,7 +266,7 @@ const AuthPage = () => {
                 <label>Confirm Password:</label>
                 <div className="password-wrapper">
                   <input
-                    type={showPassword.confirmPassword ? "text" : "password"}
+                    type={showPassword.confirmPassword ? 'text' : 'password'}
                     name="confirmPassword"
                     placeholder="Re-type password"
                     value={formData.confirmPassword}
@@ -273,7 +275,7 @@ const AuthPage = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => togglePasswordVisibility("confirmPassword")}
+                    onClick={() => togglePasswordVisibility('confirmPassword')}
                     className="password-toggle"
                   >
                     {showPassword.confirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -285,21 +287,23 @@ const AuthPage = () => {
                   </span>
                 )}
                 {errors.backend.confirmPassword && (
-                  <span className="error">{errors.backend.confirmPassword}</span>
+                  <span className="error">
+                    {errors.backend.confirmPassword}
+                  </span>
                 )}
               </div>
             )}
 
             <div className="register-button">
               <button type="submit" className="auth-button">
-                {isRegistering ? "Register" : "Login"}
+                {isRegistering ? 'Register' : 'Login'}
               </button>
             </div>
           </form>
 
           <button onClick={toggleAuthMode} className="toggle-auth-button">
             {isRegistering
-              ? "Already have an account? Login"
+              ? 'Already have an account? Login'
               : "Don't have an account? Register"}
           </button>
         </div>

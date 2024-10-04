@@ -16,7 +16,7 @@ const Navbar = () => {
     isAuthenticated = true, // Assume user is authenticated by default
     handleLogout,
   } = useContext(UserContext);
-  
+
   // Local state to handle the visibility of the mobile menu
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -28,7 +28,6 @@ const Navbar = () => {
   return (
     // Main Navbar element with responsive classes for layout and styling
     <nav className="bg-[#333333] top-0 fixed z-[100] py-4 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
-      
       {/* Logo and link to home page */}
       <NavLink to="/">
         <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" />
@@ -46,7 +45,6 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="bg-[#333333] lg:hidden absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
-          
           {/* Home link for mobile view */}
           <NavLink
             className={({ isActive }) =>
@@ -79,7 +77,7 @@ const Navbar = () => {
               >
                 <FaUser /> <p>Profile</p>
               </NavLink>
-              
+
               {/* Show Hospitals link only for 'user' role */}
               {user && user?.role === 'user' && (
                 <>
@@ -165,7 +163,7 @@ const Navbar = () => {
             <FaHome />
             <p>Home</p>
           </NavLink>
-          
+
           {/* Show links for authenticated users */}
           {isAuthenticated ? (
             <>
@@ -178,16 +176,19 @@ const Navbar = () => {
               <NavLink to="/profile" className={`flex items-baseline gap-2`}>
                 <FaUser /> <p>Profile</p>
               </NavLink>
-              
+
               {/* Show Hospitals link for 'user' role */}
               {user && user?.role === 'user' && (
                 <>
-                  <NavLink to="/hospitals" className={`flex items-baseline gap-2`}>
+                  <NavLink
+                    to="/hospitals"
+                    className={`flex items-baseline gap-2`}
+                  >
                     <FaHospital /> <p>Hospitals</p>
                   </NavLink>
                 </>
               )}
-              
+
               {/* Show OPD Panel link for 'hospital' role */}
               {user && user?.role === 'hospital' && (
                 <>
@@ -216,10 +217,16 @@ const Navbar = () => {
           ) : (
             <>
               {/* Login and Register links for non-authenticated users */}
-              <NavLink className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black" to="/login">
+              <NavLink
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
+                to="/login"
+              >
                 <MdLogin /> Login
               </NavLink>
-              <NavLink className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black" to="/register">
+              <NavLink
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
+                to="/register"
+              >
                 <FaUserPlus /> <p> Register</p>
               </NavLink>
             </>
