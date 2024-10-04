@@ -310,13 +310,14 @@ router.delete("/appointments/:appointmentId", async (req, res) => {
 router.post(
   "/emergency",
   asyncHandler(async (req, res) => {
-    const { name, email, age, gender, contact, pincode, reason, date } =
-      req.body;
-    console.log("name:",name);
+    const { data } = req.body;
+    const { name, email, age, gender, contact, pincode, reason, date } = data;
+    // console.log("name:", name);
     if (!pincode) {
       return res.status(400).json({ message: "Pincode is required" });
     }
     const results = await geocoder.geocode(pincode + " India");
+    // console.log(results);
     if (results.length === 0) {
       return res.status(404).json({ message: "Location not found" });
     }
@@ -328,7 +329,6 @@ router.post(
     for (let hospital of hospitals) {
       const hospitalLat = hospital.lat;
       const hospitalLong = hospital.long;
-      console.log(hospitalLat,hospitalLong);
       const route = await axios.get(
         `https://router.project-osrm.org/route/v1/driving/${userLong},${userLat};${hospitalLong},${hospitalLat}?overview=false`
       );
@@ -378,6 +378,7 @@ router.post(
         },
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error booking appointment", error });
     }
   })

@@ -12,7 +12,8 @@ function OPDRegistrationForm() {
     contact: '',
     address: '',
     department: '',
-    symptoms: ''
+    symptoms: '',
+    pincode: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -28,6 +29,7 @@ function OPDRegistrationForm() {
     if (formData.address.trim().length < 5) newErrors.address = 'Address must be at least 5 characters long';
     if (!formData.department) newErrors.department = 'Department is required';
     if (!formData.symptoms.trim()) newErrors.symptoms = 'Symptoms description is required';
+    if (!formData.pincode.trim().length === 6) newErrors.symptoms = 'Pincode must be 6 digits';
 
     return newErrors;
   };
@@ -35,27 +37,28 @@ function OPDRegistrationForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' }); 
+    setErrors({ ...errors, [name]: '' });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
 
     const updatedFormData = {
       ...formData,
-      age: Number(formData.age), 
-      symptoms: formData.symptoms.split(',').map(symptom => symptom.trim()), 
+      age: Number(formData.age),
+      symptoms: formData.symptoms.split(',').map(symptom => symptom.trim()),
     };
-  
+
     const validationErrors = validate();
-  
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-  // https://medi-connect-f671.onrender.com
+    // https://medi-connect-f671.onrender.com
     setIsSubmitting(true);
+    console.log(updatedFormData);
     axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, { data: updatedFormData })
       .then(response => {
         console.log('Successfully registered!', response.data);
@@ -67,10 +70,10 @@ function OPDRegistrationForm() {
       .finally(() => {
         setIsSubmitting(false);
       });
-  
+
     console.log('Form Data Submitted:', updatedFormData);
   };
-  
+
 
   return (
     <>
@@ -152,6 +155,19 @@ function OPDRegistrationForm() {
               required
             />
             {errors.address && <span className="error">{errors.address}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Pincode:</label>
+            <input
+              type="text"
+              name="pincode"
+              placeholder="Enter your pincode"
+              value={formData.pincode}
+              onChange={handleChange}
+              required
+            />
+            {errors.pincode && <span className="error">{errors.pincode}</span>}
           </div>
 
           <div className="form-group">
