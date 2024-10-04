@@ -41,20 +41,18 @@ function OPDRegistrationForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' }); 
+    setErrors({ ...errors, [name]: '' });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    console.log()
     const updatedFormData = {
       ...formData,
       age: Number(formData.age), 
     };
-  
+
     const validationErrors = validate();
-  
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -78,9 +76,6 @@ function OPDRegistrationForm() {
   
     console.log('Form Data Submitted:', updatedFormData); // Debugging log
 };
-
-  
-
   return (
     <>
       <Navbar />
@@ -173,7 +168,7 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             />
-            {errors.pincode && <span className="error">{errors.pincode}</span>}  
+            {errors.pincode && <span className="error">{errors.pincode}</span>}
           </div>
 
           <div className="form-group">

@@ -318,6 +318,7 @@ router.post(
     }
 
     const results = await geocoder.geocode(pincode + " India");
+    // console.log(results);
     if (results.length === 0) {
       return res.status(404).json({ message: "Location not found" });
     }
@@ -387,6 +388,7 @@ router.post(
         },
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error booking appointment", error });
     }
   })
