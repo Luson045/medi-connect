@@ -34,10 +34,7 @@ function Navbar() {
 
       {/* Navigation links */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
-        <div className="home tab">
-          <FaHome/>
         <Link to="/">Home</Link>
-        </div>
 
         {isAuthenticated && (
           <>

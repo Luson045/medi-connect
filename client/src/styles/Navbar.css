@@ -28,10 +28,8 @@
 }
 
 .navbar-links {
-  margin-right: 3rem;
   display: flex;
   align-items: center;
-  gap: 4rem;
 }
 
 .navbar-links a {
