@@ -143,7 +143,7 @@ const AuthPage = () => {
 
   return (
     <div className="login_background">
-      <Navbar />
+
       <div className="auth-maindiv">
         <div className="auth-container">
           <h2>{isRegistering ? "Register" : "Login"}</h2>

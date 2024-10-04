@@ -46,7 +46,6 @@ const ProfilePage = () => {
 
 	return (
 		<>
-			<Navbar />
 
 			<div className='user-page'>
 				<h2>{isHospital ? 'Hospital user' : 'User user'}</h2>

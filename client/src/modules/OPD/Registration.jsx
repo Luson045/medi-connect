@@ -83,7 +83,6 @@ function OPDRegistrationForm() {
 
   return (
     <>
-      <Navbar />
       <section className="form-container">
         <h2>OPD Registration</h2>
         <form onSubmit={(e) => {console.log("Form submitted"); handleSubmit(e);}} className="opd-registration-form">

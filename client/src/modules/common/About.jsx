@@ -52,7 +52,6 @@ const AboutPage = () => {
 
   return (
     <>
-    <Navbar/>
     <Container>
       <animated.div style={fadeIn}>
         <Title>About Us</Title>

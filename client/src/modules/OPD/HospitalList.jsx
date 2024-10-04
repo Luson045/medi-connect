@@ -83,7 +83,6 @@ const HospitalsList = () => {
 
 	return (
 		<>
-			<Navbar />
 			<div className='hospital-list-container'>
 				<h2>Hospitals</h2>
 

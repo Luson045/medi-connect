@@ -65,7 +65,6 @@ const HospitalAppointments = () => {
 
 	return (
 		<>
-			<Navbar />
 			<div className='appointment-container'>
 				<h1 className='title'>Hospital Appointments</h1>
 				<div className='appointment-list'>
