@@ -10,19 +10,26 @@ import PatientDistributionChart from './PatientDistributionChart';
 import FloatingIcons from '../common/FloatingIcons';
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
+  <>
   <motion.div
-    className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition-transform transform-gpu"
+    className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-end justify-between hover:shadow-xl transition-transform transform-gpu"
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ type: "spring", stiffness: 500 }}
+    transition={{ type: 'spring', stiffness: 500 }}
   >
-    <Icon size={48} className="text-blue-500 mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{details}</p>
+    <div className='flex flex-col items-center text-center'>
+      <Icon size={48} className="text-blue-500 mb-4" />
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600 mb-8">{details}</p>
+    </div>
+    <diV className="flex items-end">
+      <Link>Read more</Link>
+    </diV>
   </motion.div>
+</>
 );
 
 const Button = ({ children, primary, to }) => (
