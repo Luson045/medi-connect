@@ -118,3 +118,28 @@
     margin-bottom: 20px;
   }
 }
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: #0056b3;
+}
+
+.scroll-to-top:focus {
+  outline: none;
+}

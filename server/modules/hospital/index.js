@@ -59,6 +59,7 @@ const updateAppointmentSchema = z.object({
 });
 
 // Create a new hospital
+
 router.post("/", async (req, res) => {
   try {
     const parsedData = hospitalSchema.parse(req.body);
@@ -70,6 +71,7 @@ router.post("/", async (req, res) => {
       return res
         .status(400)
         .json({ message: "Validation error", errors: error.errors });
+
     }
     res.status(400).send(error);
   }
@@ -316,6 +318,7 @@ router.post(
     }
 
     const results = await geocoder.geocode(pincode + " India");
+    // console.log(results);
     if (results.length === 0) {
       return res.status(404).json({ message: "Location not found" });
     }
@@ -385,6 +388,7 @@ router.post(
         },
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error booking appointment", error });
     }
   })

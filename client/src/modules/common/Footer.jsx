@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/Footer.css';
 import instagram from '../../assets/instagram-brands-solid.svg';
 import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
+import { FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 200) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+  };
+
+  //function for scrolling to the top:
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // Attach scroll event listener
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <footer className="footer">
       <div className="footer-sections">
@@ -97,6 +124,12 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>Medi connect ©2024</p>
       </div>
+
+      {showScrollTop && (
+        <button onClick={scrollToTop} className="scroll-to-top">
+          <FaArrowUp size={24} />
+        </button>
+      )}
     </footer>
   );
 };

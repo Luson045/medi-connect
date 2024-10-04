@@ -49,8 +49,6 @@ function OPDRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log();
     const updatedFormData = {
       ...formData,
       age: Number(formData.age),
@@ -84,8 +82,7 @@ function OPDRegistrationForm() {
       });
 
     console.log('Form Data Submitted:', updatedFormData); // Debugging log
-  };
-
+};
   return (
     <>
       <section className="form-container">
