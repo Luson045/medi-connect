@@ -1,0 +1,55 @@
+name: Repository Management
+
+on:
+  issues:
+    types: [opened, reopened, edited]
+  pull_request:
+    types: [opened, reopened, edited]
+  issue_comment:
+    types: [created]
+
+jobs:
+  manage_repo:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Handle /assign command
+        if: github.event_name == 'issue_comment' && github.event.action == 'created'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.MY_GITHUB_TOKEN}}
+          script: |
+            const { owner, repo } = context.repo;
+            const comment = context.payload.comment;
+            const issueNumber = context.payload.issue.number;
+
+            if (comment.body.trim().toLowerCase() === '/assign') {
+              const issue = await github.rest.issues.get({
+                owner,
+                repo,
+                issue_number: issueNumber
+              });
+              
+              if (!issue.data.assignee) {
+                await github.rest.issues.addAssignees({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  assignees: [comment.user.login]
+                });
+                
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: `@${comment.user.login} has been assigned to this issue.`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issueNumber,
+                  body: 'This issue is already assigned. Please choose an unassigned issue.'
+                });
+              }
+            }
