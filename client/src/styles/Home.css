@@ -35,13 +35,13 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(178, 121, 216, 0.959) !important; /* Force handle color */
+  background: #057ef5 !important; /* Force handle color */
   border-radius: 12px !important; /* Force handle radius */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(222, 130, 235, 0.911) !important; /* Force hover color */
+  background: #014589 !important; /* Force hover color */
   border-radius: 12px !important;
 }
 
@@ -55,22 +55,17 @@ body {
   color: black;
   justify-items: center;
   height:80vh;
-  /* background-color: aquamarine; */
-  background: linear-gradient(90deg, #fbd8e5, #fff);
+  background-color: aquamarine;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  font-weight: 800;
-  color: rgb(161, 114, 222);
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 40px;
-  color:rgb(220, 51, 147)
-  
 }
 
 .hero-button {
@@ -107,7 +102,7 @@ body {
 }
 
 .card {
-  background-color:lightgreen;
+  background-color: lightgreen;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -127,7 +122,7 @@ body {
 
 /* Reviews Section */
 .reviews-section {
-  background-color:lightcyan;
+  background-color: lightcyan;
   padding: 60px 20px;
   text-align: center;
 }
@@ -214,11 +209,13 @@ body {
     font-size: 1.8rem;
   }
 
-  .cards, .reviews {
+  .cards,
+  .reviews {
     flex-direction: column;
   }
 
-  .card, .review {
+  .card,
+  .review {
     max-width: 100%;
     margin-bottom: 20px;
   }

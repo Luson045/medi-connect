@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/logo.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
 
@@ -10,12 +10,13 @@
     <meta name="description" content="Medi-Connect: No more waiting in long queues. Get fast, reliable access to healthcare services." />
     <meta name="keywords" content="healthcare, online healthcare services, no waiting, fast medical services, reliable healthcare, medical appointments" />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://med-space.vercel.app" />
 
     <!-- Open Graph Metadata for Social Media -->
     <meta property="og:title" content="Medi-Connect - Fast and Reliable Healthcare Services" />
     <meta property="og:description" content="No more waiting in long queues. Access healthcare services online with Medi-Connect." />
     <meta property="og:image" content="%PUBLIC_URL%/logo.png" />
-    <meta property="og:url" content="https://medi-connect.com" />
+    <meta property="og:url" content="https://med-space.vercel.app" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card Metadata -->
@@ -27,11 +28,22 @@
     <!-- Manifest and Icons -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-
     <title>Medi-Connect | Fast & Reliable Healthcare Services Online</title>
-  </head>
-  <body>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Med-Space",
+        "url": "https://med-space.vercel.app",
+        "description": "Efficient healthcare appointment booking and queue management system",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "All"
+    }
+    </script>
+</head>
+<body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-  </body>
+</body>
 </html>
