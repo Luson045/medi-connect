@@ -13,13 +13,13 @@ const HospitalsList = () => {
     date: '',
     reason: '',
   });
-  const [searchQuery, setSearchQuery] = useState(''); // Search query stats
-  // Fetch hospitals on component mount
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
     const fetchHospitals = async () => {
       try {
         const response = await axios.get(
-          'https://medi-connect-f671.onrender.com/hospitalapi/',
+          'https://medi-connect-f671.onrender.com/hospitalapi/'
         );
         setHospitals(response.data);
         setFilteredHospitals(response.data);
@@ -31,7 +31,6 @@ const HospitalsList = () => {
     fetchHospitals();
   }, []);
 
-  // Handle appointment booking
   const handleBooking = async (hospitalId) => {
     try {
       let userId = '';
@@ -45,7 +44,7 @@ const HospitalsList = () => {
         {
           userId,
           ...bookingData,
-        },
+        }
       );
 
       alert(response.data.message);
@@ -66,12 +65,10 @@ const HospitalsList = () => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
 
-    // Filter hospitals by name or address (street, city, or state)
     const filtered = hospitals.filter((hospital) => {
-      const nameMatch = hospital.name?.toLowerCase().includes(query) || false; // Ensure it evaluates to false if name is missing
-      const address = hospital.address || {}; // Default to an empty object if address is null or undefined
-      const streetMatch =
-        address.street?.toLowerCase().includes(query) || false;
+      const nameMatch = hospital.name?.toLowerCase().includes(query) || false;
+      const address = hospital.address || {};
+      const streetMatch = address.street?.toLowerCase().includes(query) || false;
       const cityMatch = address.city?.toLowerCase().includes(query) || false;
       const stateMatch = address.state?.toLowerCase().includes(query) || false;
 
@@ -83,71 +80,92 @@ const HospitalsList = () => {
 
   return (
     <>
-      <div className="hospital-list-container">
-        <h2>Hospitals</h2>
+      <Navbar />
+      <div className="hospital-list-container container mt-8">
+        <h2 className="text-center mb-4 mt-8">Hospitals</h2>
 
         {/* Search bar */}
-        <center>
+        <div className="search-bar mb-4">
           <input
             type="text"
-            className="search-bar"
+            className="form-control"
             placeholder="Search by name or address..."
             value={searchQuery}
             onChange={handleSearch}
           />
-        </center>
+        </div>
 
-        <div className="hospital-list">
+        <div className="row">
           {filteredHospitals.map((hospital) => (
-            <div key={hospital._id} className="hospital-card">
-              <h3>{hospital.name}</h3>
-
-              {/* Handle null or undefined address safely */}
-              <p>
-                {hospital.address?.street || 'N/A'},{' '}
-                {hospital.address?.city || 'N/A'},{' '}
-                {hospital.address?.state || 'N/A'}
-              </p>
-
-              <p>Phone: {hospital.phone || 'N/A'}</p>
-              <p>Website: {hospital.website || 'N/A'}</p>
-              <p>Departments: {hospital.departments?.join(', ') || 'N/A'}</p>
-              <p>
-                Available Services:{' '}
-                {hospital.availableServices?.join(', ') || 'N/A'}
-              </p>
-              <p>Ratings: {hospital.ratings || 'N/A'}/5</p>
-              <p>
-                Running Appointments: {hospital.appointments.length || 'N/A'}
-              </p>
-
-              <button onClick={() => setSelectedHospital(hospital)}>
-                Book Appointment
-              </button>
-
-              {selectedHospital && selectedHospital._id === hospital._id && (
-                <div className="booking-form">
-                  <h4>Book Appointment</h4>
-                  <input
-                    type="date"
-                    name="date"
-                    value={bookingData.date}
-                    onChange={handleChange}
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="reason"
-                    placeholder="Reason for appointment"
-                    value={bookingData.reason}
-                    onChange={handleChange}
-                    required
-                  />
-                  <button onClick={() => handleBooking(hospital._id)}>
-                    Confirm Booking
+            <div key={hospital._id} className="col-md-4 mb-4">
+              <div className="card h-100">
+                <div className="card-header bg-primary text-white">
+                  <h5 className="card-title">{hospital.name}</h5>
+                </div>
+                <div className="card-body">
+                  <p className="card-text">
+                    <strong>Address:</strong> {hospital.address?.street || 'N/A'},{' '}
+                    {hospital.address?.city || 'N/A'}, {hospital.address?.state || 'N/A'}
+                  </p>
+                  <p className="card-text">
+                    <strong>Phone:</strong> {hospital.phone || 'N/A'}
+                  </p>
+                  <p className="card-text">
+                    <strong>Website:</strong> <a href={hospital.website}>{hospital.website || 'N/A'}</a>
+                  </p>
+                  <p className="card-text">
+                    <strong>Departments:</strong> {hospital.departments?.join(', ') || 'N/A'}
+                  </p>
+                  <p className="card-text">
+                    <strong>Available Services:</strong>{' '}
+                    {hospital.availableServices?.join(', ') || 'N/A'}
+                  </p>
+                  <p className="card-text">
+                    <strong>Ratings:</strong> {hospital.ratings || 'N/A'}/5
+                  </p>
+                  <p className="card-text">
+                    <strong>Running Appointments:</strong>{' '}
+                    {hospital.appointments.length || 'N/A'}
+                  </p>
+                </div>
+                <div className="card-footer text-center">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setSelectedHospital(hospital)}
+                  >
+                    Book Appointment
                   </button>
                 </div>
-              )}
+
+                {selectedHospital && selectedHospital._id === hospital._id && (
+                  <div className="booking-form mt-4 p-3 bg-light">
+                    <h4>Book Appointment</h4>
+                    <input
+                      type="date"
+                      className="form-control mb-2"
+                      name="date"
+                      value={bookingData.date}
+                      onChange={handleChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      name="reason"
+                      placeholder="Reason for appointment"
+                      value={bookingData.reason}
+                      onChange={handleChange}
+                      required
+                    />
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleBooking(hospital._id)}
+                    >
+                      Confirm Booking
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
         </div>
