@@ -181,6 +181,7 @@ input[type="file"] {
   max-width: 500px;
   width: 100%;
   text-align: center;
+  position: relative; /* To allow the icon to be positioned relative to the modal */
 }
 
 .modal-content ul {
@@ -196,4 +197,18 @@ input[type="file"] {
   border: none;
   cursor: pointer;
 }
+
+/* Styling the download icon */
+.download-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.download-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
 
