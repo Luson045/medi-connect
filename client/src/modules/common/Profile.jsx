@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './userContext';
-import Navbar from './Navbar';
 import '../../styles/UserProfile.css';
 
 const ProfilePage = () => {
-  const { user, isAuthenticated, handleLogout } = useContext(UserContext);
+  const {isAuthenticated } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {

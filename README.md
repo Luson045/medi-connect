@@ -200,6 +200,18 @@ To ensure consistent code formatting across the project, you can use the followi
 
 Make sure to run these commands in both the `client` and `server` directories.
 
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Med-Space to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+
+  <a href="https://github.com/Luson045/medi-connect">
+    <img src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
+  </a>
+</div>
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
