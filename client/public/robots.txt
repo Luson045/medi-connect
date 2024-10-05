@@ -2,6 +2,7 @@
 
 User-agent: *
 Allow: /                         # Allow crawling of the homepage
+Allow: /about
 Disallow: /*                     # Disallow crawling of all other pages
 
 # Sitemap declaration (optional)
