@@ -1,3 +1,8 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all bots to crawl everything except restricted sections
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+
+# Link to your sitemap for better crawling
+Sitemap: https://med-space.vercel.app/sitemap.xml
