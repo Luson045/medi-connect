@@ -202,7 +202,7 @@ Make sure to run these commands in both the `client` and `server` directories.
 
 ## 👀 Our Contributors
 
-- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Ratna-Supermarket to greater heights.
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Med-Space to greater heights.
 - Make sure you show some love by giving ⭐ to our repository.
 
 <div align="center">
