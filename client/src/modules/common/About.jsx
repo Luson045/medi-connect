@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
-import Navbar from '../common/Navbar';
 
 // Team member data
 const teamMembers = [
@@ -60,6 +59,17 @@ const AboutPage = () => {
     <>
       <Container>
         <animated.div style={fadeIn}>
+          
+        <VisionSection>
+            <VisionTitle>Our Vision</VisionTitle>
+            <VisionText>
+              At Medi-Connect, we envision a world where accessing outpatient
+              care is as simple as a few clicks. By leveraging technology and
+              innovation, we aim to provide a platform that bridges the gap
+              between patients and healthcare providers, making high-quality
+              care accessible to everyone, anywhere.
+            </VisionText>
+          </VisionSection>
           <Title>About Us</Title>
           <Subtitle>Meet the Team</Subtitle>
           <TeamGrid>
@@ -73,16 +83,12 @@ const AboutPage = () => {
               </animated.div>
             ))}
           </TeamGrid>
-          <VisionSection>
-            <VisionTitle>Our Vision</VisionTitle>
-            <VisionText>
-              At Medi-Connect, we envision a world where accessing outpatient
-              care is as simple as a few clicks. By leveraging technology and
-              innovation, we aim to provide a platform that bridges the gap
-              between patients and healthcare providers, making high-quality
-              care accessible to everyone, anywhere.
-            </VisionText>
-          </VisionSection>
+          <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
+          <div align="center">
+            <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
+              <img alt="git team" src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
+            </a>
+          </div>
           <JoinUsSection>
             <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
             <JoinUsText>
@@ -109,11 +115,10 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #333;
+const Title = styled.h2`
+font-size: 2rem;
+margin-bottom: 1rem;
+color: #c229b8;
 `;
 
 const Subtitle = styled.h2`
@@ -189,4 +194,9 @@ const JoinUsText = styled.p`
   line-height: 1.6;
 `;
 
+const GitTeamTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c229b8;
+`;
 export default AboutPage;
