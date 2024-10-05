@@ -35,7 +35,7 @@ function OPDRegistrationForm() {
     }
     if (!formData.age || formData.age <= 0) {
       newErrors.age = 'Age must be a positive number';
-    } else if (formData.age < 18) {  // Check if age is less than 18
+    } else if (formData.age < 18) { 
       newErrors.age = 'Age must be greater than 18';
     }
     if (!formData.gender) newErrors.gender = 'Gender is required';
@@ -87,9 +87,8 @@ function OPDRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const validationErrors = validate();
   
+    const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -97,19 +96,21 @@ function OPDRegistrationForm() {
   
     setIsSubmitting(true);
   
-    const submissionData = new FormData();
-    Object.keys(formData).forEach((key) => {
-      if (key === 'report') {
-        formData.report.forEach((file) => submissionData.append('report', file));
-      } else {
-        submissionData.append(key, formData[key]);
-      }
-    });
+    // sending only the required fields to the backend
+    const submissionData = {
+      name: formData.name,
+      email: formData.email,
+      age: formData.age,
+      gender: formData.gender,
+      contact: formData.contact,
+      pincode: formData.pincode,
+      reason: formData.reason,
+      date: formData.date,
+    };
   
-    axios.post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-      .then(response => {
+    axios
+      .post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData)
+      .then((response) => {
         console.log('Successfully registered!', response.data);
         alert('Registration Successful!');
         setFormData({
@@ -126,7 +127,7 @@ function OPDRegistrationForm() {
           report: [],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('There was an error registering!', error);
         alert('Registration failed. Please try again.');
       })
