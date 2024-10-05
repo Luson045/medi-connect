@@ -4,13 +4,10 @@ Allow: /                        # Allow crawling of the homepage
 Allow: /about                   # Allow crawling of the about page
 Allow: /registerOPD            # Allow crawling of the registration form
 Allow: /success                 # Allow crawling of the success page
-Allow: /login                   # Allow crawling of the login page
-Allow: /register                # Allow crawling of the registration page
 Allow: /hospitals               # Allow crawling of the hospitals list
-Allow: /panal                   # Allow crawling of the panel page
 
 # Disallow crawling of sensitive areas
-Disallow: /admin/               # Disallow the admin area
+Disallow: /*   #disallow to all other pages
 
 # Link to your sitemap for better crawling
 Sitemap: https://med-space.vercel.app/sitemap.xml
