@@ -73,6 +73,23 @@ const AboutPage = () => {
               </animated.div>
             ))}
           </TeamGrid>
+
+          <GlobalStyle />
+            <CardContainer>
+                <Title>The GitHub Team</Title>
+                <Subtitle>Meet Our Contributors</Subtitle>
+                <ContributorList>
+                    {contributors.map((contributor, index) => (
+                        <Contributor key={index}>
+                            <ContributorImage src={contributor.image} alt={contributor.name} />
+                            <h3>{contributor.name}</h3>
+                            <a href={contributor.github} target="_blank" rel="noopener noreferrer">GitHub Profile</a>
+                        </Contributor>
+                    ))}
+                </ContributorList>
+            </CardContainer>
+
+
           <VisionSection>
             <VisionTitle>Our Vision</VisionTitle>
             <VisionText>
@@ -154,6 +171,74 @@ const Name = styled.h4`
 const Description = styled.p`
   font-size: 1rem;
   color: #666;
+`;
+
+const contributors = [
+  {
+      name: 'Contributor Name',
+      github: 'https://github.com/contributor',
+      image: 'https://github.com/contributor.png'
+  },
+  // Add more contributors here
+];
+
+const CardContainer = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Set a max-width for the card */
+  width: 100%; /* Allow the card to be full-width on smaller screens */
+`;
+
+const ContributorList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const Contributor = styled.div`
+  margin: 10px;
+  text-align: center;
+  flex: 1 1 150px; /* Allow flex items to grow and shrink with a minimum width */
+`;
+
+const ContributorImage = styled.img`
+  border-radius: 50%;
+  width: 100px; /* Adjust as necessary */
+  height: 100px; /* Adjust as necessary */
+`;
+
+const Heading = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+`;
+
+const SubHeading = styled.h2`
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #666;
+`;
+
+// Media queries for responsive adjustments
+const GlobalStyle = createGlobalStyle`
+@media (max-width: 600px) {
+    ${Title} {
+        font-size: 2rem; /* Reduce title size on small screens */
+    }
+    ${Subtitle} {
+        font-size: 1.25rem; /* Reduce subtitle size on small screens */
+    }
+    ${ContributorImage} {
+        width: 80px; /* Reduce image size on small screens */
+        height: 80px; /* Reduce image size on small screens */
+    }
+}
 `;
 
 const VisionSection = styled.section`
