@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../common/Navbar';
 import '../../styles/OPD.css';
 // import pincodes from 'indian-pincodes';
 import {pininfo} from 'indian_address';
@@ -145,7 +144,6 @@ function OPDRegistrationForm() {
 
   return (
     <>
-      <Navbar />
       <section className="form-container">
         <h2>OPD Registration</h2>
         <form onSubmit={handleSubmit} className="opd-registration-form">

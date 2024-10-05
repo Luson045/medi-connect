@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clipboard, PhoneCall, Hospital } from 'lucide-react';
-import Navbar from '../common/Navbar';
 import StaticLineChart from './Chart';
 import Review from './Review';
 import TableComponent from './TableComponent';
@@ -76,8 +75,6 @@ function Home() {
     
     <>
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
-      <Navbar />
-
       <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
         <div className="absolute inset-0">
           <svg className="absolute bottom-0 left-0 right-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
