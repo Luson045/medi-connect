@@ -30,7 +30,7 @@ const Navbar = () => {
     <nav className="bg-[linear-gradient(90deg,_rgba(2,0,36,1)_0%,_rgba(63,15,8,1)_51%,_rgba(63,15,8,1)_97%)] top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
       {/* Logo and link to home page */}
       <NavLink to="/">
-        <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" onClick={() => setMobileMenuOpen(false)} />
+        <img className="h-10 sm:pl-2 md:h-14" alt="medi-connects logo" src="logo.png" onClick={() => setMobileMenuOpen(false)} />
       </NavLink>
 
       {/* Mobile menu button (hamburger or close icon) */}
@@ -53,7 +53,7 @@ const Navbar = () => {
             to="/"
             onClick={() => setMobileMenuOpen(false)} // Close the menu after clicking the link
           >
-            <IoHome /> <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold' >Home</p>
+            <IoHome /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold' >Home</p>
           </NavLink>
           <NavLink
                 className={({ isActive }) =>
@@ -62,7 +62,7 @@ const Navbar = () => {
                 to="/about"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <AiOutlineInfoCircle /> <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold'>About</p>
+                <AiOutlineInfoCircle /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>About</p>
               </NavLink>
 
           {/* Conditional rendering for authenticated users */}
@@ -75,7 +75,7 @@ const Navbar = () => {
                 to="/profile"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUser /> <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold'>Profile</p>
+                <FaUser /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Profile</p>
               </NavLink>
 
               {/* Show Hospitals link only for 'user' role */}
@@ -88,7 +88,7 @@ const Navbar = () => {
                     to="/hospitals"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <FaHospital /> <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold'>Hospitals</p>
+                    <FaHospital /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Hospitals</p>
                   </NavLink>
                 </>
               )}
@@ -104,7 +104,7 @@ const Navbar = () => {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <MdOutlineLocalHospital />
-                    <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold'>OPD Panel</p>
+                    <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>OPD Panel</p>
                   </NavLink>
                 </>
               )}
@@ -118,14 +118,14 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <MdOutlineLocalHospital />
-              <p className='transform transition-transform duration-500 hover:-translate-y-0.5 hover:font-semibold'>Instant OPD</p>
+              <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Instant OPD</p>
             </NavLink>
           )}
 
           {/* Logout button for authenticated users */}
           {isAuthenticated ? (
             <button
-              className={` bg-white px-5 py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1`}
+              className={` bg-white px-5 py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`}
               onClick={handleLogout} // Handle logout
             >
               Log Out
@@ -135,7 +135,7 @@ const Navbar = () => {
               {/* Login and Register links for non-authenticated users */}
               <NavLink
                 className={() =>
-                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`
                 }
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
@@ -144,7 +144,7 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 className={() =>
-                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`
                 }
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
@@ -160,18 +160,18 @@ const Navbar = () => {
       <div className="hidden lg:flex items-center gap-10 ">
         <div className="flex items-center gap-4 text-lg font-medium ">
           <NavLink to="/" className={`flex justify-center items-center gap-2`}>
-            <FaHome /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>Home</p>
+            <FaHome /> <p className=' transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Home</p>
           </NavLink>
 
           <NavLink to="/about" className={`flex justify-center items-center gap-2`}>
-                <AiOutlineInfoCircle /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>About</p>
+                <AiOutlineInfoCircle /> <p className=' transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>About</p>
           </NavLink>
 
           {/* Show links for authenticated users */}
           {isAuthenticated ? (
             <>
               <NavLink to="/profile" className={`flex items-baseline gap-2`}>
-                <FaUser /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>Profile</p>
+                <FaUser /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Profile</p>
               </NavLink>
 
               {/* Show Hospitals link for 'user' role */}
@@ -181,7 +181,7 @@ const Navbar = () => {
                     to="/hospitals"
                     className={`flex items-baseline gap-2`}
                   >
-                    <FaHospital /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>Hospitals</p>
+                    <FaHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Hospitals</p>
                   </NavLink>
                 </>
               )}
@@ -190,14 +190,14 @@ const Navbar = () => {
               {user && user?.role === 'hospital' && (
                 <>
                   <NavLink to="/panal" className={`flex items-baseline gap-2`}>
-                    <MdOutlineLocalHospital /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>OPD Panel</p>
+                    <MdOutlineLocalHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>OPD Panel</p>
                   </NavLink>
                 </>
               )}
             </>
           ) : (
             <NavLink to="/registerOPD" className={`flex items-center gap-2`}>
-              <MdOutlineLocalHospital /> <p className='transform transition-transform duration-200 hover:-translate-y-1 hover:underline font-bold text-lg'>Instant OPD</p>
+              <MdOutlineLocalHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Instant OPD</p>
             </NavLink>
           )}
         </div>
@@ -206,7 +206,7 @@ const Navbar = () => {
           {/* Logout button for authenticated users */}
           {isAuthenticated ? (
             <button
-              className="bg-white px-5 py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1"
+              className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
               onClick={handleLogout}
             >
               Log Out
@@ -215,13 +215,13 @@ const Navbar = () => {
             <>
               {/* Login and Register links for non-authenticated users */}
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1"
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
                 to="/login"
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transform transition-transform duration-200 hover:-translate-y-1"
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
                 to="/register"
               >
                 <FaUserPlus /> <p> Register</p>
