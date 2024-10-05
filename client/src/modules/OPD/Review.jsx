@@ -52,7 +52,7 @@ const reviews = [
       id: 5,
       name: "Linda Kim",
       role: "Administrator",
-      review: "Our hospital maintains the highest standards of patient care and safety.",
+      review: "Our hospital consistently maintains the highest standards of patient care and safety.   ",
       rating: 5,
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=2861&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -69,8 +69,8 @@ const reviews = [
 
 // Functional component for displaying a star rating, allowing half-stars and empty stars
 const Rating = ({ rating, showLabel, className, ...rest }) => (
-	<p className={classNames("flex flex-wrap gap-0.5", className)} {...rest}>
-		<span>
+	<div className={classNames("flex flex-wrap gap-0.5", className)} {...rest}>
+		<span className="flex">
 			{[...Array(5)].map((_, i) => {
 				const index = i + 1;
 				let review = "";
@@ -100,7 +100,7 @@ const Rating = ({ rating, showLabel, className, ...rest }) => (
 			})}
 		</span>
 		{showLabel && <span>{rating.toFixed(1)}</span>}
-	</p>
+	</div>
 );
 
 Rating.propTypes = {
@@ -126,7 +126,7 @@ const ReviewCard = ({ item }) => {
 							/>
 						</div>
 						<div>
-							<h5 className="text-xl break-all font-medium">{name}</h5>
+							<h5 className="text-xl font-medium">{name}</h5>
 							<p className="text-indigo-600 text-sm">{role}</p>
 						</div>
 					</div>
@@ -170,7 +170,7 @@ const Reviews = () => {
 	};
   
 	return (
-		<section className="py-14 md:py-24 text-zinc-900">
+		<section className="py-7 md:py-12 text-zinc-900">
 			<div className="container px-4 mx-auto relative">
 				<div className="flex justify-center text-center mb-6 lg:mb-12">
 					<div className="max-w-lg">
