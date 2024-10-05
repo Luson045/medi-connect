@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../common/Navbar';
 import '../../styles/OPD.css';
+import { Cards } from './Cards';
 
 function OPDRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -21,6 +22,8 @@ function OPDRegistrationForm() {
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [registrationDetails, setRegistrationDetails] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -96,7 +99,6 @@ function OPDRegistrationForm() {
   
     setIsSubmitting(true);
   
-    // sending only the required fields to the backend
     const submissionData = {
       name: formData.name,
       email: formData.email,
@@ -112,7 +114,8 @@ function OPDRegistrationForm() {
       .post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData)
       .then((response) => {
         console.log('Successfully registered!', response.data);
-        alert('Registration Successful!');
+        setRegistrationDetails(submissionData);
+        setShowModal(true); // Show the modal after successful registration
         setFormData({
           name: '',
           email: '',
@@ -311,6 +314,25 @@ function OPDRegistrationForm() {
           </div>
         </form>
       </section>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Registration Successful!</h3>
+            <p>Thank you for registering. Here are your details:</p>
+            <ul>
+              <li>Name: {registrationDetails.name}</li>
+              <li>Email: {registrationDetails.email}</li>
+              <li>Age: {registrationDetails.age}</li>
+              <li>Gender: {registrationDetails.gender}</li>
+              <li>Contact: {registrationDetails.contact}</li>
+              <li>Pincode: {registrationDetails.pincode}</li>
+              <li>Reason: {registrationDetails.reason}</li>
+              <li>Date: {registrationDetails.date}</li>
+            </ul>
+            <button onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
