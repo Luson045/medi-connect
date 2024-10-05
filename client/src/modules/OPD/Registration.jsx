@@ -85,7 +85,7 @@ function OPDRegistrationForm() {
 };
   return (
     <>
-      <section className="form-container">
+      <section className="form-container ">
         <h2>OPD Registration</h2>
         <form
           onSubmit={(e) => {
