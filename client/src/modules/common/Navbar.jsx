@@ -1,5 +1,5 @@
 // Import necessary modules and components from React and other libraries
-import React, { useContext, useState, useEffect } from 'react'; // useContext to access user context, useState to manage mobile menu state
+import React, { useContext, useState } from 'react'; // useContext to access user context, useState to manage mobile menu state
 import { NavLink } from 'react-router-dom'; // NavLink for navigation between routes
 import '../../styles/Navbar.css'; // Import custom CSS styles for Navbar
 import { UserContext } from './userContext'; // Import the user context for authentication data
@@ -9,9 +9,7 @@ import { MdLogin, MdOutlineLocalHospital } from 'react-icons/md'; // Material De
 import { AiOutlineInfoCircle } from 'react-icons/ai'; // Ant Design icon for UI
 
 // Navbar component definition
-const Navbar = () => {
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);   
+const Navbar = () => { 
   // Destructure user, isAuthenticated, and handleLogout from the UserContext
   const {
     user,
@@ -28,34 +26,11 @@ const Navbar = () => {
   };
 
 
-  // Handle scroll event and check screen width
-  const controlNavbar = () => {
-    if (window.innerWidth <= 424) {  
-      if (window.scrollY > lastScrollY) {
-        setShowNavbar(false);
-      } else {
-        setShowNavbar(true);
-      }
-    }
-    setLastScrollY(window.scrollY);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', controlNavbar);
-
-    // Cleanup listener on component unmount
-    return () => {
-      window.removeEventListener('scroll', controlNavbar);
-    };
-  }, [lastScrollY])
 
   return (
     // Main Navbar element with responsive classes for layout and styling
     <nav
-      className={`bg-[#333333] fixed top-0 z-[100] w-full py-4 px-5 flex justify-between items-center text-white transition-transform duration-300 lg:py-2 md:px-10 ${
-        showNavbar ? 'translate-y-0' : '-translate-y-full'
-      }`}
-    >
+      className="bg-[#333333] top-0 fixed z-[100] py-4 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
       {/* Logo and link to home page */}
       <NavLink to="/">
         {/* <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" /> */}
