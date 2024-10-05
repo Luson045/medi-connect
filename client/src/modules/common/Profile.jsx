@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './userContext';
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 import '../../styles/UserProfile.css';
 
 const ProfilePage = () => {
