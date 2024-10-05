@@ -33,12 +33,16 @@ function OPDRegistrationForm() {
         newErrors.email = 'Invalid email format';
       }
     }
-    if (!formData.age || formData.age <= 0) newErrors.age = 'Age must be a positive number';
+    if (!formData.age || formData.age <= 0) {
+      newErrors.age = 'Age must be a positive number';
+    } else if (formData.age < 18) {  // Check if age is less than 18
+      newErrors.age = 'Age must be greater than 18';
+    }
     if (!formData.gender) newErrors.gender = 'Gender is required';
     if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
     if (!formData.address.trim()) {
       newErrors.address = 'Address is required';
-    } else if (formData.address.trim().length < 5) {
+    } else if (formData.address.trim().length < 10) {
       newErrors.address = 'Address must be at least 5 characters long';
     }
     if (!formData.department) newErrors.department = 'Department is required';
