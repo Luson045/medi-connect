@@ -61,8 +61,8 @@ const AuthPage = () => {
       if (!formData.phone || !/^\d{10}$/.test(formData.phone))
         newErrors.phone = "Phone number must be exactly 10 digits";
       if (!formData.address) newErrors.address = "Address is required";
-      if (!formData.pincode || formData.pincode.length < 2)
-        newErrors.password = "Invalid Pincode";
+      if (!formData.pincode || formData.pincode.length !==6)
+        newErrors.pincode = "Pincode must be of 6 digits";
     }
     if (!formData.email) newErrors.email = 'Email is required (frontend)';
     if (!formData.password || formData.password.length < 8)
@@ -231,11 +231,11 @@ const AuthPage = () => {
                 onChange={handleChange}
                 required
               />
-              {errors.frontend.phone && ( 
-                <span className="error">{errors.frontend.phone}</span>
+              {errors.frontend.pincode && ( 
+                <span className="error">{errors.frontend.pincode}</span>
               )}
-              {errors.backend.phone && (
-                <span className="error">{errors.backend.phone}</span>
+              {errors.backend.pincode && (
+                <span className="error">{errors.backend.pincode}</span>
               )}
             </div>)
             }
