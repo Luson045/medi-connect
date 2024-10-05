@@ -1,11 +1,14 @@
-# robots.txt for https://med-space.vercel.app/
-
+# Allow all bots to crawl important pages
 User-agent: *
-Allow: /                         # Allow crawling of the homepage
-Allow: /about
-Disallow: /*                     # Disallow crawling of all other pages
+Allow: /                        # Allow crawling of the homepage
+Allow: /about                   # Allow crawling of the about page
+Allow: /registerOPD            # Allow crawling of the registration form
+Allow: /success                 # Allow crawling of the success page
+Allow: /hospitals               # Allow crawling of the hospitals list
+Allow: /services               # Allow crawling of the service list
 
-# Sitemap declaration (optional)
-# Sitemap: https://med-space.vercel.app/sitemap.xml
+# Disallow crawling of sensitive areas
+Disallow: /*   #disallow to all other pages
 
-# End of file
+# Link to your sitemap for better crawling
+Sitemap: https://med-space.vercel.app/sitemap.xml

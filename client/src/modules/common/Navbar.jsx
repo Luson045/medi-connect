@@ -45,6 +45,7 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="bg-[linear-gradient(90deg,_rgba(2,0,36,1)_0%,_rgba(63,15,8,1)_51%,_rgba(63,15,8,1)_97%)]  lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit">
+
           {/* Home link for mobile view */}
           <NavLink
             className={({ isActive }) =>
