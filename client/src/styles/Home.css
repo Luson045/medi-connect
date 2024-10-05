@@ -54,22 +54,18 @@ body {
   text-align: center;
   color: black;
   justify-items: center;
-  height: 80vh;
-  /* background-color: aquamarine; */
-  background: linear-gradient(90deg, #fbd8e5, #fff);
+  height:80vh;
+  background-color: aquamarine;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 20px;
-  font-weight: 800;
-  color: rgb(161, 114, 222);
 }
 
 .hero-content p {
   font-size: 1.5rem;
   margin-bottom: 40px;
-  color: rgb(220, 51, 147);
 }
 
 .hero-button {

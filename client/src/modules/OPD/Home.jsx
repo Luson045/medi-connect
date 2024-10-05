@@ -11,19 +11,26 @@ import FloatingIcons from '../common/FloatingIcons';
 import '../../styles/Home.css'
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
+  <>
   <motion.div
-    className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center hover:shadow-xl transition-transform transform-gpu"
+    className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-end justify-between hover:shadow-xl transition-transform transform-gpu"
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ type: "spring", stiffness: 500 }}
+    transition={{ type: 'spring', stiffness: 500 }}
   >
-    <Icon size={48} className="text-blue-500 mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-blue-600">{details}</p>
+    <div className='flex flex-col items-center text-center'>
+      <Icon size={48} className="text-blue-500 mb-4" />
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600 mb-8">{details}</p>
+    </div>
+    <diV className="flex items-end">
+      <Link>Read more</Link>
+    </diV>
   </motion.div>
+</>
 );
 
 const Button = ({ children, primary, to }) => (
@@ -65,7 +72,10 @@ function Home() {
   ];
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 via-[#e1f3f7] to-blue-50 min-h-screen">
+    
+    
+    <>
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
       <Navbar />
 
       <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
@@ -121,7 +131,7 @@ function Home() {
             Our Services
           </motion.h2>
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false }}
@@ -130,6 +140,11 @@ function Home() {
             {services.map((service, index) => (
               <ServiceCard key={index} {...service} />
             ))}
+          </motion.div>
+          <motion.div
+          className='flex justify-center items-center'
+          >
+            <Button to="/services">View All</Button>
           </motion.div>
         </section>
 
@@ -206,6 +221,7 @@ function Home() {
         <Review/>
       </main>
     </div>
+    </>
   );
 }
 

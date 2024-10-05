@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../src/modules/common/Footer'; // Import Footer
 import Navbar from './modules/common/Navbar';
 import AnimatedCursor from 'react-animated-cursor';
-
+import ServicePage from './modules/common/Service';
 function App() {
   return (
     <div className="App">
@@ -46,6 +46,7 @@ function App() {
               <Route path="/hospitals" element={<HospitalsList />} />
               <Route path="/panal" element={<HospitalAppointments />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/services" element={<ServicePage />} />
             </Routes>
           </div>
           {/* Footer added here */}
