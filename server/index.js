@@ -19,6 +19,7 @@ const corsOptions = {
     "https://console.cron-job.org/",
     "https://prodez-ai.netlify.app",
     "https://medi-connect-in.netlify.app",
+    "https://med-space.vercel.app",
     "http://localhost:3000",
     "http://localhost:3001",
   ], // Replace with your frontend's URL

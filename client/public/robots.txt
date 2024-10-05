@@ -1,3 +1,14 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all bots to crawl important pages
 User-agent: *
-Disallow:
+Allow: /                        # Allow crawling of the homepage
+Allow: /about                   # Allow crawling of the about page
+Allow: /registerOPD            # Allow crawling of the registration form
+Allow: /success                 # Allow crawling of the success page
+Allow: /hospitals               # Allow crawling of the hospitals list
+Allow: /services               # Allow crawling of the service list
+
+# Disallow crawling of sensitive areas
+Disallow: /*   #disallow to all other pages
+
+# Link to your sitemap for better crawling
+Sitemap: https://med-space.vercel.app/sitemap.xml
