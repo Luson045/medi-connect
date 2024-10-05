@@ -17,7 +17,7 @@ const Navbar = () => {
     handleLogout,
   } = useContext(UserContext);
 
-  // Local state to handle the visibility of the mobile menu
+  // Local state to handle the visibility of the mobile menu 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Function to toggle the mobile menu open/close state
@@ -27,11 +27,10 @@ const Navbar = () => {
 
   return (
     // Main Navbar element with responsive classes for layout and styling
-    <nav className="bg-[#333333] top-0 fixed z-[100] py-4 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
+    <nav className="bg-[linear-gradient(90deg,_rgba(2,0,36,1)_0%,_rgba(63,15,8,1)_51%,_rgba(63,15,8,1)_97%)] top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
       {/* Logo and link to home page */}
       <NavLink to="/">
-        {/* <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" /> */}
-        <img className="h-14 md:h-18 object-cover" alt="medi-connects logo" src="logo.png" />
+        <img className="h-10 sm:pl-2 md:h-14" alt="medi-connects logo" src="logo.png" onClick={() => setMobileMenuOpen(false)} />
       </NavLink>
 
       {/* Mobile menu button (hamburger or close icon) */}
@@ -45,17 +44,27 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="bg-[#333333] lg:hidden absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 my-4 md:py-20 h-fit">
+        <div className="bg-[linear-gradient(90deg,_rgba(2,0,36,1)_0%,_rgba(63,15,8,1)_51%,_rgba(63,15,8,1)_97%)]  lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit">
+
           {/* Home link for mobile view */}
           <NavLink
             className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline `
             }
             to="/"
             onClick={() => setMobileMenuOpen(false)} // Close the menu after clicking the link
           >
-            <IoHome /> <p>Home</p>
+            <IoHome /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold' >Home</p>
           </NavLink>
+          <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+                }
+                to="/about"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <AiOutlineInfoCircle /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>About</p>
+              </NavLink>
 
           {/* Conditional rendering for authenticated users */}
           {isAuthenticated ? (
@@ -64,19 +73,10 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
                 }
-                to="/about"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <AiOutlineInfoCircle /> <p>About</p>
-              </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-                }
                 to="/profile"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUser /> <p>Profile</p>
+                <FaUser /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Profile</p>
               </NavLink>
 
               {/* Show Hospitals link only for 'user' role */}
@@ -89,7 +89,7 @@ const Navbar = () => {
                     to="/hospitals"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <FaHospital /> <p>Hospitals</p>
+                    <FaHospital /> <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Hospitals</p>
                   </NavLink>
                 </>
               )}
@@ -105,7 +105,7 @@ const Navbar = () => {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <MdOutlineLocalHospital />
-                    <p>OPD Panel</p>
+                    <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>OPD Panel</p>
                   </NavLink>
                 </>
               )}
@@ -119,14 +119,14 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <MdOutlineLocalHospital />
-              Instant OPD
+              <p className='transition-colors duration-300 ease-in-out hover:brightness-50 hover:font-semibold'>Instant OPD</p>
             </NavLink>
           )}
 
           {/* Logout button for authenticated users */}
           {isAuthenticated ? (
             <button
-              className={` bg-white px-5 py-1 rounded-lg text-black`}
+              className={` bg-white px-5 py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`}
               onClick={handleLogout} // Handle logout
             >
               Log Out
@@ -136,7 +136,7 @@ const Navbar = () => {
               {/* Login and Register links for non-authenticated users */}
               <NavLink
                 className={() =>
-                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`
                 }
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
@@ -145,12 +145,12 @@ const Navbar = () => {
               </NavLink>
               <NavLink
                 className={() =>
-                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black`
+                  ` bg-white items-center flex gap-2 px-5 text-lg py-1 rounded-lg text-black transition-colors duration-300 ease-in-out font-bold hover:brightness-75`
                 }
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUserPlus /> <p> Register</p>
+                <FaUserPlus /> Register
               </NavLink>
             </div>
           )}
@@ -158,24 +158,21 @@ const Navbar = () => {
       )}
 
       {/* Desktop Navigation Links */}
-      <div className="hidden lg:flex items-center gap-32">
-        <div className="flex items-center gap-10">
+      <div className="hidden lg:flex items-center gap-10 ">
+        <div className="flex items-center gap-4 text-lg font-medium ">
           <NavLink to="/" className={`flex justify-center items-center gap-2`}>
-            <FaHome />
-            <p>Home</p>
+            <FaHome /> <p className=' transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Home</p>
+          </NavLink>
+
+          <NavLink to="/about" className={`flex justify-center items-center gap-2`}>
+                <AiOutlineInfoCircle /> <p className=' transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>About</p>
           </NavLink>
 
           {/* Show links for authenticated users */}
           {isAuthenticated ? (
             <>
-              <NavLink
-                to="/about"
-                className={`flex justify-center items-center gap-2`}
-              >
-                <AiOutlineInfoCircle /> <p>About</p>
-              </NavLink>
               <NavLink to="/profile" className={`flex items-baseline gap-2`}>
-                <FaUser /> <p>Profile</p>
+                <FaUser /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Profile</p>
               </NavLink>
 
               {/* Show Hospitals link for 'user' role */}
@@ -185,7 +182,7 @@ const Navbar = () => {
                     to="/hospitals"
                     className={`flex items-baseline gap-2`}
                   >
-                    <FaHospital /> <p>Hospitals</p>
+                    <FaHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Hospitals</p>
                   </NavLink>
                 </>
               )}
@@ -194,23 +191,23 @@ const Navbar = () => {
               {user && user?.role === 'hospital' && (
                 <>
                   <NavLink to="/panal" className={`flex items-baseline gap-2`}>
-                    <MdOutlineLocalHospital /> <p>OPD Panel</p>
+                    <MdOutlineLocalHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>OPD Panel</p>
                   </NavLink>
                 </>
               )}
             </>
           ) : (
             <NavLink to="/registerOPD" className={`flex items-center gap-2`}>
-              <MdOutlineLocalHospital /> <p>Instant OPD</p>
+              <MdOutlineLocalHospital /> <p className='transition-colors duration-300 ease-in-out font-bold text-lg hover:brightness-50'>Instant OPD</p>
             </NavLink>
           )}
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex gap-3">
           {/* Logout button for authenticated users */}
           {isAuthenticated ? (
             <button
-              className="bg-white px-5 py-1 rounded-lg text-black"
+              className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
               onClick={handleLogout}
             >
               Log Out
@@ -219,13 +216,13 @@ const Navbar = () => {
             <>
               {/* Login and Register links for non-authenticated users */}
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
                 to="/login"
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black"
+                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black transition-colors duration-500 ease-in-out  hover:brightness-75"
                 to="/register"
               >
                 <FaUserPlus /> <p> Register</p>
