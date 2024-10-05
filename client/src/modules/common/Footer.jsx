@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Footer.css';
 import instagram from '../../assets/instagram-brands-solid.svg';
 import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
-//import CustomerCare from '../../assets/call-center.gif';
-//import Consultation from '../../assets/consultation.gif';
-//import PriceTag from '../../assets/price-tag.gif';
-//import Terms from '../../assets/terms-and-conditions.png';
-//import Join from '../../assets/join.gif';
 import { FaArrowUp } from 'react-icons/fa';
-//import hospital from '../../assets/hospital.gif';
-//import doctor from '../../assets/doctors-office.gif';
-//import support from '../../assets/support.png';
-//import business from '../../assets/business.gif';
-//import bloodTest from '../../assets/blood-test.gif';
-//import health from '../../assets/health-checkup.gif';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -28,7 +16,6 @@ const Footer = () => {
     }
   };
 
-  //function for scrolling to the top:
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -36,7 +23,6 @@ const Footer = () => {
     });
   };
 
-  // Attach scroll event listener
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -45,133 +31,78 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="footer">
-      <div className="footer-sections">
-        <div className="footer-column">
-          <h3 className="text-xl font-semibold mb-4">Services</h3>
+    <footer className="bg-gray-800 text-white p-20">
+      <div className="flex flex-col md:flex-row justify-between text-center md:text-left mt-4">
+        <div className="mb-8 md:mb-0">
+          <h3 className="text-2xl md:text-4xl font-semibold mb-6">Services</h3>
           <ul>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={Consultation} alt="OPD Consultation Icon" className="w-12 h-12" /> */}
-              <span>OPD Consultations</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={bloodTest} alt="Lab Test Icon" className="w-12 h-12" /> */}
-              <span>Lab Tests</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={health} alt="Health Checkup Icon" className="w-12 h-12" /> */}
-              <span>Health Checkup</span>
-            </li>
-          </ul>
-        </div>
-    
-        <div className="footer-column">
-          <h3 className="text-xl font-semibold mb-4">About</h3>
-          <ul>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={hospital} alt="Hospital Icon" className="w-10 h-10" /> */}
-              <span>Our Hospital</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={doctor} alt="Doctors Icon" className="w-12 h-12" /> */}
-              <span>Doctors</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={PriceTag} alt="Pricing Icon" className="w-12 h-12" /> */}
-              <span>Pricing</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={Terms} alt="Terms Icon" className="w-10 h-10" /> */}
-              <span>Terms</span>
-            </li>
-          </ul>
-        </div>
-    
-        <div className="footer-column">
-          <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
-          <ul>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={business} alt="Business Icon" className="w-10 h-10" /> */}
-              <span>Business</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={CustomerCare} alt="Customer Care Icon" className="w-12 h-12" /> */}
-              <span>Customer Care</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={Join} alt="Join Us Icon" className="w-12 h-12" /> */}
-              <span>Join Us</span>
-            </li>
-            <li className="flex items-center space-x-4 mb-2">
-              {/* <img src={support} alt="Support Us Icon" className="w-10 h-10" /> */}
-              <span>Support Us</span>
-            </li>
+            <li className="mb-4 text-lg md:text-2xl">OPD Consultations</li>
+            <li className="mb-4 text-lg md:text-2xl">Lab Tests</li>
+            <li className="mb-4 text-lg md:text-2xl">Health Checkup</li>
           </ul>
         </div>
 
-        <div className="footer-column follow-us">
-          <h3>Follow us on</h3>
-          <ul className="social-icons">
+        <div className="mb-8 md:mb-0">
+          <h3 className="text-2xl md:text-4xl font-semibold mb-6">About</h3>
+          <ul>
+            <li className="mb-4 text-lg md:text-2xl">Our Hospital</li>
+            <li className="mb-4 text-lg md:text-2xl">Doctors</li>
+            <li className="mb-4 text-lg md:text-2xl">Pricing</li>
+            <li className="mb-4 text-lg md:text-2xl">Terms</li>
+          </ul>
+        </div>
+
+        <div className="mb-8 md:mb-0">
+          <h3 className="text-2xl md:text-4xl font-semibold mb-6">Contact Us</h3>
+          <ul>
+            <li className="mb-4 text-lg md:text-2xl">Business</li>
+            <li className="mb-4 text-lg md:text-2xl">Customer Care</li>
+            <li className="mb-4 text-lg md:text-2xl">Join Us</li>
+            <li className="mb-4 text-lg md:text-2xl">Support Us</li>
+          </ul>
+        </div>
+
+        <div className="mb-8 md:mb-0">
+          <h3 className="text-2xl md:text-4xl font-semibold mb-6">Follow us on</h3>
+          <ul className="flex justify-center space-x-8 md:space-x-10">
             <li>
-              <a
-                href="https://www.instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={instagram} alt="Instagram" />
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src={instagram} alt="Instagram" className="w-12 md:w-16 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" /> {/* White icon */}
               </a>
             </li>
             <li>
-              <a
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={facebook} alt="Facebook" />
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                <img src={facebook} alt="Facebook" className="w-12 md:w-16 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" /> {/* White icon */}
               </a>
             </li>
             <li>
-              <a
-                href="https://www.twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={twitter} alt="Twitter" />
+              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                <img src={twitter} alt="Twitter" className="w-12 md:w-16 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" /> {/* White icon */}
               </a>
             </li>
             <li>
-              <a
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={linkedin} alt="LinkedIn" />
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                <img src={linkedin} alt="LinkedIn" className="w-12 md:w-16 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" /> {/* White icon */}
               </a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="disclaimer">
-        <p>DISCLAIMER</p>
-        <p>
-          “The information provided on Medi-Connect is intended for general
-          informational purposes only and should not be considered as medical
-          advice, diagnosis, or treatment. Always seek the advice of a qualified
-          healthcare provider for any medical condition or treatment.
-          Medi-Connect facilitates OPD appointment booking and hospital data
-          sharing, but it does not endorse or guarantee the quality of services
-          provided by healthcare providers.”
+      <div className="text-center mt-8">
+        <p className="font-bold text-xl md:text-3xl">DISCLAIMER</p>
+        <p className="text-gray-300 text-base md:text-xl mt-2">
+          “The information provided on Med-Space is intended for general informational purposes only and should not be considered as medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider for any medical condition or treatment. Med-Space facilitates OPD appointment booking and hospital data sharing, but it does not endorse or guarantee the quality of services provided by healthcare providers.”
         </p>
       </div>
 
-      <div className="footer-bottom">
+      <div className="text-center mt-4 text-gray-400 text-sm md:text-lg">
         <p>Medi connect ©2024</p>
       </div>
 
       {showScrollTop && (
-        <button onClick={scrollToTop} className="scroll-to-top">
-          <FaArrowUp size={24} />
+        <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-500 text-white p-4 md:p-5 rounded-full">
+          <FaArrowUp size={28} />
         </button>
       )}
     </footer>
