@@ -237,11 +237,11 @@ const AuthPage = () => {
                 onChange={handleChange}
                 required
               />
-              {errors.frontend.phone && ( 
-                <span className="error">{errors.frontend.phone}</span>
+              {errors.frontend.pincode && ( 
+                <span className="error">{errors.frontend.pincode}</span>
               )}
-              {errors.backend.phone && (
-                <span className="error">{errors.backend.phone}</span>
+              {errors.backend.pincode && (
+                <span className="error">{errors.backend.pincode}</span>
               )}
             </div>)
             }
