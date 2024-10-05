@@ -82,7 +82,7 @@ const AboutPage = () => {
                 </TeamCard>
               </animated.div>
             ))}
-          </TeamGrid>
+          </TeamGrid><br></br>
           <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
           <div align="center">
             <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
