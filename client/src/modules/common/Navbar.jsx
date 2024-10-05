@@ -30,7 +30,8 @@ const Navbar = () => {
     <nav className="bg-[#333333] top-0 fixed z-[100] py-4 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 text-white">
       {/* Logo and link to home page */}
       <NavLink to="/">
-        <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" />
+        {/* <img className="h-10 md:h-14" alt="medi-connects logo" src="logo.png" /> */}
+        <img className="h-14 md:h-18 object-cover" alt="medi-connects logo" src="logo.png" />
       </NavLink>
 
       {/* Mobile menu button (hamburger or close icon) */}
@@ -44,7 +45,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
-        <div className="bg-[#333333] lg:hidden absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 md:py-20 h-fit">
+        <div className="bg-[#333333] lg:hidden absolute z-[100] flex text-xl md:text-3xl flex-col items-start pl-8 gap-10 md:gap-16 top-16 md:top-[84px] w-full left-0 py-7 my-4 md:py-20 h-fit">
           {/* Home link for mobile view */}
           <NavLink
             className={({ isActive }) =>
