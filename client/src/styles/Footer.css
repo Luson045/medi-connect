@@ -56,12 +56,14 @@
   margin: 0 15px; /* Increased spacing between social icons */
 }
 
+/* Social icons styling */
 .social-icons img {
   width: 30px; /* Increased icon size */
   height: 30px;
-  margin: 0;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Added smooth transition */
 }
 
+/* Social icon circular button */
 .social-icons a {
   display: inline-block;
   width: 50px; /* Size of the circle */
@@ -72,10 +74,17 @@
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Added smooth transition */
 }
 
+/* Hover effect for social icons */
 .social-icons a:hover {
-  opacity: 0.8;
+  background-color: #007bff;
+  transform: scale(1.2) rotate(360deg); /* Add scale and rotation animation */
+}
+
+.social-icons img:hover {
+  filter: brightness(0) invert(1); /* Change icon color on hover */
 }
 
 .disclaimer {
@@ -133,11 +142,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .scroll-to-top:hover {
   background-color: #0056b3;
+  transform: scale(1.1); /* Slight scaling on hover */
 }
 
 .scroll-to-top:focus {
