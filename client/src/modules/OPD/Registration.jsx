@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../common/Navbar';
 import '../../styles/OPD.css';
+// import pincodes from 'indian-pincodes';
+import {pininfo} from 'indian_address';
 import { Cards } from './Cards';
 
 function OPDRegistrationForm() {
@@ -49,13 +51,17 @@ function OPDRegistrationForm() {
       newErrors.address = 'Address must be at least 5 characters long';
     }
     if (!formData.department) newErrors.department = 'Department is required';
-    if (!formData.pincode.trim()) {
-      newErrors.pincode = 'Pincode is required';
-    } else if (!/^\d{6}$/.test(formData.pincode.trim())) {
-      newErrors.pincode = 'Pincode must be 6 digits';
-    }
-    if (!formData.reason.trim()) newErrors.reason = 'Reason is required';
-    if (!formData.date) newErrors.date = 'Date is required';
+
+  if (!formData.pincode.trim()) {
+    newErrors.pincode = 'Pincode is required';
+  } else if (!pininfo[formData.pincode]) {
+    newErrors.pincode = 'Invalid pincode';  // Handle invalid pincode
+  } else {
+    console.log("Pincode details:", pininfo[formData.pincode]);
+  }
+    if (!formData.reason.trim()) newErrors.reason = 'Reason is required'; // Validation for reason
+    if (!formData.date) newErrors.date = 'Date is required'; // Validation for date
+
 
     if (formData.report.length > 0) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -70,6 +76,7 @@ function OPDRegistrationForm() {
         }
       });
     }
+
 
     return newErrors;
   };
