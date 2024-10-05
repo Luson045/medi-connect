@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const teamMembers = [
   {
     name: 'Luson Basumatary',
-    role: 'Lead Developer',
+    role: 'Lead Developer || Founder',
     description:
       'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
   },
