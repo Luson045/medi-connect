@@ -5,6 +5,7 @@ Allow: /about                   # Allow crawling of the about page
 Allow: /registerOPD            # Allow crawling of the registration form
 Allow: /success                 # Allow crawling of the success page
 Allow: /hospitals               # Allow crawling of the hospitals list
+Allow: /services               # Allow crawling of the service list
 
 # Disallow crawling of sensitive areas
 Disallow: /*   #disallow to all other pages
