@@ -57,4 +57,16 @@ def get_response(intents_list,intents_json):
   return result
 
 
-
+if __name__ == "__main__":
+    print("Let's chat! (type 'quit' to exit)")
+    while True:
+        # sentence = "do you use credit cards?"
+        message = input("You: ")
+        
+        if message == "quit":
+            break
+        ints=predict_class(message)
+        resp=get_response(ints,intents)
+        print(resp)
+ 
+ 
