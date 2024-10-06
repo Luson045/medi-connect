@@ -40,3 +40,19 @@ const loadintents = async () => {
     return chatLi; 
   }
   
+  const generateResponse = async (chatElement) => {
+    if (!API_KEY) {
+      await loadConfig();
+    }
+    const messageElement = chatElement.querySelector("p");
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        contents: [{ 
+          role: "user", 
+          parts: [{ text: userMessage }] 
+        }] 
+      }),
+    }
+    
