@@ -7,6 +7,8 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "../.env" });
 const { z } = require("zod");
+const mongoose = require("mongoose");
+const { ObjectId } = require('mongodb');
 const { sendMail } = require("../notifications/sendMail");
 
 const router = express.Router();
@@ -268,46 +270,73 @@ router.put("/appointments/:appointmentId", async (req, res) => {
   }
 });
 
-// Route to delete an appointment
+//Route handler for Deleting an appointment 
 router.delete("/appointments/:appointmentId", async (req, res) => {
   try {
     const { appointmentId } = req.params;
-    console.log(`Attempting to delete appointment: ${appointmentId}`);
-
-    const hospital = await Hospital.findOne({
-      "appointments._id": appointmentId,
-    });
-
-    if (!hospital) {
-      console.log("Hospital not found");
-      return res
-        .status(404)
-        .send({ message: "Appointment not found in hospital records" });
+   
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ message: "Invalid appointment ID" });
     }
 
-    const appointmentToDelete = hospital.appointments.find(
-      (appointment) => appointment._id.toString() === appointmentId
-    );
+    const session = await mongoose.startSession();
+    session.startTransaction();
 
-    if (!appointmentToDelete) {
-      console.log("Appointment not found in hospital");
-      return res
-        .status(404)
-        .send({ message: "Appointment not found in hospital records" });
+    try {
+      // Find the hospital and the specific appointment
+      const hospital = await Hospital.findOne(
+        { "appointments._id": appointmentId },
+        { "appointments.$": 1 }
+      ).session(session);
+
+      if (!hospital || !hospital.appointments.length) {
+        await session.abortTransaction();
+        return res.status(404).json({ message: "Appointment not found in hospital" });
+      }
+
+      const appointment = hospital.appointments[0];
+
+      // Remove the appointment from the hospital
+      await Hospital.updateOne(
+        { _id: hospital._id },
+        { $pull: { appointments: { _id: appointmentId } } },
+        { session }
+      );
+
+      console.log("Appointment deleted from hospital");
+
+      // Find and update the user using the appointment details
+      const userResult = await User.updateOne(
+        {
+          "appointments.hospitalId": hospital._id,
+          "appointments.date": appointment.date,
+          "appointments.reason": appointment.reason
+        },
+        { $pull: { appointments: { hospitalId: hospital._id, date: appointment.date, reason: appointment.reason } } },
+        { session }
+      );
+
+      if (userResult.modifiedCount === 0) {
+        await session.abortTransaction();
+        return res.status(404).json({ message: "Appointment not found in user" });
+      }
+
+      console.log("Appointment deleted from user");
+
+      await session.commitTransaction();
+      res.status(200).json({ message: "Appointment deleted successfully" });
+    } catch (error) {
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      session.endSession();
     }
-
-    console.log(`Deleting appointment: ${appointmentToDelete}`);
-    hospital.appointments = hospital.appointments.filter(
-      (appointment) => appointment._id.toString() !== appointmentId
-    );
-    await hospital.save();
-
-    res.status(200).json({ message: "Appointment deleted successfully" });
   } catch (error) {
     console.error("Error deleting appointment:", error);
-    res.status(500).send({ message: "Server error", error });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
 router.post(
   "/emergency",
   asyncHandler(async (req, res) => {
