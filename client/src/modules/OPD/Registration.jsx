@@ -49,7 +49,7 @@ function OPDRegistrationForm() {
     if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
     if (!formData.address.trim()) {
       newErrors.address = 'Address is required';
-    } else if (formData.address.trim().length < 10) {
+    } else if (formData.address.trim().length < 5) {
       newErrors.address = 'Address must be at least 5 characters long';
     }
     if (!formData.department) newErrors.department = 'Department is required';
