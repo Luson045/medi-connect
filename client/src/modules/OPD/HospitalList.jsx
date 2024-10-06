@@ -100,7 +100,7 @@ const HospitalsList = () => {
           {filteredHospitals.map((hospital) => (
             <div
               key={hospital._id}
-              className="hospital-card p-5 flex flex-col gap-5"
+              className="hospital-card p-5 flex flex-col gap-5 bg-white"
             >
               <div>
                 <h3>{hospital.name}</h3>
