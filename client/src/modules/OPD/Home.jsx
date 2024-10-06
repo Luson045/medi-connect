@@ -49,7 +49,15 @@ const Button = ({ children, primary, to }) => (
   </motion.div>
 );
 
-function Home() {
+function Home({ loaderVisible, setLoaderVisible }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoaderVisible(false);
+    }, 2500); // Change the duration as needed
+
+    return () => clearTimeout(timer);
+  }, [setLoaderVisible]);
+
   const services = [
     {
       icon: Clipboard,
@@ -73,7 +81,9 @@ function Home() {
 
   return (
     <>
-      {
+      {loaderVisible && <Loader />}
+
+      {!loaderVisible && (
         <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
           <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
             <div className="absolute inset-0">
@@ -217,7 +227,7 @@ function Home() {
             </section>
           </main>
         </div>
-      }
+      )}
     </>
   );
 }

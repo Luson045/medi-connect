@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import AuthPage from './modules/common/AuthForm';
 import OPDRegistrationForm from './modules/OPD/Registration';
 import HospitalsList from './modules/OPD/HospitalList';
@@ -16,15 +17,26 @@ import ServicePage from './modules/common/Service';
 import AnimatedCursor from './modules/common/AnimatedCursor';
 
 function App() {
+  const [loaderVisible, setLoaderVisible] = useState(true);
+
   return (
     <div className="App">
       <AnimatedCursor />
       <Router>
         <UserProvider>
-          <Navbar />
+          {/* Conditionally render the Navbar based on loaderVisible state */}
+          {!loaderVisible && <Navbar />}
           <div className="mt-14">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <Home
+                    loaderVisible={loaderVisible}
+                    setLoaderVisible={setLoaderVisible}
+                  />
+                }
+              />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/registerOPD" element={<OPDRegistrationForm />} />
               <Route path="/success" element={<Success />} />
@@ -36,8 +48,8 @@ function App() {
               <Route path="/services" element={<ServicePage />} />
             </Routes>
           </div>
-
-          <Footer />
+          {/* Footer added here */}
+          {!loaderVisible && <Footer />}
         </UserProvider>
       </Router>
       <ToastContainer />
