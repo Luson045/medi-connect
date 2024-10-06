@@ -141,6 +141,7 @@ const TeamCard = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   width: 300px;
+  height: 100%;
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.05);
