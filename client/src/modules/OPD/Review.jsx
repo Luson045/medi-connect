@@ -56,7 +56,7 @@ const reviews = [
       'Our hospital maintains the highest standards of patient care and safety.',
     rating: 5,
     image:
-      'https://images.unsplash.com/photo-1517363898878-5a15f2384404?ixlib=rb-4.0.3&q=80&fm=jpg&crop=faces&fit=crop&w=150&h=150',
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
     id: 6,
@@ -81,11 +81,11 @@ const ReviewCard = ({ review }) => (
         <img
           src={review.image}
           alt={review.name}
-          className="w-16 h-16 rounded-full border-2 border-indigo-600 mr-4 object-cover"
+          className="w-16 h-16 rounded-full border-2  mr-4 object-cover"
         />
         <div>
           <h3 className="font-semibold text-lg text-gray-800">{review.name}</h3>
-          <p className="text-indigo-600 text-sm">{review.role}</p>
+          <p className="text-blue-500 text-sm">{review.role}</p>
         </div>
       </div>
       <p className="text-xl font-bold mb-2 text-gray-800">"{review.quote}"</p>
@@ -127,13 +127,13 @@ const Review = () => {
   const reviewWidth = isSmallScreen ? 100 : 100 / 3; // Adjust width for small screens or large screens
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
           What Our Community Says
         </h2>
         <div className="relative">
-          <div className="overflow-hidden">
+          <div className="overflow-visible">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
@@ -152,13 +152,13 @@ const Review = () => {
           </div>
           <button
             onClick={prevReview}
-            className="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 hover:shadow-lg"
+            className="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg ml-1"
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
           <button
             onClick={nextReview}
-            className="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 hover:shadow-lg"
+            className="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg mr-1"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
@@ -177,7 +177,7 @@ const Review = () => {
                 key={index}
                 onClick={() => setCurrentIndex(index + 1)}
                 className={`w-2 h-2 mx-1 rounded-full cursor-pointer transition-colors duration-200 ${
-                  index + 1 === currentIndex ? 'bg-indigo-600' : 'bg-gray-300'
+                  index + 1 === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
                 }`}
               />
             ))}
