@@ -15,3 +15,14 @@ from tensorflow.keras.layers import Dense,Activation,Dropout
 from tensorflow.keras.optimizers import SGD
 
 
+lemmatizer=WordNetLemmatizer()
+
+with open('intents.json') as json_file:
+    intents = json.load(json_file)
+
+
+words=[]
+classes=[]
+documents=[]
+ignore_letters=['?','!','.',',']
+
