@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import '../../styles/HospitalList.css';
-import Navbar from '../common/Navbar';
 import { UserContext } from '../common/userContext';
 
 const HospitalsList = () => {
@@ -47,8 +46,8 @@ const HospitalsList = () => {
           ...bookingData,
         },
       );
-
       alert(response.data.message);
+      setSelectedHospital(null)
     } catch (error) {
       alert('Error booking appointment');
       console.error(error);
@@ -97,30 +96,34 @@ const HospitalsList = () => {
           />
         </center>
 
-        <div className="hospital-list">
+        <div className="hospital-list flex flex-wrap gap-5">
           {filteredHospitals.map((hospital) => (
-            <div key={hospital._id} className="hospital-card">
-              <h3>{hospital.name}</h3>
+            <div
+              key={hospital._id}
+              className="hospital-card p-5 flex flex-col gap-5"
+            >
+              <div>
+                <h3>{hospital.name}</h3>
 
-              {/* Handle null or undefined address safely */}
-              <p>
-                {hospital.address?.street || 'N/A'},{' '}
-                {hospital.address?.city || 'N/A'},{' '}
-                {hospital.address?.state || 'N/A'}
-              </p>
+                {/* Handle null or undefined address safely */}
+                <p>
+                  {hospital.address?.street || 'N/A'},{' '}
+                  {hospital.address?.city || 'N/A'},{' '}
+                  {hospital.address?.state || 'N/A'}
+                </p>
 
-              <p>Phone: {hospital.phone || 'N/A'}</p>
-              <p>Website: {hospital.website || 'N/A'}</p>
-              <p>Departments: {hospital.departments?.join(', ') || 'N/A'}</p>
-              <p>
-                Available Services:{' '}
-                {hospital.availableServices?.join(', ') || 'N/A'}
-              </p>
-              <p>Ratings: {hospital.ratings || 'N/A'}/5</p>
-              <p>
-                Running Appointments: {hospital.appointments.length || 'N/A'}
-              </p>
-
+                <p>Phone: {hospital.phone || 'N/A'}</p>
+                <p>Website: {hospital.website || 'N/A'}</p>
+                <p>Departments: {hospital.departments?.join(', ') || 'N/A'}</p>
+                <p>
+                  Available Services:{' '}
+                  {hospital.availableServices?.join(', ') || 'N/A'}
+                </p>
+                <p>Ratings: {hospital.ratings || 'N/A'}/5</p>
+                <p>
+                  Running Appointments: {hospital.appointments.length || 'N/A'}
+                </p>
+              </div>
               <button onClick={() => setSelectedHospital(hospital)}>
                 Book Appointment
               </button>
