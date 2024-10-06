@@ -258,4 +258,28 @@
            "context": [ "" ]
           },
   
-                                                                                                                                                                                                                                                  
+                 {"tag": "Eye Injury",
+           "patterns": ["How do you treat an eye Injury?", "what to do if i get a eye Injury?", "Which medicine to take if I injured my eye?", "How to cure injured eye?"],
+           "responses": ["1) DO NOT rub the eye, 2)Blink several times and allow tears to flush out the particle, 3) Lift the upper eyelid over the lashes of your lower lid to let the eyelashes try to brush the particle out., 4) Use eyewash, saline solution or running tap water to flush the eye out "],
+           "context": [ "" ]
+          },
+  
+          {"tag": "Chemical Burn",
+           "patterns": ["How do you treat a chemical burn?", "what to do if i get a Chemical Burn?", "Which medicine to take if I get burn due to chemicals?", "How to cure Chemical Burn?"],
+           "responses": ["1) rinsed with water · Flush the area for at least 20 minutes. · As you flush the area, take off any clothing or jewellery that has the chemical on it ,2) Don't use a strong stream of water, if possible., 3)Don't try to neutralize the burn with acid or alkali. This could cause a chemical reaction that worsens the burn, 4) Don't put antibiotic ointment on the burn. "],
+           "context": [ "" ]
+          },
+  
+          {"tag": "Poison",
+           "patterns": ["How do you treat a Poison?", "what to do if i get Poison?", "Which medicine to take if I am poisoned?", "How to cure Poisoning?"],
+           "responses": ["1) Get to fresh air right away. Call the toll-free Poison Help line (1-800-222-1222), which connects you to your local poison center, 2) Take off any clothing the poison touched. Rinse skin with running water for 15 to 20 minutes. Call the toll-free Poison Help line (1-800-222-1222), which connects you to your local poison center.,3) If the person swallowed the wrong medicine or too much medicine: Call Poison Help (1-800-222-1222), which connects you to your local poison center.,4) Every poisoning is different. "],
+           "context": [ "" ]
+          },
+  
+          {"tag": "Teeth",
+           "patterns": ["How do you treat broken Teeth ?", "what to do if my Teeth got broken?", "Which medicine to take if I get broken teeth?", "cure broken teeth?"],
+           "responses": ["1) lick the tooth clean if it's dirty, or rinse it in water. put it back into position (adult teeth only); never try to re-insert a baby tooth (see below) bite on a handkerchief to hold the tooth in place. go to see a dentist as an emergency "],
+           "context": [ "" ]
+          },
+  
+         
