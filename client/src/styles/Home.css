@@ -6,7 +6,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  background: linear-gradient(90deg, #fbd8e5, #fff);
+  background: linear-gradient(to bottom, #dbeafe, #ebf5ff);
 }
 .bg-image-section {
   background-image: url('../../public/doctor.png');
