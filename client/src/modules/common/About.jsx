@@ -1,13 +1,12 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
-import Navbar from '../common/Navbar';
 
 // Team member data
 const teamMembers = [
   {
     name: 'Luson Basumatary',
-    role: 'Lead Developer',
+    role: 'Lead Developer || Founder',
     description:
       'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
   },
@@ -60,6 +59,17 @@ const AboutPage = () => {
     <>
       <Container>
         <animated.div style={fadeIn}>
+          
+        <VisionSection>
+            <VisionTitle>Our Vision</VisionTitle>
+            <VisionText>
+              At Medi-Connect, we envision a world where accessing outpatient
+              care is as simple as a few clicks. By leveraging technology and
+              innovation, we aim to provide a platform that bridges the gap
+              between patients and healthcare providers, making high-quality
+              care accessible to everyone, anywhere.
+            </VisionText>
+          </VisionSection>
           <Title>About Us</Title>
           <Subtitle>Meet the Team</Subtitle>
           <TeamGrid>
@@ -73,16 +83,12 @@ const AboutPage = () => {
               </animated.div>
             ))}
           </TeamGrid>
-          <VisionSection>
-            <VisionTitle>Our Vision</VisionTitle>
-            <VisionText>
-              At Medi-Connect, we envision a world where accessing outpatient
-              care is as simple as a few clicks. By leveraging technology and
-              innovation, we aim to provide a platform that bridges the gap
-              between patients and healthcare providers, making high-quality
-              care accessible to everyone, anywhere.
-            </VisionText>
-          </VisionSection>
+          <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
+          <div align="center">
+            <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
+              <img alt="git team" src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
+            </a>
+          </div>
           <JoinUsSection>
             <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
             <JoinUsText>
@@ -103,16 +109,16 @@ const Container = styled.div`
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 100px;
   @media (max-width: 768px) {
     padding: 1rem;
   }
 `;
 
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #333;
+const Title = styled.h2`
+font-size: 2rem;
+margin-bottom: 1rem;
+color: #c229b8;
 `;
 
 const Subtitle = styled.h2`
@@ -188,4 +194,9 @@ const JoinUsText = styled.p`
   line-height: 1.6;
 `;
 
+const GitTeamTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c229b8;
+`;
 export default AboutPage;

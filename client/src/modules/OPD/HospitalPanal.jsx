@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../common/userContext';
-import Navbar from '../common/Navbar';
 import '../../styles/HospitalPanal.css';
 
 const HospitalAppointments = () => {

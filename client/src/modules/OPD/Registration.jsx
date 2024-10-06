@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../common/Navbar';
 import '../../styles/OPD.css';
+import jsPDF from 'jspdf';
+// import pincodes from 'indian-pincodes';
+import { pininfo } from 'indian_address';
+import { AiOutlineDownload } from 'react-icons/ai';
+
 
 function OPDRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -16,11 +20,14 @@ function OPDRegistrationForm() {
     pincode: '',
     reason: '',
     date: '',
-    report: [], 
+    report: [],
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [registrationDetails, setRegistrationDetails] = useState(null);
+  const [appointmentDetails, setAppointmentDetails] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -35,24 +42,28 @@ function OPDRegistrationForm() {
     }
     if (!formData.age || formData.age <= 0) {
       newErrors.age = 'Age must be a positive number';
-    } else if (formData.age < 18) { 
+    } else if (formData.age < 18) {
       newErrors.age = 'Age must be greater than 18';
     }
     if (!formData.gender) newErrors.gender = 'Gender is required';
     if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
     if (!formData.address.trim()) {
       newErrors.address = 'Address is required';
-    } else if (formData.address.trim().length < 10) {
+    } else if (formData.address.trim().length < 5) {
       newErrors.address = 'Address must be at least 5 characters long';
     }
     if (!formData.department) newErrors.department = 'Department is required';
+
     if (!formData.pincode.trim()) {
       newErrors.pincode = 'Pincode is required';
-    } else if (!/^\d{6}$/.test(formData.pincode.trim())) {
-      newErrors.pincode = 'Pincode must be 6 digits';
+    } else if (!pininfo[formData.pincode]) {
+      newErrors.pincode = 'Invalid pincode';  // Handle invalid pincode
+    } else {
+      console.log("Pincode details:", pininfo[formData.pincode]);
     }
-    if (!formData.reason.trim()) newErrors.reason = 'Reason is required';
-    if (!formData.date) newErrors.date = 'Date is required';
+    if (!formData.reason.trim()) newErrors.reason = 'Reason is required'; // Validation for reason
+    if (!formData.date) newErrors.date = 'Date is required'; // Validation for date
+
 
     if (formData.report.length > 0) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -68,6 +79,7 @@ function OPDRegistrationForm() {
       });
     }
 
+
     return newErrors;
   };
 
@@ -76,9 +88,9 @@ function OPDRegistrationForm() {
     if (name === 'report') {
       setFormData((prevData) => ({
         ...prevData,
-        report: [...prevData.report, ...Array.from(files)], 
+        report: [...prevData.report, ...Array.from(files)],
       }));
-      setErrors({ ...errors, report: '' }); 
+      setErrors({ ...errors, report: '' });
     } else {
       setFormData({ ...formData, [name]: value });
       setErrors({ ...errors, [name]: '' });
@@ -87,16 +99,15 @@ function OPDRegistrationForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-  
+
     setIsSubmitting(true);
-  
-    // sending only the required fields to the backend
+
     const submissionData = {
       name: formData.name,
       email: formData.email,
@@ -107,12 +118,14 @@ function OPDRegistrationForm() {
       reason: formData.reason,
       date: formData.date,
     };
-  
+
     axios
       .post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData)
       .then((response) => {
         console.log('Successfully registered!', response.data);
-        alert('Registration Successful!');
+        setRegistrationDetails(submissionData);
+        setAppointmentDetails(response.data);
+        setShowModal(true); // Show the modal after successful registration
         setFormData({
           name: '',
           email: '',
@@ -136,9 +149,19 @@ function OPDRegistrationForm() {
       });
   };
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text('OPD Registration Details', 20, 20);
+    doc.text(`Name: ${registrationDetails.name}`, 20, 30);
+    doc.text(`Age: ${registrationDetails.age}`, 20, 40);
+    doc.text(`Date of Appointment: ${appointmentDetails.appointment.date}`, 20, 50);
+    doc.text(`Reason: ${appointmentDetails.appointment.reason}`, 20, 60);
+    doc.text(`Hospital: ${appointmentDetails.hospital.name}`, 20, 70);
+    doc.save('appointment-details.pdf');
+  };
+
   return (
     <>
-      <Navbar />
       <section className="form-container">
         <h2>OPD Registration</h2>
         <form onSubmit={handleSubmit} className="opd-registration-form">
@@ -311,6 +334,27 @@ function OPDRegistrationForm() {
           </div>
         </form>
       </section>
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Registration Successful!</h3>
+            <p>Here are your appointment details:</p>
+            <ul>
+              <li>Name: {registrationDetails.name}</li>
+              <li>Age: {registrationDetails.age}</li>
+              <li>Date of Appointment: {appointmentDetails.appointment.date}</li>
+              <li>Reason: {appointmentDetails.appointment.reason}</li>
+              <li>Hospital: {appointmentDetails.hospital.name}</li>
+            </ul>
+            <button onClick={() => setShowModal(false)}>Close</button>
+
+            {/* PDF download icon in the lower right corner */}
+            <div className="download-icon" onClick={downloadPDF}>
+              <AiOutlineDownload size={32} color="#007bff" /> {/* React Icon used here */}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
