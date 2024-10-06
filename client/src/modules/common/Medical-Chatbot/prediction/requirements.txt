@@ -1,0 +1,4 @@
+flask
+Flask==2.0.2
+Flask-Cors==3.0.10
+numpy
