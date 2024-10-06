@@ -22,3 +22,21 @@ const loadConfig = async () => {
     console.error('Error loading config:', error);
   }
 };
+const loadintents = async () => {
+    try {
+      const response = await fetch('./training-bot/intents.json');
+      intents = await response.json();
+      console.log('Training data loaded:', intents);
+    } catch (error) {
+      console.error('Error loading training data:', error);
+    }
+  };
+  const createChatLi = (message, className) => {
+    const chatLi = document.createElement("li");
+    chatLi.classList.add("chat", `${className}`);
+    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+    chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent = message;
+    return chatLi; 
+  }
+  
