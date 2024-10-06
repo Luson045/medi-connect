@@ -43,3 +43,17 @@ pickle.dump(classes,open('classes.pkl','wb'))
 
 
 
+training=[]
+output_empty=[0]*len(classes)
+
+for document in documents:
+  bag=[]
+  word_patterns=document[0]
+  words = [lemmatizer.lemmatize(word) for word in words if word and word not in ignore_letters]
+  for word in words:
+    bag.append(1) if word in word_patterns else bag.append(0)
+
+  output_row=list(output_empty)
+  output_row[classes.index(document[1])]=1
+  training.append([bag,output_row])
+
