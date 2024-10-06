@@ -53,7 +53,7 @@ function Home({ loaderVisible, setLoaderVisible }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoaderVisible(false);
-    }, 2500); // Change the duration as needed
+    }, 2000); // Change the duration as needed
 
     return () => clearTimeout(timer);
   }, [setLoaderVisible]);
