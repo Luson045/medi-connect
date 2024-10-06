@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import '../../styles/HospitalList.css';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../common/Navbar';
 import { UserContext } from '../common/userContext';
 
@@ -14,6 +15,7 @@ const HospitalsList = () => {
     reason: '',
   });
   const [searchQuery, setSearchQuery] = useState(''); // Search query stats
+  const navigate = useNavigate();
   // Fetch hospitals on component mount
   useEffect(() => {
     const fetchHospitals = async () => {
@@ -49,6 +51,7 @@ const HospitalsList = () => {
       );
 
       alert(response.data.message);
+      navigate(`/profile`);
     } catch (error) {
       alert('Error booking appointment');
       console.error(error);
