@@ -15,3 +15,8 @@ lemmatizer.lemmatize('cats')
 with open('intents.json') as json_file:
     intents = json.load(json_file)
 
+
+words=pickle.load(open('words.pkl','rb'))
+classes=pickle.load(open('classes.pkl','rb'))
+model=load_model('chatbotmodel.h5')
+
