@@ -55,4 +55,28 @@ const loadintents = async () => {
         }] 
       }),
     }
+    try {
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error.message);
+        messageElement.textContent = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1');
+      } catch (error) {
+        messageElement.classList.add("error");
+        messageElement.textContent = error.message;
+      } finally {
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+      }
+    }
+    loadConfig();
+    loadintents();
+    
+    const handleChat = () => {
+      userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+    
+      chatInput.value = "";
+      chatInput.style.height = `${inputInitHeight}px`;
+    
+      chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+      chatbox.scrollTo(0, chatbox.scrollHeight);
     
