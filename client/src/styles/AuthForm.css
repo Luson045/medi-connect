@@ -1,5 +1,9 @@
 /* AuthFrom.css */
 
+.login_background {
+  background: radial-gradient(circle, #dbeafe, white);
+}
+
 .auth-container {
     max-width: 450px;
     margin: 50px auto;

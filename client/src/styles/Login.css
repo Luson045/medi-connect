@@ -1,5 +1,5 @@
 .auth-container {
-  background: rgba(247, 179, 179, 0.227);
+  background: rgba(170, 206, 254, 0.227);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   display: flex;
@@ -126,7 +126,7 @@
 }
 
 .login_background {
-  background: radial-gradient(circle, pink, white);
+  background: radial-gradient(circle, #dbeafe, white);
 }
 
 .password-wrapper {
