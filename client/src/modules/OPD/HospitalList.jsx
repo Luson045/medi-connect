@@ -86,57 +86,70 @@ const HospitalsList = () => {
 
   return (
     <>
-      <div className="hospital-list-container">
-        <h2>Hospitals</h2>
-
+      <Navbar />
+      <div className="hospital-list-container container mx-auto mt-8 px-4">
+        <h2 className="text-center mb-4 mt-8 text-2xl font-bold">Hospitals</h2>
+  
         {/* Search bar */}
-        <center>
+        <div className="search-bar mb-4">
           <input
             type="text"
-            className="search-bar"
+            className="form-input w-full rounded-md border-gray-300 shadow-sm"
             placeholder="Search by name or address..."
             value={searchQuery}
             onChange={handleSearch}
           />
-        </center>
-
-        <div className="hospital-list flex flex-wrap gap-5">
+        </div>
+  
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHospitals.map((hospital) => (
-            <div
-              key={hospital._id}
-              className="hospital-card p-5 flex flex-col gap-5 bg-white"
-            >
-              <div>
-                <h3>{hospital.name}</h3>
-
-                {/* Handle null or undefined address safely */}
-                <p>
-                  {hospital.address?.street || 'N/A'},{' '}
-                  {hospital.address?.city || 'N/A'},{' '}
-                  {hospital.address?.state || 'N/A'}
+            <div key={hospital._id} className="bg-white shadow-md rounded-lg overflow-hidden">
+              <div className="bg-blue-500 text-white px-4 py-2">
+                <h5 className="text-lg font-semibold">{hospital.name}</h5>
+              </div>
+              <div className="p-4">
+                <p className="text-gray-700">
+                  <strong>Address:</strong> {hospital.address?.street || 'N/A'},{' '}
+                  {hospital.address?.city || 'N/A'}, {hospital.address?.state || 'N/A'}
                 </p>
-
-                <p>Phone: {hospital.phone || 'N/A'}</p>
-                <p>Website: {hospital.website || 'N/A'}</p>
-                <p>Departments: {hospital.departments?.join(', ') || 'N/A'}</p>
-                <p>
-                  Available Services:{' '}
+                <p className="text-gray-700">
+                  <strong>Phone:</strong> {hospital.phone || 'N/A'}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Website:</strong>{' '}
+                  <a href={hospital.website} className="text-blue-500 underline">
+                    {hospital.website || 'N/A'}
+                  </a>
+                </p>
+                <p className="text-gray-700">
+                  <strong>Departments:</strong> {hospital.departments?.join(', ') || 'N/A'}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Available Services:</strong>{' '}
                   {hospital.availableServices?.join(', ') || 'N/A'}
                 </p>
-                <p>Ratings: {hospital.ratings || 'N/A'}/5</p>
-                <p>
-                  Running Appointments: {hospital.appointments.length || 'N/A'}
+                <p className="text-gray-700">
+                  <strong>Ratings:</strong> {hospital.ratings || 'N/A'}/5
+                </p>
+                <p className="text-gray-700">
+                  <strong>Running Appointments:</strong> {hospital.appointments.length || 'N/A'}
                 </p>
               </div>
-              <button onClick={() => setSelectedHospital(hospital)}>
-                Book Appointment
-              </button>
-
+              <div className="text-center p-4">
+                <button
+                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  onClick={() => setSelectedHospital(hospital)}
+                >
+                  Book Appointment
+                </button>
+              </div>
+  
               {selectedHospital && selectedHospital._id === hospital._id && (
-                <div className="booking-form">
-                  <h4>Book Appointment</h4>
+                <div className="booking-form mt-4 p-4 bg-gray-100 rounded">
+                  <h4 className="text-lg font-bold">Book Appointment</h4>
                   <input
                     type="date"
+                    className="form-input w-full mb-2 p-2 rounded border-gray-300"
                     name="date"
                     value={bookingData.date}
                     onChange={handleChange}
@@ -144,13 +157,17 @@ const HospitalsList = () => {
                   />
                   <input
                     type="text"
+                    className="form-input w-full mb-2 p-2 rounded border-gray-300"
                     name="reason"
                     placeholder="Reason for appointment"
                     value={bookingData.reason}
                     onChange={handleChange}
                     required
                   />
-                  <button onClick={() => handleBooking(hospital._id)}>
+                  <button
+                    className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+                    onClick={() => handleBooking(hospital._id)}
+                  >
                     Confirm Booking
                   </button>
                 </div>
@@ -161,6 +178,6 @@ const HospitalsList = () => {
       </div>
     </>
   );
-};
+}
 
 export default HospitalsList;
