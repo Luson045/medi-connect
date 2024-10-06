@@ -73,7 +73,6 @@ function Home() {
 
   return (
     <>
-
       {
         <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
           <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
@@ -150,14 +149,6 @@ function Home() {
             </div>
             <FloatingIcons />
           </header>
-
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-50">
-      <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
-        <div className="absolute inset-0">
-          <svg className="absolute bottom-0 left-0 right-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#e1f3f7" fillOpacity="1" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,128C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-          </svg>
-        </div>
 
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <section className="mb-20">
