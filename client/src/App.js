@@ -13,12 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './modules/common/Footer'; // Import Footer
 import Navbar from './modules/common/Navbar';
 import ServicePage from './modules/common/Service';
-<<<<<<< Updated upstream
 import AnimatedCursor from './modules/common/AnimatedCursor';
-
-=======
 import Registration from './modules/Registration/Registration';
->>>>>>> Stashed changes
+
 function App() {
   return (
     <div className="App">
