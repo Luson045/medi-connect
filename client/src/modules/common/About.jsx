@@ -133,6 +133,7 @@ const TeamGrid = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
+  align-items: stretch; /* Ensures all cards have the same height */
 `;
 
 const TeamCard = styled.div`
@@ -140,8 +141,12 @@ const TeamCard = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  width: 300px;
+  width: 300px; /* Fixed width */
+  height: 400px; /* Fixed height */
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Ensures content inside is stacked properly */
+  justify-content: space-between; /* Space out elements inside the card */
   &:hover {
     transform: scale(1.05);
   }
