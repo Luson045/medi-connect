@@ -9,3 +9,9 @@ from tensorflow.keras.models import load_model
 nltk.download('punkt')
 nltk.download('omw-1.4')
 
+lemmatizer=WordNetLemmatizer()
+lemmatizer.lemmatize('cats')
+
+with open('intents.json') as json_file:
+    intents = json.load(json_file)
+
