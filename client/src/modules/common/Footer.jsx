@@ -4,6 +4,7 @@ import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
 import { FaArrowUp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -48,7 +49,9 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Our Hospital</li>
             <li className="mb-3 text-base md:text-lg">Doctors</li>
             <li className="mb-3 text-base md:text-lg">Pricing</li>
-            <li className="mb-3 text-base md:text-lg">Terms</li>
+            <Link to="/terms" className=" hover:text-blue-700">
+                Terms
+              </Link>
           </ul>
         </div>
 
