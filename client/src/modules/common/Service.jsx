@@ -20,7 +20,7 @@ const ServiceCard = ({ icon: Icon, title, details }) => (
         <p className="text-gray-600 mb-8">{details}</p>
       </div>
       <diV className="flex items-end">
-        <Link>Read more</Link>
+        {/* <Link>Read more</Link> */}
       </diV>
     </motion.div>
   </>
