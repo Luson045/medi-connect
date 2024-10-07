@@ -2,17 +2,22 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
-const { ObjectId } = require("mongodb");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const authRoutes = require("./modules/dashboard/authRoute");
 const hospitalroute = require("./modules/hospital/index");
 
+const client = require("prom-client");
+
+const collectDefaultMetrics = client.collectDefaultMetrics;
+
+collectDefaultMetrics({ register: client.register });
+
 const { z } = require("zod");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080; // not using 3000 because our grafana runs on localhost:3000
 const corsOptions = {
   origin: [
     "https://learnstocks.netlify.app",
@@ -54,9 +59,16 @@ const userSchema = z.object({
   symptoms: z.array(z.string()).min(1, "At least one symptom is required"),
 });
 //ping
-app.get("/ping", async (req, res) => {
-  res.status(200).json({ message: "Active" });
+app.get("/ping", async (_, res) => {
+  res.status(200).json({ message: "pong" });
 });
+
+app.get("/metrics", async (_, res) => {
+  res.setHeader("Content-Type", client.register.contentType);
+  const metrics = await client.register.metrics();
+  res.send(metrics);
+});
+
 // Get all todos for a specific user
 app.post("/register", async (req, res) => {
   try {

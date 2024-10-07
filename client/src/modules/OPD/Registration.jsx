@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/OPD.css';
+import '../../styles/Loader.css';
 import jsPDF from 'jspdf';
 // import pincodes from 'indian-pincodes';
 import { pininfo } from 'indian_address';
 import { AiOutlineDownload } from 'react-icons/ai';
-
+import { TailSpin } from 'react-loader-spinner';
 
 function OPDRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,8 @@ function OPDRegistrationForm() {
       newErrors.age = 'Age must be greater than 18';
     }
     if (!formData.gender) newErrors.gender = 'Gender is required';
-    if (!formData.contact.match(/^\d{10}$/)) newErrors.contact = 'Contact number must be 10 digits';
+    if (!formData.contact.match(/^\d{10}$/))
+      newErrors.contact = 'Contact number must be 10 digits';
     if (!formData.address.trim()) {
       newErrors.address = 'Address is required';
     } else if (formData.address.trim().length < 5) {
@@ -57,13 +59,12 @@ function OPDRegistrationForm() {
     if (!formData.pincode.trim()) {
       newErrors.pincode = 'Pincode is required';
     } else if (!pininfo[formData.pincode]) {
-      newErrors.pincode = 'Invalid pincode';  // Handle invalid pincode
+      newErrors.pincode = 'Invalid pincode'; // Handle invalid pincode
     } else {
-      console.log("Pincode details:", pininfo[formData.pincode]);
+      console.log('Pincode details:', pininfo[formData.pincode]);
     }
     if (!formData.reason.trim()) newErrors.reason = 'Reason is required'; // Validation for reason
     if (!formData.date) newErrors.date = 'Date is required'; // Validation for date
-
 
     if (formData.report.length > 0) {
       const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -78,7 +79,6 @@ function OPDRegistrationForm() {
         }
       });
     }
-
 
     return newErrors;
   };
@@ -120,7 +120,10 @@ function OPDRegistrationForm() {
     };
 
     axios
-      .post(`https://medi-connect-f671.onrender.com/hospitalapi/emergency`, submissionData)
+      .post(
+        `https://medi-connect-f671.onrender.com/hospitalapi/emergency`,
+        submissionData,
+      )
       .then((response) => {
         console.log('Successfully registered!', response.data);
         setRegistrationDetails(submissionData);
@@ -154,7 +157,11 @@ function OPDRegistrationForm() {
     doc.text('OPD Registration Details', 20, 20);
     doc.text(`Name: ${registrationDetails.name}`, 20, 30);
     doc.text(`Age: ${registrationDetails.age}`, 20, 40);
-    doc.text(`Date of Appointment: ${appointmentDetails.appointment.date}`, 20, 50);
+    doc.text(
+      `Date of Appointment: ${appointmentDetails.appointment.date}`,
+      20,
+      50,
+    );
     doc.text(`Reason: ${appointmentDetails.appointment.reason}`, 20, 60);
     doc.text(`Hospital: ${appointmentDetails.hospital.name}`, 20, 70);
     doc.save('appointment-details.pdf');
@@ -216,7 +223,9 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             >
-              <option value="" disabled>Select gender</option>
+              <option value="" disabled>
+                Select gender
+              </option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
@@ -275,7 +284,9 @@ function OPDRegistrationForm() {
               onChange={handleChange}
               required
             >
-              <option value="" disabled>Select Department</option>
+              <option value="" disabled>
+                Select Department
+              </option>
               <option value="cardiology">Cardiology</option>
               <option value="neurology">Neurology</option>
               <option value="orthopedics">Orthopedics</option>
@@ -283,7 +294,9 @@ function OPDRegistrationForm() {
               <option value="gynecology">Gynecology</option>
               <option value="dermatology">Dermatology</option>
             </select>
-            {errors.department && <span className="error">{errors.department}</span>}
+            {errors.department && (
+              <span className="error">{errors.department}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -325,7 +338,11 @@ function OPDRegistrationForm() {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Registering...' : 'Register'}
             </button>
             <Link to="/" className="back-btn">
@@ -337,21 +354,60 @@ function OPDRegistrationForm() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h3>Registration Successful!</h3>
+            <div className="OpdHeader">
+              <img src="/favicon.png" className="image" alt="Logo" />
+              <p className="OPDText">Med-Space</p>
+            </div>
+            <hr></hr>
+            <h3 style={{ marginTop: '20px' }}>Registration Successful!</h3>
             <p>Here are your appointment details:</p>
             <ul>
-              <li>Name: {registrationDetails.name}</li>
-              <li>Age: {registrationDetails.age}</li>
-              <li>Date of Appointment: {appointmentDetails.appointment.date}</li>
-              <li>Reason: {appointmentDetails.appointment.reason}</li>
-              <li>Hospital: {appointmentDetails.hospital.name}</li>
+              <li>Name: {registrationDetails?.name || 'John Doe'}</li>
+              <li>Age: {registrationDetails?.age || 28}</li>
+              <li>
+                Date of Appointment:{' '}
+                {appointmentDetails?.appointment?.date || '2024-10-10'}
+              </li>
+              <li>
+                Reason:{' '}
+                {appointmentDetails?.appointment?.reason || 'Routine check-up'}
+              </li>
+              <li>
+                Hospital:{' '}
+                {appointmentDetails?.hospital?.name || 'City Hospital'}
+              </li>
             </ul>
             <button onClick={() => setShowModal(false)}>Close</button>
 
             {/* PDF download icon in the lower right corner */}
             <div className="download-icon" onClick={downloadPDF}>
-              <AiOutlineDownload size={32} color="#007bff" /> {/* React Icon used here */}
+              <AiOutlineDownload size={32} color="#007bff" />
             </div>
+
+            {/* Footer */}
+            <footer
+              style={{
+                marginTop: '20px',
+                textAlign: 'center',
+                fontSize: '12px',
+              }}
+            >
+              <hr />
+              <p>&copy; 2024 Med-Space. All rights reserved. &trade;</p>
+            </footer>
+          </div>
+        </div>
+      )}
+            {/* Full-screen Loader Overlay */}
+            {isSubmitting && (
+        <div className="loader-overlay">
+          <div className="loader-container">
+            <TailSpin
+              height="80"
+              width="80"
+              color="#007bff"
+              ariaLabel="loading"
+            />
           </div>
         </div>
       )}

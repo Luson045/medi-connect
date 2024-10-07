@@ -5,7 +5,7 @@ const NodeGeocoder = require("node-geocoder");
 const asyncHandler = require("express-async-handler");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 const { z } = require("zod");
 const mongoose = require("mongoose");
 const { ObjectId } = require('mongodb');
@@ -120,7 +120,7 @@ router.get("/:id", async (req, res) => {
 // Update a hospital
 router.patch("/:id", async (req, res) => {
   try {
-    const parsedData = hospitalSchema.partial().parse(req.body); // Use partial to allow partial updates
+    const parsedData = hospitalSchema.partial().parse(req.body);
     const hospital = await Hospital.findByIdAndUpdate(
       req.params.id,
       parsedData,

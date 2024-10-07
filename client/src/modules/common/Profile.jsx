@@ -3,7 +3,7 @@ import { UserContext } from './userContext';
 import '../../styles/UserProfile.css';
 
 const ProfilePage = () => {
-  const {isAuthenticated } = useContext(UserContext);
+  const { isAuthenticated } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {

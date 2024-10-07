@@ -37,6 +37,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/services" element={<ServicePage />} />
               <Route path="/terms" element={<TermsAndConditions />} />
+
             </Routes>
           </div>
           <Footer />
