@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import instagram from '../../assets/instagram-brands-solid.svg';
 import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
@@ -48,7 +49,11 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Our Hospital</li>
             <li className="mb-3 text-base md:text-lg">Doctors</li>
             <li className="mb-3 text-base md:text-lg">Pricing</li>
-            <li className="mb-3 text-base md:text-lg">Terms</li>
+            <li className="mb-3 text-base md:text-lg">
+              <Link to="/terms-and-conditions" className="mb-3 text-base md:text-lg">
+                Terms
+              </Link>
+            </li>
           </ul>
         </div>
 
