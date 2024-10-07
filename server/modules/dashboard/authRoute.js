@@ -22,8 +22,34 @@ const userSchema = z.object({
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
   password: z.string().min(6, "Password should be at least 6 characters long"),
-  phone: z.string().optional(),
-  pincode: z.string().optional(),
+  phone: z.string(),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    postalCode: z.string(),
+  }),
+  gender: z.string().optional(),
+  dob: z.date().optional(),
+  medicalHistory: z.array(z.string()).optional(),
+});
+
+// Zod Schemas for Validation for Hospital
+const hospitalSchema = z.object({
+  type: z.enum(["user", "hospital"]),
+  name: z.string().min(3, "Name should be at least 3 characters long"),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password should be at least 6 characters long"),
+  phone: z.string(),
+  address: z.object({
+    street: z.string(),
+    city: z.string(),
+    state: z.string(),
+    postalCode: z.string(),
+  }),
+  website: z.string().optional(),
+  department: z.string(),
+  availableServices: z.array(z.string()).optional(),
 });
 
 const loginSchema = z.object({
@@ -72,25 +98,63 @@ module.exports = router;
 router.post("/register", async (req, res) => {
   try {
     // Validate the request body using Zod
-    const parsedData = userSchema.parse(req.body);
-
-    const { type, name, email, password, phone, pincode } = parsedData;
+    const { type } = req.body;
 
     if (type === "user") {
-      const user = new User({ name, email, password, phone });
+      const userParseData = userSchema.parse(req.body);
+      const {
+        name,
+        email,
+        password,
+        phone,
+        dob,
+        gender,
+        address,
+        medicalHistory,
+      } = userParseData;
+
+      const user = new User({
+        name,
+        email,
+        password,
+        phone,
+        dob,
+        gender,
+        address,
+        medicalHistory,
+      });
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
       await user.save();
       res.status(201).json({ message: "User registered successfully" });
     } else if (type === "hospital") {
-      if (!pincode) {
+      const hospitalParseData = hospitalSchema.parse(req.body);
+      const {
+        name,
+        email,
+        password,
+        phone,
+        website,
+        department,
+        availableServices,
+        address,
+      } = hospitalParseData;
+      if (!address.postalCode) {
         return res.status(400).json({ message: "Pincode is required" });
       }
-      const hospital = new Hospital({ name, email, phone });
+      const hospital = new Hospital({
+        name,
+        email,
+        phone,
+        website,
+        department,
+        availableServices,
+        address,
+      });
       const salt = await bcrypt.genSalt(10);
       hospital.password = await bcrypt.hash(password, salt); // For future login if necessary
 
-      const results = await geocoder.geocode(pincode + " India");
+      const results = await geocoder.geocode(address.postalCode + " India");
       if (results.length === 0) {
         return res.status(404).json({ message: "Location not found" });
       }
@@ -98,7 +162,6 @@ router.post("/register", async (req, res) => {
       const hospitalLong = results[0].longitude;
       hospital.lat = hospitalLat;
       hospital.long = hospitalLong;
-      hospital.address.postalCode = pincode;
 
       await hospital.save();
       res
@@ -108,6 +171,8 @@ router.post("/register", async (req, res) => {
       res.status(400).json({ message: "Invalid type" });
     }
   } catch (error) {
+    console.log(error);
+
     if (error instanceof z.ZodError) {
       // Send Zod validation error response
       return res

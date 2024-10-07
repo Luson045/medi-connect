@@ -3,14 +3,14 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   display: flex;
-  padding: 2px;
+  padding: 10px;
   margin: 4px;
   padding-bottom: 2rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 25rem;
+  width: 40rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
