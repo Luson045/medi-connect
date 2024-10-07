@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import { TailSpin } from 'react-loader-spinner';
 import { notify } from './notification';
 import '../../styles/Login.css';
 import { Link } from 'react-router-dom';
@@ -22,6 +22,8 @@ const AuthPage = () => {
     password: false,
     confirmPassword: false,
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -57,7 +59,7 @@ const AuthPage = () => {
       }));
       return;
     }
-
+    setIsSubmitting(true);
     try {
       const response = await fetch(
         `https://medi-connect-f671.onrender.com/auth/login`,
@@ -96,6 +98,8 @@ const AuthPage = () => {
     } catch (error) {
       notify('Error connecting to the server', 'error');
       console.error('Network Error:', error);
+    }finally{
+      setIsSubmitting(false);
     }
   };
 
@@ -176,6 +180,18 @@ const AuthPage = () => {
           </form>
         </div>
       </div>
+      {isSubmitting && (
+        <div className="loader-overlay">
+          <div className="loader-container">
+            <TailSpin
+              height="80"
+              width="80"
+              color="#007bff"
+              ariaLabel="loading"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

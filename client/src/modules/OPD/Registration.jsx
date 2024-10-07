@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/OPD.css';
+import '../../styles/Loader.css';
 import jsPDF from 'jspdf';
 // import pincodes from 'indian-pincodes';
 import { pininfo } from 'indian_address';
 import { AiOutlineDownload } from 'react-icons/ai';
+import { TailSpin } from 'react-loader-spinner';
 
 function OPDRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -393,6 +395,19 @@ function OPDRegistrationForm() {
               <hr />
               <p>&copy; 2024 Med-Space. All rights reserved. &trade;</p>
             </footer>
+          </div>
+        </div>
+      )}
+            {/* Full-screen Loader Overlay */}
+            {isSubmitting && (
+        <div className="loader-overlay">
+          <div className="loader-container">
+            <TailSpin
+              height="80"
+              width="80"
+              color="#007bff"
+              ariaLabel="loading"
+            />
           </div>
         </div>
       )}
