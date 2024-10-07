@@ -4,6 +4,7 @@ import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
 import { FaArrowUp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -48,7 +49,11 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Our Hospital</li>
             <li className="mb-3 text-base md:text-lg">Doctors</li>
             <li className="mb-3 text-base md:text-lg">Pricing</li>
-            <li className="mb-3 text-base md:text-lg">Terms</li>
+            <li className="mb-3 text-base md:text-lg">
+              <Link to="./terms" className="text-blue-500 hover:text-blue-700">
+                Terms
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -63,26 +68,60 @@ const Footer = () => {
         </div>
 
         <div className="mb-8 md:mb-0">
-          <h3 className="text-xl md:text-2xl font-semibold mb-4">Follow us on</h3>
+          <h3 className="text-xl md:text-2xl font-semibold mb-4">
+            Follow us on
+          </h3>
           <ul className="flex justify-center space-x-6 md:space-x-8">
             <li>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                <img src={instagram} alt="Instagram" className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" />
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={instagram}
+                  alt="Instagram"
+                  className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200"
+                />
               </a>
             </li>
             <li>
-              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                <img src={facebook} alt="Facebook" className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" />
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={facebook}
+                  alt="Facebook"
+                  className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200"
+                />
               </a>
             </li>
             <li>
-              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-                <img src={twitter} alt="Twitter" className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" />
+              <a
+                href="https://www.twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={twitter}
+                  alt="Twitter"
+                  className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200"
+                />
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-                <img src={linkedin} alt="LinkedIn" className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200" />
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={linkedin}
+                  alt="LinkedIn"
+                  className="w-8 md:w-10 filter brightness-0 invert hover:opacity-75 transition-opacity duration-200"
+                />
               </a>
             </li>
           </ul>
@@ -92,7 +131,13 @@ const Footer = () => {
       <div className="text-center mt-8">
         <p className="font-bold text-lg md:text-xl">DISCLAIMER</p>
         <p className="text-gray-300 text-sm md:text-base mt-2">
-          “The information provided on Med-Space is intended for general informational purposes only and should not be considered as medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider for any medical condition or treatment. Med-Space facilitates OPD appointment booking and hospital data sharing, but it does not endorse or guarantee the quality of services provided by healthcare providers.”
+          “The information provided on Med-Space is intended for general
+          informational purposes only and should not be considered as medical
+          advice, diagnosis, or treatment. Always seek the advice of a qualified
+          healthcare provider for any medical condition or treatment. Med-Space
+          facilitates OPD appointment booking and hospital data sharing, but it
+          does not endorse or guarantee the quality of services provided by
+          healthcare providers.”
         </p>
       </div>
 
@@ -101,7 +146,10 @@ const Footer = () => {
       </div>
 
       {showScrollTop && (
-        <button onClick={scrollToTop} className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]">
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
+        >
           <FaArrowUp size={24} />
         </button>
       )}
