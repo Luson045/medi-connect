@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/user");
 const Hospital = require("../../models/hospital");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 const jwtSecret = process.env.JWT;
 const NodeGeocoder = require("node-geocoder");
 
