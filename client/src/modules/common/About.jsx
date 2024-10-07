@@ -419,29 +419,36 @@ const Title = styled.h2`
   padding: 2rem;
 `;
 
+
 const StatsSection = styled.div`
   display: flex;
-  justify-content: space-around; /* Evenly distribute the stat items */
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
-  height: 150px; /* Fixed height for the section */
-  width: 100%; /* Full width */
-  background-color: #e8f4f8; /* Light blue background */
-  padding: 3rem 0; /* Add some padding for spacing */
+  padding: 3rem 0;
+  background-color: #e8f4f8;
+  width: 100%;
 `;
 
 const StatItem = styled.div`
   display: flex;
-  flex-direction: column; /* Stack numbers and labels vertically */
+  flex-direction: column;
   align-items: center;
-  font-size: 1.2rem; /* Font size for the label */
-  color: #333; /* Dark color for text */
-  font-weight: bold; /* Bold text for label */
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+  width: 45%;
+  margin: 1rem;
+  
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 const StatNumber = styled.div`
-  font-size: 2rem; /* Larger font size for numbers */
-  color: #66b3ff /* Highlight color for numbers */
-  margin-bottom: 0.3rem; /* Small gap between number and label */
+  font-size: 2rem;
+  color: #66b3ff;
+  margin-bottom: 0.3rem;
 `;
 
 
