@@ -33,14 +33,14 @@ label {
   font-size: 1.1rem;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="tel"],
-input[type="email"],
-input[type="password"],
+input[type='text'],
+input[type='number'],
+input[type='tel'],
+input[type='email'],
+input[type='password'],
 select,
 textarea,
-input[type="file"] {
+input[type='file'] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
@@ -63,7 +63,7 @@ textarea {
   resize: vertical;
 }
 
-input[type="file"] {
+input[type='file'] {
   padding: 5px 0;
 }
 
@@ -144,21 +144,21 @@ input[type="file"] {
 .form-actions {
   display: flex;
   flex-direction: column; /* Ensures vertical stacking of elements */
-  align-items: center;    /* Centers the Register button horizontally */
-  margin-top: 20px;       /* Adjust spacing as needed */
+  align-items: center; /* Centers the Register button horizontally */
+  margin-top: 20px; /* Adjust spacing as needed */
 }
 
 .submit-btn {
-  margin-bottom: 15px;    /* Add spacing between the buttons */
+  margin-bottom: 15px; /* Add spacing between the buttons */
 }
 
 .back-home-container {
-  text-align: center;     /* Centers the Back to Home link */
+  text-align: center; /* Centers the Back to Home link */
 }
 
 .back-btn {
-  text-decoration: none;  /* Style adjustments for the Back to Home link */
-  color: #007BFF;
+  text-decoration: none; /* Style adjustments for the Back to Home link */
+  color: #007bff;
   font-size: 16px;
 }
 
@@ -211,4 +211,16 @@ input[type="file"] {
   height: 32px;
 }
 
+.OpdHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.image {
+  width: 70px;
+}
+.OPDText {
+  font-weight: 700;
+  font-size: larger;
+}
