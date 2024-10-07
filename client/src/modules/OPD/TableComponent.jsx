@@ -49,31 +49,83 @@ const TableComponent = () => {
       <table className="min-w-full bg-white border border-gray-200 text-sm">
         <thead>
           <tr className="bg-gray-50">
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" rowSpan={2}>Patient Arrival Schedule</th>
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" rowSpan={2}>No. of Patients</th>
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" colSpan={6}>Waiting Time (WT) and No. of Patients</th>
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" rowSpan={2}>Mean ± SD (WT)</th>
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" colSpan={5}>Consultation Time (CT) and No. of Patients</th>
-            <th className="py-3 px-4 border-b font-semibold text-gray-700" rowSpan={2}>Mean ± SD (CT)</th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              rowSpan={2}
+            >
+              Patient Arrival Schedule
+            </th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              rowSpan={2}
+            >
+              No. of Patients
+            </th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              colSpan={6}
+            >
+              Waiting Time (WT) and No. of Patients
+            </th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              rowSpan={2}
+            >
+              Mean ± SD (WT)
+            </th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              colSpan={5}
+            >
+              Consultation Time (CT) and No. of Patients
+            </th>
+            <th
+              className="py-3 px-4 border-b font-semibold text-gray-700"
+              rowSpan={2}
+            >
+              Mean ± SD (CT)
+            </th>
           </tr>
           <tr className="bg-gray-50">
-            <th className="py-2 px-3 border-b font-medium text-gray-600">&lt;30 min</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">30 min - 1 hr</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">1-1.5 hrs</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">1.5-2 hrs</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">2-2.5 hrs</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">2.5-3 hrs</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">&lt;5 min</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">5-10 min</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">10-15 min</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">15-20 min</th>
-            <th className="py-2 px-3 border-b font-medium text-gray-600">20-25 min</th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              &lt;30 min
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              30 min - 1 hr
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              1-1.5 hrs
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              1.5-2 hrs
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              2-2.5 hrs
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              2.5-3 hrs
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              &lt;5 min
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              5-10 min
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              10-15 min
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              15-20 min
+            </th>
+            <th className="py-2 px-3 border-b font-medium text-gray-600">
+              20-25 min
+            </th>
           </tr>
         </thead>
         <tbody>
           {tableData.map((row, index) => (
-            <tr 
-              key={index} 
+            <tr
+              key={index}
               className={`
                 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
                 transition-colors duration-150 ease-in-out
@@ -81,15 +133,31 @@ const TableComponent = () => {
               `}
             >
               <td className="py-2 px-4 border-b text-gray-800">{row.time}</td>
-              <td className="py-2 px-4 border-b text-gray-800 text-center">{row.patients}</td>
+              <td className="py-2 px-4 border-b text-gray-800 text-center">
+                {row.patients}
+              </td>
               {row.wtDistribution.map((wt, i) => (
-                <td key={i} className="py-2 px-3 border-b text-gray-800 text-center">{wt}</td>
+                <td
+                  key={i}
+                  className="py-2 px-3 border-b text-gray-800 text-center"
+                >
+                  {wt}
+                </td>
               ))}
-              <td className="py-2 px-4 border-b text-gray-800 text-center">{row.meanSD}</td>
+              <td className="py-2 px-4 border-b text-gray-800 text-center">
+                {row.meanSD}
+              </td>
               {row.consultationTimes.map((ct, i) => (
-                <td key={i} className="py-2 px-3 border-b text-gray-800 text-center">{ct}</td>
+                <td
+                  key={i}
+                  className="py-2 px-3 border-b text-gray-800 text-center"
+                >
+                  {ct}
+                </td>
               ))}
-              <td className="py-2 px-4 border-b text-gray-800 text-center">{row.consultationMeanSD}</td>
+              <td className="py-2 px-4 border-b text-gray-800 text-center">
+                {row.consultationMeanSD}
+              </td>
             </tr>
           ))}
         </tbody>

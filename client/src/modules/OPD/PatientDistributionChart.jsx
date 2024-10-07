@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { PieChart, Pie, Cell, Legend, ResponsiveContainer, Sector } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  Sector,
+} from 'recharts';
 
 const PatientDistributionChart = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -23,9 +30,20 @@ const PatientDistributionChart = () => {
   };
 
   const renderActiveShape = (props) => {
-    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, value } = props;
-    const sin = Math.sin(-midAngle * Math.PI / 180);
-    const cos = Math.cos(-midAngle * Math.PI / 180);
+    const {
+      cx,
+      cy,
+      midAngle,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      value,
+    } = props;
+    const sin = Math.sin((-midAngle * Math.PI) / 180);
+    const cos = Math.cos((-midAngle * Math.PI) / 180);
     const sx = cx + (outerRadius + 10) * cos;
     const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
@@ -54,10 +72,27 @@ const PatientDistributionChart = () => {
           outerRadius={outerRadius + 10}
           fill={fill}
         />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+        <path
+          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+          stroke={fill}
+          fill="none"
+        />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333" className="text-sm">{`${payload.name}`}</text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999" className="text-xs">
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          textAnchor={textAnchor}
+          fill="#333"
+          className="text-sm"
+        >{`${payload.name}`}</text>
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          dy={18}
+          textAnchor={textAnchor}
+          fill="#999"
+          className="text-xs"
+        >
           {`${value.toFixed(1)}%`}
         </text>
       </g>
@@ -74,7 +109,9 @@ const PatientDistributionChart = () => {
               className="inline-block w-3 h-3 mr-2 rounded-full"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-sm">{entry.value} - {entry.payload.value.toFixed(1)}%</span>
+            <span className="text-sm">
+              {entry.value} - {entry.payload.value.toFixed(1)}%
+            </span>
           </li>
         ))}
       </ul>
@@ -100,7 +137,12 @@ const PatientDistributionChart = () => {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Legend content={<CustomizedLegend />} layout="horizontal" align="center" verticalAlign="bottom" />
+        <Legend
+          content={<CustomizedLegend />}
+          layout="horizontal"
+          align="center"
+          verticalAlign="bottom"
+        />
       </PieChart>
     </ResponsiveContainer>
   );

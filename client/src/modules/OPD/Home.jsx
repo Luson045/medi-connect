@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clipboard, PhoneCall, Hospital } from 'lucide-react';
@@ -9,7 +9,6 @@ import TableComponent from './TableComponent';
 import PatientDistributionChart from './PatientDistributionChart';
 import FloatingIcons from '../common/FloatingIcons';
 import '../../styles/Home.css';
-import Loader from '../common/Loader';
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <>

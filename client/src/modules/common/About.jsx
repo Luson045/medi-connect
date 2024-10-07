@@ -6,7 +6,7 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
-import luson from "../../assets/images/luson.jpg";
+import luson from '../../assets/images/luson.jpg';
 
 // Team member data
 const teamMembers = [
@@ -16,8 +16,8 @@ const teamMembers = [
     description:
       'Luson Basumatary brings a wealth of experience in software development and a passion for innovation. He leads the team in creating a robust and user-friendly platform.',
     imageUrl: luson,
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary-79a93b244/', 
-    github: 'https://github.com/Luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary-79a93b244/',
+    github: 'https://github.com/Luson045',
     email: 'mailto:luson@example.com',
   },
   {
@@ -26,8 +26,8 @@ const teamMembers = [
     description:
       'Rohit specializes in crafting intuitive user interfaces, translating complex requirements into accessible designs.',
     imageUrl: 'https://via.placeholder.com/150',
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
-    github: 'https://github.com/luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary',
+    github: 'https://github.com/luson045',
     email: 'mailto:luson@example.com',
   },
   {
@@ -36,8 +36,8 @@ const teamMembers = [
     description:
       'Kalpesh is focused on making our platform user-friendly and engaging, ensuring seamless interactions.',
     imageUrl: 'https://via.placeholder.com/150',
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
-    github: 'https://github.com/luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary',
+    github: 'https://github.com/luson045',
     email: 'mailto:luson@example.com',
   },
   {
@@ -46,8 +46,8 @@ const teamMembers = [
     description:
       'Simranpreet creates compelling graphics and visual elements that enhance the user experience.',
     imageUrl: 'https://via.placeholder.com/150',
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
-    github: 'https://github.com/luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary',
+    github: 'https://github.com/luson045',
     email: 'mailto:luson@example.com',
   },
   {
@@ -56,8 +56,8 @@ const teamMembers = [
     description:
       'Kartik ensures that our platform meets high standards by staying updated with the latest trends in healthcare.',
     imageUrl: 'https://via.placeholder.com/150',
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
-    github: 'https://github.com/luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary',
+    github: 'https://github.com/luson045',
     email: 'mailto:luson@example.com',
   },
   {
@@ -66,8 +66,8 @@ const teamMembers = [
     description:
       'Shubham explores emerging technologies to integrate cutting-edge features into our platform.',
     imageUrl: 'https://via.placeholder.com/150',
-    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
-    github: 'https://github.com/luson045',  
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary',
+    github: 'https://github.com/luson045',
     email: 'mailto:luson@example.com',
   },
 ];
@@ -90,7 +90,6 @@ const AboutPage = () => {
     accidents: false,
     hospitals: false,
   });
-
 
   return (
     <Container>
@@ -123,25 +122,39 @@ const AboutPage = () => {
           </Box>
         </VisionMissionContainer>
 
-        
         <Title>Meet our awesome team</Title>
         <TeamGrid>
           {teamMembers.map((member, index) => (
             <animated.div key={index} style={slideIn}>
               <TeamCard>
-                <ProfileImage src={member.imageUrl} alt={`${member.name}'s profile`} />
+                <ProfileImage
+                  src={member.imageUrl}
+                  alt={`${member.name}'s profile`}
+                />
                 <Name>{member.name}</Name>
                 <Role>{member.role}</Role>
 
                 {/* Social Media Icons */}
                 <SocialIcons>
-                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faLinkedin} size="2x" />
                   </a>
-                  <a href={member.github} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={member.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faGithub} size="2x" />
                   </a>
-                  <a href={member.email} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={member.email}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <FontAwesomeIcon icon={faEnvelope} size="2x" />
                   </a>
                 </SocialIcons>
@@ -251,7 +264,10 @@ const AboutPage = () => {
         <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
         <div align="center">
           <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
-            <img alt="git team" src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
+            <img
+              alt="git team"
+              src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000"
+            />
           </a>
         </div>
 
@@ -347,7 +363,7 @@ const TeamCard = styled.div`
   &:hover {
     transform: scale(1.05);
   }
-   height: 440px; 
+  height: 440px;
 `;
 
 const ProfileImage = styled.img`
@@ -361,7 +377,7 @@ const SocialIcons = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
-  
+
   a {
     &:hover {
       opacity: 0.8; /* Optional hover effect */
@@ -391,7 +407,7 @@ const GitTeamTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
   color: #c229b8;
- padding: 2rem;
+  padding: 2rem;
 `;
 
 // Join Us Section
@@ -419,7 +435,6 @@ const Title = styled.h2`
   padding: 2rem;
 `;
 
-
 const StatsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -439,7 +454,7 @@ const StatItem = styled.div`
   font-weight: bold;
   width: 45%;
   margin: 1rem;
-  
+
   @media (max-width: 640px) {
     width: 100%;
   }
@@ -450,7 +465,5 @@ const StatNumber = styled.div`
   color: #66b3ff;
   margin-bottom: 0.3rem;
 `;
-
-
 
 export default AboutPage;

@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Stethoscope, Pill, Clipboard, Hospital, PhoneCall , Activity } from 'lucide-react';
+import {
+  Heart,
+  Stethoscope,
+  Pill,
+  Clipboard,
+  Hospital,
+  PhoneCall,
+  Activity,
+} from 'lucide-react';
 
-const FloatingIcon = ({ icon: Icon, color, size, duration, delay, position }) => {
+const FloatingIcon = ({
+  icon: Icon,
+  color,
+  size,
+  duration,
+  delay,
+  position,
+}) => {
   return (
     <motion.div
       className="absolute"
@@ -34,43 +49,50 @@ const FloatingIcon = ({ icon: Icon, color, size, duration, delay, position }) =>
   );
 };
 
-const FloatingIcons = ({ 
-  count = 12, 
-  icons = [Heart, Stethoscope, Pill, Clipboard, Hospital, PhoneCall,Activity], 
-  colors = ['#F472B6', '#60A5FA', '#34D399', '#FBBF24', '#A78BFA', '#F87171',' #34D399'], 
-  sizes = [40, 50, 60], 
+const FloatingIcons = ({
+  count = 12,
+  icons = [Heart, Stethoscope, Pill, Clipboard, Hospital, PhoneCall, Activity],
+  colors = [
+    '#F472B6',
+    '#60A5FA',
+    '#34D399',
+    '#FBBF24',
+    '#A78BFA',
+    '#F87171',
+    ' #34D399',
+  ],
+  sizes = [40, 50, 60],
   leftMargin = 50,
 }) => {
   const [positions, setPositions] = useState([]);
 
   useEffect(() => {
     const newPositions = [];
-    const containerSize = 100; // Assume 100% of the container size
 
     while (newPositions.length < count) {
       // Generate random positions
       const top = Math.random() * 90; // Keep it within 0-90% to avoid going off-screen
-      const left = leftMargin+ Math.random() * (90 - leftMargin); // Keep it within 0-90% to avoid going off-screen
+      const left = leftMargin + Math.random() * (90 - leftMargin); // Keep it within 0-90% to avoid going off-screen
 
       // Check for overlap
-      const overlap = newPositions.some(pos => {
+      const overlap = newPositions.some((pos) => {
         const distance = Math.sqrt(
-          Math.pow(pos.top - top, 2) + Math.pow(pos.left - left, 2)
+          Math.pow(pos.top - top, 2) + Math.pow(pos.left - left, 2),
         );
         return distance < 15;
       });
 
       // If no overlap, add position
       if (!overlap) {
-        newPositions.push({ top, left});
+        newPositions.push({ top, left });
       }
     }
 
     setPositions(newPositions);
-  }, [count]);
+  }, [count, leftMargin]);
 
   return (
-    <div className='hidden sm:block'> 
+    <div className="hidden sm:block">
       {positions.map((position, i) => (
         <FloatingIcon
           key={i}

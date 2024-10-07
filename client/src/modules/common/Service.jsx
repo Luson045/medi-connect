@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import FloatingIcons from '../common/FloatingIcons';
 import { services } from '../../data';
-import { Link } from 'react-router-dom';
+
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <>
     <motion.div
@@ -14,14 +14,12 @@ const ServiceCard = ({ icon: Icon, title, details }) => (
       viewport={{ once: true }}
       transition={{ type: 'spring', stiffness: 500 }}
     >
-      <div className='flex flex-col items-center text-center'>
+      <div className="flex flex-col items-center text-center">
         <Icon size={48} className="text-blue-500 mb-4" />
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <p className="text-gray-600 mb-8">{details}</p>
       </div>
-      <diV className="flex items-end">
-        {/* <Link>Read more</Link> */}
-      </diV>
+      <diV className="flex items-end">{/* <Link>Read more</Link> */}</diV>
     </motion.div>
   </>
 );

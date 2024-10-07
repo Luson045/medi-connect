@@ -2,13 +2,25 @@ import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../../styles/Navbar.css';
 import { UserContext } from './userContext';
-import { FaHome, FaHospital, FaUser, FaUserPlus, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import {
+  FaHome,
+  FaHospital,
+  FaUser,
+  FaUserPlus,
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+} from 'react-icons/fa';
 import { IoClose, IoMenu } from 'react-icons/io5';
 import { MdLogin, MdOutlineLocalHospital } from 'react-icons/md';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 const Navbar = () => {
-  const { user, isAuthenticated = true, handleLogout } = useContext(UserContext);
+  const {
+    user,
+    isAuthenticated = true,
+    handleLogout,
+  } = useContext(UserContext);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -20,7 +32,11 @@ const Navbar = () => {
       {/* Logo positioned at the top left corner */}
       <div className="fixed top-0 left-0 z-[101] m-5">
         <NavLink to="/">
-          <img className="h-12 md:h-16" alt="medi-connects logo" src="logo.png" />
+          <img
+            className="h-12 md:h-16"
+            alt="medi-connects logo"
+            src="logo.png"
+          />
         </NavLink>
       </div>
 
@@ -145,17 +161,31 @@ const Navbar = () => {
         {/* Footer */}
         <div className="absolute bottom-0 w-full bg-gradient-to-r from-blue-500 to-purple-600 p-4 text-white text-center">
           <div className="flex justify-center gap-6 mb-2">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaFacebook size={30} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaTwitter size={30} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaInstagram size={30} />
             </a>
           </div>
-          <p className="text-sm">&copy; 2024 MediConnect. All rights reserved.</p>
+          <p className="text-sm">
+            &copy; 2024 MediConnect. All rights reserved.
+          </p>
         </div>
       </div>
     </>
