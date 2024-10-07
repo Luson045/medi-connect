@@ -15,6 +15,7 @@ import Navbar from './modules/common/Navbar';
 import ServicePage from './modules/common/Service';
 import AnimatedCursor from './modules/common/AnimatedCursor';
 import Registration from './modules/Registration/Registration';
+import TermsAndConditions from './modules/common/TermsAndConditions';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/panal" element={<HospitalAppointments />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/services" element={<ServicePage />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
           </div>
           <Footer />
