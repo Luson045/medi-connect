@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +31,13 @@ const Navbar = () => {
       }
       setLastScrollY(window.scrollY);
     };
-  
+
     window.addEventListener('scroll', handleScroll);
-  
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollY]);
-  
 
   return (
     <nav
@@ -72,7 +71,8 @@ const Navbar = () => {
             to="/"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <IoHome /> <p className="hover:brightness-50 hover:font-semibold">Home</p>
+            <IoHome />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Home</p>
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -81,7 +81,22 @@ const Navbar = () => {
             to="/about"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <AiOutlineInfoCircle /> <p className="hover:brightness-50 hover:font-semibold">About</p>
+            <AiOutlineInfoCircle />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">About</p>
+          </NavLink>
+
+          {/* New Hospitals Nearby link */}
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/hospitals-around"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <FaHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">
+              Hospitals Nearby
+            </p>
           </NavLink>
 
           {isAuthenticated ? (
@@ -93,7 +108,10 @@ const Navbar = () => {
                 to="/profile"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUser /> <p className="hover:brightness-50 hover:font-semibold">Profile</p>
+                <FaUser />{' '}
+                <p className="hover:brightness-50 hover:font-semibold">
+                  Profile
+                </p>
               </NavLink>
               {user && user?.role === 'user' && (
                 <NavLink
@@ -103,7 +121,10 @@ const Navbar = () => {
                   to="/hospitals"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <FaHospital /> <p className="hover:brightness-50 hover:font-semibold">Hospitals</p>
+                  <FaHospital />{' '}
+                  <p className="hover:brightness-50 hover:font-semibold">
+                    Hospitals
+                  </p>
                 </NavLink>
               )}
               {user && user?.role === 'hospital' && (
@@ -115,7 +136,9 @@ const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <MdOutlineLocalHospital />
-                  <p className="hover:brightness-50 hover:font-semibold">OPD Panel</p>
+                  <p className="hover:brightness-50 hover:font-semibold">
+                    OPD Panel
+                  </p>
                 </NavLink>
               )}
             </>
@@ -128,7 +151,9 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <MdOutlineLocalHospital />
-              <p className="hover:brightness-50 hover:font-semibold">Instant OPD</p>
+              <p className="hover:brightness-50 hover:font-semibold">
+                Instant OPD
+              </p>
             </NavLink>
           )}
 
@@ -163,30 +188,52 @@ const Navbar = () => {
       <div className="hidden lg:flex items-center gap-10">
         <div className="flex items-center gap-4 text-lg font-medium">
           <NavLink to="/" className="flex justify-center items-center gap-2">
-            <FaHome /> <p className="font-bold text-lg hover:brightness-50">Home</p>
+            <FaHome />{' '}
+            <p className="font-bold text-lg hover:brightness-50">Home</p>
           </NavLink>
-          <NavLink to="/about" className="flex justify-center items-center gap-2">
-            <AiOutlineInfoCircle /> <p className="font-bold text-lg hover:brightness-50">About</p>
+          <NavLink
+            to="/about"
+            className="flex justify-center items-center gap-2"
+          >
+            <AiOutlineInfoCircle />{' '}
+            <p className="font-bold text-lg hover:brightness-50">About</p>
+          </NavLink>
+          {/* New Hospitals Nearby link for desktop */}
+          <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
+            <FaHospital />{' '}
+            <p className="font-bold text-lg hover:brightness-50">
+              Hospitals Nearby
+            </p>
           </NavLink>
           {isAuthenticated ? (
             <>
               <NavLink to="/profile" className="flex items-baseline gap-2">
-                <FaUser /> <p className="font-bold text-lg hover:brightness-50">Profile</p>
+                <FaUser />{' '}
+                <p className="font-bold text-lg hover:brightness-50">Profile</p>
               </NavLink>
               {user && user?.role === 'user' && (
                 <NavLink to="/hospitals" className="flex items-baseline gap-2">
-                  <FaHospital /> <p className="font-bold text-lg hover:brightness-50">Hospitals</p>
+                  <FaHospital />{' '}
+                  <p className="font-bold text-lg hover:brightness-50">
+                    Hospitals
+                  </p>
                 </NavLink>
               )}
               {user && user?.role === 'hospital' && (
                 <NavLink to="/panal" className="flex items-baseline gap-2">
-                  <MdOutlineLocalHospital /> <p className="font-bold text-lg hover:brightness-50">OPD Panel</p>
+                  <MdOutlineLocalHospital />{' '}
+                  <p className="font-bold text-lg hover:brightness-50">
+                    OPD Panel
+                  </p>
                 </NavLink>
               )}
             </>
           ) : (
             <NavLink to="/registerOPD" className="flex items-center gap-2">
-              <MdOutlineLocalHospital /> <p className="font-bold text-lg hover:brightness-50">Instant OPD</p>
+              <MdOutlineLocalHospital />{' '}
+              <p className="font-bold text-lg hover:brightness-50">
+                Instant OPD
+              </p>
             </NavLink>
           )}
         </div>

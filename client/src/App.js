@@ -14,6 +14,7 @@ import Footer from './modules/common/Footer'; // Import Footer
 import Navbar from './modules/common/Navbar';
 import ServicePage from './modules/common/Service';
 import AnimatedCursor from './modules/common/AnimatedCursor';
+import HospitalsAround from './modules/common/HospitalsAround';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <Route path="/panal" element={<HospitalAppointments />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/services" element={<ServicePage />} />
+              <Route path="/hospitals-around" element={<HospitalsAround />} />
             </Routes>
           </div>
           <Footer />
