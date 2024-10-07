@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import CountUp from 'react-countup';
+import VisibilitySensor from 'react-visibility-sensor';
+import luson from "../../assets/images/luson.jpg";
 
 // Team member data
 const teamMembers = [
@@ -8,37 +14,61 @@ const teamMembers = [
     name: 'Luson Basumatary',
     role: 'Lead Developer || Founder',
     description:
-      'As the Lead Developer, Luson Basumatary brings a wealth of experience and technical expertise to our platform. With a deep understanding of software development and a passion for innovation, He leads the development team in creating a robust, secure, and user-friendly platform.',
+      'Luson Basumatary brings a wealth of experience in software development and a passion for innovation. He leads the team in creating a robust and user-friendly platform.',
+    imageUrl: luson,
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary-79a93b244/', 
+    github: 'https://github.com/Luson045',  
+    email: 'mailto:luson@example.com',
   },
   {
     name: 'Rohit Bansal',
     role: 'Frontend Developer',
     description:
-      'As the Frontend Developer,Rohit Bansal  specializes in crafting intuitive and visually appealing user interfaces. He is dedicated to enhancing the user experience by translating complex requirements into simple, accessible designs.',
+      'Rohit specializes in crafting intuitive user interfaces, translating complex requirements into accessible designs.',
+    imageUrl: 'https://via.placeholder.com/150',
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
+    github: 'https://github.com/luson045',  
+    email: 'mailto:luson@example.com',
   },
   {
     name: 'Kalpesh Jain',
     role: 'UI/UX Designer',
     description:
-      'kalpesh Jain is focused on making our platform user-friendly and engaging. With a background in user experience design and a passion for visual storytelling, He creates seamless interactions and visually appealing layouts.',
+      'Kalpesh is focused on making our platform user-friendly and engaging, ensuring seamless interactions.',
+    imageUrl: 'https://via.placeholder.com/150',
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
+    github: 'https://github.com/luson045',  
+    email: 'mailto:luson@example.com',
   },
   {
     name: 'Simranpreet Kaur',
     role: 'Graphic Designer',
     description:
-      'As our Graphic Designer, Simranpreet Kaur brings a flair for creativity and a strong sense of visual aesthetics. She creates compelling graphics, icons, and visual elements that enhance our platform.',
+      'Simranpreet creates compelling graphics and visual elements that enhance the user experience.',
+    imageUrl: 'https://via.placeholder.com/150',
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
+    github: 'https://github.com/luson045',  
+    email: 'mailto:luson@example.com',
   },
   {
     name: 'Kartik Kaushal',
     role: 'Healthcare Researcher',
     description:
-      'Kartik Kaushal brings expertise in medical research and data analysis. He focuses on understanding the latest trends and needs in outpatient care to ensure our platform meets high standards.',
+      'Kartik ensures that our platform meets high standards by staying updated with the latest trends in healthcare.',
+    imageUrl: 'https://via.placeholder.com/150',
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
+    github: 'https://github.com/luson045',  
+    email: 'mailto:luson@example.com',
   },
   {
     name: 'Shubham',
     role: 'Technology Researcher',
     description:
-      'Shubham explores emerging technologies and trends to enhance our platform’s functionality. He conducts in-depth research to identify innovative solutions and integrate cutting-edge features.',
+      'Shubham explores emerging technologies to integrate cutting-edge features into our platform.',
+    imageUrl: 'https://via.placeholder.com/150',
+    linkedin: 'https://www.linkedin.com/in/luson-basumatary', 
+    github: 'https://github.com/luson045',  
+    email: 'mailto:luson@example.com',
   },
 ];
 
@@ -54,53 +84,188 @@ const AboutPage = () => {
     from: { transform: 'translateX(-100%)' },
     config: { duration: 1000 },
   });
+  const [viewed, setViewed] = useState({
+    users: false,
+    opd: false,
+    accidents: false,
+    hospitals: false,
+  });
+
 
   return (
-    <>
-      <Container>
-        <animated.div style={fadeIn}>
-          
-        <VisionSection>
+    <Container>
+      <animated.div style={fadeIn}>
+        {/* Two-box section for Vision and Mission */}
+        <VisionMissionContainer>
+          <Box>
             <VisionTitle>Our Vision</VisionTitle>
             <VisionText>
               At Medi-Connect, we envision a world where accessing outpatient
               care is as simple as a few clicks. By leveraging technology and
               innovation, we aim to provide a platform that bridges the gap
               between patients and healthcare providers, making high-quality
-              care accessible to everyone, anywhere.
+              care accessible to everyone, anywhere. We strive to ensure that
+              every patient can connect with the right healthcare professionals
+              at the right time, improving overall health outcomes globally.
             </VisionText>
-          </VisionSection>
-          <Title>About Us</Title>
-          <Subtitle>Meet the Team</Subtitle>
-          <TeamGrid>
-            {teamMembers.map((member, index) => (
-              <animated.div key={index} style={slideIn}>
-                <TeamCard>
-                  <Role>{member.role}</Role>
-                  <Name>{member.name}</Name>
-                  <Description>{member.description}</Description>
-                </TeamCard>
-              </animated.div>
-            ))}
-          </TeamGrid><br></br>
-          <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
-          <div align="center">
-            <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
-              <img alt="git team" src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
-            </a>
-          </div>
-          <JoinUsSection>
-            <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
-            <JoinUsText>
-              We are excited about the future and the positive impact we can
-              make on healthcare through our online OPD platform. If you have
-              any questions or feedback, feel free to reach out to us. Together,
-              we can create a better, more connected healthcare experience.
-            </JoinUsText>
-          </JoinUsSection>
-        </animated.div>
-      </Container>
-    </>
+          </Box>
+          <Box>
+            <MissionTitle>Our Mission</MissionTitle>
+            <MissionText>
+              Our mission is to revolutionize outpatient care by creating a
+              comprehensive, easy-to-use platform that empowers patients and
+              healthcare providers alike. We are committed to building
+              technology that simplifies healthcare processes, improves access,
+              and enhances patient experience. With a focus on continuous
+              innovation, we work to ensure that the Medi-Connect platform
+              evolves to meet the changing needs of the healthcare industry.
+            </MissionText>
+          </Box>
+        </VisionMissionContainer>
+
+        
+        <Title>Meet our awesome team</Title>
+        <TeamGrid>
+          {teamMembers.map((member, index) => (
+            <animated.div key={index} style={slideIn}>
+              <TeamCard>
+                <ProfileImage src={member.imageUrl} alt={`${member.name}'s profile`} />
+                <Name>{member.name}</Name>
+                <Role>{member.role}</Role>
+
+                {/* Social Media Icons */}
+                <SocialIcons>
+                  <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faLinkedin} size="2x" />
+                  </a>
+                  <a href={member.github} target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faGithub} size="2x" />
+                  </a>
+                  <a href={member.email} target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faEnvelope} size="2x" />
+                  </a>
+                </SocialIcons>
+
+                <Description>{member.description}</Description>
+              </TeamCard>
+            </animated.div>
+          ))}
+        </TeamGrid>
+        <StatsSection>
+          {/* First Stat */}
+          <StatItem>
+            <VisibilitySensor
+              partialVisibility
+              offset={{ bottom: 200 }}
+              onChange={(isVisible) => {
+                if (isVisible) {
+                  setViewed((prev) => ({ ...prev, users: true }));
+                }
+              }}
+            >
+              {({ isVisible }) => (
+                <StatNumber>
+                  {viewed.users || isVisible ? (
+                    <CountUp start={0} end={1234} duration={3} suffix="+" />
+                  ) : (
+                    1234
+                  )}
+                </StatNumber>
+              )}
+            </VisibilitySensor>
+            Total Users
+          </StatItem>
+
+          {/* Second Stat */}
+          <StatItem>
+            <VisibilitySensor
+              partialVisibility
+              offset={{ bottom: 200 }}
+              onChange={(isVisible) => {
+                if (isVisible) {
+                  setViewed((prev) => ({ ...prev, opd: true }));
+                }
+              }}
+            >
+              {({ isVisible }) => (
+                <StatNumber>
+                  {viewed.opd || isVisible ? (
+                    <CountUp start={0} end={567} duration={3} suffix="+" />
+                  ) : (
+                    567
+                  )}
+                </StatNumber>
+              )}
+            </VisibilitySensor>
+            Total OPD Registrations
+          </StatItem>
+
+          {/* Third Stat */}
+          <StatItem>
+            <VisibilitySensor
+              partialVisibility
+              offset={{ bottom: 200 }}
+              onChange={(isVisible) => {
+                if (isVisible) {
+                  setViewed((prev) => ({ ...prev, accidents: true }));
+                }
+              }}
+            >
+              {({ isVisible }) => (
+                <StatNumber>
+                  {viewed.accidents || isVisible ? (
+                    <CountUp start={0} end={234} duration={3} suffix="+" />
+                  ) : (
+                    234
+                  )}
+                </StatNumber>
+              )}
+            </VisibilitySensor>
+            Total Accidents Reported
+          </StatItem>
+
+          {/* Fourth Stat */}
+          <StatItem>
+            <VisibilitySensor
+              partialVisibility
+              offset={{ bottom: 200 }}
+              onChange={(isVisible) => {
+                if (isVisible) {
+                  setViewed((prev) => ({ ...prev, hospitals: true }));
+                }
+              }}
+            >
+              {({ isVisible }) => (
+                <StatNumber>
+                  {viewed.hospitals || isVisible ? (
+                    <CountUp start={0} end={45} duration={3} suffix="+" />
+                  ) : (
+                    45
+                  )}
+                </StatNumber>
+              )}
+            </VisibilitySensor>
+            Nearby Hospitals
+          </StatItem>
+        </StatsSection>
+        <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
+        <div align="center">
+          <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
+            <img alt="git team" src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
+          </a>
+        </div>
+
+        <JoinUsSection>
+          <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
+          <JoinUsText>
+            We are excited about the future and the positive impact we can make
+            on healthcare through our online OPD platform. If you have any
+            questions or feedback, feel free to reach out to us. Together, we
+            can create a better, more connected healthcare experience.
+          </JoinUsText>
+        </JoinUsSection>
+      </animated.div>
+    </Container>
   );
 };
 
@@ -115,56 +280,23 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h2`
-font-size: 2rem;
-margin-bottom: 1rem;
-color: #c229b8;
-`;
-
-const Subtitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: #666;
-`;
-
-const TeamGrid = styled.div`
+// Two-box structure for Vision and Mission
+const VisionMissionContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 2rem;
-  justify-content: center;
-`;
-
-const TeamCard = styled.div`
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  width: 300px;
-  height: 100%;
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: scale(1.05);
+  margin-bottom: 3rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `;
 
-const Role = styled.h3`
-  font-size: 1.25rem;
-  color: #c229b8;
-`;
-
-const Name = styled.h4`
-  font-size: 1.125rem;
-  color: #333;
-`;
-
-const Description = styled.p`
-  font-size: 1rem;
-  color: #666;
-`;
-
-const VisionSection = styled.section`
-  margin: 3rem 0;
+const Box = styled.div`
+  flex: 1;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const VisionTitle = styled.h2`
@@ -179,8 +311,93 @@ const VisionText = styled.p`
   line-height: 1.6;
 `;
 
+const MissionTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c229b8;
+`;
+
+const MissionText = styled.p`
+  font-size: 1.125rem;
+  color: #333;
+  line-height: 1.6;
+`;
+
+// Team Grid
+const TeamGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const TeamCard = styled.div`
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center; /* Centers content */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers profile image and content */
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+   height: 440px; 
+`;
+
+const ProfileImage = styled.img`
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 1rem; /* Adds space between image and name */
+`;
+const SocialIcons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  
+  a {
+    &:hover {
+      opacity: 0.8; /* Optional hover effect */
+    }
+  }
+`;
+
+const Name = styled.h4`
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+  color: #333;
+`;
+
+const Role = styled.h5`
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  color: #c229b8;
+`;
+
+const Description = styled.p`
+  font-size: 1rem;
+  color: #666;
+`;
+
+// Community Section
+const GitTeamTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c229b8;
+ padding: 2rem;
+`;
+
+// Join Us Section
 const JoinUsSection = styled.section`
   margin: 3rem 0;
+  text-align: center;
 `;
 
 const JoinUsTitle = styled.h2`
@@ -195,9 +412,38 @@ const JoinUsText = styled.p`
   line-height: 1.6;
 `;
 
-const GitTeamTitle = styled.h2`
+const Title = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
   color: #c229b8;
+  padding: 2rem;
 `;
+
+const StatsSection = styled.div`
+  display: flex;
+  justify-content: space-around; /* Evenly distribute the stat items */
+  align-items: center;
+  height: 150px; /* Fixed height for the section */
+  width: 100%; /* Full width */
+  background-color: #e8f4f8; /* Light blue background */
+  padding: 3rem 0; /* Add some padding for spacing */
+`;
+
+const StatItem = styled.div`
+  display: flex;
+  flex-direction: column; /* Stack numbers and labels vertically */
+  align-items: center;
+  font-size: 1.2rem; /* Font size for the label */
+  color: #333; /* Dark color for text */
+  font-weight: bold; /* Bold text for label */
+`;
+
+const StatNumber = styled.div`
+  font-size: 2rem; /* Larger font size for numbers */
+  color: #66b3ff /* Highlight color for numbers */
+  margin-bottom: 0.3rem; /* Small gap between number and label */
+`;
+
+
+
 export default AboutPage;
