@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../common/Navbar';
 import { UserContext } from '../common/userContext';
 
+const mindate = new Date().toISOString().split('T')[0];
+
 const HospitalsList = () => {
-  const { user, isAuthenticated } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [hospitals, setHospitals] = useState([]);
   const [filteredHospitals, setFilteredHospitals] = useState([]);
   const [selectedHospital, setSelectedHospital] = useState(null);
@@ -16,9 +18,6 @@ const HospitalsList = () => {
   });
   const [searchQuery, setSearchQuery] = useState(''); // Search query stats
   const navigate = useNavigate();
-  const [mindate, setmindate] = useState(
-    new Date().toISOString().split('T')[0],
-  ); // set minimum date
   // Fetch hospitals on component mount
   useEffect(() => {
     const fetchHospitals = async () => {
