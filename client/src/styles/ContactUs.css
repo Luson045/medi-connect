@@ -1,0 +1,90 @@
+.contact-us-page {
+    background: linear-gradient(to bottom, #dbeafe, #ebf5ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-us-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center; 
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.title-line {
+    width: 160px;
+    height: 4px;
+    background-color: #7787ae;
+    margin: 0 auto 20px;
+    margin-top: -20px;
+    border-radius: 40%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+}
+
+input, textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #4363b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2e4cb0;
+}
+
+.button-line {
+    width: 100%;
+    height: 2px;
+    background-color: #4363b5;
+    margin: 20px auto 30px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.social-icons li {
+    margin: 0 17px;
+}
+
+.social-icons img {
+    width: 35px;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.social-icons img:hover {
+    opacity: 0.75;
+    transform: translateY(-4px);
+}

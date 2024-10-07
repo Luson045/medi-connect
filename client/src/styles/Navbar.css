@@ -1,24 +1,23 @@
-/* src/styles/Navbar.css */
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 15px 30px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.5rem;
-  background-color: lightgoldenrodyellow;
-  background-color: #333; /* Change to your desired color */
-  padding: 10px 20px;
+  background-color: #333;
   color: #fff;
   position: sticky;
   top: 0;
   z-index: 100;
 }
+
 .logo-image {
   max-height: 150px;
   max-width: 200px;
 }
+
 .navbar-logo a {
   color: #fff;
   text-decoration: none;
@@ -27,23 +26,27 @@
 }
 
 .navbar-links {
-  margin-right: 3rem;
   display: flex;
   align-items: center;
+  justify-content: center; 
   gap: 4rem;
+  margin-right: 0;
+  flex-grow: 1;
 }
 
 .navbar-links a {
   color: #fff;
   text-decoration: none;
-  margin-left: 20px;
+  font-weight: bold; 
   transition: color 0.3s ease;
+  padding: 10px 15px; 
 }
 
 .navbar-links a:hover {
   color: whitesmoke; /* Subtle blue accent */
 }
 
+.navl
 .tab {
   display: flex;
   align-items: center;
@@ -93,23 +96,23 @@
 /* Mobile Styles */
 @media (max-width: 768px) {
   .navbar-menu-icon {
-    display: block; /* Show hamburger on mobile */
+    display: block; 
   }
 
   .navbar-links {
     position: absolute;
-    top: 60px; /* Adjust based on navbar height */
+    top: 60px; 
     left: 0;
     right: 0;
-    background-color: #333; /* Match navbar background */
+    background-color: #333; 
     flex-direction: column;
     align-items: center;
-    display: none; /* Hidden by default */
+    display: none;
     z-index: 1000;
   }
 
   .navbar-links.active {
-    display: flex; /* Show menu when active */
+    display: flex;
   }
 
   .navbar-links a {

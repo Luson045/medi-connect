@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +31,13 @@ const Navbar = () => {
       }
       setLastScrollY(window.scrollY);
     };
-  
+
     window.addEventListener('scroll', handleScroll);
-  
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollY]);
-  
 
   return (
     <nav
@@ -72,7 +71,8 @@ const Navbar = () => {
             to="/"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <IoHome /> <p className="hover:brightness-50 hover:font-semibold">Home</p>
+            <IoHome />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Home</p>
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -81,7 +81,18 @@ const Navbar = () => {
             to="/about"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <AiOutlineInfoCircle /> <p className="hover:brightness-50 hover:font-semibold">About</p>
+            <AiOutlineInfoCircle />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">About</p>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/services"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Services</p>
           </NavLink>
 
           {isAuthenticated ? (
@@ -93,7 +104,8 @@ const Navbar = () => {
                 to="/profile"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUser /> <p className="hover:brightness-50 hover:font-semibold">Profile</p>
+                <FaUser />{' '}
+                <p className="hover:brightness-50 hover:font-semibold">Profile</p>
               </NavLink>
               {user && user?.role === 'user' && (
                 <NavLink
@@ -103,7 +115,8 @@ const Navbar = () => {
                   to="/hospitals"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <FaHospital /> <p className="hover:brightness-50 hover:font-semibold">Hospitals</p>
+                  <FaHospital />{' '}
+                  <p className="hover:brightness-50 hover:font-semibold">Hospitals</p>
                 </NavLink>
               )}
               {user && user?.role === 'hospital' && (
@@ -131,6 +144,15 @@ const Navbar = () => {
               <p className="hover:brightness-50 hover:font-semibold">Instant OPD</p>
             </NavLink>
           )}
+
+          <NavLink
+            className="flex items-center gap-2"
+            to="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <AiOutlineInfoCircle />
+            <p className="hover:brightness-50 hover:font-semibold">Contact Us</p>
+          </NavLink>
 
           {isAuthenticated ? (
             <button
@@ -163,59 +185,79 @@ const Navbar = () => {
       <div className="hidden lg:flex items-center gap-10">
         <div className="flex items-center gap-4 text-lg font-medium">
           <NavLink to="/" className="flex justify-center items-center gap-2">
-            <FaHome /> <p className="font-bold text-lg hover:brightness-50">Home</p>
+            <FaHome />{' '}
+            <p className="font-bold text-lg hover:brightness-50">Home</p>
           </NavLink>
-          <NavLink to="/about" className="flex justify-center items-center gap-2">
-            <AiOutlineInfoCircle /> <p className="font-bold text-lg hover:brightness-50">About</p>
+          <NavLink
+            to="/about"
+            className="flex justify-center items-center gap-2"
+          >
+            <AiOutlineInfoCircle />{' '}
+            <p className="font-bold text-lg hover:brightness-50">About</p>
           </NavLink>
+          <NavLink
+            to="/services"
+            className="flex justify-center items-center gap-2"
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="font-bold text-lg hover:brightness-50">Services</p>
+          </NavLink>
+
           {isAuthenticated ? (
             <>
               <NavLink to="/profile" className="flex items-baseline gap-2">
-                <FaUser /> <p className="font-bold text-lg hover:brightness-50">Profile</p>
+                <FaUser />{' '}
+                <p className="font-bold text-lg hover:brightness-50">Profile</p>
               </NavLink>
               {user && user?.role === 'user' && (
                 <NavLink to="/hospitals" className="flex items-baseline gap-2">
-                  <FaHospital /> <p className="font-bold text-lg hover:brightness-50">Hospitals</p>
+                  <FaHospital />{' '}
+                  <p className="font-bold text-lg hover:brightness-50">Hospitals</p>
                 </NavLink>
               )}
               {user && user?.role === 'hospital' && (
                 <NavLink to="/panal" className="flex items-baseline gap-2">
-                  <MdOutlineLocalHospital /> <p className="font-bold text-lg hover:brightness-50">OPD Panel</p>
+                  <MdOutlineLocalHospital />
+                  <p className="font-bold text-lg hover:brightness-50">OPD Panel</p>
                 </NavLink>
               )}
             </>
           ) : (
-            <NavLink to="/registerOPD" className="flex items-center gap-2">
-              <MdOutlineLocalHospital /> <p className="font-bold text-lg hover:brightness-50">Instant OPD</p>
+            <NavLink to="/registerOPD" className="flex items-baseline gap-2">
+              <MdOutlineLocalHospital />
+              <p className="font-bold text-lg hover:brightness-50">Instant OPD</p>
             </NavLink>
           )}
+
+          <NavLink to="/contact" className="flex items-baseline gap-2">
+            <AiOutlineInfoCircle />
+            <p className="font-bold text-lg hover:brightness-50">Contact Us</p>
+          </NavLink>
         </div>
 
-        <div className="flex gap-3">
-          {isAuthenticated ? (
-            <button
+        {isAuthenticated ? (
+          <button
+            className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+            onClick={handleLogout}
+          >
+            Log Out
+          </button>
+        ) : (
+          <div className="flex gap-5">
+            <NavLink
               className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
-              onClick={handleLogout}
+              to="/login"
             >
-              Log Out
-            </button>
-          ) : (
-            <div className="flex gap-5">
-              <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
-                to="/login"
-              >
-                <MdLogin /> Login
-              </NavLink>
-              <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
-                to="/register"
-              >
-                <FaUserPlus /> Register
-              </NavLink>
-            </div>
-          )}
-        </div>
+              <MdLogin /> Login
+            </NavLink>
+            <NavLink
+              className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+              to="/register"
+            >
+              <FaUserPlus /> Register
+            </NavLink>
+          </div>
+        )}
       </div>
     </nav>
   );

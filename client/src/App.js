@@ -1,4 +1,5 @@
 import AuthPage from './modules/common/AuthForm';
+import ContactUs from './modules/common/ContactUs';
 import OPDRegistrationForm from './modules/OPD/Registration';
 import HospitalsList from './modules/OPD/HospitalList';
 import Success from './modules/OPD/Success';
@@ -28,6 +29,7 @@ function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/registerOPD" element={<OPDRegistrationForm />} />
               <Route path="/success" element={<Success />} />
+              <Route path="/contact" element={<ContactUs />} />
               <Route path="/login" element={<AuthPage />} />
               <Route path="/register" element={<AuthPage />} />
               <Route path="/hospitals" element={<HospitalsList />} />
