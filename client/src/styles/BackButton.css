@@ -1,0 +1,9 @@
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px; /* Corrected to use hyphen */
+    background-color: #4CAF50; /* Corrected to use hyphen */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Corrected to use hyphen */
+}
