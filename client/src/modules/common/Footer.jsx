@@ -5,7 +5,9 @@ import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
 import { FaArrowUp } from 'react-icons/fa';
-
+import Box from '@mui/material/Box';
+import GoogleTranslate from './GoogleTranslate';
+import { border, display, width } from '@mui/system';
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -65,6 +67,7 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Join Us</li>
             <li className="mb-3 text-base md:text-lg">Support Us</li>
           </ul>
+          
         </div>
 
         <div className="mb-8 md:mb-0">
@@ -125,6 +128,22 @@ const Footer = () => {
               </a>
             </li>
           </ul>
+          <div className="translator"
+              style={{
+                position:'relative',
+                marginLeft: 'auto',
+                marginRight: '0',
+                marginBottom : '4px',
+                marginTop: '16px',
+                color: "white",
+                display: "block",
+                alignItems: "center",
+                width: 'fit-content',
+              }}>
+                <img src="/google.png" alt="" className="google-translate" style={{display: 'inline-block',width:'45px'}} />
+
+                <GoogleTranslate/>
+                        </div>
         </div>
       </div>
 
