@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import RegistrationContext from './RegistrationContext';
 import { Link } from 'react-router-dom';
 import RegistrationContext from './RegistrationContext';
 
@@ -23,6 +23,11 @@ function StepOne() {
     }));
   };
 
+  const validateEmail = (email) => {
+    const emailExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailExp.test(email);
+  };
+
   const handleChange = (e) => {
     setBasicDetials({
       ...basicDetails,
@@ -43,8 +48,9 @@ function StepOne() {
     if (!basicDetails.name) newErrors.name = 'Name is required'; // Validate name
     if (!basicDetails.phone || !/^\d{10}$/.test(basicDetails.phone)) // Validate phone
       newErrors.phone = 'Phone number must be exactly 10 digits';
-
-    if (!basicDetails.email) newErrors.email = 'Email is required'; // Validate email
+    if (!basicDetails.email) newErrors.email = 'Email is required'; // Validate Email
+    if (basicDetails.email && !validateEmail(basicDetails.email))
+      newErrors.email = 'Please enter a valid email address';
     if (!basicDetails.password) { // Validate password
       newErrors.password = 'Password is required';
     } else if (basicDetails.password.length < 8) {
@@ -87,8 +93,11 @@ function StepOne() {
             <option value="hospital">Hospital</option>
           </select>
         </div>
+
         <div className="form-section">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">
+            Name: <span style={{ color: 'red' }}>*</span>
+          </label>
           <input
             id="name"
             type="text"
@@ -105,8 +114,11 @@ function StepOne() {
             <span className="error">{errors.backend.name}</span>
           )}
         </div>
+
         <div className="form-section">
-          <label htmlFor="phone">Phone:</label>
+          <label htmlFor="phone">
+            Phone: <span style={{ color: 'red' }}>*</span>
+          </label>
           <input
             id="phone"
             type="text"
@@ -123,8 +135,11 @@ function StepOne() {
             <span className="error">{errors.backend.phone}</span>
           )}
         </div>
+
         <div className="form-section">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">
+            Email: <span style={{ color: 'red' }}>*</span>
+          </label>
           <input
             id="email"
             type="email"
@@ -141,8 +156,11 @@ function StepOne() {
             <span className="error">{errors.backend.email}</span>
           )}
         </div>
+
         <div className="form-section">
-          <label>Password:</label>
+          <label>
+            Password: <span style={{ color: 'red' }}>*</span>
+          </label>
           <div className="password-wrapper">
             <input
               type={showPassword.password ? 'text' : 'password'}
@@ -167,8 +185,11 @@ function StepOne() {
             <span className="error">{errors.backend.password}</span>
           )}
         </div>
+
         <div className="form-section">
-          <label>Confirm Password:</label>
+          <label>
+            Confirm Password: <span style={{ color: 'red' }}>*</span>
+          </label>
           <div className="password-wrapper">
             <input
               type={showPassword.password ? 'text' : 'password'}
@@ -186,7 +207,6 @@ function StepOne() {
               {showPassword.password ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
           {errors.frontend.confirmPassword && (
             <span className="error">{errors.frontend.confirmPassword}</span>
           )}
@@ -194,6 +214,7 @@ function StepOne() {
             <span className="error">{errors.backend.confirmPassword}</span>
           )}
         </div>
+
         <div className="register-button">
           <button
             type="submit"
