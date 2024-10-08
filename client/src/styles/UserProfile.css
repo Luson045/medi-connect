@@ -21,19 +21,19 @@
 
 @media (max-width: 425px) {
   .user-page {
-    padding: 2rem;
+    padding: 2.1rem;
   }
 }
 
 @media (max-width: 375px) {
   .user-page {
-    padding: 2rem;
+    padding: 2.1rem;
   }
 }
 
 @media (max-width: 320px) {
   .user-page {
-    padding: 2rem;
+    padding: 2.1rem;
   }
 }
 
