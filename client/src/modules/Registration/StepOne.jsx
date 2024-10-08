@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import RegistrationContext from './RegistrationContext';
@@ -23,6 +23,11 @@ function StepOne() {
     }));
   };
 
+  const validateEmail = (email) => {
+    const emailExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailExp.test(email);
+  };
+
   const handleChange = (e) => {
     setBasicDetials({
       ...basicDetails,
@@ -44,7 +49,9 @@ function StepOne() {
     if (!basicDetails.phone || !/^\d{10}$/.test(basicDetails.phone))
       newErrors.phone = 'Phone number must be exactly 10 digits';
 
-    if (!basicDetails.email) newErrors.email = 'Email is required (frontend)';
+    if (!basicDetails.email) newErrors.email = 'Email is required';
+    if (basicDetails.email && !validateEmail(basicDetails.email))
+      newErrors.email = 'Please enter a valid email address';
     if (!basicDetails.password || basicDetails.password.length < 8)
       newErrors.password = 'Password must be at least 8 characters long';
     if (basicDetails.password !== basicDetails.confirmPassword)
