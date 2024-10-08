@@ -117,3 +117,9 @@
     font-size: 18px;
   }
 }
+
+@media (min-width: 400px) {
+    .login-btn,.register-btn{
+      padding: 4px 30px !important;
+    }
+}

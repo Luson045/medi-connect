@@ -155,7 +155,7 @@ const Navbar = () => {
 
           {isAuthenticated ? (
             <button
-              className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+              className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75 "
               onClick={handleLogout}
             >
               Log Out
@@ -163,14 +163,14 @@ const Navbar = () => {
           ) : (
             <div className="flex gap-5">
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+                className="bg-white flex gap-2 items-center px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 items-center px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+                className="bg-white flex gap-2 items-center px-3 py-1 rounded-lg text-black font-bold hover:brightness-75 register-btn"
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
               >
