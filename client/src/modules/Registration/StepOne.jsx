@@ -1,6 +1,5 @@
-import { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import RegistrationContext from './RegistrationContext';
 import { Link } from 'react-router-dom';
 import RegistrationContext from './RegistrationContext';
 
