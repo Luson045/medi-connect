@@ -88,7 +88,7 @@ export default function ServicePage() {
             transition={{ staggerChildren: 0.2 }}
             style={{
               position: 'relative',
-              backdropFilter: hoveredCard ? 'blur(8px)' : 'none', // Blur background on hover
+              backdropFilter: hoveredCard ? 'blur(4px)' : 'none', // Reduced blur
               transition: 'backdrop-filter 0.3s ease-in-out',
             }}
           >
@@ -98,7 +98,7 @@ export default function ServicePage() {
                 onMouseEnter={() => setHoveredCard(index)} // Track hover
                 onMouseLeave={() => setHoveredCard(null)} // Reset hover
                 style={{
-                  opacity: hoveredCard === null || hoveredCard === index ? 1 : 0.5, // Adjust opacity of other cards
+                  opacity: hoveredCard === null || hoveredCard === index ? 1 : 0.85, // Less opacity reduction
                   transition: 'opacity 0.3s ease-in-out',
                 }}
               >
