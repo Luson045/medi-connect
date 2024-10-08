@@ -101,7 +101,9 @@ Developed for the Smart India Hackathon, this platform aims to enhance patient e
 
 ## Demo
 
-[[Visit the deployment]](https://medi-connect-in.netlify.app/)
+[Visit the deployment Site](https://medi-connect-in.netlify.app/)
+
+Experience the full functionality of `MediConnect` through our live deployment. This platform enables seamless access to healthcare services, providing users with tools for `easy communication`, `scheduling`, and `medical record management`, all in one place.
 
 ## Getting Started
 
@@ -160,21 +162,19 @@ JWT=your_jwt_secret
    ```
 
 2. Run the following commands
+
    ```
        docker compose build
        docker compose up
    ```
 
 3. To close the running containers run `docker compose down`
- 
+
 4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
 
-*** Video Guide for how to run project via Docker
-
+\*\*\* Video Guide for how to run project via Docker
 
 https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
-
-
 
 ## Usage
 
