@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import RegistrationContext from './RegistrationContext';
 import { Link } from 'react-router-dom';
+import RegistrationContext from './RegistrationContext';
 
 function StepOne() {
   const { basicDetails, setBasicDetials, nextStep } =
@@ -40,15 +40,27 @@ function StepOne() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!basicDetails.name) newErrors.name = 'Name is required';
-    if (!basicDetails.phone || !/^\d{10}$/.test(basicDetails.phone))
+    if (!basicDetails.name) newErrors.name = 'Name is required'; // Validate name
+    if (!basicDetails.phone || !/^\d{10}$/.test(basicDetails.phone)) // Validate phone
       newErrors.phone = 'Phone number must be exactly 10 digits';
 
-    if (!basicDetails.email) newErrors.email = 'Email is required (frontend)';
-    if (!basicDetails.password || basicDetails.password.length < 8)
+    if (!basicDetails.email) newErrors.email = 'Email is required'; // Validate email
+    if (!basicDetails.password) { // Validate password
+      newErrors.password = 'Password is required';
+    } else if (basicDetails.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters long';
-    if (basicDetails.password !== basicDetails.confirmPassword)
+    } else if (!/[A-Z]/.test(basicDetails.password)) {
+      newErrors.password = 'Password must contain at least one uppercase letter';
+    } else if (!/[a-z]/.test(basicDetails.password)) {
+      newErrors.password = 'Password must contain at least one lowercase letter';
+    } else if (!/[0-9]/.test(basicDetails.password)) {
+      newErrors.password = 'Password must contain at least one number';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(basicDetails.password)) {
+      newErrors.password = 'Password must contain at least one special character';
+    }
+    if (basicDetails.password !== basicDetails.confirmPassword) { // Validate confirm password
       newErrors.confirmPassword = 'Passwords do not match';
+    }
 
     return newErrors;
   };

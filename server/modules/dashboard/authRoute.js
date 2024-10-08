@@ -17,11 +17,17 @@ const geocoder = NodeGeocoder(options);
 const router = express.Router();
 
 // Zod Schemas for Validation
+const passwordSchema = z.string().min(8, "Password should be at least 8 characters long")
+  .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+  .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+  .regex(/[0-9]/, "Password must contain at least one number")
+  .regex(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character");
+
 const userSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: z.string().min(6, "Password should be at least 6 characters long"),
+  password: passwordSchema,  // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -39,7 +45,7 @@ const hospitalSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: z.string().min(6, "Password should be at least 6 characters long"),
+  password: passwordSchema,  // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -55,7 +61,7 @@ const hospitalSchema = z.object({
 const loginSchema = z.object({
   type: z.enum(["user", "hospital"]),
   email: z.string().email("Invalid email format"),
-  password: z.string().min(6, "Password should be at least 6 characters long"),
+  password: passwordSchema,  // pointing to the const password schema given above
 });
 
 // Middleware to authenticate using token
