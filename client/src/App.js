@@ -30,7 +30,7 @@ function Layout() {
   if (path === "/" || path === "/about" || path === "/registerOPD" || 
       path === "/success" || path === "/login" || path === "/register" || 
       path === "/hospitals" || path === "/panal" || path === "/profile" || 
-      path === "/services" || path === "/terms-and-conditions") {
+      path === "/services" || path === "/terms-and-conditions" || path === "/Labtest") {
     showNavAndFooter = true;
   }
 
