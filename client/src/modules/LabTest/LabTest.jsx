@@ -49,7 +49,7 @@ const LabTestMedipedia = () => {
                      <a href="#" className="inline-block px-6 py-2 border border-gray-700 text-gray-700 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all duration-300 text-base">Read more</a>
                      <div className="flex justify-between items-center mt-5 pt-4 border-t border-gray-700">
                         <span className="text-sm text-gray-500"><i className="fas fa-calendar text-blue-600 pr-2"></i> get report within {test.reportTime}</span>
-                        <span className="text-sm text-gray-500"><i className="fas fa-user text-blue-600 pr-2"></i> by Medipedia</span>
+                        <span className="text-sm text-gray-500"><i className="fas fa-user text-blue-600 pr-2"></i> by Med-Space</span>
                      </div>
                   </div>
                </div>
