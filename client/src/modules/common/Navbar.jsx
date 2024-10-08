@@ -202,6 +202,11 @@ const Navbar = () => {
             <p className="font-bold text-lg hover:brightness-50">Services</p>
           </NavLink>
 
+          <NavLink to="/labtest" className="flex items-baseline gap-2">
+            <MdOutlineLocalHospital /> {' '}
+            <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
+          </NavLink>
+
           {isAuthenticated ? (
             <>
               <NavLink to="/profile" className="flex items-baseline gap-2">

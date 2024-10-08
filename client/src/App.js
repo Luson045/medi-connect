@@ -19,6 +19,7 @@ import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
 import ScrollToTop from './modules/comps/ScrollToTop';
+import LabTestMedipedia from './modules/LabTest/LabTest';
 
 function Layout() {
   const location = useLocation();
@@ -50,6 +51,7 @@ function Layout() {
           <Route exact path="/panal" element={<HospitalAppointments />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/services" element={<ServicePage />} />
+          <Route exact path="/Labtest" element={<LabTestMedipedia/>} />
           <Route exact path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
