@@ -27,9 +27,9 @@ const ServiceCard = ({ icon: Icon, title, details }) => (
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <p className="text-gray-600 mb-8">{details}</p>
       </div>
-      <diV className="flex items-end">
+      <div className="flex items-end">
         <Link>Read more</Link>
-      </diV>
+      </div>
     </motion.div>
   </>
 );

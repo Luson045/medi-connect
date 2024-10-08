@@ -3,6 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FaMapPin, FaHospital } from 'react-icons/fa'; // Import the icons
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer to render icons to HTML
+import Navbar from './Navbar';
 
 const HospitalsAround = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -149,30 +150,35 @@ const HospitalsAround = () => {
   }, [location, map, hospitals]);
 
   return (
-    <div>
-      {location.lat && location.lng ? (
-        <div>
-          <p>
-            Your Location: Latitude {location.lat}, Longitude {location.lng}
-          </p>
-          <div id="map" style={{ height: '500px', width: '100%' }}></div>
-          {hospitals.length > 0 ? (
-            <div>
-              <h3>Hospitals within 2km:</h3>
-              <ul>
-                {hospitals.map((hospital, index) => (
-                  <li key={index}>{hospital.name}</li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p>No hospitals found nearby.</p>
-          )}
-        </div>
-      ) : (
-        <p>Fetching location...</p>
-      )}
-    </div>
+    <>
+      <Navbar />
+      <div>
+        {location.lat && location.lng ? (
+          <div>
+            <br />
+            <p>
+              Your Location: Latitude {location.lat}, Longitude {location.lng}
+            </p>
+            <br />
+            <div id="map" style={{ height: '500px', width: '100%' }}></div>
+            {hospitals.length > 0 ? (
+              <div>
+                <h3>Hospitals within 2km:</h3>
+                <ul>
+                  {hospitals.map((hospital, index) => (
+                    <li key={index}>{hospital.name}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p>No hospitals found nearby.</p>
+            )}
+          </div>
+        ) : (
+          <p>Fetching location...</p>
+        )}
+      </div>
+    </>
   );
 };
 
