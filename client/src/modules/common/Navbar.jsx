@@ -161,7 +161,7 @@ const Navbar = () => {
               Log Out
             </button>
           ) : (
-            <div className="flex gap-5">
+            <div className="flex gap-2">
               <NavLink
                 className="bg-white flex gap-2 items-center px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
                 to="/login"
