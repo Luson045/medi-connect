@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-
+import { useState, useContext } from 'react';
 import RegistrationContext from './RegistrationContext';
 
 const btnDivStyle = {
@@ -12,7 +11,6 @@ function StepTwo() {
   const { basicDetails, otherDetails, setOtherDetails, nextStep, prevStep } =
     useContext(RegistrationContext);
   const { street, city, state, postalCode } = otherDetails.address;
-
   const [errors, setErrors] = useState({
     frontend: {},
     backend: {},
@@ -62,11 +60,10 @@ function StepTwo() {
 
     if (!street) newErrors.street = 'Street is required';
     if (!city) newErrors.city = 'City is required';
-
     if (!state) newErrors.state = 'State is required';
     if (!postalCode) newErrors.postalCode = 'Pin Code is required';
 
-    //checking error for other user details
+    // Checking error for other user details
     if (basicDetails.type === 'user') {
       if (!otherDetails.gender) newErrors.gender = 'Gender is required';
       if (!otherDetails.dob) newErrors.dob = 'DOB is required';
@@ -76,7 +73,7 @@ function StepTwo() {
       if (!otherDetails.department)
         newErrors.department = 'Departments is required';
       if (!otherDetails.availableServices)
-        newErrors.availableServices = 'Atleast one service is required';
+        newErrors.availableServices = 'At least one service is required';
     }
     return newErrors;
   };
@@ -98,7 +95,9 @@ function StepTwo() {
       <h5>Address</h5>
       <hr />
       <div className="form-section">
-        <label htmlFor="street">Street:</label>
+        <label htmlFor="street">
+          Street: <span style={{ color: 'red' }}>*</span>
+        </label>
         <input
           id="street"
           type="text"
@@ -116,7 +115,9 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="city">City:</label>
+        <label htmlFor="city">
+          City: <span style={{ color: 'red' }}>*</span>
+        </label>
         <input
           id="city"
           type="text"
@@ -135,7 +136,9 @@ function StepTwo() {
       </div>
 
       <div className="form-section">
-        <label htmlFor="state">State:</label>
+        <label htmlFor="state">
+          State: <span style={{ color: 'red' }}>*</span>
+        </label>
         <input
           id="state"
           type="text"
@@ -153,7 +156,9 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="postalCode">Pin Code:</label>
+        <label htmlFor="postalCode">
+          Pin Code: <span style={{ color: 'red' }}>*</span>
+        </label>
         <input
           id="postalCode"
           type="text"
@@ -175,18 +180,9 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="website">Web site:</label>
-            <input
-              id="website"
-              type="text"
-              name="website"
-              placeholder="www.somesite.com"
-              value={otherDetails.website}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-section">
-            <label htmlFor="department">Department:</label>
+            <label htmlFor="department">
+              Department: <span style={{ color: 'red' }}>*</span>
+            </label>
             <select
               id="department"
               name="department"
@@ -212,7 +208,9 @@ function StepTwo() {
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="availableServices">Available Services:</label>
+            <label htmlFor="availableServices">
+              Available Services: <span style={{ color: 'red' }}>*</span>
+            </label>
             <input
               id="availableServices"
               type="text"
@@ -235,7 +233,9 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="dob">DOB</label>
+            <label htmlFor="dob">
+              DOB: <span style={{ color: 'red' }}>*</span>
+            </label>
             <input
               id="dob"
               type="date"
@@ -253,7 +253,9 @@ function StepTwo() {
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="gender">Gender:</label>
+            <label htmlFor="gender">
+              Gender: <span style={{ color: 'red' }}>*</span>
+            </label>
             <select
               id="gender"
               name="gender"
@@ -281,7 +283,7 @@ function StepTwo() {
               id="medicalHistory"
               type="text"
               name="medicalHistory"
-              placeholder="If any use , to seprate multiple"
+              placeholder="If any use , to separate multiple"
               value={otherDetails.medicalHistory}
               onChange={handleCommaSeparatedValues}
             />
