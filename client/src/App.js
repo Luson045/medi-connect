@@ -18,6 +18,7 @@ import AnimatedCursor from './modules/common/AnimatedCursor';
 import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
+import ScrollToTop from './modules/comps/ScrollToTop';
 
 function Layout() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function Layout() {
       {/* Conditionally render Navbar */}
       {showNavAndFooter && <Navbar />}
       <div className="mt-14">
+        <ScrollToTop />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<AboutPage />} />
