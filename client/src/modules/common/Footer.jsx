@@ -5,9 +5,7 @@ import facebook from '../../assets/facebook-brands-solid.svg';
 import twitter from '../../assets/x-twitter-brands-solid.svg';
 import linkedin from '../../assets/linkedin-brands-solid.svg';
 import { FaArrowUp } from 'react-icons/fa';
-import Box from '@mui/material/Box';
 import GoogleTranslate from './GoogleTranslate';
-import { border, display, width } from '@mui/system';
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
