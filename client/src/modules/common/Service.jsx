@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import FloatingIcons from '../common/FloatingIcons';
 import { services } from '../../data';
 import TreatmentModal from './TreatmentModel';
-const ServiceCard = ({ icon: Icon, title, details, onReadMore }) => (
+
+const ServiceCard = ({ icon: Icon, title, details, onReadMore, isHovered }) => (
   <motion.div
-    className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-lg transition-transform transform-gpu hover:scale-105"
-    whileHover={{ scale: 1.05 }}
+    className={`bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform-gpu transition-all ${
+      isHovered ? 'hover:scale-110' : 'hover:scale-105'
+    }`}
+    whileHover={{ scale: 1.1, zIndex: 10 }}
     whileTap={{ scale: 0.95 }}
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -14,10 +17,10 @@ const ServiceCard = ({ icon: Icon, title, details, onReadMore }) => (
     transition={{ type: 'spring', stiffness: 300 }}
   >
     <Icon size={48} className="text-blue-500 mb-4" />
-    <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>
+    <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
     <p className="text-gray-600 mb-6">{details}</p>
     <button
-      className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600 transition-colors"
+      className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full text-sm hover:bg-blue-700 transition-colors"
       onClick={onReadMore}
     >
       Read more
@@ -27,6 +30,7 @@ const ServiceCard = ({ icon: Icon, title, details, onReadMore }) => (
 
 export default function ServicePage() {
   const [selectedTreatment, setSelectedTreatment] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null); // Track hovered card
 
   const handleReadMore = (treatment) => {
     setSelectedTreatment(treatment);
@@ -38,7 +42,7 @@ export default function ServicePage() {
 
   return (
     <>
-      <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-200 via-white to-blue-50 overflow-hidden">
+      <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-300 via-white to-blue-100 overflow-hidden">
         {/* Background Shape */}
         <div className="absolute inset-0">
           <svg
@@ -58,7 +62,7 @@ export default function ServicePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <motion.h2
-              className="text-4xl sm:text-5xl font-bold mb-4 text-gray-800 leading-tight"
+              className="text-5xl font-bold mb-4 text-gray-800 leading-tight"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, type: 'spring' }}
@@ -82,13 +86,28 @@ export default function ServicePage() {
             whileInView="visible"
             viewport={{ once: false }}
             transition={{ staggerChildren: 0.2 }}
+            style={{
+              position: 'relative',
+              backdropFilter: hoveredCard ? 'blur(8px)' : 'none', // Blur background on hover
+              transition: 'backdrop-filter 0.3s ease-in-out',
+            }}
           >
             {services.map((service, index) => (
-              <ServiceCard
+              <motion.div
                 key={index}
-                {...service}
-                onReadMore={() => handleReadMore(service)}
-              />
+                onMouseEnter={() => setHoveredCard(index)} // Track hover
+                onMouseLeave={() => setHoveredCard(null)} // Reset hover
+                style={{
+                  opacity: hoveredCard === null || hoveredCard === index ? 1 : 0.5, // Adjust opacity of other cards
+                  transition: 'opacity 0.3s ease-in-out',
+                }}
+              >
+                <ServiceCard
+                  {...service}
+                  onReadMore={() => handleReadMore(service)}
+                  isHovered={hoveredCard === index}
+                />
+              </motion.div>
             ))}
           </motion.div>
         </div>
