@@ -161,16 +161,16 @@ const Navbar = () => {
               Log Out
             </button>
           ) : (
-            <div className="flex gap-5">
+            <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
               <NavLink
-                className="bg-white flex gap-2 items-center px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
+                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 xs:px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 items-center px-3 py-1 rounded-lg text-black font-bold hover:brightness-75 register-btn"
+                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 py-1 rounded-lg text-black font-bold hover:brightness-75 register-btn"
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
               >
