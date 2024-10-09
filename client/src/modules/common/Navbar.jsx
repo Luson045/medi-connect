@@ -89,6 +89,16 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <MdOutlineLocalHospital />
             <p className="hover:brightness-50 hover:font-semibold">Services</p>
           </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+          </NavLink>
 
           {isAuthenticated ? (
             <>
@@ -191,7 +201,13 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <MdOutlineLocalHospital />
             <p className="font-bold text-lg hover:brightness-50">Services</p>
           </NavLink>
-
+          <NavLink
+            to="/blog"
+            className="flex justify-center items-center gap-2"
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="font-bold text-lg hover:brightness-50">Blog</p>
+          </NavLink>
           <NavLink to="/labtest" className="flex items-baseline gap-2">
             <MdOutlineLocalHospital /> {' '}
             <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
