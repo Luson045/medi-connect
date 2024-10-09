@@ -50,7 +50,7 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Doctors</li>
             <li className="mb-3 text-base md:text-lg">Pricing</li>
             <li className="mb-3 text-base md:text-lg">
-              <Link to="/terms-and-conditions" className="mb-3 text-base md:text-lg">
+              <Link to="/terms" className="text-blue-500 hover:text-blue-700">
                 Terms
               </Link>
             </li>
@@ -65,7 +65,6 @@ const Footer = () => {
             <li className="mb-3 text-base md:text-lg">Join Us</li>
             <li className="mb-3 text-base md:text-lg">Support Us</li>
           </ul>
-          
         </div>
 
         <div className="mb-8 md:mb-0">
@@ -126,22 +125,29 @@ const Footer = () => {
               </a>
             </li>
           </ul>
-          <div className="translator"
-              style={{
-                position:'relative',
-                marginLeft: 'auto',
-                marginRight: '0',
-                marginBottom : '4px',
-                marginTop: '16px',
-                color: "white",
-                display: "block",
-                alignItems: "center",
-                width: 'fit-content',
-              }}>
-                <img src="/google.png" alt="" className="google-translate" style={{display: 'inline-block',width:'45px'}} />
+          <div
+            className="translator"
+            style={{
+              position: 'relative',
+              marginLeft: 'auto',
+              marginRight: '0',
+              marginBottom: '4px',
+              marginTop: '16px',
+              color: 'white',
+              display: 'block',
+              alignItems: 'center',
+              width: 'fit-content',
+            }}
+          >
+            <img
+              src="/google.png"
+              alt=""
+              className="google-translate"
+              style={{ display: 'inline-block', width: '45px' }}
+            />
 
-                <GoogleTranslate/>
-                        </div>
+            <GoogleTranslate />
+          </div>
         </div>
       </div>
 

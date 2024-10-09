@@ -1,41 +1,121 @@
-// src/components/TermsAndConditions.js
 import React from 'react';
+import styled from 'styled-components';
 
 const TermsAndConditions = () => {
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center py-10">
-      <div className="bg-white rounded-lg shadow-lg p-8 mx-4 md:mx-12 lg:mx-24 xl:mx-48">
-        <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">Terms and Conditions</h1>
-        
-        <p className="mb-6 text-gray-700 leading-relaxed">
-          The Medi-Connect (Appointment Booking System) is a comprehensive web-based solution designed to streamline hospital operations by implementing efficient queuing models for Outpatient Departments (OPDs), real-time bed availability tracking, patient admission management, and more.
-        </p>
+    <Container>
+      <Title>Terms and Conditions</Title>
+      <EffectiveDate>Effective Date: October 7, 2024</EffectiveDate>
 
-        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
-          <h2 className="text-2xl font-semibold mb-2 text-blue-500">1. Acceptance of Terms</h2>
-          <p className="text-gray-700 leading-relaxed">
-            By using this service, you agree to comply with these terms and conditions and acknowledge that you have read and understood them. You also acknowledge that failure to adhere to these terms may result in the suspension or termination of your account. It is your responsibility to regularly review these terms, as they may be updated periodically. Continued use of the service following any updates constitutes acceptance of the revised terms. If you do not agree with any part of these terms, you should discontinue using the service immediately.
-          </p>
-        </div>
+      <CardSection>
+        <Card>
+          <SectionTitle>Introduction</SectionTitle>
+          <SectionContent>
+            These Terms and Conditions govern your use of Medi-Connect’s platform. By accessing or using our services, you agree to be bound by these terms. Please read them carefully. Updates to these terms will be posted on this page, and the effective date will be modified accordingly.
+          </SectionContent>
+        </Card>
 
-        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
-          <h2 className="text-2xl font-semibold mb-2 text-blue-500">2. Service Usage</h2>
-          <p className="text-gray-700 leading-relaxed">
-            Users must utilize the service responsibly and in accordance with applicable laws and regulations. Any misuse of the platform, including but not limited to unauthorized access, data manipulation, or disruptive behavior, will not be tolerated. Users are expected to respect the rights of others and maintain the integrity of the platform. Failure to comply with legal obligations or responsible usage guidelines may result in legal action, account suspension, or termination of access to the service. It is essential to ensure that all information provided is accurate and used appropriately within the scope of the service's intended purpose.
-          </p>
-        </div>
+        <Card>
+          <SectionTitle>User Obligations</SectionTitle>
+          <SectionContent>
+            As a user, you are responsible for providing accurate information and complying with all applicable laws. You agree not to engage in any activity that could harm the platform, including unauthorized use or violations of intellectual property.
+          </SectionContent>
+        </Card>
 
-        <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
-          <h2 className="text-2xl font-semibold mb-2 text-blue-500">3. Changes to Terms</h2>
-          <p className="text-gray-700 leading-relaxed">
-            We reserve the right to modify these terms at any time. Changes will be communicated through the website, and it is your responsibility to review these terms periodically for any updates. Continued use of the service following the posting of changes constitutes your acceptance of the revised terms. If you do not agree with any changes made to the terms, you must stop using the service immediately. We encourage users to stay informed about our terms and conditions to ensure a clear understanding of their rights and responsibilities while using our platform.
-          </p>
-        </div>
+        <Card>
+          <SectionTitle>Intellectual Property</SectionTitle>
+          <SectionContent>
+            All content on this website, including text, images, and logos, is owned by Medi-Connect. Users are prohibited from using or distributing our intellectual property without explicit permission.
+          </SectionContent>
+        </Card>
 
-        {/* Add more content as needed */}
-      </div>
-    </div>
+        <Card>
+          <SectionTitle>Limitation of Liability</SectionTitle>
+          <SectionContent>
+            Medi-Connect is not liable for any damages or losses arising from the use of the platform. This includes issues related to third-party content or factors beyond our control.
+          </SectionContent>
+        </Card>
+
+        <Card>
+          <SectionTitle>Termination</SectionTitle>
+          <SectionContent>
+            Either party may terminate this agreement under certain conditions. If your access is terminated, you will no longer have rights to use the platform, and all obligations under the terms will cease.
+          </SectionContent>
+        </Card>
+
+        <Card>
+          <SectionTitle>Governing Law</SectionTitle>
+          <SectionContent>
+            These terms are governed by the laws of India. Any disputes related to these terms will be handled in the jurisdiction of the courts in India.
+          </SectionContent>
+        </Card>
+
+        <Card>
+          <SectionTitle>Changes to the Terms</SectionTitle>
+          <SectionContent>
+            Medi-Connect reserves the right to modify these terms at any time. You will be notified of changes via email or a notification on the website.
+          </SectionContent>
+        </Card>
+
+        <Card>
+          <SectionTitle>Contact Information</SectionTitle>
+          <SectionContent>
+            If you have any questions about these Terms and Conditions, please contact us at support@medi-connect.com.
+          </SectionContent>
+        </Card>
+      </CardSection>
+    </Container>
   );
 };
+
+// Styled Components
+const Container = styled.div`
+  padding: 3rem;  /* Increased padding for better spacing */
+  max-width: 1200px;  /* Increased max-width for the container */
+  margin: 0 auto;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;  /* Added margin-top to avoid collision with navbar */
+`;
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: #c229b8;
+  text-align: center;
+  margin-bottom: 1rem;
+`;
+
+const EffectiveDate = styled.p`
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+`;
+
+const CardSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));  /* Responsive grid layout */
+  gap: 1.5rem;  /* Gap between cards */
+`;
+
+const Card = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 1.5rem;
+  color: #c229b8;
+  margin-bottom: 0.5rem;
+`;
+
+const SectionContent = styled.p`
+  font-size: 1.125rem;
+  color: #333;
+`;
 
 export default TermsAndConditions;
