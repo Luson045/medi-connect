@@ -189,11 +189,6 @@
   }
 }
 
-@media (max-width: 424px){
-  .user-page{
-    padding-top: 4rem;
-  }
-}
 
 /* For 375px devices */
 @media (max-width: 375px) {
