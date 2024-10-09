@@ -1,0 +1,30 @@
+{
+  "name": "medi-connect",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.1",
+    "globals": "^15.10.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "client/src/**/*.{js,jsx,css}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "server/**/**/*.js": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ]
+  }
+}
