@@ -4,11 +4,11 @@ import { TailSpin } from 'react-loader-spinner';
 import { notify } from './notification';
 import '../../styles/Login.css';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const AuthPage = () => {
   const [formData, setFormData] = useState({
     type: 'hospital',
-    name: '',
     email: '',
     password: '',
   });
@@ -18,11 +18,7 @@ const AuthPage = () => {
     backend: {},
   });
 
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
-
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -34,14 +30,14 @@ const AuthPage = () => {
       ...prev,
       frontend: {
         ...prev.frontend,
-        [e.target.name]: '', // Clear frontend error for the field being edited
+        [e.target.name]: '',
       },
     }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.email) newErrors.email = 'Email is required (frontend)';
+    if (!formData.email) newErrors.email = 'Email is required';
     if (!formData.password || formData.password.length < 8)
       newErrors.password = 'Password must be at least 8 characters long';
 
@@ -89,30 +85,29 @@ const AuthPage = () => {
             backend: backendErrors,
           }));
         } else {
-          notify(
-            data.message || 'An error occurred. Please try again.',
-            'warn',
-          );
+          notify(data.message || 'An error occurred. Please try again.', 'warn');
         }
       }
     } catch (error) {
       notify('Error connecting to the server', 'error');
       console.error('Network Error:', error);
-    }finally{
+    } finally {
       setIsSubmitting(false);
     }
   };
 
-  const togglePasswordVisibility = (field) => {
-    setShowPassword((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
     <div className="login_background">
-      <div className="auth-maindiv">
+      <motion.div
+        className="auth-maindiv"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="auth-container">
           <h2>Login</h2>
           <form onSubmit={handleSubmit} className="auth-form">
@@ -145,19 +140,19 @@ const AuthPage = () => {
               <label>Password:</label>
               <div className="password-wrapper">
                 <input
-                  type={showPassword.password ? 'text' : 'password'}
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
-                  placeholder="password"
+                  placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
                 <button
                   type="button"
-                  onClick={() => togglePasswordVisibility('password')}
+                  onClick={togglePasswordVisibility}
                   className="password-toggle"
                 >
-                  {showPassword.password ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
               {errors.frontend.password && (
@@ -179,7 +174,7 @@ const AuthPage = () => {
             </Link>
           </form>
         </div>
-      </div>
+      </motion.div>
       {isSubmitting && (
         <div className="loader-overlay">
           <div className="loader-container">
