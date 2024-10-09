@@ -19,6 +19,8 @@ import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
 import ScrollToTop from './modules/comps/ScrollToTop';
 import LabTestMedipedia from './modules/LabTest/LabTest';
+import BlogPage from './modules/common/Blog';
+import BlogDetailsPage from './modules/common/BlogDetailsPage';
 
 function Layout() {
   const location = useLocation();
@@ -29,7 +31,8 @@ function Layout() {
   if (path === "/" || path === "/about" || path === "/registerOPD" || 
       path === "/success" || path === "/login" || path === "/register" || 
       path === "/hospitals" || path === "/panal" || path === "/profile" || 
-      path === "/services" || path === "/terms-and-conditions" || path === "/Labtest") { 
+      path === "/services" || path === "/terms-and-conditions" || path === "/Labtest" || 
+      path === "/blog") {
     showNavAndFooter = true;
   }
 
@@ -50,7 +53,9 @@ function Layout() {
           <Route exact path="/panal" element={<HospitalAppointments />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/services" element={<ServicePage />} />
-          <Route exact path="/Labtest" element={<LabTestMedipedia />} /> 
+          <Route exact path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogDetailsPage/>} />
+          <Route exact path="/Labtest" element={<LabTest/>} />
           <Route exact path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
