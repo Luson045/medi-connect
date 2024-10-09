@@ -47,7 +47,7 @@ const LabTestMedipedia = () => {
       setTimeout(() => {
         setCurrentItem(currentItem + 3);
         setIsLoading(false)
-      }, 500);
+      }, 100);
    };
 
    return (
