@@ -11,6 +11,7 @@ import potassiumImage from '../../assets/potassium.png';
 import raImage from '../../assets/ra.png';
 import ecgImage from '../../assets/ecg.png';
 import usgImage from '../../assets/usg.png';
+import Navbar from '../common/Navbar';
 
 const LabTestMedipedia = () => {
    const [currentItem, setCurrentItem] = useState(3);
@@ -50,11 +51,12 @@ const LabTestMedipedia = () => {
       }, 300);
    };
 
-   return (
+   return <>
+    <Navbar/>
      <div
-       className={`container mx-auto text-center py-4 px-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+       className={`container mx-auto text-center  py-4 px-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
      >
-       <h1 className="text-4xl text-gray-700 mb-8">
+       <h1 className="text-4xl text-gray-700 mb-8 mt-5">
          Get your health-checkup & tests done in our lab
        </h1>
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -107,6 +109,7 @@ const LabTestMedipedia = () => {
        )}
      </div>
    );
-};
+</>
 
+};
 export default LabTestMedipedia;
