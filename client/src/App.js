@@ -24,12 +24,12 @@ function Layout() {
   const location = useLocation();
   let showNavAndFooter = false;
   const path = location.pathname;
-  
+
   // Define when to show the Navbar and Footer
-  if (path === "/" || path === "/about" || path === "/registerOPD" || 
-      path === "/success" || path === "/login" || path === "/register" || 
-      path === "/hospitals" || path === "/panal" || path === "/profile" || 
-      path === "/services" || path === "/terms-and-conditions") {
+  if (path === "/" || path === "/about" || path === "/registerOPD" ||
+    path === "/success" || path === "/login" || path === "/register" ||
+    path === "/hospitals" || path === "/panal" || path === "/profile" ||
+    path === "/services" || path === "/terms-and-conditions") {
     showNavAndFooter = true;
   }
 
