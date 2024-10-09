@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cbcImage from '../../assets/cbc.png';
 import lipidProfileImage from '../../assets/lipid-profile.png';
 import bloodGlucoseImage from '../../assets/bloodglucose.png';
@@ -14,6 +14,16 @@ import usgImage from '../../assets/usg.png';
 
 const LabTestMedipedia = () => {
    const [currentItem, setCurrentItem] = useState(3);
+   const [isVisible,setIsVisible]=useState(false)
+   const [isLoading, setIsLoading] = useState(false);
+
+   useEffect(()=>{
+    setTimeout(() => {
+      setIsVisible(true)
+    },100);
+ },[])
+
+
 
    const tests = [
       { id: 1, imgSrc: cbcImage, title: 'Complete Blood Count (CBC)', reportTime: '2-days' },
@@ -31,17 +41,28 @@ const LabTestMedipedia = () => {
    ];
 
    const loadMore = () => {
-      setCurrentItem(currentItem + 3);
+      if(currentItem < tests.length){
+        setIsLoading(true);
+      }
+      setTimeout(() => {
+        setCurrentItem(currentItem + 3);
+        setIsLoading(false)
+      }, 500);
    };
 
    return (
-     <div className="container mx-auto text-center py-4 px-4">
+     <div
+       className={`container mx-auto text-center py-4 px-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+     >
        <h1 className="text-4xl text-gray-700 mb-8">
          Get your health-checkup & tests done in our lab
        </h1>
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-         {tests.slice(0, currentItem).map((test) => (
-           <div className="bg-white p-4 rounded-lg shadow-lg" key={test.id}>
+         {tests.slice(0, currentItem).map((test , index) => (
+           <div
+             key={test.id}
+             className={`bg-white p-4 rounded-lg shadow-lg transition-opacity duration-1000 ${isLoading && index >= currentItem - 3 ? 'opacity-0' : 'opacity-100'}`}
+           >
              <div className="overflow-hidden h-80 rounded-lg mb-5">
                <img
                  src={test.imgSrc}
