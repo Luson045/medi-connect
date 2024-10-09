@@ -27,7 +27,7 @@ function Layout() {
   const location = useLocation();
   let showNavAndFooter = false;
   const path = location.pathname;
-  
+
   // Define when to show the Navbar and Footer
   if (path === "/" || path === "/about" || path === "/registerOPD" || 
       path === "/success" || path === "/login" || path === "/register" || 
