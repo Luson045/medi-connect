@@ -14,9 +14,9 @@ Click the **Fork** button at the top-right corner of this repository to create y
 
 ### 2. Clone Your Fork
 
-Once you've forked the repository, clone it to your local machine:
+Once you have forked the repository, clone it to your local machine:
 
-```bash
+```
 git clone https://github.com/Luson045/medi-connect.git
 ```
 
@@ -24,32 +24,41 @@ git clone https://github.com/Luson045/medi-connect.git
 
 Always create a new branch for your changes:
 
-```bash
+```
 git checkout -b your_branch
 ```
 
-### 3. Do staging in it
+### 4. Do staging in it
 
 Make Your Changes
 
-```bash
+```
 git add .
 ```
 
-6. **Commit Your Changes:**
+### 5. ESLint and Prettier Check
+
+This will help maintain code quality by enforcing consistent styling and catching potential errors early in the development process. If there are `ESLint` **warnings** in the staged files you won't be able to make a commit. You can manually check if there are any `ESLint` warnings in your staged files. You can do so using below command.
+
+```
+npx lint-staged
+```
+
+### 6. **Commit Your Changes:**
 
 ```
 git commit -m "Relevant message"
 ```
 
-7. **Push to Your Branch:**
+### 7. **Push to Your Branch:**
 
 ```
 git push origin your_branch
 ```
 
-8. **Create a Pull Request:**
-   - Go to your forked repository on GitHub and create a pull request to the main repository _and i'll merge it as soon as i can._
+### 8. **Create a Pull Request:**
+
+Go to your forked repository on GitHub and create a pull request to the main repository and we"ll merge it as soon as PR is reviewed throughly.
 
 ## 🌟 What Can You Contribute?
 
