@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import AuthPage from './modules/common/AuthForm';
 import OPDRegistrationForm from './modules/OPD/Registration';
@@ -30,7 +29,7 @@ function Layout() {
   if (path === "/" || path === "/about" || path === "/registerOPD" || 
       path === "/success" || path === "/login" || path === "/register" || 
       path === "/hospitals" || path === "/panal" || path === "/profile" || 
-      path === "/services" || path === "/terms-and-conditions") {
+      path === "/services" || path === "/terms-and-conditions" || path === "/Labtest") { // Include /Labtest here
     showNavAndFooter = true;
   }
 
@@ -51,7 +50,7 @@ function Layout() {
           <Route exact path="/panal" element={<HospitalAppointments />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/services" element={<ServicePage />} />
-          <Route exact path="/Labtest" element={<LabTestMedipedia/>} />
+          <Route exact path="/Labtest" element={<LabTestMedipedia />} /> {/* Ensure this matches */}
           <Route exact path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
@@ -78,4 +77,3 @@ function App() {
 }
 
 export default App;
-
