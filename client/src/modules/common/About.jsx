@@ -6,6 +6,8 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
+import { useRecoilValue } from 'recoil'; // Import Recoil
+import { mode } from '../../store/atom'; // Import the mode atom
 import luson from '../../assets/images/luson.jpg';
 
 // Team member data
@@ -90,15 +92,16 @@ const AboutPage = () => {
     accidents: false,
     hospitals: false,
   });
-
+  
+  const dark = useRecoilValue(mode); // Get dark mode value from Recoil
   return (
-    <Container>
+    <Container dark={dark}>
       <animated.div style={fadeIn}>
         {/* Two-box section for Vision and Mission */}
         <VisionMissionContainer>
-          <Box>
-            <VisionTitle>Our Vision</VisionTitle>
-            <VisionText>
+          <Box dark={dark}>
+            <VisionTitle dark={dark}>Our Vision</VisionTitle>
+            <VisionText dark={dark}>
               At Medi-Connect, we envision a world where accessing outpatient
               care is as simple as a few clicks. By leveraging technology and
               innovation, we aim to provide a platform that bridges the gap
@@ -108,9 +111,9 @@ const AboutPage = () => {
               at the right time, improving overall health outcomes globally.
             </VisionText>
           </Box>
-          <Box>
-            <MissionTitle>Our Mission</MissionTitle>
-            <MissionText>
+          <Box dark={dark}>
+            <MissionTitle dark={dark}>Our Mission</MissionTitle>
+            <MissionText dark={dark}>
               Our mission is to revolutionize outpatient care by creating a
               comprehensive, easy-to-use platform that empowers patients and
               healthcare providers alike. We are committed to building
@@ -122,17 +125,17 @@ const AboutPage = () => {
           </Box>
         </VisionMissionContainer>
 
-        <Title>Meet our awesome team</Title>
+        <Title dark={dark}>Meet our awesome team</Title>
         <TeamGrid>
           {teamMembers.map((member, index) => (
             <animated.div key={index} style={slideIn}>
-              <TeamCard>
+              <TeamCard dark={dark}>
                 <ProfileImage
                   src={member.imageUrl}
                   alt={`${member.name}'s profile`}
                 />
-                <Name>{member.name}</Name>
-                <Role>{member.role}</Role>
+                <Name dark={dark}>{member.name}</Name>
+                <Role dark={dark}>{member.role}</Role>
 
                 {/* Social Media Icons */}
                 <SocialIcons>
@@ -159,7 +162,7 @@ const AboutPage = () => {
                   </a>
                 </SocialIcons>
 
-                <Description>{member.description}</Description>
+                <Description dark={dark}>{member.description}</Description>
               </TeamCard>
             </animated.div>
           ))}
@@ -261,7 +264,7 @@ const AboutPage = () => {
             Nearby Hospitals
           </StatItem>
         </StatsSection>
-        <GitTeamTitle>Our Amazing Open Source Contributors</GitTeamTitle>
+        <GitTeamTitle dark={dark}>Our Amazing Open Source Contributors</GitTeamTitle>
         <div align="center">
           <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
             <img
@@ -271,9 +274,9 @@ const AboutPage = () => {
           </a>
         </div>
 
-        <JoinUsSection>
-          <JoinUsTitle>Join Us on Our Journey</JoinUsTitle>
-          <JoinUsText>
+        <JoinUsSection dark={dark}>
+          <JoinUsTitle dark={dark}>Join Us on Our Journey</JoinUsTitle>
+          <JoinUsText dark={dark}>
             We are excited about the future and the positive impact we can make
             on healthcare through our online OPD platform. If you have any
             questions or feedback, feel free to reach out to us. Together, we
@@ -291,9 +294,8 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 100px;
-  @media (max-width: 768px) {
-    padding: 1rem;
-  }
+  background-color: ${({ dark }) => (dark === 'dark' ? '#1a202c' : '#fff')};
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
 `;
 
 // Two-box structure for Vision and Mission
@@ -310,32 +312,33 @@ const VisionMissionContainer = styled.div`
 const Box = styled.div`
   flex: 1;
   padding: 2rem;
-  background-color: #fff;
+  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#fff')};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
+
 const VisionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #c229b8;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
 `;
 
 const VisionText = styled.p`
   font-size: 1.125rem;
-  color: #333;
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
   line-height: 1.6;
 `;
 
 const MissionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #c229b8;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
 `;
 
 const MissionText = styled.p`
   font-size: 1.125rem;
-  color: #333;
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
   line-height: 1.6;
 `;
 
@@ -344,33 +347,29 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  justify-content: center;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const TeamCard = styled.div`
-  background: #fff;
+  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#fff')};
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  text-align: center; /* Centers content */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centers profile image and content */
+  text-align: center;
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.05);
   }
-  height: 440px;
 `;
 
 const ProfileImage = styled.img`
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  margin-bottom: 1rem; /* Adds space between image and name */
+  margin-bottom: 1rem;
 `;
 const SocialIcons = styled.div`
   display: flex;
@@ -394,45 +393,48 @@ const Name = styled.h4`
 const Role = styled.h5`
   font-size: 1rem;
   margin-bottom: 0.2rem;
-  color: #c229b8;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
 `;
 
 const Description = styled.p`
   font-size: 1rem;
-  color: #666;
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#666')};
 `;
 
 // Community Section
-const GitTeamTitle = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #c229b8;
-  padding: 2rem;
+const GitTeamTitle = styled.h3`
+  font-size: 2.5rem;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
+  text-align: center;
+  margin-top: 2rem;
 `;
 
 // Join Us Section
-const JoinUsSection = styled.section`
-  margin: 3rem 0;
+const JoinUsSection = styled.div`
+  margin-top: 3rem;
   text-align: center;
+  padding: 2rem;
+  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#fff')};
+  border-radius: 8px;
 `;
 
-const JoinUsTitle = styled.h2`
+const JoinUsTitle = styled.h3`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #c229b8;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
 `;
 
 const JoinUsText = styled.p`
   font-size: 1.125rem;
-  color: #333;
-  line-height: 1.6;
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#666')};
 `;
 
-const Title = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #c229b8;
-  padding: 2rem;
+
+const Title = styled.h3`
+  font-size: 2.5rem;
+  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
+  text-align: center;
+  margin-bottom: 2rem;
 `;
 
 const StatsSection = styled.div`
