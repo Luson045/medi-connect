@@ -94,15 +94,37 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           </NavLink>
 
           <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/blog"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
-          </NavLink>
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/services"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Services</p>
+</NavLink>
+
+<NavLink
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/labtest"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+</NavLink>
+
+<NavLink
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/blog"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+</NavLink>
 
           {/* Add the new Hospitals Around Link for Mobile */}
           <NavLink

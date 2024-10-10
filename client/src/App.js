@@ -24,7 +24,7 @@ import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
 import ScrollToTop from './modules/comps/ScrollToTop';
-import LabTestMedipedia from './modules/LabTest/LabTest';
+import LabTest from './modules/LabTest/LabTest';
 import BlogPage from './modules/common/Blog';
 import BlogDetailsPage from './modules/common/BlogDetailsPage';
 import HospitalsAround from './modules/common/HospitalsAround';
