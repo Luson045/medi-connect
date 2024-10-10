@@ -56,7 +56,7 @@ function Layout() {
           <Route exact path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailsPage/>} />
           <Route exact path="/Labtest" element={<LabTestMedipedia/>} />
-          <Route exact path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route exact path="/terms" element={<TermsAndConditions />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>

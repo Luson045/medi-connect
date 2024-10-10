@@ -51,7 +51,7 @@ export default function ServicePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, type: 'spring' }}
                 >
-                  <span>Our Servives</span>
+                  <span>Our Services</span>
                 </motion.h2>
                 <motion.p className="flex flex-col items-center text-center mb-12">
                   <span> A better life starts with a beautiful smile</span>
