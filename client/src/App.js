@@ -1,5 +1,10 @@
-
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
 import AuthPage from './modules/common/AuthForm';
 import OPDRegistrationForm from './modules/OPD/Registration';
 import HospitalsList from './modules/OPD/HospitalList';
@@ -14,7 +19,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './modules/common/Footer';
 import Navbar from './modules/common/Navbar';
 import ServicePage from './modules/common/Service';
-import AnimatedCursor from './modules/common/AnimatedCursor';
 import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
@@ -22,6 +26,8 @@ import ScrollToTop from './modules/comps/ScrollToTop';
 import LabTestMedipedia from './modules/LabTest/LabTest';
 import BlogPage from './modules/common/Blog';
 import BlogDetailsPage from './modules/common/BlogDetailsPage';
+import HospitalsAround from './modules/common/HospitalsAround';
+import Chatbot from './modules/common/Medical-Chatbot/Chatbot';
 
 function Layout() {
   const location = useLocation();
@@ -29,11 +35,21 @@ function Layout() {
   const path = location.pathname;
 
   // Define when to show the Navbar and Footer
-  if (path === "/" || path === "/about" || path === "/registerOPD" || 
-      path === "/success" || path === "/login" || path === "/register" || 
-      path === "/hospitals" || path === "/panal" || path === "/profile" || 
-      path === "/services" || path === "/terms-and-conditions" || path === "/Labtest" || 
-      path === "/blog") {
+  if (
+    path === '/' ||
+    path === '/about' ||
+    path === '/registerOPD' ||
+    path === '/success' ||
+    path === '/login' ||
+    path === '/register' ||
+    path === '/hospitals' ||
+    path === '/panal' ||
+    path === '/profile' ||
+    path === '/services' ||
+    path === '/terms-and-conditions' ||
+    path === '/Labtest' ||
+    path === '/blog'
+  ) {
     showNavAndFooter = true;
   }
 
@@ -55,13 +71,19 @@ function Layout() {
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/services" element={<ServicePage />} />
           <Route exact path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<BlogDetailsPage/>} />
-          <Route exact path="/Labtest" element={<LabTestMedipedia/>} />
-          <Route exact path="/terms" element={<TermsAndConditions />} />
+          <Route path="/blog/:id" element={<BlogDetailsPage />} />
+          <Route exact path="/Labtest" element={<LabTestMedipedia />} />
+          <Route
+            exact
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
+          />
+          <Route path="/hospitals-around" element={<HospitalsAround />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </div>
+      <Chatbot/>
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
     </>
@@ -71,7 +93,6 @@ function Layout() {
 function App() {
   return (
     <div className="App">
-      <AnimatedCursor />
       <Router>
         <UserProvider>
           <Layout />
@@ -83,4 +104,3 @@ function App() {
 }
 
 export default App;
-
