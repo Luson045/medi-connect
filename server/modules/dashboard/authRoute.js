@@ -17,17 +17,22 @@ const geocoder = NodeGeocoder(options);
 const router = express.Router();
 
 // Zod Schemas for Validation
-const passwordSchema = z.string().min(8, "Password should be at least 8 characters long")
+const passwordSchema = z
+  .string()
+  .min(8, "Password should be at least 8 characters long")
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
-  .regex(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character");
+  .regex(
+    /[!@#$%^&*(),.?":{}|<>]/,
+    "Password must contain at least one special character"
+  );
 
 const userSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -36,7 +41,9 @@ const userSchema = z.object({
     postalCode: z.string(),
   }),
   gender: z.string().optional(),
-  dob: z.date().optional(),
+  dob: z
+    .union([z.date(), z.string().transform((val) => new Date(val))]) // Accepts both Date and ISO string
+    .refine((val) => !isNaN(val.getTime()), { message: "Invalid date format" }), // Ensure it's a valid date,,
   medicalHistory: z.array(z.string()).optional(),
 });
 
@@ -45,7 +52,7 @@ const hospitalSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -61,7 +68,7 @@ const hospitalSchema = z.object({
 const loginSchema = z.object({
   type: z.enum(["user", "hospital"]),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
 });
 
 // Middleware to authenticate using token
@@ -74,7 +81,7 @@ const authenticateToken = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+    res.status(401).json({ msg: "Token is not valid", err });
   }
 };
 
@@ -95,7 +102,7 @@ router.get("/profile", authenticateToken, async (req, res) => {
     // Include the role 'user' in the response
     res.json({ ...profile.toObject(), role: "user" });
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Server error", err });
   }
 });
 
