@@ -1,11 +1,14 @@
-// server/index.js
-
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const session = require("express-session");
 const authRoutes = require("./modules/dashboard/authRoute");
 const hospitalroute = require("./modules/hospital/index");
 const client = require("prom-client");
 const { connectDB, corsConfig } = require("./utils");
+const User = require("./modules/dashboard/models/user");
+
 require("dotenv").config();
 
 // Database Connection
@@ -18,18 +21,55 @@ collectDefaultMetrics({ register: client.register }); // Collects default metric
 
 // Setting Up Express Server
 const app = express();
-const port = process.env.PORT || 8081; // Use environment-specified port or fallback to 8080
+const port = process.env.PORT || 8081; // Use environment-specified port or fallback to 8081
 
 // Enable CORS
 corsConfig(app); // Apply CORS configurations from the utils file
 
 // Body Parser Middleware
 app.use(bodyParser.json()); // Parse incoming JSON request bodies
-
-// Other Middleware
 app.use(express.static("public")); // Serve static files from the "public" directory
 app.use(express.json()); // Parse incoming JSON payloads
 
+// Session Management (for OAuth)
+app.use(session({
+  secret: 'your-session-secret',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport Google OAuth Strategy Configuration
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: `${process.env.BASE_URL}/auth/google/callback`,
+}, async (accessToken, refreshToken, profile, done) => {
+  try {
+    // Handle user profile info and save to database or session
+    const user = await User.findOrCreate({ googleId: profile.id });
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+}));
+
+// Serialize user to store in session
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize user from session
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
 
 // Health Check Endpoint
 app.get("/ping", async (_, res) => {
@@ -43,6 +83,28 @@ app.get("/metrics", async (_, res) => {
   res.send(metrics); // Send the metrics back to the requester
 });
 
+// Google Sign-In Routes
+// Initiate Google OAuth
+app.get("/auth/google",
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+// Google OAuth callback route
+app.get("/auth/google/callback",
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // On successful authentication, redirect to the home page or dashboard
+    res.redirect('/');
+  }
+);
+
+// Logout route
+app.get("/logout", (req, res) => {
+  req.logout(err => {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
 
 // Authentication Routes
 app.use("/auth", authRoutes); // Authentication-related routes
