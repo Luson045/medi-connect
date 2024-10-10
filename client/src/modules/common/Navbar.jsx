@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import {
@@ -7,6 +8,7 @@ import {
   FaHospital,
   FaUserPlus,
   FaHospitalAlt,
+} from 'react-icons/fa';
 } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { MdOutlineLocalHospital, MdLogin, MdDarkMode } from 'react-icons/md';
@@ -18,6 +20,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dark, setDark] = useRecoilState(mode);
   const [isNavbarVisible, setNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
@@ -53,6 +56,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
           : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
       } top-0 fixed z-[100] py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
+      } top-0 fixed z-[100] py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
         isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
@@ -79,6 +83,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             dark === 'dark'
               ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
               : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+          } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-3 md:gap-5 top-16 md:top-[72px] w-full left-0 py-5 md:py-6 h-fit`}
           } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-3 md:gap-5 top-16 md:top-[72px] w-full left-0 py-5 md:py-6 h-fit`}
         >
           <button
@@ -135,7 +140,27 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <MdOutlineLocalHospital />{' '}
             <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
           </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/labtest"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+          </NavLink>
 
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+          </NavLink>
           <NavLink
             className={({ isActive }) =>
               `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`

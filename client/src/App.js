@@ -19,7 +19,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './modules/common/Footer';
 import Navbar from './modules/common/Navbar';
 import ServicePage from './modules/common/Service';
-import AnimatedCursor from './modules/common/AnimatedCursor';
 import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
@@ -28,6 +27,7 @@ import LabTestMedipedia from './modules/LabTest/LabTest';
 import BlogPage from './modules/common/Blog';
 import BlogDetailsPage from './modules/common/BlogDetailsPage';
 import HospitalsAround from './modules/common/HospitalsAround';
+import Chatbot from './modules/common/Medical-Chatbot/Chatbot';
 
 function Layout() {
   const location = useLocation();
@@ -83,6 +83,7 @@ function Layout() {
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </div>
+      <Chatbot/>
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
     </>
@@ -92,7 +93,6 @@ function Layout() {
 function App() {
   return (
     <div className="App">
-      <AnimatedCursor />
       <Router>
         <UserProvider>
           <Layout />
