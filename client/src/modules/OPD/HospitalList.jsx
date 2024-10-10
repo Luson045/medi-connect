@@ -18,6 +18,12 @@ const HospitalsList = () => {
     reason: '',
   });
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  const [showFilterMenu, setShowFilterMenu] = useState(false); // Filter menu visibility state
+  const [filters, setFilters] = useState({
+    departments: '',
+    availableServices: '',
+    ratings: '',
+  });
   const navigate = useNavigate();
 
   // Fetch hospitals on component mount
@@ -76,10 +82,9 @@ const HospitalsList = () => {
 
     // Filter hospitals by name or address (street, city, or state)
     const filtered = hospitals.filter((hospital) => {
-      const nameMatch = hospital.name?.toLowerCase().includes(query) || false; // Ensure it evaluates to false if name is missing
+      const nameMatch = hospital.name?.toLowerCase().includes(query) || false;
       const address = hospital.address || {}; // Default to an empty object if address is null or undefined
-      const streetMatch =
-        address.street?.toLowerCase().includes(query) || false;
+      const streetMatch = address.street?.toLowerCase().includes(query) || false;
       const cityMatch = address.city?.toLowerCase().includes(query) || false;
       const stateMatch = address.state?.toLowerCase().includes(query) || false;
 
@@ -87,6 +92,42 @@ const HospitalsList = () => {
     });
 
     setFilteredHospitals(filtered);
+  };
+
+  const handleFilterToggle = () => {
+    setShowFilterMenu(!showFilterMenu); // Toggle filter menu visibility
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  };
+
+  const applyFilters = () => {
+    const filtered = hospitals.filter((hospital) => {
+      const departmentMatch = filters.departments
+        ? hospital.departments?.includes(filters.departments)
+        : true;
+      const serviceMatch = filters.availableServices
+        ? hospital.availableServices?.includes(filters.availableServices)
+        : true;
+      const ratingMatch = filters.ratings
+        ? hospital.ratings >= parseFloat(filters.ratings)
+        : true;
+
+      return departmentMatch && serviceMatch && ratingMatch;
+    });
+
+    setFilteredHospitals(filtered);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      departments: '',
+      availableServices: '',
+      ratings: '',
+    });
+    setFilteredHospitals(hospitals); // Reset to the full list
   };
 
   return (
@@ -106,6 +147,75 @@ const HospitalsList = () => {
           />
         </div>
 
+        {/* Filter menu button */}
+        <div className="filter-menu mb-4">
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+            onClick={handleFilterToggle}
+          >
+            {showFilterMenu ? 'Hide Filters' : 'Show Filters'}
+          </button>
+        </div>
+
+        {/* Filter menu */}
+        {showFilterMenu && (
+          <div className="filter-options bg-gray-100 p-4 rounded mb-4">
+            <div className="mb-2">
+              <label className="block text-gray-700">Department:</label>
+              <input
+                type="text"
+                name="departments"
+                value={filters.departments}
+                onChange={handleFilterChange}
+                className="form-input w-full rounded-md border-gray-300"
+                placeholder="Enter department"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-gray-700">Available Services:</label>
+              <input
+                type="text"
+                name="availableServices"
+                value={filters.availableServices}
+                onChange={handleFilterChange}
+                className="form-input w-full rounded-md border-gray-300"
+                placeholder="Enter service"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-gray-700">Ratings (>=):</label>
+              <input
+                type="number"
+                name="ratings"
+                value={filters.ratings}
+                onChange={handleFilterChange}
+                className="form-input w-full rounded-md border-gray-300"
+                placeholder="Enter minimum rating"
+                min="1"
+                max="5"
+                step="0.1"
+              />
+            </div>
+
+            {/* Apply and Clear Filters buttons */}
+            <div className="flex justify-between mt-4">
+              <button
+                className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+                onClick={applyFilters}
+              >
+                Apply Filters
+              </button>
+              <button
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+                onClick={clearFilters}
+              >
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Hospital cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHospitals.map((hospital) => (
             <div
