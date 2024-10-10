@@ -4,6 +4,7 @@ import '../../styles/HospitalList.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../common/Navbar';
 import { UserContext } from '../common/userContext';
+import hospitalsData from '../../data/hospitalsData'; // Import local hospital data
 
 const mindate = new Date().toISOString().split('T')[0];
 
@@ -16,8 +17,9 @@ const HospitalsList = () => {
     date: '',
     reason: '',
   });
-  const [searchQuery, setSearchQuery] = useState(''); // Search query stats
+  const [searchQuery, setSearchQuery] = useState(''); // Search query state
   const navigate = useNavigate();
+
   // Fetch hospitals on component mount
   useEffect(() => {
     const fetchHospitals = async () => {
@@ -25,10 +27,16 @@ const HospitalsList = () => {
         const response = await axios.get(
           'https://medi-connect-f671.onrender.com/hospitalapi/',
         );
-        setHospitals(response.data);
-        setFilteredHospitals(response.data);
+
+        // Combine local data and fetched data
+        const combinedHospitals = [...hospitalsData, ...response.data];
+        setHospitals(combinedHospitals);
+        setFilteredHospitals(combinedHospitals);
       } catch (error) {
         console.error('Error fetching hospitals', error);
+        // Set local data as fallback in case of error
+        setHospitals(hospitalsData);
+        setFilteredHospitals(hospitalsData);
       }
     };
 
@@ -38,12 +46,7 @@ const HospitalsList = () => {
   // Handle appointment booking
   const handleBooking = async (hospitalId) => {
     try {
-      let userId = '';
-      if (user) {
-        userId = user._id;
-      } else {
-        userId = '';
-      }
+      let userId = user ? user._id : '';
       const response = await axios.post(
         `https://medi-connect-f671.onrender.com/hospitalapi/hospitals/${hospitalId}/book`,
         {
