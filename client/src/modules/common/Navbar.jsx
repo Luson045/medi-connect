@@ -21,11 +21,15 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
 
   return (
     <nav
-      className={`${dark === 'dark'
-        ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
-        : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-        } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
+  className={`${
+    dark === 'dark'
+      ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+      : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+  } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
+    isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
+  }`}
+>
+
     >
       <NavLink to="/">
         <img
@@ -79,25 +83,37 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <p className="hover:brightness-50 hover:font-semibold">About</p>
           </NavLink>
           <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/blog"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/labtest"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
-          </NavLink>
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/services"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Services</p>
+</NavLink>
+
+<NavLink
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/labtest"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+</NavLink>
+
+<NavLink
+  className={({ isActive }) =>
+    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+  }
+  to="/blog"
+  onClick={() => setMobileMenuOpen(false)}
+>
+  <MdOutlineLocalHospital />{' '}
+  <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+</NavLink>
 
           {isAuthenticated ? (
             <>
