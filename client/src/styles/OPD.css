@@ -1,8 +1,6 @@
 .form-container {
-  max-width: 600px;
-  margin: 50px auto;
   margin-top: 120px;
-  padding: 30px;
+  padding: 2rem 6rem 4rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -29,12 +27,13 @@ h2 {
 }
 
 .opd-registration-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 label {
@@ -78,6 +77,16 @@ input[type='file'] {
   background-color: #444;
   color: #f1f1f1;
   border-color: #666;
+}
+
+input[type='date'] {
+  width: 100%;
+}
+
+.form-textarea,
+.form-buttons {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 input:focus,
@@ -165,6 +174,16 @@ input[type='file'] {
     padding: 20px;
   }
 
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
+  }
+
   .submit-btn {
     padding: 10px;
     font-size: 0.9rem;
@@ -178,6 +197,15 @@ input[type='file'] {
 @media (max-width: 480px) {
   .form-container {
     padding: 15px;
+  }
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
   }
 
   .submit-btn {
@@ -193,16 +221,32 @@ input[type='file'] {
 .form-actions {
   display: flex;
   flex-direction: column;
+
+  /* Ensures vertical stacking of elements */
+  align-items: center;
+  /* Centers the Register button horizontally */
+  margin-top: 20px;
+  /* Adjust spacing as needed */
+
   align-items: center;
   margin-top: 20px;
+
 }
 
 .submit-btn {
   margin-bottom: 15px;
+
+  /* Add spacing between the buttons */
+=======
+
 }
 
 .back-home-container {
   text-align: center;
+
+  /* Centers the Back to Home link */
+
+
 }
 
 .back-btn {
@@ -235,12 +279,14 @@ input[type='file'] {
   width: 100%;
   text-align: center;
   position: relative;
+
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark .modal-content {
   background-color: #444;
   color: #f1f1f1;
+
 }
 
 .modal-content ul {
