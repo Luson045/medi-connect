@@ -4,6 +4,8 @@ import { TailSpin } from 'react-loader-spinner';
 import { notify } from './notification';
 import '../../styles/Login.css';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil'; // Import recoil
+import { mode } from '../../store/atom'; // Import dark mode atom
 
 const AuthPage = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +26,7 @@ const AuthPage = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const dark = useRecoilValue(mode); // Get dark mode state
 
   const handleChange = (e) => {
     setFormData({
@@ -69,7 +72,7 @@ const AuthPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        },
+        }
       );
 
       const data = await response.json();
@@ -91,14 +94,14 @@ const AuthPage = () => {
         } else {
           notify(
             data.message || 'An error occurred. Please try again.',
-            'warn',
+            'warn'
           );
         }
       }
     } catch (error) {
       notify('Error connecting to the server', 'error');
       console.error('Network Error:', error);
-    }finally{
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -111,20 +114,45 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="login_background">
+    <div
+      className={`login_background ${
+        dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
+      }`}
+    >
       <div className="auth-maindiv">
-        <div className="auth-container">
-          <h2>Login</h2>
+        <div
+          className={`auth-container ${
+            dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
+          }`}
+        >
+          <h2 className={` ${
+              dark === 'dark'
+                ? ' text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}>Login</h2>
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-section">
-              <label>User Type:</label>
-              <select name="type" value={formData.type} onChange={handleChange}>
+              <label className={`auth-form ${
+              dark === 'dark'
+                ? ' text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}>User Type:</label>
+              <select
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+                
+              >
                 <option value="user">User</option>
                 <option value="hospital">Hospital</option>
               </select>
             </div>
             <div className="form-section">
-              <label>Email:</label>
+              <label className={`auth-form ${
+              dark === 'dark'
+                ? ' text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}>Email:</label>
               <input
                 type="email"
                 name="email"
@@ -132,6 +160,9 @@ const AuthPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                className={`${
+                  dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
+                }`}
               />
               {errors.frontend.email && (
                 <span className="error">{errors.frontend.email}</span>
@@ -142,7 +173,11 @@ const AuthPage = () => {
             </div>
 
             <div className="form-section">
-              <label>Password:</label>
+              <label className={`auth-form ${
+              dark === 'dark'
+                ? ' text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}>Password:</label>
               <div className="password-wrapper">
                 <input
                   type={showPassword.password ? 'text' : 'password'}
@@ -151,6 +186,11 @@ const AuthPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  className={`${
+                    dark === 'dark'
+                      ? ' text-yellow-400'
+                      : 'bg-white text-gray-900'
+                  }`}
                 />
                 <button
                   type="button"
@@ -169,12 +209,24 @@ const AuthPage = () => {
             </div>
 
             <div className="register-button">
-              <button type="submit" className="auth-button">
+              <button
+                type="submit"
+                className={`auth-button ${
+                  dark === 'dark'
+                    ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
                 Login
               </button>
             </div>
 
-            <Link to="/register" className="toggle-auth-button text-center">
+            <Link
+              to="/register"
+              className={`toggle-auth-button text-center ${
+                dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
+              }`}
+            >
               Don't have an account? Register
             </Link>
           </form>
@@ -186,7 +238,7 @@ const AuthPage = () => {
             <TailSpin
               height="80"
               width="80"
-              color="#007bff"
+              color={dark === 'dark' ? '#FBBF24' : '#007bff'}
               ariaLabel="loading"
             />
           </div>
