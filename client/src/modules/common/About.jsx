@@ -102,7 +102,7 @@ const AboutPage = () => {
           <Box dark={dark}>
             <VisionTitle dark={dark}>Our Vision</VisionTitle>
             <VisionText dark={dark}>
-              At Medi-Connect, we envision a world where accessing outpatient
+              At Med-Space, we envision a world where accessing outpatient
               care is as simple as a few clicks. By leveraging technology and
               innovation, we aim to provide a platform that bridges the gap
               between patients and healthcare providers, making high-quality

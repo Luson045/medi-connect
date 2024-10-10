@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import {
@@ -18,12 +18,38 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dark, setDark] = useRecoilState(mode);
   const [isNavbarVisible, setNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
 
   const handleToggleMode = () => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
+
+  // Scroll event listener
+  const controlNavbar = () => {
+    if (typeof window !== 'undefined') {
+      if (window.scrollY > lastScrollY) {
+        // If scrolled down
+        setNavbarVisible(false);
+      } else {
+        // If scrolled up
+        setNavbarVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+
+      // Cleanup function
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }
+  }, [lastScrollY]);
 
   return (
     <nav
@@ -92,41 +118,28 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <AiOutlineInfoCircle />
             <p className="hover:brightness-50 hover:font-semibold">About</p>
           </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/labtest"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+          </NavLink>
 
           <NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/services"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Services</p>
-</NavLink>
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+          </NavLink>
 
-<NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/labtest"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
-</NavLink>
-
-<NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/blog"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
-</NavLink>
-
-          {/* Add the new Hospitals Around Link for Mobile */}
           <NavLink
             className={({ isActive }) =>
               `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
@@ -212,21 +225,23 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <MdLogin /> Login
+                <MdLogin />
+                Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 py-1 rounded-lg text-black font-bold hover:brightness-75 register-btn"
+                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 xs:px-4 py-1 rounded-lg text-black font-bold hover:brightness-75"
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUserPlus /> Register
+                <FaUserPlus />
+                Sign Up
               </NavLink>
             </div>
           )}
         </div>
       )}
 
-      <div className="hidden lg:flex items-center gap-10">
+<div className="hidden lg:flex items-center gap-10">
         <div className="flex items-center gap-4 text-lg font-medium">
           <button
             onClick={handleToggleMode}
