@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useRecoilValue } from 'recoil';
+import { mode } from '../../store/atom'; // Importing the mode atom for dark mode
 import RegistrationContext from './RegistrationContext';
 import { notify } from '../common/notification';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +11,7 @@ const btnDivStyle = {
   marginTop: '5px',
 };
 
-const renderFields = (key, value) => {
+const renderFields = (key, value, dark) => {
   if (
     (typeof value === 'string' && value.trim() === '') ||
     (Array.isArray(value) && value.length === 0) ||
@@ -21,38 +23,41 @@ const renderFields = (key, value) => {
   ) {
     return null; // Don't render empty fields
   }
-  if (typeof value === 'object' && !Array.isArray(value)) {
-    // If the value is an object (e.g., address), recursively iterate over the nested fields
 
+  if (typeof value === 'object' && !Array.isArray(value)) {
     return (
       <div key={key}>
         {Object.entries(value).map(([nestedKey, nestedValue]) =>
-          renderFields(nestedKey, nestedValue),
+          renderFields(nestedKey, nestedValue, dark),
         )}
       </div>
     );
   } else if (Array.isArray(value)) {
-    // If the value is an array (e.g., medicalHistory)
     return (
       <div key={key}>
-        <h3>{`${key.charAt(0).toUpperCase() + key.slice(1)}:`}</h3>
+        <h3 className={`font-bold mb-1 ${dark === 'dark' ? 'text-yellow-400' : 'text-gray-700'}`}>
+          {`${key.charAt(0).toUpperCase() + key.slice(1)}:`}
+        </h3>
         {value.map((item) => (
-          <h3 key={key} className="ml-1 mb-1">{`${item} `}</h3>
+          <h3 key={key} className={`ml-1 mb-1 ${dark === 'dark' ? 'text-yellow-400' : 'text-gray-500'}`}>
+            {`${item}`}
+          </h3>
         ))}
       </div>
     );
   } else {
-    // Render normal input fields for string, date, etc.
     return (
-      <h1 className="mb-2">{`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`}</h1>
+      <h1 className={`mb-2 font-bold ${dark === 'dark' ? 'text-yellow-400' : 'text-gray-700'}`}>
+        {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`}
+      </h1>
     );
   }
 };
 
 function ReviewDetails() {
-  const { basicDetails, otherDetails, prevStep } =
-    useContext(RegistrationContext);
+  const { basicDetails, otherDetails, prevStep } = useContext(RegistrationContext);
   const navigate = useNavigate();
+  const dark = useRecoilValue(mode); // Using Recoil state for dark mode
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -85,27 +90,30 @@ function ReviewDetails() {
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-6 font-bold ">
+      <div className={`row ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'} p-4 rounded-md`}>
+        <div className="col-md-6">
           {Object.entries(basicDetails).map(([key, value]) =>
-            renderFields(key, value),
+            renderFields(key, value, dark),
           )}
         </div>
-        <div className="col-md-6 font-bold">
-          {' '}
+        <div className="col-md-6">
           {Object.entries(otherDetails).map(([key, value]) =>
-            renderFields(key, value),
+            renderFields(key, value, dark),
           )}
         </div>
       </div>
       <div className="row w-100 mt-2">
         <div style={btnDivStyle}>
-          <button type="button" className="auth-button" onClick={prevStep}>
+          <button
+            type="button"
+            className={`auth-button ${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-gray-200 text-gray-700'}`}
+            onClick={prevStep}
+          >
             Back
           </button>
           <button
             type="button"
-            className="auth-button"
+            className={`auth-button ${dark === 'dark' ? 'bg-yellow-400 text-gray-900' : 'bg-blue-600 text-white'}`}
             onClick={handleRegister}
           >
             Register

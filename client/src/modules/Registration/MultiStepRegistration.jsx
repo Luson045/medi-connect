@@ -4,6 +4,8 @@ import StepOne from './StepOne';
 import { Provider } from './RegistrationContext';
 import StepTwo from './StepTwo';
 import ReviewDetails from './ReviewDetails';
+import { useRecoilValue } from 'recoil'; // Import Recoil for dark mode state
+import { mode } from '../../store/atom'; // Import the dark mode atom
 
 const { Step } = Steps;
 
@@ -51,10 +53,13 @@ const stepToShow = (step) => {
       return null;
   }
 };
+
 function MultiStepRegistration() {
-  const [basicDetails, setBasicDetials] = useState(basicDetailsInitial);
+  const [basicDetails, setBasicDetails] = useState(basicDetailsInitial);
   const [otherDetails, setOtherDetails] = useState(otherDetailsInitial);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const dark = useRecoilValue(mode); // Access the dark mode state
 
   const nextStep = () => {
     if (currentStep === 2) {
@@ -70,19 +75,63 @@ function MultiStepRegistration() {
     <Provider
       value={{
         basicDetails,
-        setBasicDetials,
+        setBasicDetails,
         otherDetails,
         setOtherDetails,
         nextStep,
         prevStep,
       }}
     >
-      <Steps current={currentStep} onChange={(value) => setCurrentStep(value)}>
-        <Step title={'Basic details'} className="font-bold" />
-        <Step title={'Other details'} className="font-bold" />
-        <Step title={'Review and Register'} className="font-bold" />
-      </Steps>
-      <main style={mainStyle}>{stepToShow(currentStep)}</main>
+      <div
+        className={`steps-container ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'} transition-colors duration-300 p-4 rounded-lg`}
+      >
+        <Steps
+          current={currentStep}
+          onChange={(value) => setCurrentStep(value)}
+        >
+          <Step
+            title={
+              <span
+                className={
+                  dark === 'dark'
+                    ? 'font-bold text-yellow-400'
+                    : 'font-bold text-gray-700'
+                }
+              >
+                Basic details
+              </span>
+            }
+          />
+          <Step
+            title={
+              <span
+                className={
+                  dark === 'dark'
+                    ? 'font-bold text-yellow-400'
+                    : 'font-bold text-gray-700'
+                }
+              >
+                Other details
+              </span>
+            }
+          />
+          <Step
+            title={
+              <span
+                className={
+                  dark === 'dark'
+                    ? 'font-bold text-yellow-400'
+                    : 'font-bold text-gray-700'
+                }
+              >
+                Review and Register
+              </span>
+            }
+          />
+        </Steps>
+
+        <main style={mainStyle}>{stepToShow(currentStep)}</main>
+      </div>
     </Provider>
   );
 }

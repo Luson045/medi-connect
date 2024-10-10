@@ -1,5 +1,7 @@
 import { useState, useContext } from 'react';
+import { useRecoilValue } from 'recoil';
 import RegistrationContext from './RegistrationContext';
+import { mode } from '../../store/atom'; // Importing the atom for mode
 
 const btnDivStyle = {
   display: 'flex',
@@ -15,6 +17,8 @@ function StepTwo() {
     frontend: {},
     backend: {},
   });
+
+  const dark = useRecoilValue(mode); // Using Recoil state for dark mode
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,11 +95,16 @@ function StepTwo() {
   };
 
   return (
-    <form className="auth-form">
+    <form className={`auth-form ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'}`}>
       <h5>Address</h5>
       <hr />
       <div className="form-section">
-        <label htmlFor="street">
+        <label htmlFor="street" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
           Street: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -106,6 +115,7 @@ function StepTwo() {
           value={street}
           onChange={handleChange}
           required
+          className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
         />
         {errors.frontend.street && (
           <span className="error">{errors.frontend.street}</span>
@@ -115,7 +125,12 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="city">
+        <label htmlFor="city"className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
           City: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -126,6 +141,7 @@ function StepTwo() {
           value={city}
           onChange={handleChange}
           required
+          className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
         />
         {errors.frontend.city && (
           <span className="error">{errors.frontend.city}</span>
@@ -136,7 +152,12 @@ function StepTwo() {
       </div>
 
       <div className="form-section">
-        <label htmlFor="state">
+        <label htmlFor="state" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
           State: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -147,6 +168,7 @@ function StepTwo() {
           value={state}
           onChange={handleChange}
           required
+          className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
         />
         {errors.frontend.state && (
           <span className="error">{errors.frontend.state}</span>
@@ -156,7 +178,12 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="postalCode">
+        <label htmlFor="postalCode" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
           Pin Code: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -167,6 +194,7 @@ function StepTwo() {
           value={postalCode}
           onChange={handleChange}
           required
+          className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
         />
         {errors.frontend.postalCode && (
           <span className="error">{errors.frontend.postalCode}</span>
@@ -180,7 +208,12 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="department">
+            <label htmlFor="department" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
               Department: <span style={{ color: 'red' }}>*</span>
             </label>
             <select
@@ -189,6 +222,11 @@ function StepTwo() {
               value={otherDetails.department}
               onChange={handleChange}
               required
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
             >
               <option value="" disabled>
                 Select Department
@@ -208,7 +246,12 @@ function StepTwo() {
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="availableServices">
+            <label htmlFor="availableServices" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
               Available Services: <span style={{ color: 'red' }}>*</span>
             </label>
             <input
@@ -218,6 +261,7 @@ function StepTwo() {
               placeholder="OPD, Cancer Treatment, etc.. "
               value={otherDetails.availableServices}
               onChange={handleCommaSeparatedValues}
+              className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
             />
             {errors.frontend.availableServices && (
               <span className="error">{errors.frontend.availableServices}</span>
@@ -233,7 +277,12 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="dob">
+            <label htmlFor="dob" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
               DOB: <span style={{ color: 'red' }}>*</span>
             </label>
             <input
@@ -244,6 +293,7 @@ function StepTwo() {
               required
               value={otherDetails.dob}
               onChange={handleChange}
+              className={`${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
             />
             {errors.frontend.dob && (
               <span className="error">{errors.frontend.dob}</span>
@@ -253,7 +303,12 @@ function StepTwo() {
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="gender">
+            <label htmlFor="gender" className={`auth-form ${
+              dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+            }`}
+            style={{display : 'inline'}}>
               Gender: <span style={{ color: 'red' }}>*</span>
             </label>
             <select
@@ -262,13 +317,14 @@ function StepTwo() {
               value={otherDetails.gender}
               onChange={handleChange}
               required
+              className={`${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
             >
               <option value="" disabled>
-                Select gender
+                Select Gender
               </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
             </select>
             {errors.frontend.gender && (
               <span className="error">{errors.frontend.gender}</span>
@@ -277,24 +333,21 @@ function StepTwo() {
               <span className="error">{errors.backend.gender}</span>
             )}
           </div>
-          <div className="form-section">
-            <label htmlFor="medicalHistory">Medical History</label>
-            <input
-              id="medicalHistory"
-              type="text"
-              name="medicalHistory"
-              placeholder="If any use , to separate multiple"
-              value={otherDetails.medicalHistory}
-              onChange={handleCommaSeparatedValues}
-            />
-          </div>
         </>
       )}
       <div style={btnDivStyle}>
-        <button type="button" className="auth-button" onClick={prevStep}>
+        <button
+          type="button"
+          onClick={prevStep}
+          className={`btn btn-secondary ${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
+        >
           Back
         </button>
-        <button type="button" className="auth-button" onClick={handleContinue}>
+        <button
+          type="button"
+          onClick={handleContinue}
+          className={`btn btn-primary ${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
+        >
           Continue
         </button>
       </div>

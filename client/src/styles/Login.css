@@ -126,7 +126,7 @@
 }
 
 .login_background {
-  background: radial-gradient(circle, pink, white);
+  background: radial-gradient(circle, black, rgb(0, 0, 137));
 }
 
 .password-wrapper {
