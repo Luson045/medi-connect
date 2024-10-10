@@ -53,7 +53,7 @@ const Navbar = () => {
       <div
         className={`fixed top-0 right-0 z-[100] h-full w-[75vw] sm:w-[60vw] md:w-[40vw] bg-[linear-gradient(90deg,_#667eea_0%,_#764ba2_100%)] text-white transform transition-transform duration-300 ${
           isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+          }`}
       >
         {/* Sidebar content */}
         <div className="p-8 pt-20 space-y-8 text-lg font-medium">
