@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import {
@@ -7,7 +7,7 @@ import {
   FaHospital,
   FaUserPlus,
   FaHospitalAlt,
-} from 'react-icons/fa'; // Import FaHospitalAlt
+} from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { MdOutlineLocalHospital, MdLogin, MdDarkMode } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
@@ -18,6 +18,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dark, setDark] = useRecoilState(mode);
   const [isNavbarVisible, setNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
 
@@ -25,13 +26,33 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
 
+  const handleScroll = () => {
+    if (typeof window !== 'undefined') {
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down
+        setNavbarVisible(false);
+      } else {
+        // Scrolling up
+        setNavbarVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
     <nav
       className={`${
         dark === 'dark'
           ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
           : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-      } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
+      } top-0 fixed z-[100] py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
         isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
@@ -58,7 +79,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             dark === 'dark'
               ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
               : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-          } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit`}
+          } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-3 md:gap-5 top-16 md:top-[72px] w-full left-0 py-5 md:py-6 h-fit`}
         >
           <button
             onClick={handleToggleMode}
@@ -94,39 +115,38 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           </NavLink>
 
           <NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/services"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Services</p>
-</NavLink>
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/services"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Services</p>
+          </NavLink>
 
-<NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/labtest"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
-</NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/labtest"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+          </NavLink>
 
-<NavLink
-  className={({ isActive }) =>
-    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-  }
-  to="/blog"
-  onClick={() => setMobileMenuOpen(false)}
->
-  <MdOutlineLocalHospital />{' '}
-  <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
-</NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+            }
+            to="/blog"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <MdOutlineLocalHospital />{' '}
+            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+          </NavLink>
 
-          {/* Add the new Hospitals Around Link for Mobile */}
           <NavLink
             className={({ isActive }) =>
               `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
@@ -192,9 +212,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <MdOutlineLocalHospital />
-              <p className="hover:brightness-50 hover:font-semibold">
-                Instant OPD
-              </p>
+              <p className="hover:brightness-50 hover:font-semibold">Instant OPD</p>
             </NavLink>
           )}
 
@@ -208,138 +226,151 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           ) : (
             <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
               <NavLink
-                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 xs:px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
+                className="bg-white flex items-center justify-center gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <MdLogin /> Login
+                <MdLogin />
+                Log In
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 py-1 rounded-lg text-black font-bold hover:brightness-75 register-btn"
+                className="bg-blue-500 flex items-center justify-center gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-white font-bold hover:brightness-75"
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <FaUserPlus /> Register
+                <FaUserPlus />
+                Register
               </NavLink>
             </div>
           )}
         </div>
       )}
 
-      <div className="hidden lg:flex items-center gap-10">
-        <div className="flex items-center gap-4 text-lg font-medium">
-          <button
-            onClick={handleToggleMode}
-            className={`p-2 rounded-full transition-all duration-300 ${
-              dark === 'light'
-                ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
-                : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-            }`}
-          >
-            {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
-          </button>
-          <NavLink to="/" className="flex justify-center items-center gap-2">
-            <FaHome />
-            <p className="font-bold text-lg hover:brightness-50">Home</p>
-          </NavLink>
-          <NavLink
-            to="/about"
-            className="flex justify-center items-center gap-2"
-          >
-            <AiOutlineInfoCircle />
-            <p className="font-bold text-lg hover:brightness-50">About</p>
-          </NavLink>
-          <NavLink
-            to="/blog"
-            className="flex justify-center items-center gap-2"
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="font-bold text-lg hover:brightness-50">Blog</p>
-          </NavLink>
-
-          <NavLink to="/labtest" className="flex items-baseline gap-2">
-            <MdOutlineLocalHospital />{' '}
-            <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
-          </NavLink>
-
-          {/* Add the new Hospitals Around Link for Desktop */}
-          <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
-            <FaHospitalAlt />
-            <p className="font-bold text-lg hover:brightness-50">
-              Hospitals Around
-            </p>
-          </NavLink>
-
-          {isAuthenticated ? (
-            <>
-              <NavLink to="/profile" className="flex items-baseline gap-2">
-                <FaUser />
-                <p className="font-bold text-lg hover:brightness-50">Profile</p>
-              </NavLink>
-              {user && user?.role === 'user' && (
-                <NavLink to="/hospitals" className="flex items-baseline gap-2">
-                  <FaHospital />
-                  <p className="font-bold text-lg hover:brightness-50">
-                    Hospitals
-                  </p>
-                </NavLink>
-              )}
-              {user && user?.role === 'hospital' && (
-                <NavLink to="/panel" className="flex items-baseline gap-2">
-                  <MdOutlineLocalHospital />
-                  <p className="font-bold text-lg hover:brightness-50">
-                    OPD Panel
-                  </p>
-                </NavLink>
-              )}
-            </>
-          ) : (
-            <NavLink to="/registerOPD" className="flex items-baseline gap-2">
-              <MdOutlineLocalHospital />
-              <p className="font-bold text-lg hover:brightness-50">
-                Instant OPD
+      <div className="hidden lg:flex gap-5 items-center text-xl">
+        <button
+          onClick={handleToggleMode}
+          className={`p-2 rounded-full transition-all duration-300 ${
+            dark === 'light'
+              ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
+              : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
+          }`}
+        >
+          {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
+        </button>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/"
+        >
+          <FaHome />
+          <p className="hover:brightness-50 hover:font-semibold">Home</p>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/about"
+        >
+          <AiOutlineInfoCircle />
+          <p className="hover:brightness-50 hover:font-semibold">About</p>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/services"
+        >
+          <MdOutlineLocalHospital />{' '}
+          <p className="hover:brightness-50 hover:font-semibold">Services</p>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/labtest"
+        >
+          <MdOutlineLocalHospital />{' '}
+          <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/blog"
+        >
+          <MdOutlineLocalHospital />{' '}
+          <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+          }
+          to="/hospitals-around"
+        >
+          <FaHospitalAlt />
+          <p className="hover:brightness-50 hover:font-semibold">
+            Hospitals Around
+          </p>
+        </NavLink>
+        {isAuthenticated ? (
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+              }
+              to="/profile"
+            >
+              <FaUser />
+              <p className="hover:brightness-50 hover:font-semibold">
+                Profile
               </p>
             </NavLink>
-          )}
-        </div>
-
-        <div className="flex gap-3">
-          {isAuthenticated ? (
-            <button
-              className={`${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-gray-100'
-                  : 'bg-white text-black'
-              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
-              onClick={handleLogout}
+            {user && user?.role === 'user' && (
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+                }
+                to="/hospitals"
+              >
+                <FaHospital />
+                <p className="hover:brightness-50 hover:font-semibold">
+                  Hospitals
+                </p>
+              </NavLink>
+            )}
+            {user && user?.role === 'hospital' && (
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+                }
+                to="/panel"
+              >
+                <MdOutlineLocalHospital />
+                <p className="hover:brightness-50 hover:font-semibold">
+                  OPD Panel
+                </p>
+              </NavLink>
+            )}
+          </>
+        ) : (
+          <div className="flex gap-2">
+            <NavLink
+              className="bg-white flex items-center justify-center gap-2 px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+              to="/login"
             >
-              Log Out
-            </button>
-          ) : (
-            <div className="flex gap-5">
-              <NavLink
-                className={`${
-                  dark === 'dark'
-                    ? 'bg-gray-900 text-gray-100'
-                    : 'bg-white text-black'
-                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
-                to="/login"
-              >
-                <MdLogin /> Login
-              </NavLink>
-              <NavLink
-                className={`${
-                  dark === 'dark'
-                    ? 'bg-gray-900 text-gray-100'
-                    : 'bg-white text-black'
-                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
-                to="/register"
-              >
-                <FaUserPlus /> Register
-              </NavLink>
-            </div>
-          )}
-        </div>
+              <MdLogin />
+              Log In
+            </NavLink>
+            <NavLink
+              className="bg-blue-500 flex items-center justify-center gap-2 px-5 py-1 rounded-lg text-white font-bold hover:brightness-75"
+              to="/register"
+            >
+              <FaUserPlus />
+              Register
+            </NavLink>
+          </div>
+        )}
       </div>
     </nav>
   );
