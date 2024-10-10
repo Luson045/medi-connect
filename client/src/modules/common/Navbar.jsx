@@ -57,7 +57,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         dark === 'dark'
           ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
           : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-      } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
+      } top-0 fixed z-[100] py-2 md:py-1 flex justify-between items-center w-full px-5 lg:py-1 md:px-10 transition-transform duration-300 ease-in-out ${
         isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
       }`}
     >
