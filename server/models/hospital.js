@@ -16,8 +16,8 @@ const hospitalSchema = new mongoose.Schema(
     availableServices: [String],
     ratings: { type: Number, min: 0, max: 5, default: 0 },
     password: { type: String, required: true },
-    lat: { type: Number, required: true }, // Added latitude field
-    long: { type: Number, required: true }, // Added longitude field
+    lat: { type: Number, required: true }, 
+    long: { type: Number, required: true },
     appointments: [
       {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

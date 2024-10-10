@@ -2,7 +2,9 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const authRoutes = require("./modules/dashboard/authRoute");
+// const authRoutes = require("./modules/dashboard/authRoute");  ⭕ ***Deprecated***
+const authRouter = require("./routes/auth/auth");
+const profileRouter = require("./routes/user/profile");
 const hospitalroute = require("./modules/hospital/index");
 const client = require("prom-client");
 const { connectDB, corsConfig } = require("./utils");
@@ -30,7 +32,6 @@ app.use(bodyParser.json()); // Parse incoming JSON request bodies
 app.use(express.static("public")); // Serve static files from the "public" directory
 app.use(express.json()); // Parse incoming JSON payloads
 
-
 // Health Check Endpoint
 app.get("/ping", async (_, res) => {
   res.status(200).json({ message: "pong" }); // Return a simple ping response
@@ -43,9 +44,9 @@ app.get("/metrics", async (_, res) => {
   res.send(metrics); // Send the metrics back to the requester
 });
 
-
 // Authentication Routes
-app.use("/auth", authRoutes); // Authentication-related routes
+app.use("/auth", authRouter);
+app.use("/auth", profileRouter);
 
 // Hospital Routes
 app.use("/hospitalapi", hospitalroute); // Hospital-related routes
