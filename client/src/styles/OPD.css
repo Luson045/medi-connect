@@ -1,8 +1,6 @@
 .form-container {
-  max-width: 600px;
-  margin: 50px auto;
   margin-top: 120px;
-  padding: 30px;
+  padding: 2rem 6rem 4rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -17,12 +15,13 @@ h2 {
 }
 
 .opd-registration-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 label {
@@ -48,6 +47,16 @@ input[type='file'] {
   font-size: 1rem;
   background-color: #f9f9f9;
   transition: border-color 0.3s ease;
+}
+
+input[type='date'] {
+  width: 100%;
+}
+
+.form-textarea,
+.form-buttons {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 input:focus,
@@ -116,6 +125,16 @@ input[type='file'] {
     padding: 20px;
   }
 
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
+  }
+
   .submit-btn {
     padding: 10px;
     font-size: 0.9rem;
@@ -130,6 +149,15 @@ input[type='file'] {
   .form-container {
     padding: 15px;
   }
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
+  }
 
   .submit-btn {
     padding: 8px;
@@ -143,21 +171,27 @@ input[type='file'] {
 
 .form-actions {
   display: flex;
-  flex-direction: column; /* Ensures vertical stacking of elements */
-  align-items: center; /* Centers the Register button horizontally */
-  margin-top: 20px; /* Adjust spacing as needed */
+  flex-direction: column;
+  /* Ensures vertical stacking of elements */
+  align-items: center;
+  /* Centers the Register button horizontally */
+  margin-top: 20px;
+  /* Adjust spacing as needed */
 }
 
 .submit-btn {
-  margin-bottom: 15px; /* Add spacing between the buttons */
+  margin-bottom: 15px;
+  /* Add spacing between the buttons */
 }
 
 .back-home-container {
-  text-align: center; /* Centers the Back to Home link */
+  text-align: center;
+  /* Centers the Back to Home link */
 }
 
 .back-btn {
-  text-decoration: none; /* Style adjustments for the Back to Home link */
+  text-decoration: none;
+  /* Style adjustments for the Back to Home link */
   color: #007bff;
   font-size: 16px;
 }
@@ -181,7 +215,8 @@ input[type='file'] {
   max-width: 500px;
   width: 100%;
   text-align: center;
-  position: relative; /* To allow the icon to be positioned relative to the modal */
+  position: relative;
+  /* To allow the icon to be positioned relative to the modal */
 }
 
 .modal-content ul {
@@ -220,6 +255,7 @@ input[type='file'] {
 .image {
   width: 70px;
 }
+
 .OPDText {
   font-weight: 700;
   font-size: larger;

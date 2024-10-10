@@ -300,19 +300,6 @@ function OPDRegistrationForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="reason">Reason:</label>
-            <textarea
-              id="reason"
-              name="reason"
-              placeholder="Enter the reason for your visit"
-              value={formData.reason}
-              onChange={handleChange}
-              required
-            ></textarea>
-            {errors.reason && <span className="error">{errors.reason}</span>}
-          </div>
-
-          <div className="form-group">
             <label htmlFor="date">Date:</label>
             <input
               type="date"
@@ -336,8 +323,20 @@ function OPDRegistrationForm() {
             />
             {errors.report && <span className="error">{errors.report}</span>}
           </div>
+          <div className="form-group form-textarea">
+            <label htmlFor="reason">Reason:</label>
+            <textarea
+              id="reason"
+              name="reason"
+              placeholder="Enter the reason for your visit"
+              value={formData.reason}
+              onChange={handleChange}
+              required
+            ></textarea>
+            {errors.reason && <span className="error">{errors.reason}</span>}
+          </div>
 
-          <div className="form-actions">
+          <div className="form-actions form-buttons">
             <button
               type="submit"
               className="submit-btn"
@@ -398,8 +397,8 @@ function OPDRegistrationForm() {
           </div>
         </div>
       )}
-            {/* Full-screen Loader Overlay */}
-            {isSubmitting && (
+      {/* Full-screen Loader Overlay */}
+      {isSubmitting && (
         <div className="loader-overlay">
           <div className="loader-container">
             <TailSpin
