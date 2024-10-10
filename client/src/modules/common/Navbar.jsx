@@ -26,13 +26,11 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
 
-  const handleScroll = () => {
+  const controlNavbar = () => {
     if (typeof window !== 'undefined') {
       if (window.scrollY > lastScrollY) {
-        // Scrolling down
         setNavbarVisible(false);
       } else {
-        // Scrolling up
         setNavbarVisible(true);
       }
       setLastScrollY(window.scrollY);
@@ -40,10 +38,13 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }
   }, [lastScrollY]);
 
   return (
@@ -112,17 +113,6 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           >
             <AiOutlineInfoCircle />
             <p className="hover:brightness-50 hover:font-semibold">About</p>
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/services"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Services</p>
           </NavLink>
 
           <NavLink
@@ -204,26 +194,6 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
               )}
             </>
           ) : (
-            <NavLink
-              className={({ isActive }) =>
-                `${isActive ? 'border-b border-white ' : ''} flex items-center gap-2`
-              }
-              to="/registerOPD"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <MdOutlineLocalHospital />
-              <p className="hover:brightness-50 hover:font-semibold">Instant OPD</p>
-            </NavLink>
-          )}
-
-          {isAuthenticated ? (
-            <button
-              className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
-              onClick={handleLogout}
-            >
-              Log Out
-            </button>
-          ) : (
             <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
               <NavLink
                 className="bg-white flex gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
@@ -231,7 +201,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <MdLogin />
-                Log In
+                Login
               </NavLink>
               <NavLink
                 className="bg-white flex gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
@@ -239,7 +209,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <FaUserPlus />
-                Register
+                Sign Up
               </NavLink>
             </div>
           )}
@@ -281,19 +251,9 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           className={({ isActive }) =>
             `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
           }
-          to="/services"
-        >
-          <MdOutlineLocalHospital />{' '}
-          <p className="hover:brightness-50 hover:font-semibold">Services</p>
-        </NavLink>
-
-        <NavLink
-          className={({ isActive }) =>
-            `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-          }
           to="/labtest"
         >
-          <MdOutlineLocalHospital />{' '}
+          <MdOutlineLocalHospital />
           <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
         </NavLink>
 
@@ -303,7 +263,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           }
           to="/blog"
         >
-          <MdOutlineLocalHospital />{' '}
+          <MdOutlineLocalHospital />
           <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
         </NavLink>
 
@@ -360,39 +320,20 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             )}
           </>
         ) : (
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex items-center gap-2`
-            }
-            to="/registerOPD"
-          >
-            <MdOutlineLocalHospital />
-            <p className="hover:brightness-50 hover:font-semibold">Instant OPD</p>
-          </NavLink>
-        )}
-
-        {isAuthenticated ? (
-          <button
-            className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
-        ) : (
           <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
             <NavLink
               className="bg-white flex gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
               to="/login"
             >
               <MdLogin />
-              Log In
+              Login
             </NavLink>
             <NavLink
               className="bg-white flex gap-2 w-full xs:w-auto px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
               to="/register"
             >
               <FaUserPlus />
-              Register
+              Sign Up
             </NavLink>
           </div>
         )}
