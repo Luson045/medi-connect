@@ -3,11 +3,13 @@ import { motion } from 'framer-motion';
 import FloatingIcons from '../common/FloatingIcons';
 import { Link } from 'react-router-dom';
 import { blogPosts } from '../../data/blog-posts';
+import { useRecoilValue } from 'recoil';  // Import Recoil
+import { mode } from '../../store/atom';  // Import the dark mode atom
 
-const BlogCard = ({ title, excerpt, date, author, image, id }) => (
+const BlogCard = ({ title, excerpt, date, author, image, id,name }) => (
   <Link to={`/blog/${id}`}>
     <motion.div
-      className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-transform transform-gpu"
+      className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-transform transform-gpu "
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: 50 }}
@@ -20,12 +22,12 @@ const BlogCard = ({ title, excerpt, date, author, image, id }) => (
         alt={title}
         className="w-full h-48 object-cover rounded-t-lg mb-4"
       />
-      <div className="flex flex-col text-center">
+      <div className={`flex flex-col text-center ${name}`}>
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{excerpt}</p>
+        <p className={`text-gray-600 mb-4 ${name}`}>{excerpt}</p>
         <div className="flex justify-between text-sm text-gray-500">
-          <span>{date}</span>
-          <span>by {author}</span>
+          <span className={`${name}`}>{date}</span>
+          <span className={`${name}`}>by {author}</span>
         </div>
       </div>
     </motion.div>
@@ -33,9 +35,12 @@ const BlogCard = ({ title, excerpt, date, author, image, id }) => (
 );
 
 export default function BlogPage() {
+  const dark = useRecoilValue(mode); // Reading dark mode state
   return (
     <>
-      <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-100 to-white overflow-hidden">
+      <header className={`relative py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden ${
+          dark === 'dark' ? 'border-yellow-400 text-yellow-400 bg-gray-600 ' : 'border-gray-700 text-gray-700  '
+        }`}>
         <div className="absolute inset-0">
           <svg
             className="absolute bottom-0 left-0 right-0"
@@ -50,7 +55,9 @@ export default function BlogPage() {
           </svg>
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className={`max-w-7xl mx-auto relative z-10 ${
+          dark === 'dark' ? 'border-yellow-400 text-yellow-400 ' : 'border-gray-700 text-gray-700  '
+        }`}>
           <div className="department_container">
             <div className="container ">
               <div className="heading_container heading_center">
@@ -60,7 +67,9 @@ export default function BlogPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, type: 'spring' }}
                 >
-                  <span>Medical Blog</span>
+                  <span className={`${
+          dark === 'dark' ? 'border-yellow-400 text-yellow-400 ' : 'border-gray-700 text-gray-700  '
+        }`}>Medical Blog</span>
                 </motion.h2>
                 <motion.p className="flex flex-col items-center text-center mb-12">
                   <span>Your source for health and wellness information</span>
@@ -74,7 +83,9 @@ export default function BlogPage() {
                 transition={{ staggerChildren: 0.2 }}
               >
                 {blogPosts.map((post) => (
-                  <BlogCard key={post.id} {...post} />
+                  <BlogCard name={`${
+                    dark === 'dark' ? 'border-yellow-400 text-gray-800 ' : 'border-gray-700 text-gray-900  '
+                  }`} key={post.id} {...post} />
                 ))}
               </motion.div>
             </div>
