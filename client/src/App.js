@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import AuthPage from './modules/common/AuthForm';
 import OPDRegistrationForm from './modules/OPD/Registration';
@@ -19,7 +18,7 @@ import Registration from './modules/Registration/Registration';
 import TermsAndConditions from './modules/common/TermsAndConditions';
 import NotFound from './modules/OPD/NotFound';
 import ScrollToTop from './modules/comps/ScrollToTop';
-import LabTestMedipedia from './modules/LabTest/LabTest';
+import LabTest from './modules/LabTest/LabTest';
 import BlogPage from './modules/common/Blog';
 import BlogDetailsPage from './modules/common/BlogDetailsPage';
 
@@ -56,8 +55,8 @@ function Layout() {
           <Route exact path="/services" element={<ServicePage />} />
           <Route exact path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailsPage/>} />
-          <Route exact path="/Labtest" element={<LabTestMedipedia/>} />
-          <Route exact path="/terms" element={<TermsAndConditions />} />
+          <Route exact path="/Labtest" element={<LabTest/>} />
+          <Route exact path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
@@ -83,4 +82,3 @@ function App() {
 }
 
 export default App;
-
