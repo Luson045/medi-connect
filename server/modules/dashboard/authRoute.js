@@ -17,17 +17,22 @@ const geocoder = NodeGeocoder(options);
 const router = express.Router();
 
 // Zod Schemas for Validation
-const passwordSchema = z.string().min(8, "Password should be at least 8 characters long")
+const passwordSchema = z
+  .string()
+  .min(8, "Password should be at least 8 characters long")
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
-  .regex(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character");
+  .regex(
+    /[!@#$%^&*(),.?":{}|<>]/,
+    "Password must contain at least one special character"
+  );
 
 const userSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -36,7 +41,9 @@ const userSchema = z.object({
     postalCode: z.string(),
   }),
   gender: z.string().optional(),
-  dob: z.date().optional(),
+  dob: z
+    .union([z.date(), z.string().transform((val) => new Date(val))]) // Accepts both Date and ISO string
+    .refine((val) => !isNaN(val.getTime()), { message: "Invalid date format" }), // Ensure it's a valid date,,
   medicalHistory: z.array(z.string()).optional(),
 });
 
@@ -45,7 +52,7 @@ const hospitalSchema = z.object({
   type: z.enum(["user", "hospital"]),
   name: z.string().min(3, "Name should be at least 3 characters long"),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
   phone: z.string(),
   address: z.object({
     street: z.string(),
@@ -61,7 +68,7 @@ const hospitalSchema = z.object({
 const loginSchema = z.object({
   type: z.enum(["user", "hospital"]),
   email: z.string().email("Invalid email format"),
-  password: passwordSchema,  // pointing to the const password schema given above
+  password: passwordSchema, // pointing to the const password schema given above
 });
 
 // Middleware to authenticate using token
@@ -74,7 +81,7 @@ const authenticateToken = (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+    res.status(401).json({ msg: "Token is not valid", err });
   }
 };
 
@@ -95,7 +102,7 @@ router.get("/profile", authenticateToken, async (req, res) => {
     // Include the role 'user' in the response
     res.json({ ...profile.toObject(), role: "user" });
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Server error", err });
   }
 });
 
@@ -230,6 +237,56 @@ router.post("/login", async (req, res) => {
       message: "Error logging in",
       error: error.message || "An unknown error occurred",
     });
+  }
+});
+
+router.post("/profile/edit", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.user; // Get 'id' from token
+    let updateData = req.body; // Data to update, parsed from request body
+
+    // Check if the user exists
+    let user = await User.findById(id);
+    if (user) {
+      // If user exists, validate the data using userSchema
+      updateData = userSchema.partial().parse(updateData);
+
+      const updatedUser = await User.findByIdAndUpdate(
+        id, // User ID from token
+        { $set: updateData }, // Update only the provided fields
+        { new: true, runValidators: true } // Return the updated document
+      );
+
+      return res.json(updatedUser); // Return the updated user data
+    }
+
+    // Check if the hospital exists (if user wasn't found)
+    let hospital = await Hospital.findById(id);
+    if (hospital) {
+      // If hospital exists, validate the data using hospitalSchema
+      updateData = hospitalSchema.partial().parse(updateData);
+
+      const updatedHospital = await Hospital.findByIdAndUpdate(
+        id, // Hospital ID from token
+        { $set: updateData }, // Update only the provided fields
+        { new: true, runValidators: true } // Return the updated document
+      );
+
+      return res.json(updatedHospital); // Return the updated hospital data
+    }
+
+    // If neither a user nor a hospital was found, return an error
+    return res
+      .status(404)
+      .json({ msg: "No user or hospital found with the provided ID" });
+  } catch (error) {
+    console.log(error);
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
+    res.status(500).json({ message: "Server error", error });
   }
 });
 
