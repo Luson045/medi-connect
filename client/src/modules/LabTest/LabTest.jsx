@@ -213,12 +213,11 @@ const LabTestMedipedia = () => {
                 >
                   {test.description}
                 </p>
-                <a
-                  href="#"
+                <button
                   className={`inline-block px-6 py-2 border ${dark === 'dark' ? 'border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-gray-900' : 'border-gray-700 text-gray-700 hover:bg-blue-600 hover:text-white'} transition-all duration-300 text-base rounded-[5px]`}
                 >
                   Read more
-                </a>
+                </button>
                 <div className="flex justify-between items-center mt-5 pt-4 border-t border-gray-700">
                   <span
                     className={`text-sm ${dark === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
