@@ -12,6 +12,14 @@
 ![GitHub Issues](https://img.shields.io/github/issues/Luson045/medi-connect)
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Luson045/medi-connect)
 
+### This project is now OFFICIALLY accepted for **GSSoC 2024 Extended** Program
+
+<div align="center">
+  <img src="https://github.com/apu52/METAVERSE/assets/114172928/e79eb6de-81b1-4ffb-b6ed-f018bb977e88" alt="GSSoC 2024 Extd" width="80%">
+</div>
+
+<br>
+
 ## Table of Contents
 
 - [Introduction](#introduction)
