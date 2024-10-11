@@ -265,7 +265,7 @@ const Footer = () => {
         {showScrollTop && (
           <button
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
+            className="fixed bottom-4 right-6 bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
           >
             <FaArrowUp size={24} />
           </button>
