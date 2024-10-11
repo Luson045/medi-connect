@@ -97,10 +97,10 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-6 sm:right-6 md:right-8 z-50">
+    <div className="fixed bottom-20 right-6 sm:right-6 md:right-6 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
+        className="bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 rounded-full shadow-lg  transition-colors"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </button>
