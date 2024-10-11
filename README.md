@@ -216,9 +216,11 @@ Make sure to run these commands in both the `client` and `server` directories.
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Contact
+## 👥 Team
 
-For any inquiries or support, please contact:
+| ![Luson Basumatary](https://avatars.githubusercontent.com/u/131430087?v=4&s=80) |
+|:--:|
+| **Luson Basumatary** <br> <sub>Project Admin</sub> | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/luson-basumatary-79a93b244/) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:yuria4489@gmail.com) |
 
-- **Luson Basumatary**
-- **Email:** yuria4489@gmail.com
+For any inquiries or feedback, please contact. Happy Contributing 🫡
