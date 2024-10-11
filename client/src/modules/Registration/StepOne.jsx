@@ -70,7 +70,9 @@ function StepOne() {
     return newErrors;
   };
 
-  const handleContinue = () => {
+  const handleContinue = (e) => {
+    e.preventDefault();
+    
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors((prev) => ({
