@@ -15,6 +15,7 @@ import raImage from '../../assets/ra.png';
 import ecgImage from '../../assets/ecg.png';
 import usgImage from '../../assets/usg.png';
 import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 import { mode } from '../../store/atom'; // Importing the atom for mode
 
 const LabTestMedipedia = () => {
@@ -220,6 +221,7 @@ const LabTestMedipedia = () => {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 };
