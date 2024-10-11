@@ -12,6 +12,9 @@
 ![GitHub Issues](https://img.shields.io/github/issues/Luson045/medi-connect)
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Luson045/medi-connect)
 
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ### This project is now OFFICIALLY accepted for **GSSoC 2024 Extended** Program
 
 <div align="center">
@@ -19,6 +22,9 @@
 </div>
 
 <br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Table of Contents
 
@@ -36,11 +42,21 @@
 - [License](#license)
 - [Contact](#contact)
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Introduction
 
 The **Medi-Connect (Appointment Booking System)** is a comprehensive web-based solution designed to streamline hospital operations by implementing efficient queuing models for Outpatient Departments (OPDs), real-time bed availability tracking, patient admission management, and inventory management for medicines and consumables. This system is scalable and can be integrated with a city-wide module, facilitating seamless coordination across multiple healthcare institutions.
 
 Developed for the Smart India Hackathon, this platform aims to enhance patient experience, optimize hospital resources, and improve overall healthcare delivery in urban settings.
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Features
 
@@ -79,6 +95,11 @@ Developed for the Smart India Hackathon, this platform aims to enhance patient e
   - Centralized health management system integration
   - Scalable architecture for city-wide deployment
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Tech Stack
 
 - **Frontend**
@@ -106,6 +127,11 @@ Developed for the Smart India Hackathon, this platform aims to enhance patient e
   - [Git](https://git-scm.com/) & [GitHub](https://github.com/)
   - [Postman](https://www.postman.com/) (for API testing)
   - [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) (for code quality)
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Demo
 
@@ -184,6 +210,11 @@ JWT=your_jwt_secret
 
 https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Usage
 
 The backend server should be running at `https://medi-connect-f671.onrender.com`.
@@ -208,6 +239,11 @@ To ensure consistent code formatting across the project, you can use the followi
 
 Make sure to run these commands in both the `client` and `server` directories.
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## 👀 Our Contributors
 
 - We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Med-Space to greater heights.
@@ -220,9 +256,19 @@ Make sure to run these commands in both the `client` and `server` directories.
   </a>
 </div>
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## 👥 Team
 
