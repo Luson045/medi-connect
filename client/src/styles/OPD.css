@@ -4,9 +4,9 @@
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+
+  transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .dark .form-container {
@@ -65,10 +65,9 @@ input[type='file'] {
   border-radius: 6px;
   font-size: 1rem;
   background-color: #f9f9f9;
-  transition:
-    border-color 0.3s ease,
-    background-color 0.3s ease,
-    color 0.3s ease;
+
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .dark input[type='text'],
@@ -92,6 +91,7 @@ input[type='date'] {
 .form-buttons {
   grid-column-start: 1;
   grid-column-end: 3;
+
 }
 
 input:focus,
@@ -226,13 +226,6 @@ input[type='file'] {
 .form-actions {
   display: flex;
   flex-direction: column;
-
-  /* Ensures vertical stacking of elements */
-  align-items: center;
-  /* Centers the Register button horizontally */
-  margin-top: 20px;
-  /* Adjust spacing as needed */
-
   align-items: center;
   margin-top: 20px;
 }
@@ -243,7 +236,7 @@ input[type='file'] {
 
 .back-home-container {
   text-align: center;
-  /* Centers the Back to Home link */
+
 }
 
 .back-btn {
@@ -277,9 +270,8 @@ input[type='file'] {
   text-align: center;
   position: relative;
 
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .dark .modal-content {
