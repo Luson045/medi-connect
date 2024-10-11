@@ -1,11 +1,18 @@
 .form-container {
-  max-width: 600px;
-  margin: 50px auto;
   margin-top: 120px;
-  padding: 30px;
+  padding: 2rem 6rem 4rem;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.dark .form-container {
+  background-color: #333;
+  color: #f1f1f1;
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.1);
 }
 
 h2 {
@@ -14,15 +21,21 @@ h2 {
   margin-bottom: 20px;
   font-size: 1.8rem;
   font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.dark h2 {
+  color: #666;
 }
 
 .opd-registration-form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
 label {
@@ -31,6 +44,11 @@ label {
   margin-bottom: 8px;
   color: #666;
   font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.dark label {
+  color: #666;
 }
 
 input[type='text'],
@@ -47,7 +65,33 @@ input[type='file'] {
   border-radius: 6px;
   font-size: 1rem;
   background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.dark input[type='text'],
+.dark input[type='number'],
+.dark input[type='tel'],
+.dark input[type='email'],
+.dark input[type='password'],
+.dark select,
+.dark textarea,
+.dark input[type='file'] {
+  background-color: #444;
+  color: #f1f1f1;
+  border-color: #666;
+}
+
+input[type='date'] {
+  width: 100%;
+}
+
+.form-textarea,
+.form-buttons {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 input:focus,
@@ -56,6 +100,13 @@ textarea:focus {
   border-color: #007bff;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #1e90ff;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
 
 textarea {
@@ -89,6 +140,10 @@ input[type='file'] {
   cursor: not-allowed;
 }
 
+.dark .submit-btn {
+  background-color: #1e90ff;
+}
+
 .back-button {
   display: block;
   text-align: center;
@@ -103,6 +158,14 @@ input[type='file'] {
   color: #0056b3;
 }
 
+.dark .back-button {
+  color: #1e90ff;
+}
+
+.dark .back-button:hover {
+  color: #104e8b;
+}
+
 /* Error Message Styling */
 .error {
   color: red;
@@ -114,6 +177,16 @@ input[type='file'] {
 @media (max-width: 768px) {
   .form-container {
     padding: 20px;
+  }
+
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
   }
 
   .submit-btn {
@@ -130,6 +203,15 @@ input[type='file'] {
   .form-container {
     padding: 15px;
   }
+  .opd-registration-form {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .form-textarea,
+  .form-buttons {
+    grid-column: 1 / -1;
+  }
 
   .submit-btn {
     padding: 8px;
@@ -143,23 +225,35 @@ input[type='file'] {
 
 .form-actions {
   display: flex;
-  flex-direction: column; /* Ensures vertical stacking of elements */
-  align-items: center; /* Centers the Register button horizontally */
-  margin-top: 20px; /* Adjust spacing as needed */
+  flex-direction: column;
+
+  /* Ensures vertical stacking of elements */
+  align-items: center;
+  /* Centers the Register button horizontally */
+  margin-top: 20px;
+  /* Adjust spacing as needed */
+
+  align-items: center;
+  margin-top: 20px;
 }
 
 .submit-btn {
-  margin-bottom: 15px; /* Add spacing between the buttons */
+  margin-bottom: 15px;
 }
 
 .back-home-container {
-  text-align: center; /* Centers the Back to Home link */
+  text-align: center;
+  /* Centers the Back to Home link */
 }
 
 .back-btn {
-  text-decoration: none; /* Style adjustments for the Back to Home link */
+  text-decoration: none;
   color: #007bff;
   font-size: 16px;
+}
+
+.dark .back-btn {
+  color: #1e90ff;
 }
 
 .modal {
@@ -181,7 +275,16 @@ input[type='file'] {
   max-width: 500px;
   width: 100%;
   text-align: center;
-  position: relative; /* To allow the icon to be positioned relative to the modal */
+  position: relative;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.dark .modal-content {
+  background-color: #444;
+  color: #f1f1f1;
 }
 
 .modal-content ul {
@@ -196,6 +299,10 @@ input[type='file'] {
   color: #fff;
   border: none;
   cursor: pointer;
+}
+
+.dark .modal-content button {
+  background-color: #1e90ff;
 }
 
 /* Styling the download icon */
@@ -220,7 +327,12 @@ input[type='file'] {
 .image {
   width: 70px;
 }
+
 .OPDText {
   font-weight: 700;
   font-size: larger;
+}
+
+.dark .OPDText {
+  color: #f1f1f1;
 }

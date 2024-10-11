@@ -8,8 +8,11 @@ import jsPDF from 'jspdf';
 import { pininfo } from 'indian_address';
 import { AiOutlineDownload } from 'react-icons/ai';
 import { TailSpin } from 'react-loader-spinner';
+import { useRecoilValue } from 'recoil';
+import { mode } from '../../store/atom';
 
 function OPDRegistrationForm() {
+  const dark = useRecoilValue(mode); // Using Recoil state for dark mode
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -169,10 +172,12 @@ function OPDRegistrationForm() {
 
   return (
     <>
-      <section className="form-container">
-        <h2>OPD Registration</h2>
+      <section className={`form-container ${dark === 'dark' ? 'dark' : ''}`}>
+        <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>
+          OPD Registration
+        </h2>
         <form onSubmit={handleSubmit} className="opd-registration-form">
-          <div className="form-group">
+          <div className={`form-group ${dark === 'dark' ? 'dark-mode' : ''}`}>
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -182,6 +187,7 @@ function OPDRegistrationForm() {
               value={formData.name}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.name && <span className="error">{errors.name}</span>}
           </div>
@@ -196,6 +202,7 @@ function OPDRegistrationForm() {
               value={formData.email}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
@@ -210,6 +217,7 @@ function OPDRegistrationForm() {
               value={formData.age}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.age && <span className="error">{errors.age}</span>}
           </div>
@@ -222,6 +230,7 @@ function OPDRegistrationForm() {
               value={formData.gender}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             >
               <option value="" disabled>
                 Select gender
@@ -243,6 +252,7 @@ function OPDRegistrationForm() {
               value={formData.contact}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.contact && <span className="error">{errors.contact}</span>}
           </div>
@@ -257,6 +267,7 @@ function OPDRegistrationForm() {
               value={formData.address}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.address && <span className="error">{errors.address}</span>}
           </div>
@@ -271,6 +282,7 @@ function OPDRegistrationForm() {
               value={formData.pincode}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.pincode && <span className="error">{errors.pincode}</span>}
           </div>
@@ -283,6 +295,7 @@ function OPDRegistrationForm() {
               value={formData.department}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             >
               <option value="" disabled>
                 Select Department
@@ -299,7 +312,7 @@ function OPDRegistrationForm() {
             )}
           </div>
 
-          <div className="form-group">
+          <div className="form-group  form-textarea">
             <label htmlFor="reason">Reason:</label>
             <textarea
               id="reason"
@@ -308,6 +321,7 @@ function OPDRegistrationForm() {
               value={formData.reason}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             ></textarea>
             {errors.reason && <span className="error">{errors.reason}</span>}
           </div>
@@ -321,6 +335,7 @@ function OPDRegistrationForm() {
               value={formData.date}
               onChange={handleChange}
               required
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.date && <span className="error">{errors.date}</span>}
           </div>
@@ -333,33 +348,54 @@ function OPDRegistrationForm() {
               name="report"
               multiple
               onChange={handleChange}
+              className={dark === 'dark' ? 'input-dark' : ''}
             />
             {errors.report && <span className="error">{errors.report}</span>}
           </div>
+          <div className="form-group form-textarea">
+            <label htmlFor="reason">Reason:</label>
+            <textarea
+              id="reason"
+              name="reason"
+              placeholder="Enter the reason for your visit"
+              value={formData.reason}
+              onChange={handleChange}
+              required
+            ></textarea>
+            {errors.reason && <span className="error">{errors.reason}</span>}
+          </div>
 
-          <div className="form-actions">
+          <div className="form-actions form-buttons">
             <button
               type="submit"
-              className="submit-btn"
+              className={`submit-btn ${dark === 'dark' ? 'btn-dark' : ''}`}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Registering...' : 'Register'}
             </button>
-            <Link to="/" className="back-btn">
+            <Link
+              to="/"
+              className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}
+            >
               Back to Home
             </Link>
           </div>
         </form>
       </section>
       {showModal && (
-        <div className="modal">
+        <div className={`modal ${dark === 'dark' ? 'modal-dark' : ''}`}>
           <div className="modal-content">
             <div className="OpdHeader">
               <img src="/favicon.png" className="image" alt="Logo" />
               <p className="OPDText">Med-Space</p>
             </div>
             <hr></hr>
-            <h3 style={{ marginTop: '20px' }}>Registration Successful!</h3>
+            <h3
+              style={{ marginTop: '20px' }}
+              className={dark === 'dark' ? 'text-yellow-400' : ''}
+            >
+              Registration Successful!
+            </h3>
             <p>Here are your appointment details:</p>
             <ul>
               <li>Name: {registrationDetails?.name || 'John Doe'}</li>
@@ -377,11 +413,20 @@ function OPDRegistrationForm() {
                 {appointmentDetails?.hospital?.name || 'City Hospital'}
               </li>
             </ul>
-            <button onClick={() => setShowModal(false)}>Close</button>
+            <button
+              onClick={() => setShowModal(false)}
+              className={dark === 'dark' ? 'btn-dark' : ''}
+            >
+              Close
+            </button>
 
             {/* PDF download icon in the lower right corner */}
             <div className="download-icon" onClick={downloadPDF}>
-              <AiOutlineDownload size={32} color="#007bff" />
+              <AiOutlineDownload
+                className={dark === 'dark' ? 'text-yellow-400' : 'text-black'}
+                size={32}
+                color="#007bff"
+              />
             </div>
 
             {/* Footer */}
@@ -398,8 +443,8 @@ function OPDRegistrationForm() {
           </div>
         </div>
       )}
-            {/* Full-screen Loader Overlay */}
-            {isSubmitting && (
+      {/* Full-screen Loader Overlay */}
+      {isSubmitting && (
         <div className="loader-overlay">
           <div className="loader-container">
             <TailSpin
