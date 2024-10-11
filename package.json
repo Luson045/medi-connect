@@ -18,10 +18,8 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "client/src/**/*.{js,jsx,css}": [
-      "prettier --write",
-      "eslint --fix --max-warnings=0"
-    ],
+    "client/src/**/*.{js,jsx,css}": "prettier --write",
+    "client/src/**/*.{js,jsx}": "eslint --fix --max-warnings=0",
     "server/**/**/*.js": [
       "prettier --write",
       "eslint --fix --max-warnings=0"
