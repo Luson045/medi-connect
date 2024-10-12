@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useRecoilValue } from 'recoil';
 import RegistrationContext from './RegistrationContext';
+import { isEmpty } from 'lodash';
 import { mode } from '../../store/atom'; // Importing the atom for mode
 
 const btnDivStyle = {
@@ -74,9 +75,10 @@ function StepTwo() {
     }
 
     if (basicDetails.type === 'hospital') {
-      if (!otherDetails.department)
+      if (isEmpty(otherDetails.department)) {
         newErrors.department = 'Departments is required';
-      if (!otherDetails.availableServices)
+      }
+      if (isEmpty(otherDetails.availableServices))
         newErrors.availableServices = 'At least one service is required';
     }
     return newErrors;
@@ -95,16 +97,21 @@ function StepTwo() {
   };
 
   return (
-    <form className={`auth-form ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'}`}>
+    <form
+      className={`auth-form ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'}`}
+    >
       <h5>Address</h5>
       <hr />
       <div className="form-section">
-        <label htmlFor="street" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+        <label
+          htmlFor="street"
+          className={`auth-form ${
+            dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+          }`}
+          style={{ display: 'inline' }}
+        >
           Street: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -125,12 +132,15 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="city"className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+        <label
+          htmlFor="city"
+          className={`auth-form ${
+            dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+          }`}
+          style={{ display: 'inline' }}
+        >
           City: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -152,12 +162,15 @@ function StepTwo() {
       </div>
 
       <div className="form-section">
-        <label htmlFor="state" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+        <label
+          htmlFor="state"
+          className={`auth-form ${
+            dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+          }`}
+          style={{ display: 'inline' }}
+        >
           State: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -178,12 +191,15 @@ function StepTwo() {
         )}
       </div>
       <div className="form-section">
-        <label htmlFor="postalCode" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+        <label
+          htmlFor="postalCode"
+          className={`auth-form ${
+            dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+          }`}
+          style={{ display: 'inline' }}
+        >
           Pin Code: <span style={{ color: 'red' }}>*</span>
         </label>
         <input
@@ -208,12 +224,15 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="department" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+            <label
+              htmlFor="department"
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
+              style={{ display: 'inline' }}
+            >
               Department: <span style={{ color: 'red' }}>*</span>
             </label>
             <select
@@ -238,20 +257,23 @@ function StepTwo() {
               <option value="gynecology">Gynecology</option>
               <option value="dermatology">Dermatology</option>
             </select>
-            {errors.frontend.departments && (
-              <span className="error">{errors.frontend.departments}</span>
+            {errors.frontend.department && (
+              <span className="error">{errors.frontend.department}</span>
             )}
-            {errors.backend.departments && (
-              <span className="error">{errors.backend.departments}</span>
+            {errors.backend.department && (
+              <span className="error">{errors.backend.department}</span>
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="availableServices" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+            <label
+              htmlFor="availableServices"
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
+              style={{ display: 'inline' }}
+            >
               Available Services: <span style={{ color: 'red' }}>*</span>
             </label>
             <input
@@ -277,12 +299,15 @@ function StepTwo() {
           <h5>Other Info</h5>
           <hr />
           <div className="form-section">
-            <label htmlFor="dob" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+            <label
+              htmlFor="dob"
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
+              style={{ display: 'inline' }}
+            >
               DOB: <span style={{ color: 'red' }}>*</span>
             </label>
             <input
@@ -303,12 +328,15 @@ function StepTwo() {
             )}
           </div>
           <div className="form-section">
-            <label htmlFor="gender" className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
-            style={{display : 'inline'}}>
+            <label
+              htmlFor="gender"
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
+              style={{ display: 'inline' }}
+            >
               Gender: <span style={{ color: 'red' }}>*</span>
             </label>
             <select

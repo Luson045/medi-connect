@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil'; // Recoil hook for dark mode
 import { mode } from '../../store/atom'; // Assuming dark mode is stored in Recoil
 
 function StepOne() {
-  const { basicDetails, setBasicDetials, nextStep } =
+  const { basicDetails, setBasicDetails, nextStep } =
     useContext(RegistrationContext);
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -32,7 +32,7 @@ function StepOne() {
   };
 
   const handleChange = (e) => {
-    setBasicDetials({
+    setBasicDetails({
       ...basicDetails,
       [e.target.name]: e.target.value,
     });
@@ -70,6 +70,9 @@ function StepOne() {
       newErrors.password =
         'Password must contain at least one special character';
     }
+    if (!basicDetails.confirmPassword) {
+      newErrors.confirmPassword = 'Confirm password is required';
+    }
     if (basicDetails.password !== basicDetails.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
@@ -79,7 +82,7 @@ function StepOne() {
 
   const handleContinue = (e) => {
     e.preventDefault();
-    
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors((prev) => ({
@@ -133,7 +136,7 @@ function StepOne() {
                 ? 'bg-gray-900 text-yellow-400'
                 : 'bg-white text-gray-700'
             }`}
-            style={{display : 'inline'}}
+            style={{ display: 'inline' }}
           >
             Name: <span style={{ color: 'red' }}>*</span>
           </label>
@@ -154,7 +157,6 @@ function StepOne() {
           {errors.frontend.name && (
             <span className="error">{errors.frontend.name}</span>
           )}
-          
         </div>
 
         <div className="form-section">
@@ -165,7 +167,7 @@ function StepOne() {
                 ? 'bg-gray-900 text-yellow-400'
                 : 'bg-white text-gray-700'
             }`}
-            style={{display : 'inline'}}
+            style={{ display: 'inline' }}
           >
             Phone: <span style={{ color: 'red' }}>*</span>
           </label>
@@ -183,7 +185,9 @@ function StepOne() {
                 : 'bg-white text-gray-700'
             }`}
           />
-
+          {errors.frontend.phone && (
+            <span className="error">{errors.frontend.phone}</span>
+          )}
         </div>
 
         <div className="form-section">
@@ -194,7 +198,7 @@ function StepOne() {
                 ? 'bg-gray-900 text-yellow-400'
                 : 'bg-white text-gray-700'
             }`}
-            style={{display : 'inline'}}
+            style={{ display: 'inline' }}
           >
             Email: <span style={{ color: 'red' }}>*</span>
           </label>
@@ -212,7 +216,9 @@ function StepOne() {
                 : 'bg-white text-gray-700'
             }`}
           />
-
+          {errors.frontend.email && (
+            <span className="error">{errors.frontend.email}</span>
+          )}
         </div>
 
         <div className="form-section">
@@ -222,7 +228,7 @@ function StepOne() {
                 ? 'bg-gray-900 text-yellow-400'
                 : 'bg-white text-gray-700'
             }`}
-            style={{display : 'inline'}}
+            style={{ display: 'inline' }}
           >
             Password: <span style={{ color: 'red' }}>*</span>
           </label>
@@ -248,7 +254,9 @@ function StepOne() {
               {showPassword.password ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
+          {errors.frontend.password && (
+            <span className="error">{errors.frontend.password}</span>
+          )}
         </div>
 
         <div className="form-section">
@@ -258,7 +266,7 @@ function StepOne() {
                 ? 'bg-gray-900 text-yellow-400'
                 : 'bg-white text-gray-700'
             }`}
-            style={{display : 'inline'}}
+            style={{ display: 'inline' }}
           >
             Confirm Password: <span style={{ color: 'red' }}>*</span>
           </label>
@@ -284,7 +292,9 @@ function StepOne() {
               {showPassword.confirmPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
+          {errors.frontend.confirmPassword && (
+            <span className="error">{errors.frontend.confirmPassword}</span>
+          )}
         </div>
 
         <div className="register-button">
