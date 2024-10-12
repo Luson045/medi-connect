@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from './userContext';
-import '../../styles/UserProfile.css';
+import { UserContext } from '../store/userContext';
+import '../styles/UserProfile.css';
 
 const ProfilePage = () => {
   const { isAuthenticated } = useContext(UserContext);
@@ -102,9 +102,8 @@ const ProfilePage = () => {
             <>
               <p>
                 <strong>Address:</strong>{' '}
-                {`${userData.address?.street || 'N/A'}, ${
-                  userData.address?.city || 'N/A'
-                }, ${userData.address?.state || 'N/A'}`}
+                {`${userData.address?.street || 'N/A'}, ${userData.address?.city || 'N/A'
+                  }, ${userData.address?.state || 'N/A'}`}
               </p>
               <p>
                 <strong>Phone:</strong> {userData.phone || 'N/A'}

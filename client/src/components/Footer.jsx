@@ -9,8 +9,8 @@ import {
   FaArrowUp,
 } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // Corrected import for Twitter icon
-// import { FaArrowUp } from 'react-icons/fa';
 import GoogleTranslate from './GoogleTranslate';
+// import { FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

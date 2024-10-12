@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/AnimatedCursor.css'; // Import the styles
+import "../styles/AnimatedCursor.css"; // Import the styles
 
 const AnimatedCursor = () => {
   const [positions, setPositions] = useState([]);

@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
 import { useRecoilValue } from 'recoil';
-import RegistrationContext from './RegistrationContext';
+import RegistrationContext from '../store/RegistrationContext';
 import { isEmpty } from 'lodash';
-import { mode } from '../../store/atom'; // Importing the atom for mode
+import { mode } from '../store/atom'; // Importing the atom for mode
 
 const btnDivStyle = {
   display: 'flex',
@@ -105,11 +105,10 @@ function StepTwo() {
       <div className="form-section">
         <label
           htmlFor="street"
-          className={`auth-form ${
-            dark === 'dark'
-              ? 'bg-gray-900 text-yellow-400'
-              : 'bg-white text-gray-700'
-          }`}
+          className={`auth-form ${dark === 'dark'
+            ? 'bg-gray-900 text-yellow-400'
+            : 'bg-white text-gray-700'
+            }`}
           style={{ display: 'inline' }}
         >
           Street: <span style={{ color: 'red' }}>*</span>
@@ -134,11 +133,10 @@ function StepTwo() {
       <div className="form-section">
         <label
           htmlFor="city"
-          className={`auth-form ${
-            dark === 'dark'
-              ? 'bg-gray-900 text-yellow-400'
-              : 'bg-white text-gray-700'
-          }`}
+          className={`auth-form ${dark === 'dark'
+            ? 'bg-gray-900 text-yellow-400'
+            : 'bg-white text-gray-700'
+            }`}
           style={{ display: 'inline' }}
         >
           City: <span style={{ color: 'red' }}>*</span>
@@ -164,11 +162,10 @@ function StepTwo() {
       <div className="form-section">
         <label
           htmlFor="state"
-          className={`auth-form ${
-            dark === 'dark'
-              ? 'bg-gray-900 text-yellow-400'
-              : 'bg-white text-gray-700'
-          }`}
+          className={`auth-form ${dark === 'dark'
+            ? 'bg-gray-900 text-yellow-400'
+            : 'bg-white text-gray-700'
+            }`}
           style={{ display: 'inline' }}
         >
           State: <span style={{ color: 'red' }}>*</span>
@@ -193,11 +190,10 @@ function StepTwo() {
       <div className="form-section">
         <label
           htmlFor="postalCode"
-          className={`auth-form ${
-            dark === 'dark'
-              ? 'bg-gray-900 text-yellow-400'
-              : 'bg-white text-gray-700'
-          }`}
+          className={`auth-form ${dark === 'dark'
+            ? 'bg-gray-900 text-yellow-400'
+            : 'bg-white text-gray-700'
+            }`}
           style={{ display: 'inline' }}
         >
           Pin Code: <span style={{ color: 'red' }}>*</span>
@@ -226,11 +222,10 @@ function StepTwo() {
           <div className="form-section">
             <label
               htmlFor="department"
-              className={`auth-form ${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`auth-form ${dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
               style={{ display: 'inline' }}
             >
               Department: <span style={{ color: 'red' }}>*</span>
@@ -241,11 +236,10 @@ function StepTwo() {
               value={otherDetails.department}
               onChange={handleChange}
               required
-              className={`auth-form ${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`auth-form ${dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
             >
               <option value="" disabled>
                 Select Department
@@ -267,11 +261,10 @@ function StepTwo() {
           <div className="form-section">
             <label
               htmlFor="availableServices"
-              className={`auth-form ${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`auth-form ${dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
               style={{ display: 'inline' }}
             >
               Available Services: <span style={{ color: 'red' }}>*</span>
@@ -301,11 +294,10 @@ function StepTwo() {
           <div className="form-section">
             <label
               htmlFor="dob"
-              className={`auth-form ${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`auth-form ${dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
               style={{ display: 'inline' }}
             >
               DOB: <span style={{ color: 'red' }}>*</span>
@@ -330,11 +322,10 @@ function StepTwo() {
           <div className="form-section">
             <label
               htmlFor="gender"
-              className={`auth-form ${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`auth-form ${dark === 'dark'
+                ? 'bg-gray-900 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
               style={{ display: 'inline' }}
             >
               Gender: <span style={{ color: 'red' }}>*</span>

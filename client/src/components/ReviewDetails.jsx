@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useRecoilValue } from 'recoil';
-import { mode } from '../../store/atom'; // Importing the mode atom for dark mode
-import RegistrationContext from './RegistrationContext';
-import { notify } from '../common/notification';
+import { mode } from '../store/atom'; // Importing the mode atom for dark mode
+import RegistrationContext from '../store/RegistrationContext';
+import { notify } from '../components/notification';
 import { useNavigate } from 'react-router-dom';
 
 const btnDivStyle = {

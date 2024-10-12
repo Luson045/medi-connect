@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import RegistrationContext from './RegistrationContext';
+import RegistrationContext from '../store/RegistrationContext';
 import { useRecoilValue } from 'recoil'; // Recoil hook for dark mode
-import { mode } from '../../store/atom'; // Assuming dark mode is stored in Recoil
+import { mode } from '../store/atom'; // Assuming dark mode is stored in Recoil
 
 function StepOne() {
   const { basicDetails, setBasicDetails, nextStep } =
@@ -97,19 +97,17 @@ function StepOne() {
   return (
     <>
       <form
-        className={`auth-form ${
-          dark === 'dark'
-            ? 'bg-gray-900 text-yellow-400'
-            : 'bg-white text-gray-700'
-        }`}
+        className={`auth-form ${dark === 'dark'
+          ? 'bg-gray-900 text-yellow-400'
+          : 'bg-white text-gray-700'
+          }`}
       >
         <div className="form-section">
           <label
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
           >
             User Type:
           </label>
@@ -117,11 +115,10 @@ function StepOne() {
             name="type"
             value={basicDetails.type}
             onChange={handleChange}
-            className={`${
-              dark === 'dark'
-                ? 'bg-gray-800 text-yellow-400 border-yellow-400'
-                : 'bg-white text-gray-700 border-gray-300'
-            }`}
+            className={`${dark === 'dark'
+              ? 'bg-gray-800 text-yellow-400 border-yellow-400'
+              : 'bg-white text-gray-700 border-gray-300'
+              }`}
           >
             <option value="user">User</option>
             <option value="hospital">Hospital</option>
@@ -131,11 +128,10 @@ function StepOne() {
         <div className="form-section">
           <label
             htmlFor="name"
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
             style={{ display: 'inline' }}
           >
             Name: <span style={{ color: 'red' }}>*</span>
@@ -148,11 +144,10 @@ function StepOne() {
             onChange={handleChange}
             placeholder="John Doe"
             required
-            className={`${
-              dark === 'dark'
-                ? 'bg-gray-800 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`${dark === 'dark'
+              ? 'bg-gray-800 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
           />
           {errors.frontend.name && (
             <span className="error">{errors.frontend.name}</span>
@@ -162,11 +157,10 @@ function StepOne() {
         <div className="form-section">
           <label
             htmlFor="phone"
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
             style={{ display: 'inline' }}
           >
             Phone: <span style={{ color: 'red' }}>*</span>
@@ -179,11 +173,10 @@ function StepOne() {
             value={basicDetails.phone}
             onChange={handleChange}
             required
-            className={`${
-              dark === 'dark'
-                ? 'bg-gray-800 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`${dark === 'dark'
+              ? 'bg-gray-800 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
           />
           {errors.frontend.phone && (
             <span className="error">{errors.frontend.phone}</span>
@@ -193,11 +186,10 @@ function StepOne() {
         <div className="form-section">
           <label
             htmlFor="email"
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
             style={{ display: 'inline' }}
           >
             Email: <span style={{ color: 'red' }}>*</span>
@@ -210,11 +202,10 @@ function StepOne() {
             value={basicDetails.email}
             onChange={handleChange}
             required
-            className={`${
-              dark === 'dark'
-                ? 'bg-gray-800 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`${dark === 'dark'
+              ? 'bg-gray-800 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
           />
           {errors.frontend.email && (
             <span className="error">{errors.frontend.email}</span>
@@ -223,11 +214,10 @@ function StepOne() {
 
         <div className="form-section">
           <label
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
             style={{ display: 'inline' }}
           >
             Password: <span style={{ color: 'red' }}>*</span>
@@ -240,11 +230,10 @@ function StepOne() {
               value={basicDetails.password}
               onChange={handleChange}
               required
-              className={`${
-                dark === 'dark'
-                  ? 'bg-gray-800 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`${dark === 'dark'
+                ? 'bg-gray-800 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
             />
             <button
               type="button"
@@ -261,11 +250,10 @@ function StepOne() {
 
         <div className="form-section">
           <label
-            className={`auth-form ${
-              dark === 'dark'
-                ? 'bg-gray-900 text-yellow-400'
-                : 'bg-white text-gray-700'
-            }`}
+            className={`auth-form ${dark === 'dark'
+              ? 'bg-gray-900 text-yellow-400'
+              : 'bg-white text-gray-700'
+              }`}
             style={{ display: 'inline' }}
           >
             Confirm Password: <span style={{ color: 'red' }}>*</span>
@@ -278,11 +266,10 @@ function StepOne() {
               value={basicDetails.confirmPassword}
               onChange={handleChange}
               required
-              className={`${
-                dark === 'dark'
-                  ? 'bg-gray-800 text-yellow-400'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`${dark === 'dark'
+                ? 'bg-gray-800 text-yellow-400'
+                : 'bg-white text-gray-700'
+                }`}
             />
             <button
               type="button"
@@ -300,11 +287,10 @@ function StepOne() {
         <div className="register-button">
           <button
             type="submit"
-            className={`auth-button ${
-              dark === 'dark'
-                ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
-                : 'bg-blue-600 text-white hover:bg-blue-700'
-            }`}
+            className={`auth-button ${dark === 'dark'
+              ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+              }`}
             onClick={handleContinue}
           >
             Continue
@@ -313,9 +299,8 @@ function StepOne() {
 
         <Link
           to="/login"
-          className={`toggle-auth-button text-center ${
-            dark === 'dark' ? 'text-yellow-400' : 'text-gray-700'
-          }`}
+          className={`toggle-auth-button text-center ${dark === 'dark' ? 'text-yellow-400' : 'text-gray-700'
+            }`}
         >
           Already have an account? Login
         </Link>

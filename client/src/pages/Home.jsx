@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clipboard, PhoneCall, Hospital } from 'lucide-react';
-import Navbar from '../common/Navbar';
-import StaticLineChart from './Chart';
-import Review from './Review';
-import TableComponent from './TableComponent';
-import PatientDistributionChart from './PatientDistributionChart';
-import FloatingIcons from '../common/FloatingIcons';
-import '../../styles/Home.css';
+import Navbar from '../components/Navbar';
+import StaticLineChart from '../components/Chart';
+import Review from '../components/Review';
+import TableComponent from '../components/TableComponent';
+import PatientDistributionChart from '../components/PatientDistributionChart';
+import FloatingIcons from '../components/FloatingIcons';
+import '../styles/Home.css';
 import { useRecoilValue } from 'recoil';
-import { mode } from '../../store/atom';
+import { mode } from '../store/atom';
 
 const ServiceCard = ({ icon: Icon, title, details }) => {
   const dark = useRecoilValue(mode);

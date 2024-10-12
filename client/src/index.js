@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { inject } from '@vercel/analytics';
 import { RecoilRoot } from 'recoil';
-import ScrollProgressIndicator from './modules/common/ScrollProgressIndicator';
+import ScrollProgressIndicator from './components/ScrollProgressIndicator';
 
 inject();
 

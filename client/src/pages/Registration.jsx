@@ -1,8 +1,8 @@
 import React from 'react';
-import MultiStepRegistration from './MultiStepRegistration';
-import '../../styles/Login.css';
+import MultiStepRegistration from '../components/MultiStepRegistration';
+import '../styles/Login.css';
 import { useRecoilValue } from 'recoil'; // Import Recoil to use the dark mode state
-import { mode } from '../../store/atom'; // Import dark mode atom
+import { mode } from '../store/atom'; // Import dark mode atom
 
 function Registration() {
   const dark = useRecoilValue(mode); // Access dark mode value using Recoil

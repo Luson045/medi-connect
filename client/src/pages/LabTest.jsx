@@ -2,21 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import cbcImage from '../../assets/cbc.png';
-import lipidProfileImage from '../../assets/lipid-profile.png';
-import bloodGlucoseImage from '../../assets/bloodglucose.png';
-import thyroidImage from '../../assets/thyroid.png';
-import hemoglobinImage from '../../assets/Hemoglobin.png';
-import urineTestImage from '../../assets/urinetest.png';
-import sodiumImage from '../../assets/sodium.png';
-import hepatitisBImage from '../../assets/hepatitis-B.png';
-import potassiumImage from '../../assets/potassium.png';
-import raImage from '../../assets/ra.png';
-import ecgImage from '../../assets/ecg.png';
-import usgImage from '../../assets/usg.png';
-import Navbar from '../common/Navbar';
-import Footer from '../common/Footer';
-import { mode } from '../../store/atom'; // Importing the atom for mode
+import cbcImage from '../assets/cbc.png';
+import lipidProfileImage from '../assets/lipid-profile.png';
+import bloodGlucoseImage from '../assets/bloodglucose.png';
+import thyroidImage from '../assets/thyroid.png';
+import hemoglobinImage from '../assets/Hemoglobin.png';
+import urineTestImage from '../assets/urinetest.png';
+import sodiumImage from '../assets/sodium.png';
+import hepatitisBImage from '../assets/hepatitis-B.png';
+import potassiumImage from '../assets/potassium.png';
+import raImage from '../assets/ra.png';
+import ecgImage from '../assets/ecg.png';
+import usgImage from '../assets/usg.png';
+import Navbar from '../components/Navbar';
+import { mode } from '../store/atom'; // Importing the atom for mode
+import Footer from '../components/Footer';
 
 const LabTestMedipedia = () => {
   const [currentItem, setCurrentItem] = useState(3);

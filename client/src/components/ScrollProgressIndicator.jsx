@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import '../../styles/ScrollProgressIndicator.css';
+import '../styles/ScrollProgressIndicator.css';
 
 function ScrollProgressIndicator() {
   const [scrollPosition, setScrollPosition] = useState(0);
