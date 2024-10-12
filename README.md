@@ -245,16 +245,13 @@ Make sure to run these commands in both the `client` and `server` directories.
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-## 👀 Our Contributors
+<!-- Modified the Contributors Mention Section -->
+<div>
+  <h2 align = "center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" width="35" height="35">Our Contributors</h2>
+  <div align = "center">
+ <h3>Thank you for contributing to our repository</h3>
 
-- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Med-Space to greater heights.
-- Make sure you show some love by giving ⭐ to our repository.
-
-<div align="center">
-
-  <a href="https://github.com/Luson045/medi-connect">
-    <img src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
-  </a>
+![Contributors](https://contrib.rocks/image?repo=Luson045/medi-connect&v=1)
 </div>
 
 <br>
