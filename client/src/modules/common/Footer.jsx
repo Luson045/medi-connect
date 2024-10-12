@@ -263,16 +263,16 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="fixed bottom-4 right-6 flex flex-col gap-3">
+        <div
+          className={`fixed bottom-4 right-6 flex flex-col gap-3 duration-300 delay-300 ${!showScrollTop && 'translate-y-[75px]'}`}
+        >
           <Chatbot />
-          {showScrollTop && (
-            <button
-              onClick={scrollToTop}
-              className=" bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
-            >
-              <FaArrowUp size={24} />
-            </button>
-          )}
+          <button
+            onClick={scrollToTop}
+            className={` bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000] transition-all ${!showScrollTop && 'opacity-0 invisible'}`}
+          >
+            <FaArrowUp size={24} />
+          </button>
         </div>
       </div>
     </footer>
