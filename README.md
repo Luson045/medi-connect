@@ -12,6 +12,21 @@
 ![GitHub Issues](https://img.shields.io/github/issues/Luson045/medi-connect)
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Luson045/medi-connect)
 
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+<!-- Added Hacktoberfest 2024 and GSSoc Extended 2024 banners -->
+### This project is now OFFICIALLY accepted for
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
+  <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
+</div>
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -28,11 +43,21 @@
 - [License](#license)
 - [Contact](#contact)
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Introduction
 
 The **Medi-Connect (Appointment Booking System)** is a comprehensive web-based solution designed to streamline hospital operations by implementing efficient queuing models for Outpatient Departments (OPDs), real-time bed availability tracking, patient admission management, and inventory management for medicines and consumables. This system is scalable and can be integrated with a city-wide module, facilitating seamless coordination across multiple healthcare institutions.
 
 Developed for the Smart India Hackathon, this platform aims to enhance patient experience, optimize hospital resources, and improve overall healthcare delivery in urban settings.
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Features
 
@@ -71,6 +96,11 @@ Developed for the Smart India Hackathon, this platform aims to enhance patient e
   - Centralized health management system integration
   - Scalable architecture for city-wide deployment
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Tech Stack
 
 - **Frontend**
@@ -98,6 +128,11 @@ Developed for the Smart India Hackathon, this platform aims to enhance patient e
   - [Git](https://git-scm.com/) & [GitHub](https://github.com/)
   - [Postman](https://www.postman.com/) (for API testing)
   - [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) (for code quality)
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## Demo
 
@@ -176,6 +211,11 @@ JWT=your_jwt_secret
 
 https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
 
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## Usage
 
 The backend server should be running at `https://medi-connect-f671.onrender.com`.
@@ -200,25 +240,45 @@ To ensure consistent code formatting across the project, you can use the followi
 
 Make sure to run these commands in both the `client` and `server` directories.
 
-## 👀 Our Contributors
+<br>
 
-- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating Med-Space to greater heights.
-- Make sure you show some love by giving ⭐ to our repository.
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-<div align="center">
+<!-- Modified the Contributors Mention Section -->
+<div>
+  <h2 align = "center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" width="35" height="35">Our Contributors</h2>
+  <div align = "center">
+ <h3>Thank you for contributing to our repository</h3>
 
-  <a href="https://github.com/Luson045/medi-connect">
-    <img src="https://contrib.rocks/image?repo=Luson045/medi-connect&&max=1000" />
-  </a>
+![Contributors](https://contrib.rocks/image?repo=Luson045/medi-connect&v=1)
 </div>
+
+<br>
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Contact
+<br>
 
-For any inquiries or support, please contact:
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
-- **Luson Basumatary**
-- **Email:** yuria4489@gmail.com
+## 👥 Team
+
+| ![Luson Basumatary](https://avatars.githubusercontent.com/u/131430087?v=4&s=80) |
+|:--:|
+| **Luson Basumatary** <br> <sub>Project Admin</sub> | 
+| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/luson-basumatary-79a93b244/) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:yuria4489@gmail.com) |
+
+For any inquiries or feedback, please contact. Happy Contributing 🫡
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+## ⭐️ Support the Project
+If you find this project helpful, please consider giving it a ⭐ on GitHub! Your support helps to grow the project and reach more contributors.
