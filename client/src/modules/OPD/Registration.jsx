@@ -173,7 +173,9 @@ function OPDRegistrationForm() {
   return (
     <>
       <section className={`form-container ${dark === 'dark' ? 'dark' : ''}`}>
+
         <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>OPD Registration</h2>
+
         <form onSubmit={handleSubmit} className="opd-registration-form">
           <div className={`form-group ${dark === 'dark' ? 'dark-mode' : ''}`}>
             <label htmlFor="name">Name:</label>
@@ -310,7 +312,7 @@ function OPDRegistrationForm() {
             )}
           </div>
 
-          <div className="form-group">
+          <div className="form-group  form-textarea">
             <label htmlFor="reason">Reason:</label>
             <textarea
               id="reason"
@@ -350,8 +352,20 @@ function OPDRegistrationForm() {
             />
             {errors.report && <span className="error">{errors.report}</span>}
           </div>
+          <div className="form-group form-textarea">
+            <label htmlFor="reason">Reason:</label>
+            <textarea
+              id="reason"
+              name="reason"
+              placeholder="Enter the reason for your visit"
+              value={formData.reason}
+              onChange={handleChange}
+              required
+            ></textarea>
+            {errors.reason && <span className="error">{errors.reason}</span>}
+          </div>
 
-          <div className="form-actions">
+          <div className="form-actions form-buttons">
             <button
               type="submit"
               className={`submit-btn ${dark === 'dark' ? 'btn-dark' : ''}`}
@@ -359,7 +373,9 @@ function OPDRegistrationForm() {
             >
               {isSubmitting ? 'Registering...' : 'Register'}
             </button>
+
             <Link to="/" className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}>
+
               Back to Home
             </Link>
           </div>
@@ -373,7 +389,9 @@ function OPDRegistrationForm() {
               <p className="OPDText">Med-Space</p>
             </div>
             <hr></hr>
+
             <h3 style={{ marginTop: '20px' }} className={dark === 'dark' ? 'text-yellow-400' : ''}>Registration Successful!</h3>
+
             <p>Here are your appointment details:</p>
             <ul>
               <li>Name: {registrationDetails?.name || 'John Doe'}</li>
@@ -391,11 +409,13 @@ function OPDRegistrationForm() {
                 {appointmentDetails?.hospital?.name || 'City Hospital'}
               </li>
             </ul>
+
             <button onClick={() => setShowModal(false)} className={dark === 'dark' ? 'btn-dark' : ''}>Close</button>
 
             {/* PDF download icon in the lower right corner */}
             <div className="download-icon" onClick={downloadPDF}>
               <AiOutlineDownload className={dark === 'dark' ? 'text-yellow-400' : 'text-black'} size={32} color="#007bff" />
+
             </div>
 
             {/* Footer */}
@@ -412,8 +432,8 @@ function OPDRegistrationForm() {
           </div>
         </div>
       )}
-            {/* Full-screen Loader Overlay */}
-            {isSubmitting && (
+      {/* Full-screen Loader Overlay */}
+      {isSubmitting && (
         <div className="loader-overlay">
           <div className="loader-container">
             <TailSpin

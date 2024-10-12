@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import {
@@ -13,6 +13,7 @@ import { MdOutlineLocalHospital, MdLogin, MdDarkMode } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
 import { useRecoilState } from 'recoil';
 import { mode } from '../../store/atom';
+import PropTypes from 'prop-types';
 
 const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   };
 
   // Scroll event listener
-  const controlNavbar = () => {
+  const controlNavbar = useCallback(() => {
     if (typeof window !== 'undefined') {
       if (window.scrollY > lastScrollY) {
         // If scrolled down
@@ -38,7 +39,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
       }
       setLastScrollY(window.scrollY);
     }
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -49,7 +50,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         window.removeEventListener('scroll', controlNavbar);
       };
     }
-  }, [lastScrollY]);
+  }, [lastScrollY, controlNavbar]);
 
   return (
     <nav
@@ -241,7 +242,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         </div>
       )}
 
-<div className="hidden lg:flex items-center gap-10">
+      <div className="hidden lg:flex items-center gap-10">
         <div className="flex items-center gap-4 text-lg font-medium">
           <button
             onClick={handleToggleMode}
@@ -358,6 +359,12 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
       </div>
     </nav>
   );
+};
+
+Navbar.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  user: PropTypes.object,
+  handleLogout: PropTypes.func,
 };
 
 export default Navbar;

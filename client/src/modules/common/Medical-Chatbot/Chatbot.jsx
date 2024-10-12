@@ -1,21 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, X, Bot, MessageCircle } from 'lucide-react';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { type: 'incoming', text: 'Hi there\nHow can I help you today?' }
+    { type: 'incoming', text: 'Hi there\nHow can I help you today?' },
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [apiUrl, setApiUrl] = useState('');
   const chatboxRef = useRef(null);
   const textareaRef = useRef(null);
-  const about_message = "At Med-Space, we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere. Founder of Med-space is Luson Basumatary.";
+  const about_message =
+    'At Med-Space, we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere. Founder of Med-space is Luson Basumatary.';
+  const loadConfig = useCallback(async () => {
+    try {
+      setApiKey('AIzaSyCfkCLUWHRRDB2OZeY9ro5y8pMcDtnCNCo'); //add your api key
+      setApiUrl(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
+      );
+    } catch (error) {
+      console.error('Error loading config:', error);
+    }
+  }, [apiKey]);
 
   useEffect(() => {
     loadConfig();
-  }, []);
+  }, [loadConfig]);
 
   useEffect(() => {
     if (chatboxRef.current) {
@@ -23,26 +34,19 @@ const Chatbot = () => {
     }
   }, [messages]);
 
-  const loadConfig = async () => {
-    try {
-      await setApiKey('AIzaSyCfkCLUWHRRDB2OZeY9ro5y8pMcDtnCNCo');//add your api key
-      setApiUrl(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`);
-    } catch (error) {
-      console.error('Error loading config:', error);
-    }
-  };
-
   const generateResponse = async (message) => {
     if (!apiKey) return;
 
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        contents: [{ 
-          role: "user", 
-          parts: [{ text: message+about_message }] 
-        }] 
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: 'user',
+            parts: [{ text: message + about_message }],
+          },
+        ],
       }),
     };
 
@@ -50,7 +54,10 @@ const Chatbot = () => {
       const response = await fetch(apiUrl, requestOptions);
       const data = await response.json();
       if (!response.ok) throw new Error(data.error.message);
-      return data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1');
+      return data.candidates[0].content.parts[0].text.replace(
+        /\*\*(.*?)\*\*/g,
+        '$1',
+      );
     } catch (error) {
       console.error('Error generating response:', error);
       return 'Sorry, I encountered an error. Please try again later.';
@@ -63,7 +70,7 @@ const Chatbot = () => {
     const newMessages = [
       ...messages,
       { type: 'outgoing', text: inputMessage },
-      { type: 'incoming', text: 'Thinking...' }
+      { type: 'incoming', text: 'Thinking...' },
     ];
     setMessages(newMessages);
     setInputMessage('');
@@ -89,10 +96,10 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-6 sm:right-6 md:right-8 z-50">
+    <div className="fixed bottom-20 right-6 sm:right-6 md:right-6 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
+        className="bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 rounded-full shadow-lg  transition-colors"
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </button>
