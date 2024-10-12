@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
-import '../../styles/HospitalList.css';
+import '../styles/HospitalList.css';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../common/Navbar';
-import { UserContext } from '../common/userContext';
-import hospitalsData from '../../data/hospitalsData'; // Import local hospital data
+import Navbar from '../components/Navbar';
+import { UserContext } from '../store/userContext';
+import hospitalsData from '../data/hospitalsData'; // Import local hospital data
 
 const mindate = new Date().toISOString().split('T')[0];
 

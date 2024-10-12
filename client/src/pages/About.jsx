@@ -7,8 +7,8 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import CountUp from 'react-countup';
 import VisibilitySensor from 'react-visibility-sensor';
 import { useRecoilValue } from 'recoil'; // Import Recoil
-import { mode } from '../../store/atom'; // Import the mode atom
-import luson from '../../assets/images/luson.jpg';
+import { mode } from '../store/atom'; // Import the mode atom
+import luson from '../assets/images/luson.jpg';
 
 // Team member data
 const teamMembers = [
@@ -92,7 +92,7 @@ const AboutPage = () => {
     accidents: false,
     hospitals: false,
   });
-  
+
   const dark = useRecoilValue(mode); // Get dark mode value from Recoil
   return (
     <Container dark={dark}>

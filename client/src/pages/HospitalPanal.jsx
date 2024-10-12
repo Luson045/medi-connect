@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { UserContext } from '../common/userContext';
-import '../../styles/HospitalPanal.css';
+import { UserContext } from '../store/userContext';
+import '../styles/HospitalPanal.css';
 
 const HospitalAppointments = () => {
   const { user, isAuthenticated } = useContext(UserContext); // ensure user is loaded

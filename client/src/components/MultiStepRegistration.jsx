@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Steps } from 'antd';
 import StepOne from './StepOne';
-import { Provider } from './RegistrationContext';
+import { Provider } from '../store/RegistrationContext';
 import StepTwo from './StepTwo';
 import ReviewDetails from './ReviewDetails';
 import { useRecoilValue } from 'recoil'; // Import Recoil for dark mode state
-import { mode } from '../../store/atom'; // Import the dark mode atom
+import { mode } from '../store/atom'; // Import the dark mode atom
 
 const { Step } = Steps;
 

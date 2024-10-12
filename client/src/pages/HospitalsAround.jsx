@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FaMapPin, FaHospital } from 'react-icons/fa'; // Import the icons
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer to render icons to HTML
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
 
 const HospitalsAround = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });

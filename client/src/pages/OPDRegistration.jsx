@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../../styles/OPD.css';
-import '../../styles/Loader.css';
+import '../styles/OPD.css';
+import '../styles/Loader.css';
 import jsPDF from 'jspdf';
 // import pincodes from 'indian-pincodes';
 import { pininfo } from 'indian_address';
 import { AiOutlineDownload } from 'react-icons/ai';
 import { TailSpin } from 'react-loader-spinner';
 import { useRecoilValue } from 'recoil';
-import { mode } from '../../store/atom';
+import { mode } from '../store/atom';
 
 function OPDRegistrationForm() {
   const dark = useRecoilValue(mode); // Using Recoil state for dark mode

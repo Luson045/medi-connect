@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../../styles/Navbar.css';
-import { UserContext } from './userContext';
+import '../styles/Navbar.css';
+import { UserContext } from '../store/userContext';
 import {
   FaHome,
   FaHospital,
@@ -51,8 +51,7 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 z-[100] h-full w-[75vw] sm:w-[60vw] md:w-[40vw] bg-[linear-gradient(90deg,_#667eea_0%,_#764ba2_100%)] text-white transform transition-transform duration-300 ${
-          isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 z-[100] h-full w-[75vw] sm:w-[60vw] md:w-[40vw] bg-[linear-gradient(90deg,_#667eea_0%,_#764ba2_100%)] text-white transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
       >
         {/* Sidebar content */}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import FloatingIcons from '../common/FloatingIcons';
-import { services } from '../../data';
+import FloatingIcons from '../components/FloatingIcons';
+import { services } from '../data';
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <>
