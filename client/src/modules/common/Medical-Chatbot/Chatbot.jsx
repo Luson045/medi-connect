@@ -96,7 +96,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-6 sm:right-6 md:right-6 z-50">
+    <div className="relative z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 rounded-full shadow-lg  transition-colors"
@@ -105,7 +105,7 @@ const Chatbot = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-36 right-4 sm:right-6 md:right-8 w-11/12 sm:w-80 md:w-96 bg-white rounded-lg shadow-xl max-h-[60vh] flex flex-col">
+        <div className="absolute bottom-[110%] right-0 w-11/12 sm:w-80 md:w-96 bg-white rounded-lg shadow-xl max-h-[60vh] flex flex-col">
           <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg">
             <h2 className="text-xl font-bold">Chatbot</h2>
             <button onClick={() => setIsOpen(false)}>

@@ -11,6 +11,7 @@ import {
 import { FaXTwitter } from 'react-icons/fa6'; // Corrected import for Twitter icon
 // import { FaArrowUp } from 'react-icons/fa';
 import GoogleTranslate from './GoogleTranslate';
+import Chatbot from './Medical-Chatbot/Chatbot';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -262,14 +263,17 @@ const Footer = () => {
           </p>
         </div>
 
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="fixed bottom-4 right-6 bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
-          >
-            <FaArrowUp size={24} />
-          </button>
-        )}
+        <div className="fixed bottom-4 right-6 flex flex-col gap-3">
+          <Chatbot />
+          {showScrollTop && (
+            <button
+              onClick={scrollToTop}
+              className=" bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
+            >
+              <FaArrowUp size={24} />
+            </button>
+          )}
+        </div>
       </div>
     </footer>
   );
