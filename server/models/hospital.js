@@ -16,7 +16,7 @@ const hospitalSchema = new mongoose.Schema(
     availableServices: [String],
     ratings: { type: Number, min: 0, max: 5, default: 0 },
     password: { type: String, required: true },
-    lat: { type: Number, required: true }, 
+    lat: { type: Number, required: true },
     long: { type: Number, required: true },
     appointments: [
       {
