@@ -76,7 +76,7 @@ const addDoctor = async (req, res) => {
     if (hospital) {
       // If hospital exists, validate the data using hospitalSchema
       const { doctor } = updateData;
-      doctor["id"] = randomUUID().toString();
+      doctor["_id"] = randomUUID().toString();
 
       const updatedHospital = await Hospital.findByIdAndUpdate(
         id, // Hospital ID from token
