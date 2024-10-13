@@ -64,7 +64,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         <img
           className="h-10 sm:pl-2 md:h-14"
           alt="medi-connects logo"
-          src="logo.png"
+          src="../logo.png"
           onClick={() => setMobileMenuOpen(false)}
         />
       </NavLink>
