@@ -63,7 +63,7 @@ const HospitalsAround = () => {
           let hospitalLat, hospitalLng;
           let hospitalAddress =
             hospital.tags.addr_full || 'Address not available'; // Use addr_full for address
-
+          console.log({ hospital })
           if (hospital.type === 'node') {
             hospitalLat = hospital.lat;
             hospitalLng = hospital.lon;
@@ -171,13 +171,26 @@ const HospitalsAround = () => {
             {loadingHospitals ? (
               <p>Loading hospitals...</p>
             ) : hospitals.length > 0 ? (
-              <div>
-                <h3>Hospitals within 2km:</h3>
-                <ul>
-                  {hospitals.map((hospital, index) => (
-                    <li key={index}>{hospital.name}</li>
-                  ))}
-                </ul>
+                <div className='container mx-auto'>
+                  <br />
+                  <h3 className='text-lg tracking-widest text-center font-semibold'>Hospitals within 2km:</h3>
+                  <br />
+                  <div className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3'>
+                    {hospitals.map((hospital, index) => {
+                      return <div key={index} className="mx-auto w-full bg-white rounded-xl shadow-md p-4">
+                        <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">Hospital</div>
+                        <h1 className="block mt-1 text-lg leading-tight font-semibold text-gray-800">{hospital.name}</h1>
+                        {/* <div className="mt-2 text-sm">
+                          <span className="text-gray-700 font-semibold">Address:</span>
+                          <p className='text-xs'>{hospital.address}</p>
+                        </div> */}
+                        <div className="mt-2 text-sm">
+                          <span className="text-gray-700 font-semibold">Coordinates:</span>
+                          <p className='text-xs'>Lat: {hospital.lat}, Lon: {hospital.lng}</p>
+                        </div>
+                      </div>
+                    })}
+                  </div>
               </div>
             ) : (
               <p>No hospitals found nearby.</p>
