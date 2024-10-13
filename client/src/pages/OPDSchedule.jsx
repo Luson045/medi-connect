@@ -299,7 +299,21 @@ const OPDScheduleCard = ({ departmentName }) => {
         )}
         <div className="flex flex-col items-center text-center w-full">
           {departmentName ? (
-            <OPDTable departmentName={departmentName} />
+            <>
+              <OPDTable departmentName={departmentName} />
+              <div className="flex w-full px-2  text-sm mt-6 text-gray-500 font-italic italic">
+                <p>
+                  Note: The OPD Schedule is subject to change. Please call to
+                  confirm the schedule :{' '}
+                  <a
+                    href="tel:911800808080"
+                    className="text-blue-500 hover:underline"
+                  >
+                    +91 1800 8080 80
+                  </a>
+                </p>
+              </div>
+            </>
           ) : (
             <>Select a department to view the schedule.</>
           )}
@@ -353,7 +367,7 @@ function OPDSchedule() {
                     slots for a specific doctor or specialist right away. If you
                     prefer a particular doctor based on previous visits and
                     effective treatments, you can also see their schedule and
-                    book a convenient time directly.
+                    book a accordingly.
                   </span>
                 </motion.p>
               </div>
