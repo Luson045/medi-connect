@@ -223,7 +223,7 @@ const ProfilePage = () => {
         {/* Doctors Section */}
         <div className="doctors-section">
           <div className="flex mb-4 pb-4 justify-content-center m-auto">
-            <h3 className="m-auto">Docotors</h3>
+            <h3 className="m-auto">Doctors</h3>
             <button
               className="ms-4 m-auto"
               onClick={() => {
