@@ -2,7 +2,7 @@
     <img src="logo.svg" width="328" alt="" />
 </div>
 
-# Med-Space (Appointment Booking System)
+# 🌌 Med-Space (Appointment Booking System)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![React](https://img.shields.io/badge/tech-React.js-blue.svg)
@@ -12,149 +12,118 @@
 ![GitHub Issues](https://img.shields.io/github/issues/Luson045/medi-connect)
 ![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Luson045/medi-connect)
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+---
 
-<!-- Added Hacktoberfest 2024 and GSSoc Extended 2024 banners -->
-### This project is now OFFICIALLY accepted for
+## 📖 Table of Contents
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
-  <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
-</div>
-<br>
+- [🚀 Introduction](#introduction)
+- [✨ Features](#features)
+- [🛠️ Tech Stack](#tech-stack)
+- [🎥 Demo](#demo)
+- [🚧 Getting Started](#getting-started)
+  - [📋 Prerequisites](#prerequisites)
+  - [⚙️ Installation](#installation)
+  - [🔧 Configuration](#configuration)
+- [📊 Usage](#usage)
+- [🗂️ Project Structure](#project-structure)
+- [🤝 Contributing](#contributing)
+- [📜 License](#license)
+- [📞 Contact](#contact)
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+---
 
-## Table of Contents
+## 🚀 Introduction
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Demo](#demo)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+Welcome to **Med-Space**, a next-gen web-based solution for simplifying and streamlining hospital operations. Whether it’s managing outpatient department (OPD) queues, tracking bed availability in real-time, or managing patient admissions, **Med-Space** is designed to help hospitals run more efficiently while offering a smoother experience for patients.
 
-<br>
+Developed for the **Smart India Hackathon**, our platform is built to scale and integrate city-wide, enabling hospitals to collaborate and optimize resources effectively.
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+---
 
-## Introduction
+## ✨ Features
 
-The **Medi-Connect (Appointment Booking System)** is a comprehensive web-based solution designed to streamline hospital operations by implementing efficient queuing models for Outpatient Departments (OPDs), real-time bed availability tracking, patient admission management, and inventory management for medicines and consumables. This system is scalable and can be integrated with a city-wide module, facilitating seamless coordination across multiple healthcare institutions.
+- **📅 OPD Queue Management**: 
+  - Get real-time updates on patient queues 
+  - Easily schedule appointments online 
+  - Receive instant notifications and alerts for updates
 
-Developed for the Smart India Hackathon, this platform aims to enhance patient experience, optimize hospital resources, and improve overall healthcare delivery in urban settings.
+- **🛏️ Bed Availability Monitoring**: 
+  - Track bed occupancy in real-time 
+  - Quickly allocate emergency beds 
+  - Use filters and sorting to find available beds
 
-<br>
+- **📝 Patient Admission Management**: 
+  - Smooth, hassle-free admission processes 
+  - Store and access integrated patient information & medical history 
+  - Enhance coordination between doctors and nurses
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+- **📦 Inventory Management**: 
+  - Keep an eye on medicine and consumables stock levels 
+  - Receive alerts when stock runs low 
+  - Generate detailed inventory reports and analytics
 
-## Features
+- **🔐 Secure Authentication**:
+  - Different roles for doctors and patients 
+  - Secure authentication and role-based access control powered by **JWT**
 
-- **OPD Queue Management**
+- **🏥 City-Wide Hospital Network**: 
+  - Share data seamlessly between hospitals 
+  - Centralized management for hospitals across the city 
+  - Designed for scalability
 
-  - Real-time tracking of patient queues
-  - Online appointment scheduling
-  - Notifications and alerts for patients
+---
 
-- **Bed Availability Management**
+## 🛠️ Tech Stack
 
-  - Real-time monitoring of bed occupancy
-  - Emergency bed allocation
-  - Filtering and sorting options for bed status
+Our stack is built for speed, reliability, and scalability, utilizing modern, widely-used technologies to ensure optimal performance.
 
-- **Patient Admission System**
+- **Frontend**: 
+  - ⚛️ [React.js](https://reactjs.org/)
+  - 🔄 [Redux](https://redux.js.org/)
+  - 🛤️ [React Router](https://reactrouter.com/)
+  - 🌐 [Axios](https://axios-http.com/)
+  - 🎨 [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) / [SASS](https://sass-lang.com/)
 
-  - Streamlined admission process
-  - Integrated patient information and history
-  - Doctor and nurse coordination tools
+- **Backend**:
+  - 🟢 [Node.js](https://nodejs.org/)
+  - 🚀 [Express.js](https://expressjs.com/)
+  - 🍃 [MongoDB](https://www.mongodb.com/)
+  - 🔐 [JWT](https://jwt.io/) for secure authentication
 
-- **Inventory Management**
+- **Deployment**:
+  - 🟣 [Render](https://www.render.com/)
+  - 🌍 [Netlify](https://www.netlify.com/)
 
-  - Stock level monitoring for medicines and consumables
-  - Automated alerts for low stock
-  - Inventory usage reporting and analytics
+- **Other Tools**:
+  - 💻 [Git](https://git-scm.com/) & [GitHub](https://github.com/)
+  - 🧪 [Postman](https://www.postman.com/)
+  - 📏 [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/)
 
-- **User Roles and Authentication**
+---
 
-  - Doctor and Patient roles
-  - Secure authentication and authorization
-  - Role-based access control
+## 🎥 Demo
 
-- **City-Wide Integration**
-  - Data sharing across multiple hospitals
-  - Centralized health management system integration
-  - Scalable architecture for city-wide deployment
+🎬 **[Experience the live demo](https://medi-connect-in.netlify.app/)**
 
-<br>
+Explore the full capabilities of **Med-Space** through our live demo. This comprehensive platform lets you manage appointments, medical records, and communication—all at your fingertips.
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+---
 
-## Tech Stack
+## 🚧 Getting Started
 
-- **Frontend**
+Getting started with **Med-Space** is easy. Follow the steps below to set up the project locally and begin contributing or testing.
 
-  - [React.js](https://reactjs.org/)
-  - [Redux](https://redux.js.org/) (for state management)
-  - [React Router](https://reactrouter.com/)
-  - [Axios](https://axios-http.com/) (for API calls)
-  - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) / [SASS](https://sass-lang.com/)
+### 📋 Prerequisites
 
-- **Backend**
+Before you begin, ensure you have the following installed:
 
-  - [Node.js](https://nodejs.org/)
-  - [Express.js](https://expressjs.com/)
-  - [MongoDB](https://www.mongodb.com/) (or PostgreSQL/MySQL)
-  - RESTful APIs
-  - [JWT](https://jwt.io/) for authentication
+- 🟢 [Node.js](https://nodejs.org/)
+- 📦 [npm](https://www.npmjs.com/) or 🧶 [Yarn](https://yarnpkg.com/)
+- 💻 [Git](https://git-scm.com/)
+- 🍃 [MongoDB](https://www.mongodb.com/)
+- 🐳 [Docker](https://docs.docker.com/engine/install/)
 
-- **Deployment**
-
-  - [Render](https://www.render.com/)
-  - [Netlify](https://www.netlify.com/)
-
-- **Other Tools**
-  - [Git](https://git-scm.com/) & [GitHub](https://github.com/)
-  - [Postman](https://www.postman.com/) (for API testing)
-  - [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) (for code quality)
-
-<br>
-
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
-
-## Demo
-
-[Visit the deployment Site](https://medi-connect-in.netlify.app/)
-
-Experience the full functionality of `MediConnect` through our live deployment. This platform enables seamless access to healthcare services, providing users with tools for `easy communication`, `scheduling`, and `medical record management`, all in one place.
-
-## Getting Started
-
-Follow these instructions to set up a local copy of the repository on your machine for development and testing purposes.
-
-### Prerequisites
-
-Ensure you have the following installed on your local machine:
-
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
-- [Git](https://git-scm.com/)
-- [MongoDB](https://www.mongodb.com/) (if using MongoDB as the database)
-- [Docker](https://docs.docker.com/engine/install/)
-
-### Installation
+### ⚙️ Installation
 
 1. **Clone the Repository**
 
@@ -177,9 +146,11 @@ Ensure you have the following installed on your local machine:
    npm install
    ```
 
-4. **Backend Configuration**
+---
 
-- Open the `.env` file and update the following variables:
+## 🔧 Configuration
+
+Before running the project, configure your environment variables in a `.env` file. Add the following:
 
 ```env
 PORT=5000
@@ -187,7 +158,9 @@ PASSDB=your_mongodb_connection_string
 JWT=your_jwt_secret
 ```
 
-### Installation via Docker
+### 🐳 Running with Docker
+
+If you're using Docker, follow these steps:
 
 1. **Clone the Repository**
 
@@ -196,89 +169,49 @@ JWT=your_jwt_secret
    cd medi-connect
    ```
 
-2. Run the following commands
+2. **Run Docker Compose**
 
+   ```bash
+   docker-compose build
+   docker-compose up
    ```
-       docker compose build
-       docker compose up
+
+3. **Shut Down Containers**
+
+   ```bash
+   docker-compose down
    ```
 
-3. To close the running containers run `docker compose down`
+The frontend will be available on `localhost:3000` and the backend on `localhost:5000`.
 
-4. Frontend will be running on `localhost:3000` and backend server on `localhost:5000`
+---
 
-\*\*\* Video Guide for how to run project via Docker
+## 📊 Usage
 
-https://github.com/user-attachments/assets/37a9973b-d42b-4b8f-99db-dd14cf5d069e
+Once the servers are running, navigate to `http://localhost:3000` in your web browser to start using **Med-Space**.
 
-<br>
+---
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+## 🤝 Contributing
 
-## Usage
+We’d love your help in making **Med-Space** even better! Feel free to submit pull requests or open issues for any feature requests or bug fixes.
 
-The backend server should be running at `https://medi-connect-f671.onrender.com`.
+---
 
-**Start the Frontend Server**
-
-The frontend application should be running at `http://localhost:3000`.
-
-**Access the Application**
-
-Open your web browser and navigate to `http://localhost:3000` to access the Medi-Connect(Application Booking System).
-
-- **backend/**: Contains the server-side code, including API routes, controllers, models, and configuration files.
-- **frontend/**: Contains the client-side code built with React.js, including components, pages, context, and services.
-
-**Code Formatting**
-
-To ensure consistent code formatting across the project, you can use the following scripts:
-
-- Run `npm run format` to format your code according to Prettier's rules.
-- Run `npm run format-check` to check if the code is formatted correctly.
-
-Make sure to run these commands in both the `client` and `server` directories.
-
-<br>
-
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
-
-<!-- Modified the Contributors Mention Section -->
-<div>
-  <h2 align = "center"><img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Red%20Heart.png" width="35" height="35">Our Contributors</h2>
-  <div align = "center">
- <h3>Thank you for contributing to our repository</h3>
-
-![Contributors](https://contrib.rocks/image?repo=Luson045/medi-connect&v=1)
-</div>
-
-<br>
-
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
-
-## License
+## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
 
-<br>
+---
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+## 📞 Contact
 
-## 👥 Team
+For questions or feedback, feel free to reach out to **Luson Basumatary**:
 
-| ![Luson Basumatary](https://avatars.githubusercontent.com/u/131430087?v=4&s=80) |
-|:--:|
-| **Luson Basumatary** <br> <sub>Project Admin</sub> | 
-| [![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/luson-basumatary-79a93b244/) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:yuria4489@gmail.com) |
+[![LinkedIn](https://img.icons8.com/fluency/32/000000/linkedin.png)](https://www.linkedin.com/in/luson-basumatary-79a93b244/) [![Gmail](https://img.icons8.com/fluency/32/000000/gmail.png)](mailto:yuria4489@gmail.com)
 
-For any inquiries or feedback, please contact. Happy Contributing 🫡
+---
 
-<!--Line-->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+## ⭐️ Support
 
-## ⭐️ Support the Project
-If you find this project helpful, please consider giving it a ⭐ on GitHub! Your support helps to grow the project and reach more contributors.
+If you enjoy using **Med-Space**, please consider giving it a ⭐ on GitHub. Your support is appreciated!
