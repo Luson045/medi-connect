@@ -1,5 +1,7 @@
 const User = require("../../models/user.js");
 const Hospital = require("../../models/hospital.js");
+const { randomUUID } = require("crypto");
+const { ZodError } = require("zod");
 
 const getProfile = async (req, res) => {
   try {
@@ -24,7 +26,7 @@ const editProfile = async (req, res) => {
     let user = await User.findById(id);
     if (user) {
       // If user exists, validate the data using userSchema
-      updateData = userSchema.partial().parse(updateData);
+      updateData = User.schema.partial().parse(updateData);
 
       const updatedUser = await User.findByIdAndUpdate(
         id, // User ID from token
@@ -39,7 +41,7 @@ const editProfile = async (req, res) => {
     let hospital = await Hospital.findById(id);
     if (hospital) {
       // If hospital exists, validate the data using hospitalSchema
-      updateData = hospitalSchema.partial().parse(updateData);
+      updateData = Hospital.schema.partial().parse(updateData);
 
       const updatedHospital = await Hospital.findByIdAndUpdate(
         id, // Hospital ID from token
@@ -56,13 +58,48 @@ const editProfile = async (req, res) => {
       .json({ msg: "No user or hospital found with the provided ID" });
   } catch (error) {
     console.log(error);
-    if (error instanceof z.ZodError) {
+    if (error instanceof ZodError) {
       return res
         .status(400)
         .json({ message: "Validation error", errors: error.errors });
     }
     res.status(500).json({ message: "Server error", error });
   }
-}
+};
 
-module.exports = { getProfile ,editProfile};
+const addDoctor = async (req, res) => {
+  try {
+    const { id } = req.user; // Get 'id' from token
+    let updateData = req.body; // Data to update, parsed from request body
+
+    let hospital = await Hospital.findById(id);
+    if (hospital) {
+      // If hospital exists, validate the data using hospitalSchema
+      const { doctor } = updateData;
+      doctor["id"] = randomUUID().toString();
+
+      const updatedHospital = await Hospital.findByIdAndUpdate(
+        id, // Hospital ID from token
+        { $push: { doctors: doctor } }, // Update only the provided fields
+        { new: true, runValidators: true } // Return the updated document
+      );
+
+      return res.json(updatedHospital); // Return the updated hospital data
+    }
+
+    // If a hospital was found, return an error
+    return res
+      .status(404)
+      .json({ msg: "No hospital found with the provided ID" });
+  } catch (error) {
+    console.log(error);
+    if (error instanceof ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
+    }
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+module.exports = { getProfile, editProfile, addDoctor };

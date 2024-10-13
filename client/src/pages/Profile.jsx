@@ -7,19 +7,24 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // To toggle the modal visibility
   const [editData, setEditData] = useState({}); // For storing the editable data
+  const [isAddingDoctor, setIsAddingDoctor] = useState(false); // To toggle the Add doctor modal visibility
+  const [doctorData, setDoctorData] = useState({}); // For storing the new doctor data
 
   useEffect(() => {
     // Fetch the user data if authenticated
     const fetchUserData = async () => {
       if (isAuthenticated) {
         try {
-          const response = await fetch('https://medi-connect-f671.onrender.com/auth/profile', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': localStorage.getItem('token'),
+          const response = await fetch(
+            'https://medi-connect-f671.onrender.com/auth/profile',
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': localStorage.getItem('token'),
+              },
             },
-          });
+          );
           if (response.ok) {
             const data = await response.json();
             setUserData(data);
@@ -52,16 +57,24 @@ const ProfilePage = () => {
     setEditData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDoctorDataChange = (e) => {
+    const { name, value } = e.target;
+    setDoctorData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleConfirmEdit = async () => {
     try {
-      const response = await fetch('https://medi-connect-f671.onrender.com/auth/profile/edit', {
-        method: 'POST', // Changed to POST
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('token'),
+      const response = await fetch(
+        'https://medi-connect-f671.onrender.com/auth/profile/edit',
+        {
+          method: 'POST', // Changed to POST
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.getItem('token'),
+          },
+          body: JSON.stringify(editData),
         },
-        body: JSON.stringify(editData),
-      });
+      );
       if (response.ok) {
         const updatedData = await response.json();
         setUserData(updatedData); // Update the local state with the edited data
@@ -74,8 +87,41 @@ const ProfilePage = () => {
     }
   };
 
+  const handleConfirmAddDoctor = async () => {
+    try {
+      const postData = {
+        id: userData.id,
+        doctor: doctorData,
+      };
+      const response = await fetch(
+        'https://medi-connect-f671.onrender.com/auth/profile/addDoctor',
+        {
+          method: 'POST', // Changed to POST
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.getItem('token'),
+          },
+          body: JSON.stringify(postData),
+        },
+      );
+      if (response.ok) {
+        const updatedData = await response.json();
+        setUserData(updatedData); // Update the local state with the edited data
+        setIsAddingDoctor(false); // Close the modal
+      } else {
+        console.error('Failed to add new doctor');
+      }
+    } catch (error) {
+      console.error('Error adding new doctor:', error);
+    }
+  };
+
   const handleCancelEdit = () => {
     setIsEditing(false); // Close the modal without saving changes
+  };
+
+  const handleCancelAddDoctor = () => {
+    setIsAddingDoctor(false); // Close the modal without saving changes
   };
 
   return (
@@ -102,8 +148,9 @@ const ProfilePage = () => {
             <>
               <p>
                 <strong>Address:</strong>{' '}
-                {`${userData.address?.street || 'N/A'}, ${userData.address?.city || 'N/A'
-                  }, ${userData.address?.state || 'N/A'}`}
+                {`${userData.address?.street || 'N/A'}, ${
+                  userData.address?.city || 'N/A'
+                }, ${userData.address?.state || 'N/A'}`}
               </p>
               <p>
                 <strong>Phone:</strong> {userData.phone || 'N/A'}
@@ -172,7 +219,96 @@ const ProfilePage = () => {
             </table>
           )}
         </div>
+
+        {/* Doctors Section */}
+        <div className="doctors-section">
+          <div className="flex mb-4 pb-4 justify-content-center m-auto">
+            <h3 className="m-auto">Docotors</h3>
+            <button
+              className="ms-4 m-auto"
+              onClick={() => {
+                setIsAddingDoctor(true);
+              }}
+            >
+              Add Doctor
+            </button>
+          </div>
+          {!userData.doctors || userData.doctors.length === 0 ? (
+            <p>No doctors added.</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Phone</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userData.doctors.map((doctor) => (
+                  <tr key={doctor._id}>
+                    <td>{doctor.name}</td>
+                    <td>{doctor.department}</td>
+                    <td>{doctor.phone}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
+
+      {/* Add Doctor Modal */}
+      {isAddingDoctor && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3 className="font-bold text-lg">Add Doctor</h3>
+            <div className="form-group">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={doctorData.name}
+                onChange={handleDoctorDataChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone:</label>
+              <input
+                type="text"
+                name="phone"
+                value={doctorData.phone}
+                onChange={handleDoctorDataChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Department:</label>
+              <select
+                name="department"
+                className="rounded py-1 px-2"
+                value={doctorData.department}
+                required
+                onChange={handleDoctorDataChange}
+              >
+                <option value="" disabled selected>
+                  Select Department
+                </option>
+                <option value="cardiology">Cardiology</option>
+                <option value="neurology">Neurology</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="gynecology">Gynecology</option>
+                <option value="dermatology">Dermatology</option>
+              </select>
+            </div>
+
+            <div className="modal-actions">
+              <button onClick={handleCancelAddDoctor}>Cancel</button>
+              <button onClick={handleConfirmAddDoctor}>Confirm Add</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Edit Profile Modal */}
       {isEditing && (
