@@ -341,9 +341,9 @@ function StepTwo() {
               <option value="" disabled>
                 Select Gender
               </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="Male">Male</option>
+              <option value="Memale">Female</option>
+              <option value="Other">Other</option>
             </select>
             {errors.frontend.gender && (
               <span className="error">{errors.frontend.gender}</span>
