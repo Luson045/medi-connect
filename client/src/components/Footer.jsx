@@ -98,7 +98,7 @@ const Footer = () => {
             >
               {/* Adjusted hover text colors */}
               <img
-                src="favicon.png"
+                src="../favicon.png"
                 className="h-10 w-10 transition-transform duration-300 group-hover:rotate-6"
                 alt="AgroTech AI Logo"
               />
