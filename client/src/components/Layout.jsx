@@ -14,7 +14,7 @@ import Footer from './Footer';
 import ProfilePage from '../pages/Profile';
 import AboutPage from '../pages/About';
 import AuthPage from '../pages/AuthForm';
-import OPDRegistrationForm from '../pages/Registration';
+import OPDRegistrationForm from '../pages/OPDRegistration';
 import HospitalsList from '../pages/HospitalList';
 import Success from '../pages/Success';
 import Home from '../pages/Home';
