@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../store/userContext';
 import '../styles/UserProfile.css';
-
-// const BASE_URL = "https:://medi-connect-f671.onrender.com/auth/profile"
-const BASE_URL = 'https://medi-connect-f671.onrender.com/auth/profile';
+import { databaseUrls } from '../data/databaseUrls';
 
 const ProfilePage = () => {
   const { isAuthenticated } = useContext(UserContext);
@@ -27,7 +25,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       if (isAuthenticated) {
         try {
-          const response = await fetch(BASE_URL, {
+          const response = await fetch(databaseUrls.auth.profile, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -91,7 +89,7 @@ const ProfilePage = () => {
 
   const handleConfirmEdit = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/edit`, {
+      const response = await fetch(databaseUrls.auth.editProfile, {
         method: 'POST', // Changed to POST
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +115,7 @@ const ProfilePage = () => {
         id: userData.id,
         doctor: doctorData,
       };
-      const response = await fetch(`${BASE_URL}/addDoctor`, {
+      const response = await fetch(databaseUrls.auth.addDoctor, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
