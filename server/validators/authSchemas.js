@@ -23,7 +23,11 @@ const userSchema = z.object({
     state: z.string(),
     postalCode: z.string(),
   }),
-  gender: z.string().optional(),
+  gender: z
+    .string()
+    .transform(
+      (val) => `${val.charAt(0).toUpperCase()}${val.slice(1).toLowerCase()}`
+    ),
   dob: z
     .union([z.date(), z.string().transform((val) => new Date(val))])
     .refine((val) => !isNaN(val.getTime()), { message: "Invalid date format" }),

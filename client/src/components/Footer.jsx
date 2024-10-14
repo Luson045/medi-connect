@@ -131,6 +131,7 @@ const Footer = () => {
                 </ul>
             </div>
 
+
             {/* Connect with Us and Legal */}
             <div>
                 {/* Social Media Links */}
@@ -187,6 +188,32 @@ const Footer = () => {
                     ))}
                 </ul>
             </div>
+
+            {/* Legal Links */}
+            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
+              Contact Us
+            </h3>
+            <ul className="space-y-2">
+              {contactUsLinks.map((item) => (
+                <li key={item.name}>
+                  <Link to={item.path} className="flex items-center group">
+                    <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
+                      ›
+                    </span>
+                    <span className="relative overflow-hidden">
+                      <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
+                        {item.name}
+                      </span>
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+                        {item.name}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
         <div className='mt-8 pt-8 border-t border-[#b6dbfc]/30 text-center'>
