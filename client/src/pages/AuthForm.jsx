@@ -72,7 +72,7 @@ const AuthPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        }
+        },
       );
 
       const data = await response.json();
@@ -94,7 +94,7 @@ const AuthPage = () => {
         } else {
           notify(
             data.message || 'An error occurred. Please try again.',
-            'warn'
+            'warn',
           );
         }
       }
@@ -115,39 +115,54 @@ const AuthPage = () => {
 
   return (
     <div
-      className={`login_background ${dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
-        }`}
+      className={`login_background ${
+        dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
+      }`}
     >
       <div className="auth-maindiv">
         <div
-          className={`auth-container ${dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
-            }`}
+          className={`auth-container ${
+            dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
+          }`}
         >
-          <h2 className={` ${dark === 'dark'
-            ? ' text-yellow-400'
-            : 'bg-white text-gray-700'
-            }`}>Login</h2>
+          <h2
+            className={` ${
+              dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-700'
+            }  text-3xl font-bold mb-6`}
+          >
+            Login
+          </h2>
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-section">
-              <label className={`auth-form ${dark === 'dark'
-                ? ' text-yellow-400'
-                : 'bg-white text-gray-700'
-                }`}>User Type:</label>
+              <label
+                className={`auth-form ${
+                  dark === 'dark'
+                    ? ' text-yellow-400'
+                    : 'bg-white text-gray-700'
+                }`}
+              >
+                User Type:
+              </label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-
+                className="px-2.5 py-2"
               >
                 <option value="user">User</option>
                 <option value="hospital">Hospital</option>
               </select>
             </div>
             <div className="form-section">
-              <label className={`auth-form ${dark === 'dark'
-                ? ' text-yellow-400'
-                : 'bg-white text-gray-700'
-                }`}>Email:</label>
+              <label
+                className={`auth-form ${
+                  dark === 'dark'
+                    ? ' text-yellow-400'
+                    : 'bg-white text-gray-700'
+                }`}
+              >
+                Email:
+              </label>
               <input
                 type="email"
                 name="email"
@@ -155,8 +170,11 @@ const AuthPage = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className={`${dark === 'dark' ? ' text-yellow-400' : 'bg-white text-gray-900'
-                  }`}
+                className={`${
+                  dark === 'dark'
+                    ? ' text-yellow-400'
+                    : 'bg-white text-gray-900'
+                }`}
               />
               {errors.frontend.email && (
                 <span className="error">{errors.frontend.email}</span>
@@ -167,10 +185,15 @@ const AuthPage = () => {
             </div>
 
             <div className="form-section">
-              <label className={`auth-form ${dark === 'dark'
-                ? ' text-yellow-400'
-                : 'bg-white text-gray-700'
-                }`}>Password:</label>
+              <label
+                className={`auth-form ${
+                  dark === 'dark'
+                    ? ' text-yellow-400'
+                    : 'bg-white text-gray-700'
+                }`}
+              >
+                Password:
+              </label>
               <div className="password-wrapper">
                 <input
                   type={showPassword.password ? 'text' : 'password'}
@@ -179,10 +202,11 @@ const AuthPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className={`${dark === 'dark'
-                    ? ' text-yellow-400'
-                    : 'bg-white text-gray-900'
-                    }`}
+                  className={`${
+                    dark === 'dark'
+                      ? ' text-yellow-400'
+                      : 'bg-white text-gray-900'
+                  }`}
                 />
                 <button
                   type="button"
@@ -203,10 +227,11 @@ const AuthPage = () => {
             <div className="register-button">
               <button
                 type="submit"
-                className={`auth-button ${dark === 'dark'
-                  ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
-                  }`}
+                className={`auth-button ${
+                  dark === 'dark'
+                    ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
               >
                 Login
               </button>
@@ -214,8 +239,9 @@ const AuthPage = () => {
 
             <Link
               to="/register"
-              className={`toggle-auth-button text-center ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
-                }`}
+              className={`toggle-auth-button text-center ${
+                dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
+              }`}
             >
               Don't have an account? Register
             </Link>
