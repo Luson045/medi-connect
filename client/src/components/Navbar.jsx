@@ -54,11 +54,13 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
 
   return (
     <nav
-      className={`${dark === 'dark'
+      className={`${
+        dark === 'dark'
           ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
           : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-        } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}
+      } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
+        isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
     >
       <NavLink to="/">
         <img
@@ -79,17 +81,19 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
 
       {isMobileMenuOpen && (
         <div
-          className={`${dark === 'dark'
+          className={`${
+            dark === 'dark'
               ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
               : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-            } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit`}
+          } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit`}
         >
           <button
             onClick={handleToggleMode}
-            className={`p-2 rounded-full transition-all duration-300 ${dark === 'light'
+            className={`p-2 rounded-full transition-all duration-300 ${
+              dark === 'light'
                 ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
                 : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-              }`}
+            }`}
           >
             {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
           </button>
@@ -231,7 +235,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <FaUserPlus />
-                Sign Up
+                Register
               </NavLink>
             </div>
           )}
@@ -242,10 +246,11 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         <div className="flex items-center gap-4 text-lg font-medium">
           <button
             onClick={handleToggleMode}
-            className={`p-2 rounded-full transition-all duration-300 ${dark === 'light'
+            className={`p-2 rounded-full transition-all duration-300 ${
+              dark === 'light'
                 ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
                 : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-              }`}
+            }`}
           >
             {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
           </button>
@@ -317,10 +322,11 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         <div className="flex gap-3">
           {isAuthenticated ? (
             <button
-              className={`${dark === 'dark'
+              className={`${
+                dark === 'dark'
                   ? 'bg-gray-900 text-gray-100'
                   : 'bg-white text-black'
-                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
               onClick={handleLogout}
             >
               Log Out
@@ -328,19 +334,21 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           ) : (
             <div className="flex gap-5">
               <NavLink
-                className={`${dark === 'dark'
+                className={`${
+                  dark === 'dark'
                     ? 'bg-gray-900 text-gray-100'
                     : 'bg-white text-black'
-                  } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
                 to="/login"
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className={`${dark === 'dark'
+                className={`${
+                  dark === 'dark'
                     ? 'bg-gray-900 text-gray-100'
                     : 'bg-white text-black'
-                  } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
                 to="/register"
               >
                 <FaUserPlus /> Register
