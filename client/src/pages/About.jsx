@@ -347,6 +347,7 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  margin-bottom: 1.75rem;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -358,6 +359,10 @@ const TeamCard = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 450px;
   text-align: center;
   transition: transform 0.3s ease;
   &:hover {
@@ -369,7 +374,8 @@ const ProfileImage = styled.img`
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  margin-bottom: 1rem;
+  margin: 0 auto;
+  display: block;
 `;
 const SocialIcons = styled.div`
   display: flex;
@@ -388,6 +394,7 @@ const Name = styled.h4`
   font-size: 1.25rem;
   margin-bottom: 0.2rem;
   color: #333;
+  color: ${({ dark }) => (dark === 'dark' ? 'white' : '')};
 `;
 
 const Role = styled.h5`
