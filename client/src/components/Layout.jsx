@@ -19,6 +19,7 @@ import OPDSchedule from '../pages/OPDSchedule';
 import HospitalsList from '../pages/HospitalList';
 import Success from '../pages/Success';
 import Home from '../pages/Home';
+import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
 
 function Layout() {
@@ -36,6 +37,7 @@ function Layout() {
     path === '/login' ||
     path === '/register' ||
     path === '/hospitals' ||
+    path === '/hospitalDetails' ||
     path === '/panal' ||
     path === '/profile' ||
     path === '/services' ||
@@ -61,6 +63,7 @@ function Layout() {
           <Route exact path="/login" element={<AuthPage />} />
           <Route exact path="/register" element={<Registration />} />
           <Route exact path="/hospitals" element={<HospitalsList />} />
+          <Route exact path="/hospitalDetails" element={<HospitalDetails />} />
           <Route exact path="/panal" element={<HospitalAppointments />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route exact path="/services" element={<ServicePage />} />

@@ -1,224 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Login.css';
 import { useRecoilValue } from 'recoil'; // Import Recoil to use the dark mode state
 import { mode } from '../store/atom'; // Import dark mode atom
 import { motion } from 'framer-motion';
 import FloatingIcons from '../components/FloatingIcons';
 import PropTypes from 'prop-types';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { databaseUrls } from '../data/databaseUrls';
 
 const departments = {
   cardiology: {
-    name: 'Cardiology',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. John Smith',
-        monday: '9:00 AM - 3:00 PM',
-        tuesday: '9:00 AM - 3:00 PM',
-        wednesday: '9:00 AM - 3:00 PM',
-        thursday: '9:00 AM - 3:00 PM',
-        friday: '9:00 AM - 3:00 PM',
-        saturday: '10:00 AM - 2:00 PM',
-      },
-      {
-        doctorName: 'Dr. Emily Johnson',
-        monday: '10:00 AM - 4:00 PM',
-        tuesday: '10:00 AM - 4:00 PM',
-        wednesday: '10:00 AM - 4:00 PM',
-        thursday: '10:00 AM - 4:00 PM',
-        friday: '10:00 AM - 4:00 PM',
-        saturday: '10:00 AM - 2:00 PM',
-      },
-      {
-        doctorName: 'Dr. David Lee',
-        monday: '11:00 AM - 5:00 PM',
-        tuesday: '11:00 AM - 5:00 PM',
-        wednesday: '11:00 AM - 5:00 PM',
-        thursday: '11:00 AM - 5:00 PM',
-        friday: '11:00 AM - 5:00 PM',
-        saturday: '9:00 AM - 1:00 PM',
-      },
-      {
-        doctorName: 'Dr. Alice Thompson',
-        monday: '8:00 AM - 2:00 PM',
-        tuesday: '8:00 AM - 2:00 PM',
-        wednesday: '8:00 AM - 2:00 PM',
-        thursday: '8:00 AM - 2:00 PM',
-        friday: '8:00 AM - 2:00 PM',
-        saturday: '11:00 AM - 3:00 PM',
-      },
-      {
-        doctorName: 'Dr. Robert Carter',
-        monday: '9:30 AM - 3:30 PM',
-        tuesday: '9:30 AM - 3:30 PM',
-        wednesday: '9:30 AM - 3:30 PM',
-        thursday: '9:30 AM - 3:30 PM',
-        friday: '9:30 AM - 3:30 PM',
-        saturday: '10:00 AM - 1:00 PM',
-      },
-      {
-        doctorName: 'Dr. Sophia Wilson',
-        monday: '10:00 AM - 4:00 PM',
-        tuesday: '10:00 AM - 4:00 PM',
-        wednesday: '10:00 AM - 4:00 PM',
-        thursday: '10:00 AM - 4:00 PM',
-        friday: '10:00 AM - 4:00 PM',
-        saturday: '11:00 AM - 2:00 PM',
-      },
-    ],
+    name: 'Cardiology'
   },
   neurology: {
-    name: 'Neurology',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. Sarah Brown',
-        monday: '8:00 AM - 12:00 PM',
-        tuesday: '1:00 PM - 5:00 PM',
-        wednesday: '8:00 AM - 12:00 PM',
-        thursday: '1:00 PM - 5:00 PM',
-        friday: '8:00 AM - 12:00 PM',
-      },
-      {
-        doctorName: 'Dr. Michael Taylor',
-        monday: '10:00 AM - 3:00 PM',
-        tuesday: '10:00 AM - 3:00 PM',
-        thursday: '10:00 AM - 3:00 PM',
-        friday: '10:00 AM - 3:00 PM',
-      },
-      {
-        doctorName: 'Dr. Daniel Scott',
-        monday: '9:00 AM - 1:00 PM',
-        tuesday: '2:00 PM - 6:00 PM',
-        wednesday: '9:00 AM - 1:00 PM',
-        thursday: '2:00 PM - 6:00 PM',
-        friday: '9:00 AM - 1:00 PM',
-      },
-      {
-        doctorName: 'Dr. Karen Green',
-        monday: '11:00 AM - 4:00 PM',
-        tuesday: '11:00 AM - 4:00 PM',
-        thursday: '11:00 AM - 4:00 PM',
-        friday: '11:00 AM - 4:00 PM',
-      },
-    ],
+    name: 'Neurology'
   },
   orthopedics: {
-    name: 'Orthopedics',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. Robert Wilson',
-        monday: '9:00 AM - 3:00 PM',
-        tuesday: '9:00 AM - 3:00 PM',
-        wednesday: '9:00 AM - 3:00 PM',
-        thursday: '1:00 PM - 5:00 PM',
-        friday: '9:00 AM - 3:00 PM',
-        saturday: '10:00 AM - 1:00 PM',
-      },
-      {
-        doctorName: 'Dr. Linda Miller',
-        monday: '1:00 PM - 5:00 PM',
-        tuesday: '9:00 AM - 3:00 PM',
-        thursday: '9:00 AM - 3:00 PM',
-        friday: '1:00 PM - 5:00 PM',
-      },
-      {
-        doctorName: 'Dr. Ethan Hall',
-        monday: '9:00 AM - 4:00 PM',
-        tuesday: '9:00 AM - 4:00 PM',
-        wednesday: '9:00 AM - 4:00 PM',
-        thursday: '10:00 AM - 3:00 PM',
-        friday: '9:00 AM - 4:00 PM',
-        saturday: '11:00 AM - 2:00 PM',
-      },
-      {
-        doctorName: 'Dr. Grace Lee',
-        monday: '1:00 PM - 5:00 PM',
-        tuesday: '10:00 AM - 3:00 PM',
-        thursday: '10:00 AM - 3:00 PM',
-        friday: '1:00 PM - 5:00 PM',
-      },
-    ],
+    name: 'Orthopedics'
   },
   pediatrics: {
-    name: 'Pediatrics',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. Jennifer Davis',
-        monday: '10:00 AM - 2:00 PM',
-        tuesday: '10:00 AM - 2:00 PM',
-        wednesday: '1:00 PM - 5:00 PM',
-        thursday: '10:00 AM - 2:00 PM',
-        friday: '1:00 PM - 5:00 PM',
-      },
-      {
-        doctorName: 'Dr. James Harris',
-        monday: '9:00 AM - 1:00 PM',
-        tuesday: '9:00 AM - 1:00 PM',
-        wednesday: '2:00 PM - 6:00 PM',
-        thursday: '9:00 AM - 1:00 PM',
-        friday: '2:00 PM - 6:00 PM',
-      },
-    ],
+    name: 'Pediatrics'
   },
   gynecology: {
-    name: 'Gynecology',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. Jessica Garcia',
-        monday: '9:00 AM - 1:00 PM',
-        tuesday: '9:00 AM - 1:00 PM',
-        wednesday: '1:00 PM - 5:00 PM',
-        thursday: '9:00 AM - 1:00 PM',
-        saturday: '9:00 AM - 1:00 PM',
-      },
-      {
-        doctorName: 'Dr. Maria Clark',
-        monday: '10:00 AM - 2:00 PM',
-        tuesday: '10:00 AM - 2:00 PM',
-        wednesday: '2:00 PM - 6:00 PM',
-        thursday: '10:00 AM - 2:00 PM',
-        saturday: '10:00 AM - 2:00 PM',
-      },
-    ],
+    name: 'Gynecology'
   },
   dermatology: {
-    name: 'Dermatology',
-    opdSchedule: [
-      {
-        doctorName: 'Dr. Charles Martinez',
-        monday: '9:00 AM - 3:00 PM',
-        tuesday: '1:00 PM - 5:00 PM',
-        wednesday: '9:00 AM - 3:00 PM',
-        thursday: '1:00 PM - 5:00 PM',
-        saturday: '10:00 AM - 2:00 PM',
-      },
-      {
-        doctorName: 'Dr. Angela Rodriguez',
-        monday: '10:00 AM - 4:00 PM',
-        tuesday: '10:00 AM - 4:00 PM',
-        thursday: '10:00 AM - 4:00 PM',
-        friday: '10:00 AM - 4:00 PM',
-      },
-      {
-        doctorName: 'Dr. William Lewis',
-        monday: '10:00 AM - 3:00 PM',
-        tuesday: '1:00 PM - 5:00 PM',
-        wednesday: '10:00 AM - 3:00 PM',
-        thursday: '1:00 PM - 5:00 PM',
-        saturday: '11:00 AM - 3:00 PM',
-      },
-      {
-        doctorName: 'Dr. Natalie Walker',
-        monday: '9:00 AM - 2:00 PM',
-        tuesday: '9:00 AM - 2:00 PM',
-        thursday: '9:00 AM - 2:00 PM',
-        friday: '9:00 AM - 2:00 PM',
-      },
-    ],
+    name: 'Dermatology'
   },
 };
 
-const OPDTable = ({ departmentName }) => {
-  const opdScheduleData = departments[departmentName].opdSchedule;
+const OPDTable = ({ doctorsSchedule }) => {
   const emptyFiller = '-';
 
   return (
@@ -253,23 +64,25 @@ const OPDTable = ({ departmentName }) => {
           </tr>
         </thead>
         <tbody>
-          {opdScheduleData.map((row, index) => (
+          {
+          doctorsSchedule
+          .map((doc) =>
             <tr
-              key={index}
+              key={doc._id}
               className={` hover:bg-blue-100 
-                  ${index % 2 === 0 ? 'bg-gray-200' : 'bg-white'} 
+                  ${doc._id % 2 === 0 ? 'bg-gray-200' : 'bg-white'} 
                   transition-colors duration-150 ease-in-out`}
             >
-              <td className="ps-3 py-3 text-left">{row.doctorName}</td>
-              <td>{row.monday ? row.monday : emptyFiller}</td>
-              <td>{row.tuesday ? row.tuesday : emptyFiller}</td>
-              <td>{row.wednesday ? row.wednesday : emptyFiller}</td>
-              <td>{row.thurdsday ? row.thurdsday : emptyFiller}</td>
-              <td>{row.friday ? row.friday : emptyFiller}</td>
-              <td>{row.saturday ? row.saturday : emptyFiller}</td>
-              <td>{row.sunday ? row.sunday : emptyFiller}</td>
+              <td className="ps-3 py-3 text-left">{doc.name}</td>
+              <td>{doc.opdSchedule.monday ? doc.opdSchedule.monday : emptyFiller}</td>
+              <td>{doc.opdSchedule.tuesday ? doc.opdSchedule.tuesday : emptyFiller}</td>
+              <td>{doc.opdSchedule.wednesday ? doc.opdSchedule.wednesday : emptyFiller}</td>
+              <td>{doc.opdSchedule.thurdsday ? doc.opdSchedule.thurdsday : emptyFiller}</td>
+              <td>{doc.opdSchedule.friday ? doc.opdSchedule.friday : emptyFiller}</td>
+              <td>{doc.opdSchedule.saturday ? doc.opdSchedule.saturday : emptyFiller}</td>
+              <td>{doc.opdSchedule.sunday ? doc.opdSchedule.sunday : emptyFiller}</td>
             </tr>
-          ))}
+        )}
         </tbody>
       </table>
     </div>
@@ -277,10 +90,10 @@ const OPDTable = ({ departmentName }) => {
 };
 
 OPDTable.propTypes = {
-  departmentName: PropTypes.string.isRequired,
+  doctorsSchedule: PropTypes.array.isRequired
 };
 
-const OPDScheduleCard = ({ departmentName }) => {
+const OPDScheduleCard = ({ departmentName, doctorsSchedule, hospitalPhone }) => {
   return (
     <>
       <motion.div
@@ -299,8 +112,9 @@ const OPDScheduleCard = ({ departmentName }) => {
         )}
         <div className="flex flex-col items-center text-center w-full">
           {departmentName ? (
-            <>
-              <OPDTable departmentName={departmentName} />
+            doctorsSchedule.length !== 0 ?
+            (<>
+              <OPDTable doctorsSchedule={doctorsSchedule} />
               <div className="flex w-full px-2  text-sm mt-6 text-gray-500 font-italic italic">
                 <p>
                   Note: The OPD Schedule is subject to change. Please call to
@@ -309,11 +123,17 @@ const OPDScheduleCard = ({ departmentName }) => {
                     href="tel:911800808080"
                     className="text-blue-500 hover:underline"
                   >
-                    +91 1800 8080 80
+                    {hospitalPhone}
                   </a>
                 </p>
               </div>
-            </>
+            </>) : (
+              <div className="flex flex-col items-center text-center w-full">
+                <p className="text-lg italic text-center w-full mb-6 text-grey-800">
+                  No doctors available in this department
+                </p>
+             </div>
+            )
           ) : (
             <>Select a department to view the schedule.</>
           )}
@@ -325,11 +145,37 @@ const OPDScheduleCard = ({ departmentName }) => {
 
 OPDScheduleCard.propTypes = {
   departmentName: PropTypes.string.isRequired,
+  doctorsSchedule: PropTypes.array.isRequired,
+  hospitalPhone: PropTypes.string.isRequired
 };
 
 function OPDSchedule() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const hospitalId = queryParams.get('id');
   const dark = useRecoilValue(mode); // Access dark mode value using Recoil
   const [departmentName, setDepartment] = useState('');
+  const [hospitalData, setHospitalData] = useState(null);
+
+  useEffect(() => {
+    if (!hospitalId) {
+      navigate('/not-found');
+    }else{
+      // fetch
+      fetch(databaseUrls.hospitals.fromId.replace('_id', hospitalId))
+      .then((data) => data.json())
+      .then((data) => {setHospitalData(data)})
+    }
+  },[]);
+
+  if (!hospitalId) {
+    return <></>;
+  }
+
+  if (hospitalData === null) {
+    return <></>;
+  }   
 
   return (
     <>
@@ -360,6 +206,11 @@ function OPDSchedule() {
                 >
                   <span>Check OPD Schedule</span>
                 </motion.h2>
+                <motion.p className="flex flex-col items-center text-center mb-12 mx-2">
+                  <span>
+                    Hospital : {hospitalData.name}
+                  </span>
+                </motion.p>
                 <motion.p className="flex flex-col items-center text-center mb-12 mx-2">
                   <span>
                     If you are in an emergency and can not wait for an
@@ -395,17 +246,21 @@ function OPDSchedule() {
                     <option value="" disabled>
                       Select Department
                     </option>
-                    <option value="cardiology">Cardiology</option>
-                    <option value="neurology">Neurology</option>
-                    <option value="orthopedics">Orthopedics</option>
-                    <option value="pediatrics">Pediatrics</option>
-                    <option value="gynecology">Gynecology</option>
-                    <option value="dermatology">Dermatology</option>
+                    {
+                      Object.keys(departments)
+                      .map((department) => (
+                        <option key={department} value={department}>
+                          {departments[department].name}
+                        </option>
+                      ))
+                    }
                   </select>
                 </div>
               </motion.div>
               <div className="mt-4">
-                <OPDScheduleCard departmentName={departmentName} />
+                <OPDScheduleCard departmentName={departmentName} doctorsSchedule={
+                  hospitalData.doctors.filter((doc) => doc.department === departmentName)
+                } hospitalPhone={hospitalData.phone}/>
               </div>
             </div>
           </div>

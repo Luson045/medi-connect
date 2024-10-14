@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { databaseUrls } from '../data/databaseUrls';
+import PropTypes from 'prop-types';
 
 // Create UserContext
 export const UserContext = createContext();
@@ -21,7 +23,7 @@ export const UserProvider = ({ children }) => {
       }
 
       const response = await fetch(
-        'https://medi-connect-f671.onrender.com/auth/profile',
+        databaseUrls.auth.profile,
         {
           method: 'GET',
           headers: {
@@ -69,4 +71,8 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+UserProvider.prototype = {
+  children: PropTypes.node,
 };

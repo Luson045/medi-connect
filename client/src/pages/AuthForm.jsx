@@ -6,6 +6,7 @@ import '../styles/Login.css';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil'; // Import recoil
 import { mode } from '../store/atom'; // Import dark mode atom
+import { databaseUrls } from '../data/databaseUrls';
 
 const AuthPage = () => {
   const [formData, setFormData] = useState({
@@ -65,7 +66,7 @@ const AuthPage = () => {
     setIsSubmitting(true);
     try {
       const response = await fetch(
-        `https://medi-connect-f671.onrender.com/auth/login`,
+        databaseUrls.auth.login,
         {
           method: 'POST',
           headers: {
