@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../store/userContext';
 import '../styles/UserProfile.css';
 
+// const BASE_URL = "https:://medi-connect-f671.onrender.com/auth/profile"
+const BASE_URL = 'https://medi-connect-f671.onrender.com/auth/profile';
+
 const ProfilePage = () => {
   const { isAuthenticated } = useContext(UserContext);
   const [userData, setUserData] = useState(null);
@@ -9,22 +12,28 @@ const ProfilePage = () => {
   const [editData, setEditData] = useState({}); // For storing the editable data
   const [isAddingDoctor, setIsAddingDoctor] = useState(false); // To toggle the Add doctor modal visibility
   const [doctorData, setDoctorData] = useState({}); // For storing the new doctor data
+  const days = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
 
   useEffect(() => {
     // Fetch the user data if authenticated
     const fetchUserData = async () => {
       if (isAuthenticated) {
         try {
-          const response = await fetch(
-            'https://medi-connect-f671.onrender.com/auth/profile',
-            {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': localStorage.getItem('token'),
-              },
+          const response = await fetch(BASE_URL, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': localStorage.getItem('token'),
             },
-          );
+          });
           if (response.ok) {
             const data = await response.json();
             setUserData(data);
@@ -62,19 +71,34 @@ const ProfilePage = () => {
     setDoctorData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDoctorScheduleDataChange = (e) => {
+    var { name, value } = e.target;
+    const day = name.split('-')[0];
+    if (value == ' ') {
+      value = '';
+    }
+
+    setDoctorData((prevData) => {
+      const prevSchedule = prevData.opdSchedule ? prevData.opdSchedule : {};
+      prevSchedule[day] = value;
+      return { ...prevData, opdSchedule: prevSchedule };
+    });
+    console.log(JSON.stringify(doctorData));
+  };
+
+  const capitalizeFirstLetter = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
   const handleConfirmEdit = async () => {
     try {
-      const response = await fetch(
-        'https://medi-connect-f671.onrender.com/auth/profile/edit',
-        {
-          method: 'POST', // Changed to POST
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': localStorage.getItem('token'),
-          },
-          body: JSON.stringify(editData),
+      const response = await fetch(`${BASE_URL}/edit`, {
+        method: 'POST', // Changed to POST
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('token'),
         },
-      );
+        body: JSON.stringify(editData),
+      });
       if (response.ok) {
         const updatedData = await response.json();
         setUserData(updatedData); // Update the local state with the edited data
@@ -93,17 +117,14 @@ const ProfilePage = () => {
         id: userData.id,
         doctor: doctorData,
       };
-      const response = await fetch(
-        'https://medi-connect-f671.onrender.com/auth/profile/addDoctor',
-        {
-          method: 'POST', // Changed to POST
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': localStorage.getItem('token'),
-          },
-          body: JSON.stringify(postData),
+      const response = await fetch(`${BASE_URL}/addDoctor`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('token'),
         },
-      );
+        body: JSON.stringify(postData),
+      });
       if (response.ok) {
         const updatedData = await response.json();
         setUserData(updatedData); // Update the local state with the edited data
@@ -236,12 +257,13 @@ const ProfilePage = () => {
           {!userData.doctors || userData.doctors.length === 0 ? (
             <p>No doctors added.</p>
           ) : (
-            <table>
+            <table className="overflow-x-auto w-full">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Department</th>
                   <th>Phone</th>
+                  <th>Availability</th>
                 </tr>
               </thead>
               <tbody>
@@ -250,6 +272,21 @@ const ProfilePage = () => {
                     <td>{doctor.name}</td>
                     <td>{doctor.department}</td>
                     <td>{doctor.phone}</td>
+                    <td>
+                      {doctor.opdSchedule &&
+                      Object.values(doctor.opdSchedule).some(
+                        (value) => value !== null,
+                      ) ? (
+                        <p>
+                          {Object.keys(doctor.opdSchedule)
+                            .filter((day) => doctor.opdSchedule[day] !== null)
+                            .map((day) => capitalizeFirstLetter(day))
+                            .join(', ')}
+                        </p>
+                      ) : (
+                        'N/A'
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -300,6 +337,33 @@ const ProfilePage = () => {
                 <option value="gynecology">Gynecology</option>
                 <option value="dermatology">Dermatology</option>
               </select>
+            </div>
+            <div>
+              <p>Schedule:</p>
+            </div>
+            <div className="form-group my-2">
+              {days.map((day) => (
+                <div
+                  className="form-group flex flex-row m-1"
+                  key={`${day}-time-container`}
+                >
+                  <label className="m-auto w-25">
+                    {capitalizeFirstLetter(day)}:
+                  </label>
+                  <div className="container flex flex-row">
+                    <input
+                      type="text"
+                      key={`${day}-time`}
+                      placeholder={`(Not available)`}
+                      id={`${day}-time`}
+                      name={`${day}-time`}
+                      className="w-auto"
+                      value={doctorData.opdSchedule?.[day] || ''}
+                      onChange={handleDoctorScheduleDataChange}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="modal-actions">

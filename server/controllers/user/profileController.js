@@ -75,7 +75,18 @@ const addDoctor = async (req, res) => {
     let hospital = await Hospital.findById(id);
     if (hospital) {
       // If hospital exists, validate the data using hospitalSchema
-      const { doctor } = updateData;
+      var { doctor } = updateData;
+
+      if (!doctor) {
+        return res.status(400).json({ msg: "Doctor data is required" });
+      }
+
+      doctor = Hospital.schema.path("doctors").schema.partial().parse(doctor);
+
+      if (hospital.doctors.find((d) => d.name === doctor.name)) {
+        return res.status(400).json({ msg: "Doctor already exists" });
+      }
+
       doctor["_id"] = randomUUID().toString();
 
       const updatedHospital = await Hospital.findByIdAndUpdate(
