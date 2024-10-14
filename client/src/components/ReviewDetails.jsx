@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { mode } from '../store/atom'; // Importing the mode atom for dark mode
 import RegistrationContext from '../store/RegistrationContext';
@@ -65,6 +65,7 @@ const renderFields = (key, value, dark) => {
 function ReviewDetails() {
   const { basicDetails, otherDetails, prevStep } =
     useContext(RegistrationContext);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dark = useRecoilValue(mode); // Using Recoil state for dark mode
 
@@ -73,7 +74,7 @@ function ReviewDetails() {
 
     const endpoint = databaseUrls.auth.register;
     const payload = { ...basicDetails, ...otherDetails };
-
+    setIsLoading(true);
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -94,6 +95,8 @@ function ReviewDetails() {
     } catch (error) {
       notify('Error connecting to the server', 'error');
       console.error('Network Error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -117,17 +120,30 @@ function ReviewDetails() {
         <div style={btnDivStyle}>
           <button
             type="button"
-            className={`auth-button ${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-gray-200 text-gray-700'}`}
+            className={`auth-button ${dark === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-gray-200 text-gray-700 '} disabled:bg-slate-500`}
             onClick={prevStep}
+            disabled={isLoading}
           >
             Back
           </button>
           <button
             type="button"
-            className={`auth-button ${dark === 'dark' ? 'bg-yellow-400 text-gray-900' : 'bg-blue-600 text-white'}`}
+            className={`auth-button ${dark === 'dark' ? 'bg-yellow-400 text-gray-900' : 'bg-blue-600 text-white'} disabled:bg-slate-500`}
             onClick={handleRegister}
+            disabled={isLoading}
           >
-            Register
+            {!isLoading ? (
+              'Register'
+            ) : (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span className="ml-2">Registering</span>
+              </>
+            )}
           </button>
         </div>
       </div>

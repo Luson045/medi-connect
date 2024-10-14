@@ -14,13 +14,14 @@ import Footer from './Footer';
 import ProfilePage from '../pages/Profile';
 import AboutPage from '../pages/About';
 import AuthPage from '../pages/AuthForm';
-import OPDRegistrationForm from '../pages/Registration';
 import OPDSchedule from '../pages/OPDSchedule';
+import OPDRegistrationForm from '../pages/OPDRegistration';
 import HospitalsList from '../pages/HospitalList';
 import Success from '../pages/Success';
 import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
+import BusinessContactForm from "./BusinessContactForm";
 
 function Layout() {
   const location = useLocation();
@@ -43,7 +44,8 @@ function Layout() {
     path === '/services' ||
     path === '/terms-and-conditions' ||
     path === '/Labtest' ||
-    path === '/blog'
+    path === '/blog' ||
+    path === '/business'
   ) {
     showNavAndFooter = true;
   }
@@ -70,12 +72,17 @@ function Layout() {
           <Route exact path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailsPage />} />
           <Route exact path="/Labtest" element={<LabTestMedipedia />} />
+          <Route path="/not-found" element={<NotFound />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<AboutPage />} />
+          <Route exact path="/registerOPD" element={<OPDRegistrationForm />} />
           <Route
-            exact
-            path="/terms-and-conditions"
-            element={<TermsAndConditions />}
+              exact
+              path="/terms-and-conditions"
+              element={<TermsAndConditions />}
           />
           <Route path="/hospitals-around" element={<HospitalsAround />} />
+          <Route path="/business" element={<BusinessContactForm />}></Route>
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
@@ -83,8 +90,16 @@ function Layout() {
       <Chatbot />
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
-    </>
-  );
+            {!showNavAndFooter && (
+                // chat bot it now in footer, if the footer does not shown, then chat bot will render standalone
+                <div className="fixed bottom-4 right-6 flex flex-col gap-3">
+                    <Chatbot />
+                </div>
+            )}
+            {/* Conditionally render Footer */}
+            {showNavAndFooter && <Footer />}
+        </>
+    );
 }
 
-export default Layout;
+export default Layout

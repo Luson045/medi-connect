@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // Corrected import for Twitter icon
 import GoogleTranslate from './GoogleTranslate';
+import Chatbot from '../Medical-Chatbot/Chatbot';
 // import { FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
@@ -97,7 +98,7 @@ const Footer = () => {
             >
               {/* Adjusted hover text colors */}
               <img
-                src="favicon.png"
+                src="../favicon.png"
                 className="h-10 w-10 transition-transform duration-300 group-hover:rotate-6"
                 alt="AgroTech AI Logo"
               />
@@ -212,7 +213,7 @@ const Footer = () => {
             </div>
 
             {/* Legal Links */}
-            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
               Contact Us
             </h3>
             <ul className="space-y-2">
@@ -262,14 +263,17 @@ const Footer = () => {
           </p>
         </div>
 
-        {showScrollTop && (
+        <div
+          className={`fixed bottom-4 right-6 flex flex-col gap-3 duration-300 delay-300 ${!showScrollTop && 'translate-y-[75px]'}`}
+        >
+          <Chatbot />
           <button
             onClick={scrollToTop}
-            className="fixed bottom-4 right-6 bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000]"
+            className={` bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 md:p-4 rounded-full z-[1000] transition-all ${!showScrollTop && 'opacity-0 invisible'}`}
           >
             <FaArrowUp size={24} />
           </button>
-        )}
+        </div>
       </div>
     </footer>
   );
