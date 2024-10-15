@@ -3,6 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FaMapPin, FaHospital } from 'react-icons/fa'; // Import the icons
 import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer to render icons to HTML
+import { useRecoilState } from 'recoil';
+import { mode } from '../store/atom';
 import Navbar from '../components/Navbar';
 
 const HospitalsAround = () => {
@@ -10,6 +12,7 @@ const HospitalsAround = () => {
   const [map, setMap] = useState(null);
   const [hospitals, setHospitals] = useState([]); // State to store hospitals
   const [loadingHospitals, setLoadingHospitals] = useState(false); // Loading state for hospitals
+  const [dark, setDark] = useRecoilState(mode);
 
   useEffect(() => {
     const options = {
@@ -63,7 +66,7 @@ const HospitalsAround = () => {
           let hospitalLat, hospitalLng;
           let hospitalAddress =
             hospital.tags.addr_full || 'Address not available'; // Use addr_full for address
-          console.log({ hospital })
+          console.log({ hospital });
           if (hospital.type === 'node') {
             hospitalLat = hospital.lat;
             hospitalLng = hospital.lon;
@@ -161,40 +164,64 @@ const HospitalsAround = () => {
       <Navbar />
       <div>
         {location.lat && location.lng ? (
-          <div>
-            <br />
-            <p>
-              Your Location: Latitude {location.lat}, Longitude {location.lng}
-            </p>
-            <br />
-            <div id="map" style={{ height: '500px', width: '100%' }}></div>
-            {loadingHospitals ? (
-              <p>Loading hospitals...</p>
-            ) : hospitals.length > 0 ? (
-                <div className='container mx-auto'>
+          <div className="flex py-16">
+            <div className="w-[25%] h-screen bg-slate-200 overflow-auto">
+              <div
+                className={`${
+                  dark === 'dark'
+                    ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+                    : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+                } px-2 py-2.5`}
+              >
+                <p className="font-bold">
+                  Your Location: Latitude {location.lat}, Longitude{' '}
+                  {location.lng}
+                </p>
+              </div>
+              {loadingHospitals ? (
+                <p>Loading hospitals...</p>
+              ) : hospitals.length > 0 ? (
+                <div className="container mx-auto">
                   <br />
-                  <h3 className='text-lg tracking-widest text-center font-semibold'>Hospitals within 2km:</h3>
+                  <h3 className="text-lg tracking-widest text-center font-semibold">
+                    Hospitals within 2km:
+                  </h3>
                   <br />
-                  <div className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3'>
+                  <div className="flex flex-col">
                     {hospitals.map((hospital, index) => {
-                      return <div key={index} className="mx-auto w-full bg-white rounded-xl shadow-md p-4">
-                        <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">Hospital</div>
-                        <h1 className="block mt-1 text-lg leading-tight font-semibold text-gray-800">{hospital.name}</h1>
-                        {/* <div className="mt-2 text-sm">
+                      return (
+                        <div
+                          key={index}
+                          className="mx-auto w-full bg-white rounded-xl shadow-md p-4"
+                        >
+                          <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">
+                            Hospital
+                          </div>
+                          <h1 className="block mt-1 text-lg leading-tight font-semibold text-gray-800">
+                            {hospital.name}
+                          </h1>
+                          {/* <div className="mt-2 text-sm">
                           <span className="text-gray-700 font-semibold">Address:</span>
                           <p className='text-xs'>{hospital.address}</p>
                         </div> */}
-                        <div className="mt-2 text-sm">
-                          <span className="text-gray-700 font-semibold">Coordinates:</span>
-                          <p className='text-xs'>Lat: {hospital.lat}, Lon: {hospital.lng}</p>
+                          <div className="mt-2 text-sm">
+                            <span className="text-gray-700 font-semibold">
+                              Coordinates:
+                            </span>
+                            <p className="text-xs">
+                              Lat: {hospital.lat}, Lon: {hospital.lng}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      );
                     })}
                   </div>
-              </div>
-            ) : (
-              <p>No hospitals found nearby.</p>
-            )}
+                </div>
+              ) : (
+                <p>No hospitals found nearby.</p>
+              )}
+            </div>
+            <div id="map" className="h-screen w-[75%]"></div>
           </div>
         ) : (
           <p>Fetching location...</p>
