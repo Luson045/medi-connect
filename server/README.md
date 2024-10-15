@@ -98,6 +98,6 @@
      ```bash
      11159
      ```
-    - Select Prometheus as the data source and click Import.
+   - Select Prometheus as the data source and click Import.
 
 That’s it! You have now set up your server, Prometheus, and Grafana.
