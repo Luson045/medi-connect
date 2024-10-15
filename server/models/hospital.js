@@ -30,6 +30,23 @@ const hospitalSchema = new mongoose.Schema(
         },
       },
     ],
+    doctors: [
+      {
+        _id: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
+        phone: String,
+        department: { type: String, required: true },
+        opdSchedule: {
+          monday: { type: String, default: null },
+          tuesday: { type: String, default: null },
+          wednesday: { type: String, default: null },
+          thursday: { type: String, default: null },
+          friday: { type: String, default: null },
+          saturday: { type: String, default: null },
+          sunday: { type: String, default: null },
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -11,7 +11,6 @@ const {
   updateUserByID,
   deleteUserByID,
 } = require("../../controllers/user/userController.js");
-
 const { authenticateToken } = require("../../middlewares/authMiddleware.js");
 
 const router = express.Router();
