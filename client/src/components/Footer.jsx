@@ -15,9 +15,6 @@ import Chatbot from '../Medical-Chatbot/Chatbot';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [rating, setRating] = useState(0);
-  // const [comment, setComment] = useState('');
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleScroll = () => {
@@ -111,16 +108,6 @@ const Footer = () => {
               efficient queuing models, lab test, OPDs, and inventory management
               for medicines and consumables.
             </p>
-
-            <div className="inline-flex w-48" style={{ marginTop: '4rem' }}>
-              <img
-                src="/google.png"
-                alt=""
-                className="google-translate"
-                style={{ display: 'block', width: '30px', marginLeft: '0' }}
-              />
-              <GoogleTranslate />
-            </div>
           </div>
 
           {/* Company Links */}
@@ -181,7 +168,7 @@ const Footer = () => {
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
               Follow us on
             </h3>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-6">
               {socialMedia.map(({ Icon, link, color }, index) => (
                 <a
                   key={index}
@@ -210,6 +197,15 @@ const Footer = () => {
                   <Icon size={20} />
                 </a>
               ))}
+            </div>
+
+            <div className="flex items-center mt-6">
+              <img
+                src="/google.png"
+                alt="Google Translate"
+                className="h-8 w-8 mr-2"
+              />
+              <GoogleTranslate />
             </div>
 
             {/* Legal Links */}
