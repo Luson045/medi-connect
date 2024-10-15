@@ -17,9 +17,9 @@ const getProfile = async (req, res) => {
   }
 };
 
-const editProfile = async (req, res) => {
+const editProfileByID = async (req, res) => {
   try {
-    const { id } = req.user; // Get 'id' from token
+    const { id } = req.params; // Get 'id' from token
     let updateData = req.body; // Data to update, parsed from request body
 
     // Check if the user exists
