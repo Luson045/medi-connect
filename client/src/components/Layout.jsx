@@ -22,6 +22,8 @@ import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
 import BusinessContactForm from './BusinessContactForm';
+import PrivateRoute from '../privateroute/privateroute';
+
 
 function Layout() {
   const location = useLocation();
@@ -67,7 +69,13 @@ function Layout() {
           <Route exact path="/hospitals" element={<HospitalsList />} />
           <Route exact path="/hospitalDetails" element={<HospitalDetails />} />
           <Route exact path="/panal" element={<HospitalAppointments />} />
-          <Route exact path="/profile" element={<ProfilePage />} />
+
+          {/* private route for profile page  */}
+          <Route element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<ProfilePage />} />
+            {/* Add more protected routes here */}
+          </Route>
+
           <Route exact path="/services" element={<ServicePage />} />
           <Route exact path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailsPage />} />
