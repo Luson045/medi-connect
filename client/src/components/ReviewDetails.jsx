@@ -4,6 +4,7 @@ import { mode } from '../store/atom'; // Importing the mode atom for dark mode
 import RegistrationContext from '../store/RegistrationContext';
 import { notify } from '../components/notification';
 import { useNavigate } from 'react-router-dom';
+import { databaseUrls } from '../data/databaseUrls';
 
 const btnDivStyle = {
   display: 'flex',
@@ -71,7 +72,7 @@ function ReviewDetails() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    const endpoint = 'https://medi-connect-f671.onrender.com/auth/register';
+    const endpoint = databaseUrls.auth.register;
     const payload = { ...basicDetails, ...otherDetails };
     setIsLoading(true);
     try {

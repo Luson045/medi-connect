@@ -10,6 +10,7 @@ import { AiOutlineDownload } from 'react-icons/ai';
 import { TailSpin } from 'react-loader-spinner';
 import { useRecoilValue } from 'recoil';
 import { mode } from '../store/atom';
+import { databaseUrls } from '../data/databaseUrls';
 
 function OPDRegistrationForm() {
   const dark = useRecoilValue(mode); // Using Recoil state for dark mode
@@ -123,10 +124,7 @@ function OPDRegistrationForm() {
     };
 
     axios
-      .post(
-        `https://medi-connect-f671.onrender.com/hospitalapi/emergency`,
-        submissionData,
-      )
+      .post(databaseUrls.hospitals.emergency, submissionData)
       .then((response) => {
         console.log('Successfully registered!', response.data);
         setRegistrationDetails(submissionData);
@@ -173,8 +171,9 @@ function OPDRegistrationForm() {
   return (
     <>
       <section className={`form-container ${dark === 'dark' ? 'dark' : ''}`}>
-
-        <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>OPD Registration</h2>
+        <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>
+          OPD Registration
+        </h2>
 
         <form onSubmit={handleSubmit} className="opd-registration-form">
           <div className={`form-group ${dark === 'dark' ? 'dark-mode' : ''}`}>
@@ -374,8 +373,10 @@ function OPDRegistrationForm() {
               {isSubmitting ? 'Registering...' : 'Register'}
             </button>
 
-            <Link to="/" className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}>
-
+            <Link
+              to="/"
+              className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}
+            >
               Back to Home
             </Link>
           </div>
@@ -390,7 +391,12 @@ function OPDRegistrationForm() {
             </div>
             <hr></hr>
 
-            <h3 style={{ marginTop: '20px' }} className={dark === 'dark' ? 'text-yellow-400' : ''}>Registration Successful!</h3>
+            <h3
+              style={{ marginTop: '20px' }}
+              className={dark === 'dark' ? 'text-yellow-400' : ''}
+            >
+              Registration Successful!
+            </h3>
 
             <p>Here are your appointment details:</p>
             <ul>
@@ -410,12 +416,20 @@ function OPDRegistrationForm() {
               </li>
             </ul>
 
-            <button onClick={() => setShowModal(false)} className={dark === 'dark' ? 'btn-dark' : ''}>Close</button>
+            <button
+              onClick={() => setShowModal(false)}
+              className={dark === 'dark' ? 'btn-dark' : ''}
+            >
+              Close
+            </button>
 
             {/* PDF download icon in the lower right corner */}
             <div className="download-icon" onClick={downloadPDF}>
-              <AiOutlineDownload className={dark === 'dark' ? 'text-yellow-400' : 'text-black'} size={32} color="#007bff" />
-
+              <AiOutlineDownload
+                className={dark === 'dark' ? 'text-yellow-400' : 'text-black'}
+                size={32}
+                color="#007bff"
+              />
             </div>
 
             {/* Footer */}
