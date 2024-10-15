@@ -23,7 +23,6 @@ import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
 import BusinessContactForm from "./BusinessContactForm";
 import ForgotPassword from "./ForgotPassword";
-import BusinessContactForm from './BusinessContactForm';
 import PrivateRoute from '../privateroute/privateroute';
 
 
