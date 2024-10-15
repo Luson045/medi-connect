@@ -20,7 +20,9 @@ const userSchema = new mongoose.Schema({
         date: Date,
         reason: String,
         status: { type: String, enum: ['pending', 'completed', 'canceled'], default: 'pending' }
-    }]
+    }],
+    otp: { type: String, default: null }, 
+    otpExpiry: { type: Date, default: null }, 
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

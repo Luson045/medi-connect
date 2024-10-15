@@ -22,7 +22,7 @@ import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
 import BusinessContactForm from "./BusinessContactForm";
-
+import ForgotPassword from "./ForgotPassword";
 function Layout() {
   const location = useLocation();
   let showNavAndFooter = false;
@@ -45,7 +45,8 @@ function Layout() {
     path === '/terms-and-conditions' ||
     path === '/Labtest' ||
     path === '/blog' ||
-    path === '/business'
+    path === '/business'||
+    path === '/forgot-password'
   ) {
     showNavAndFooter = true;
   }
@@ -76,6 +77,7 @@ function Layout() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<AboutPage />} />
           <Route exact path="/registerOPD" element={<OPDRegistrationForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route
               exact
               path="/terms-and-conditions"

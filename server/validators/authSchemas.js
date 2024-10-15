@@ -57,4 +57,21 @@ const loginSchema = z.object({
   password: passwordSchema,
 });
 
-module.exports = { userSchema, hospitalSchema, loginSchema };
+const emailCheckSchema = z.object({
+  type: z.enum(["user", "hospital"]),
+  email: z.string().email("Invalid email format"),
+});
+
+const otpVerificationSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  otp: z.string(), // The OTP is expected to be a string
+});
+
+const passwordResetSchema = z.object({
+  type: z.enum(["user", "hospital"]),
+  email: z.string().email("Invalid email format"),
+  newPassword: z.string().min(6, "Password must be at least 6 characters long"), // Adjust the criteria as needed
+  
+});
+
+module.exports = { userSchema, hospitalSchema, loginSchema ,emailCheckSchema, otpVerificationSchema, passwordResetSchema};
