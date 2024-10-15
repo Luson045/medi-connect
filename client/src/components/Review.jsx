@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
+import { useRecoilValue } from 'recoil';
+import { mode } from '../store/atom'; // Importing the atom for mode
 
 const reviews = [
   {
@@ -74,8 +76,12 @@ const reviews = [
 // Duplicate the first and last reviews for infinite scroll effect
 const infiniteReviews = [reviews[reviews.length - 1], ...reviews, reviews[0]];
 
-const ReviewCard = ({ review }) => (
-  <div className="bg-white rounded-lg hover:shadow-xl p-4 flex flex-col justify-between h-full transition-shadow duration-300 transform hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+const ReviewCard = ({ review, dark }) => (
+  <div
+    className={` rounded-lg hover:shadow-xl p-4 flex flex-col justify-between h-full transition-shadow duration-300 transform hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.3)]  ${dark === 'dark'
+                    ? 'bg-gray-800 '
+                    : 'bg-white'
+                    }`}>
     <div>
       <div className="flex items-center mb-4">
         <img
@@ -84,12 +90,12 @@ const ReviewCard = ({ review }) => (
           className="w-16 h-16 rounded-full border-2  mr-4 object-cover"
         />
         <div>
-          <h3 className="font-semibold text-lg text-gray-800">{review.name}</h3>
-          <p className="text-blue-500 text-sm">{review.role}</p>
+          <h3 className={`font-semibold text-lg  ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>{review.name}</h3>
+          <p className={` text-sm ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-500'}`}>{review.role}</p>
         </div>
       </div>
-      <p className="text-xl font-bold mb-2 text-gray-800">"{review.quote}"</p>
-      <p className="text-gray-600 mb-4">{review.review}</p>
+      <p className={`text-xl font-bold mb-2  ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>"{review.quote}"</p>
+      <p className={` mb-4 ${dark === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>{review.review}</p>
     </div>
     <div className="flex items-center">
       {[...Array(5)].map((_, i) => (
@@ -106,6 +112,7 @@ const Review = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // Start at the first real review
   const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
   const isLargeScreen = useMediaQuery({ query: '(min-width: 641px)' });
+  const dark = useRecoilValue(mode);
 
   const nextReview = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % infiniteReviews.length);
@@ -129,7 +136,8 @@ const Review = () => {
   return (
     <section className="py-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+        <h2 className={`text-4xl font-bold text-center mb-12 text-gray-800 ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
+                }`}>
           What Our Community Says
         </h2>
         <div className="relative">
@@ -145,22 +153,22 @@ const Review = () => {
                   key={index}
                   className={`w-full ${isSmallScreen ? 'flex-shrink-0' : 'sm:w-1/3 flex-shrink-0'} px-2`}
                 >
-                  <ReviewCard review={review} />
+                  <ReviewCard review={review} dark={dark} />
                 </div>
               ))}
             </div>
           </div>
           <button
             onClick={prevReview}
-            className="absolute top-1/2 -left-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg ml-1"
+            className={`absolute top-1/2 -left-4 transform -translate-y-1/2  rounded-full p-2 shadow-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg ml-1 ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
+            <ChevronLeft className={`w-6 h-6 ${dark === 'dark' ? 'text-white' : 'text-gray-600'}`} />
           </button>
           <button
             onClick={nextReview}
-            className="absolute top-1/2 -right-4 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg mr-1"
+            className={`absolute top-1/2 -right-4 transform -translate-y-1/2 rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg mr-1  ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
           >
-            <ChevronRight className="w-6 h-6 text-gray-600" />
+            <ChevronRight className={`w-6 h-6 ${dark === 'dark' ? 'text-white' : 'text-gray-600'} `} />
           </button>
         </div>
         <div className="flex justify-center mt-8">
