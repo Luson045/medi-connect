@@ -21,7 +21,7 @@ import Success from '../pages/Success';
 import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
-import BusinessContactForm from "./BusinessContactForm";
+import BusinessContactForm from './BusinessContactForm';
 
 function Layout() {
   const location = useLocation();
@@ -77,9 +77,9 @@ function Layout() {
           <Route exact path="/about" element={<AboutPage />} />
           <Route exact path="/registerOPD" element={<OPDRegistrationForm />} />
           <Route
-              exact
-              path="/terms-and-conditions"
-              element={<TermsAndConditions />}
+            exact
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
           />
           <Route path="/hospitals-around" element={<HospitalsAround />} />
           <Route path="/business" element={<BusinessContactForm />}></Route>
@@ -90,16 +90,14 @@ function Layout() {
       <Chatbot />
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
-            {!showNavAndFooter && (
-                // chat bot it now in footer, if the footer does not shown, then chat bot will render standalone
-                <div className="fixed bottom-4 right-6 flex flex-col gap-3">
-                    <Chatbot />
-                </div>
-            )}
-            {/* Conditionally render Footer */}
-            {showNavAndFooter && <Footer />}
-        </>
-    );
+      {!showNavAndFooter && (
+        // chat bot it now in footer, if the footer does not shown, then chat bot will render standalone
+        <div className="fixed bottom-4 right-6 flex flex-col gap-3">
+          <Chatbot />
+        </div>
+      )}
+    </>
+  );
 }
 
-export default Layout
+export default Layout;
