@@ -24,5 +24,8 @@
       "prettier --write",
       "eslint --fix --max-warnings=0"
     ]
+  },
+  "dependencies": {
+    "medi-connect": "file:"
   }
 }
