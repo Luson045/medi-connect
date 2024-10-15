@@ -14,6 +14,7 @@ import { databaseUrls } from '../data/databaseUrls';
 
 function OPDRegistrationForm() {
   const dark = useRecoilValue(mode); // Using Recoil state for dark mode
+  const today = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -328,14 +329,15 @@ function OPDRegistrationForm() {
           <div className="form-group">
             <label htmlFor="date">Date:</label>
             <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-              className={dark === 'dark' ? 'input-dark' : ''}
-            />
+  type="date"
+  id="date"
+  name="date"
+  value={formData.date}
+  onChange={handleChange}
+  required
+  className={dark === 'dark' ? 'input-dark' : ''}
+  min={today} // Set the minimum value to today's date
+/>
             {errors.date && <span className="error">{errors.date}</span>}
           </div>
 
