@@ -24,6 +24,7 @@ import HospitalAppointments from '../pages/HospitalPanal';
 import BusinessContactForm from './BusinessContactForm';
 import PrivateRoute from '../privateroute/privateroute';
 
+
 function Layout() {
   const location = useLocation();
   let showNavAndFooter = false;
@@ -103,8 +104,6 @@ function Layout() {
           <Chatbot />
         </div>
       )}
-      {/* Conditionally render Footer */}
-      {showNavAndFooter && <Footer />}
     </>
   );
 }
