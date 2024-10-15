@@ -21,7 +21,8 @@ import Success from '../pages/Success';
 import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
-import BusinessContactForm from "./BusinessContactForm";
+import BusinessContactForm from './BusinessContactForm';
+import PrivateRoute from '../privateroute/privateroute';
 
 function Layout() {
   const location = useLocation();
@@ -67,7 +68,13 @@ function Layout() {
           <Route exact path="/hospitals" element={<HospitalsList />} />
           <Route exact path="/hospitalDetails" element={<HospitalDetails />} />
           <Route exact path="/panal" element={<HospitalAppointments />} />
-          <Route exact path="/profile" element={<ProfilePage />} />
+
+          {/* private route for profile page  */}
+          <Route element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<ProfilePage />} />
+            {/* Add more protected routes here */}
+          </Route>
+
           <Route exact path="/services" element={<ServicePage />} />
           <Route exact path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogDetailsPage />} />
@@ -77,9 +84,9 @@ function Layout() {
           <Route exact path="/about" element={<AboutPage />} />
           <Route exact path="/registerOPD" element={<OPDRegistrationForm />} />
           <Route
-              exact
-              path="/terms-and-conditions"
-              element={<TermsAndConditions />}
+            exact
+            path="/terms-and-conditions"
+            element={<TermsAndConditions />}
           />
           <Route path="/hospitals-around" element={<HospitalsAround />} />
           <Route path="/business" element={<BusinessContactForm />}></Route>
@@ -90,16 +97,16 @@ function Layout() {
       <Chatbot />
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
-            {!showNavAndFooter && (
-                // chat bot it now in footer, if the footer does not shown, then chat bot will render standalone
-                <div className="fixed bottom-4 right-6 flex flex-col gap-3">
-                    <Chatbot />
-                </div>
-            )}
-            {/* Conditionally render Footer */}
-            {showNavAndFooter && <Footer />}
-        </>
-    );
+      {!showNavAndFooter && (
+        // chat bot it now in footer, if the footer does not shown, then chat bot will render standalone
+        <div className="fixed bottom-4 right-6 flex flex-col gap-3">
+          <Chatbot />
+        </div>
+      )}
+      {/* Conditionally render Footer */}
+      {showNavAndFooter && <Footer />}
+    </>
+  );
 }
 
-export default Layout
+export default Layout;
