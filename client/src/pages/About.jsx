@@ -10,9 +10,13 @@ import { useRecoilValue } from 'recoil'; // Import Recoil
 import { mode } from '../store/atom'; // Import the mode atom
 import luson from '../assets/images/luson.jpg';
 
+
+
+
 // Team member data
 const teamMembers = [
   {
+    id:1,
     name: 'Luson Basumatary',
     role: 'Lead Developer || Founder',
     description:
@@ -23,6 +27,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
+    id:2,
     name: 'Rohit Bansal',
     role: 'Frontend Developer',
     description:
@@ -33,6 +38,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
+    id:3,
     name: 'Kalpesh Jain',
     role: 'UI/UX Designer',
     description:
@@ -43,6 +49,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
+    id:4,
     name: 'Simranpreet Kaur',
     role: 'Graphic Designer',
     description:
@@ -53,6 +60,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
+    id:5,
     name: 'Kartik Kaushal',
     role: 'Healthcare Researcher',
     description:
@@ -63,6 +71,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
+    id:6,
     name: 'Shubham',
     role: 'Technology Researcher',
     description:
@@ -92,6 +101,16 @@ const AboutPage = () => {
     accidents: false,
     hospitals: false,
   });
+  const [expandedIds, setExpandedIds] = useState({});
+
+  const charLimit = 100; // Adjust character limit as needed
+
+  const toggleReadMore = (id) => {
+    setExpandedIds((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const getLimitedText = (text, limit) =>
+    text.length > limit ? text.slice(0, limit) + '...' : text;
 
   const dark = useRecoilValue(mode); // Get dark mode value from Recoil
   return (
@@ -99,9 +118,9 @@ const AboutPage = () => {
       <animated.div style={fadeIn}>
         {/* Two-box section for Vision and Mission */}
         <VisionMissionContainer>
-          <Box dark={dark}>
-            <VisionTitle dark={dark}>Our Vision</VisionTitle>
-            <VisionText dark={dark}>
+          <Box dark={dark} >
+            <VisionTitle dark={dark} className='font-semibold'>Our Vision</VisionTitle>
+            <VisionText dark={dark} className='font-sans '>
               At Med-Space, we envision a world where accessing outpatient
               care is as simple as a few clicks. By leveraging technology and
               innovation, we aim to provide a platform that bridges the gap
@@ -112,8 +131,8 @@ const AboutPage = () => {
             </VisionText>
           </Box>
           <Box dark={dark}>
-            <MissionTitle dark={dark}>Our Mission</MissionTitle>
-            <MissionText dark={dark}>
+            <MissionTitle dark={dark} className='font-semibold'>Our Mission</MissionTitle>
+            <MissionText dark={dark} className='font-sans'>
               Our mission is to revolutionize outpatient care by creating a
               comprehensive, easy-to-use platform that empowers patients and
               healthcare providers alike. We are committed to building
@@ -127,45 +146,58 @@ const AboutPage = () => {
 
         <Title dark={dark}>Meet our awesome team</Title>
         <TeamGrid>
-          {teamMembers.map((member, index) => (
-            <animated.div key={index} style={slideIn}>
-              <TeamCard dark={dark}>
-                <ProfileImage
-                  src={member.imageUrl}
-                  alt={`${member.name}'s profile`}
-                />
-                <Name dark={dark}>{member.name}</Name>
-                <Role dark={dark}>{member.role}</Role>
+        {teamMembers.map((member, index) => (
+        <animated.div key={index} style={slideIn}>
+          <TeamCard dark={dark} className="flex flex-col items-center">
+            <ProfileImage
+              src={member.imageUrl}
+              className="shadow-md"
+              alt={`${member.name}'s profile`}
+            />
+            <Name dark={dark}>
+              {member.name}
+            </Name>
+            <Role dark={dark}>{member.role}</Role>
 
-                {/* Social Media Icons */}
-                <SocialIcons>
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FontAwesomeIcon icon={faLinkedin} size="2x" />
-                  </a>
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FontAwesomeIcon icon={faGithub} size="2x" />
-                  </a>
-                  <a
-                    href={member.email}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FontAwesomeIcon icon={faEnvelope} size="2x" />
-                  </a>
-                </SocialIcons>
+            {/* Social Media Icons */}
+            <SocialIcons className="my-3">
+              <div className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500">
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faLinkedin} size="x" />
+                </a>
+              </div>
+              <div className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500">
+                <a href={member.github} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faGithub} size="x" />
+                </a>
+              </div>
+              <div className="border-2 rounded-full px-[10px] py-[5px] flex items-center border-gray-500">
+                <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faEnvelope} size="x" />
+                </a>
+              </div>
+            </SocialIcons>
+<Description dark={dark}>
+<div className="md:hidden">{member.description}</div>
+<div className="hidden md:block">
+    {expandedIds[member.id]
+      ? member.description
+      : getLimitedText(member.description, charLimit)}
 
-                <Description dark={dark}>{member.description}</Description>
-              </TeamCard>
-            </animated.div>
-          ))}
+    {member.description.length > charLimit && (
+      <span
+        onClick={() => toggleReadMore(member.id)}
+        className="text-blue-500 cursor-pointer ml-1 text-[12px]"
+      >
+        {expandedIds[member.id] ? 'Read Less' : 'Read More'}
+      </span>
+    )}
+  </div>
+           
+            </Description>
+          </TeamCard>
+        </animated.div>
+      ))}
         </TeamGrid>
         <StatsSection>
           {/* First Stat */}
@@ -312,7 +344,7 @@ const VisionMissionContainer = styled.div`
 const Box = styled.div`
   flex: 1;
   padding: 2rem;
-  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#fff')};
+  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#f0f8ff')};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -326,8 +358,9 @@ const VisionTitle = styled.h2`
 
 const VisionText = styled.p`
   font-size: 1.125rem;
-  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
+  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#161D6F')};
   line-height: 1.6;
+
 `;
 
 const MissionTitle = styled.h2`
@@ -347,13 +380,14 @@ const TeamGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  margin-bottom:20px;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const TeamCard = styled.div`
-  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#fff')};
+  background-color: ${({ dark }) => (dark === 'dark' ? '#2d3748' : '#F4F6FF')};
   color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#333')};
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -379,26 +413,31 @@ const SocialIcons = styled.div`
 
   a {
     &:hover {
-      opacity: 0.8; /* Optional hover effect */
+      color:${({ dark }) => (dark === 'dark' ? 'white' : 'blue')}; /* Optional hover effect */
     }
   }
+   
+   
 `;
 
 const Name = styled.h4`
   font-size: 1.25rem;
   margin-bottom: 0.2rem;
-  color: #333;
+   color: ${({ dark }) => (dark === 'dark' ? '#B7E0FF' : '#333')};
+  font-weight:bold;
 `;
 
 const Role = styled.h5`
   font-size: 1rem;
   margin-bottom: 0.2rem;
-  color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
+  color: ${({ dark }) => (dark === 'dark' ? '#FFF4B5' : '#c229b8')};
 `;
 
 const Description = styled.p`
-  font-size: 1rem;
-  color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#666')};
+  font-size: 0.9rem;
+  color: ${({ dark }) => (dark === 'dark' ? 'white' : '#666')};
+  line-height: 1.4;
+  
 `;
 
 // Community Section
@@ -435,6 +474,7 @@ const Title = styled.h3`
   color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
   text-align: center;
   margin-bottom: 2rem;
+  font-weight:bold;
 `;
 
 const StatsSection = styled.div`
