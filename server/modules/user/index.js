@@ -1,83 +1,79 @@
-const express = require('express');
-const User = require('../../models/user');
-const { z } = require('zod');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const rateLimit = require("express-rate-limit"); // Import express-rate-limit
+const User = require("../../models/user");
+const Hospital = require("../../models/hospital");
+require("dotenv").config({ path: "../.env" });
+const jwtSecret = process.env.JWT;
+const NodeGeocoder = require("node-geocoder");
+
+const { z } = require("zod");
+const options = {
+  provider: "opencage",
+  apiKey: process.env.OPENCAGE_API_KEY,
+};
+const geocoder = NodeGeocoder(options);
 
 const router = express.Router();
 
+// Set rate limiting for the login route
+const loginLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes window
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: {
+    message: "Too many login attempts from this IP, please try again after 5 minutes",
+  },
+});
+
 // Zod Schemas for Validation
-const userSchema = z.object({
-    name: z.string().min(3, 'Name should be at least 3 characters long'),
-    email: z.string().email('Invalid email format'),
-    password: z.string().min(6, 'Password should be at least 6 characters long'),
+const loginSchema = z.object({
+  type: z.enum(["user", "hospital"]),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password should be at least 6 characters long"),
 });
 
-const updateUserSchema = z.object({
-    name: z.string().min(3, 'Name should be at least 3 characters long').optional(),
-    email: z.string().email('Invalid email format').optional(),
-    password: z.string().min(6, 'Password should be at least 6 characters long').optional(),
-});
+// Login route with rate limiting middleware applied
+router.post("/login", loginLimiter, async (req, res) => {
+  try {
+    // Validate login request body using Zod
+    const parsedData = loginSchema.parse(req.body);
 
-// Create a new user
-router.post('/', async (req, res) => {
-    try {
-        const parsedData = userSchema.parse(req.body); // Validate incoming data
-        const user = new User(parsedData);
-        await user.save();
-        res.status(201).send(user);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(400).send(error);
+    const { type, email, password } = parsedData;
+
+    let userOrHospital;
+
+    if (type === "user") {
+      userOrHospital = await User.findOne({ email });
+    } else if (type === "hospital") {
+      userOrHospital = await Hospital.findOne({ email });
     }
-});
 
-// Get all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.send(users);
-    } catch (error) {
-        
-        res.status(500).send(error);
+    if (!userOrHospital) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
-});
 
-// Get a user by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (!user) return res.status(404).send();
-        res.send(user);
-    } catch (error) {
-        res.status(500).send(error);
+    const isMatch = await bcrypt.compare(password, userOrHospital.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
-});
-
-// Update a user
-router.patch('/:id', async (req, res) => {
-    try {
-        const parsedData = updateUserSchema.parse(req.body); // Validate incoming data
-        const user = await User.findByIdAndUpdate(req.params.id, parsedData, { new: true, runValidators: true });
-        if (!user) return res.status(404).send();
-        res.send(user);
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return res.status(400).json({ message: 'Validation error', errors: error.errors });
-        }
-        res.status(400).send(error);
+    const payload = { user: { id: userOrHospital.id } };
+    jwt.sign(payload, jwtSecret, { expiresIn: 3600 * 3 * 24 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token, message: `${type} logged in successfully` });
+    });
+  } catch (error) {
+    console.error("Login error:", error); // Log the error
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
-});
-
-// Delete a user
-router.delete('/:id', async (req, res) => {
-    try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        if (!user) return res.status(404).send();
-        res.send(user);
-    } catch (error) {
-        res.status(500).send(error);
-    }
+    res.status(500).json({
+      message: "Error logging in",
+      error: error.message || "An unknown error occurred",
+    });
+  }
 });
 
 module.exports = router;
