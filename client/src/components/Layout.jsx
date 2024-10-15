@@ -14,11 +14,12 @@ import Footer from './Footer';
 import ProfilePage from '../pages/Profile';
 import AboutPage from '../pages/About';
 import AuthPage from '../pages/AuthForm';
-import OPDRegistrationForm from '../pages/Registration';
+import OPDRegistrationForm from '../pages/OPDRegistration';
 import HospitalsList from '../pages/HospitalList';
 import Success from '../pages/Success';
 import Home from '../pages/Home';
 import HospitalAppointments from '../pages/HospitalPanal';
+import BusinessContactForm from "./BusinessContactForm";
 
 function Layout() {
     const location = useLocation();
@@ -39,7 +40,8 @@ function Layout() {
         path === '/services' ||
         path === '/terms-and-conditions' ||
         path === '/Labtest' ||
-        path === '/blog'
+        path === '/blog' ||
+        path === '/business'
     ) {
         showNavAndFooter = true;
     }
@@ -70,6 +72,7 @@ function Layout() {
                         element={<TermsAndConditions />}
                     />
                     <Route path="/hospitals-around" element={<HospitalsAround />} />
+                    <Route path="/business" element={<BusinessContactForm></BusinessContactForm>}></Route>
                     <Route path="/not-found" element={<NotFound />} />
                     <Route path="*" element={<Navigate to="/not-found" />} />
                 </Routes>
