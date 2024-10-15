@@ -35,7 +35,7 @@
    Open your browser and visit the following URL:
 
    ```bash
-   http://localhost:8080/ping
+   https://medi-connect-f671.onrender.com/ping
    ```
 
    If you get a pong response, your server is running correctly.
@@ -52,7 +52,7 @@
    You can verify that Prometheus is working by navigating to:
 
    ```bash
-   http://localhost:8080/metrics
+   https://medi-connect-f671.onrender.com/metrics
    ```
 
 3. **Run Prometheus using Docker:**
