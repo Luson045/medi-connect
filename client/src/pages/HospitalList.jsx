@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { UserContext } from '../store/userContext';
 import hospitalsData from '../data/hospitalsData'; // Import local hospital data
+import { databaseUrls } from '../data/databaseUrls';
 
 const mindate = new Date().toISOString().split('T')[0];
 
@@ -31,7 +32,7 @@ const HospitalsList = () => {
     const fetchHospitals = async () => {
       try {
         const response = await axios.get(
-          'https://medi-connect-f671.onrender.com/hospitalapi/',
+          databaseUrls.hospitals.all,
         );
 
         // Combine local data and fetched data
@@ -54,7 +55,7 @@ const HospitalsList = () => {
     try {
       let userId = user ? user._id : '';
       const response = await axios.post(
-        `https://medi-connect-f671.onrender.com/hospitalapi/hospitals/${hospitalId}/book`,
+        databaseUrls.hospitals.bookHospital.replace('{_id}', hospitalId),
         {
           userId,
           ...bookingData,
@@ -183,7 +184,7 @@ const HospitalsList = () => {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-gray-700">Ratings (>=):</label>
+              <label className="block text-gray-700">Ratings (&gt;=5):</label>
               <input
                 type="number"
                 name="ratings"
@@ -265,6 +266,14 @@ const HospitalsList = () => {
                   onClick={() => setSelectedHospital(hospital)}
                 >
                   Book Appointment
+                </button>
+                <button
+                  className="bg-blue-500 ms-2 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  onClick={() => {
+                    navigate(`/hospitalDetails?id=${hospital._id}`);
+                  }}
+                >
+                  More Details
                 </button>
               </div>
 

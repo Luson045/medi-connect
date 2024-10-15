@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../store/userContext';
 import '../styles/HospitalPanal.css';
+import { databaseUrls } from '../data/databaseUrls';
 
 const HospitalAppointments = () => {
   const { user, isAuthenticated } = useContext(UserContext); // ensure user is loaded
@@ -14,9 +15,7 @@ const HospitalAppointments = () => {
     if (user && isAuthenticated) {
       // Fetch appointments
       axios
-        .get(
-          `https://medi-connect-f671.onrender.com/hospitalapi/appointments/${user._id}`,
-        )
+        .get(`${databaseUrls.hospitals.appointments}/${user._id}`)
         .then((res) => {
           setAppointments(res.data);
           setLoading(false);
@@ -34,9 +33,7 @@ const HospitalAppointments = () => {
   const deleteAppointment = (id) => {
     if (window.confirm('Are you sure you want to delete this appointment?')) {
       axios
-        .delete(
-          `https://medi-connect-f671.onrender.com/hospitalapi/appointments/${id}`,
-        )
+        .delete(databaseUrls.hospitals.appointments + `/${id}`)
         .then(() => {
           setAppointments(
             appointments.filter((appointment) => appointment._id !== id),
