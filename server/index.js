@@ -8,7 +8,9 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const jwt = require("jsonwebtoken");
 const authRouter = require("./routes/auth/auth");
 const profileRouter = require("./routes/user/profile");
-const hospitalroute = require("./modules/hospital/index");
+const hospitalRouter = require("./routes/hospital/hospital");
+const appointmentRouter = require("./routes/appointments/appointment");
+// const hospitalroute = require("./modules/hospital/index");   ⭕ ***Deprecated***
 const client = require("prom-client");
 const { connectDB, corsConfig } = require("./utils");
 const Hospital = require("./models/hospital");
@@ -147,7 +149,10 @@ app.use("/auth", authRouter);
 app.use("/auth", profileRouter);
 
 // Hospital Routes
-app.use("/hospitalapi", hospitalroute);
+app.use("/hospitalapi", hospitalRouter);
+
+// Appointment Routes
+app.use("/hospitalapi", appointmentRouter);
 
 // Start the Server
 app.listen(port, () => {

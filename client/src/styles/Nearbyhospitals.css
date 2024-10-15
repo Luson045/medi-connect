@@ -1,0 +1,21 @@
+.leaflet-routing-container {
+    display: none !important; /* Hide the entire routing container */
+  }
+  
+  .leaflet-routing-alternatives-container {
+    display: none !important; /* Hide alternatives (if any) */
+  }
+  
+  .leaflet-routing-collapse-btn {
+    display: none !important; /* Hide the collapse button */
+  }
+  
+  .content-container {
+    margin-top: 100px; /* Adjust based on the height of your Navbar */
+    padding: 20px;
+  }
+  
+  .location-info {
+    margin-bottom: 20px; /* To add space between the location info and the map */
+  }
+  
