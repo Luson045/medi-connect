@@ -164,64 +164,90 @@ const HospitalsAround = () => {
       <Navbar />
       <div>
         {location.lat && location.lng ? (
-          <div className="flex py-16">
-            <div className="w-[25%] h-screen bg-slate-200 overflow-auto">
+          <div className="flex flex-col-reverse  py-16  md:flex-row ">
+            <div
+              className={`h-1/2 md:w-[30%] md:h-screen  md:overflow-y-scroll ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-gray-200'
+                  : 'bg-white text-gray-800'
+              }`}
+            >
               <div
                 className={`${
                   dark === 'dark'
-                    ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+                    ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100 shadow-2xl'
                     : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-                } px-2 py-2.5`}
+                } px-2 py-2.5 `}
               >
                 <p className="font-bold">
                   Your Location: Latitude {location.lat}, Longitude{' '}
                   {location.lng}
                 </p>
               </div>
-              {loadingHospitals ? (
-                <p>Loading hospitals...</p>
-              ) : hospitals.length > 0 ? (
-                <div className="container mx-auto">
-                  <br />
-                  <h3 className="text-lg tracking-widest text-center font-semibold">
-                    Hospitals within 2km:
-                  </h3>
-                  <br />
-                  <div className="flex flex-col">
-                    {hospitals.map((hospital, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="mx-auto w-full bg-white rounded-xl shadow-md p-4"
-                        >
-                          <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">
-                            Hospital
-                          </div>
-                          <h1 className="block mt-1 text-lg leading-tight font-semibold text-gray-800">
-                            {hospital.name}
-                          </h1>
-                          {/* <div className="mt-2 text-sm">
+              <div>
+                {loadingHospitals ? (
+                  <p>Loading hospitals...</p>
+                ) : hospitals.length > 0 ? (
+                  <div className="container mx-auto ">
+                    <br />
+                    <h3
+                      className={`text-lg tracking-widest text-center font-semibold ${
+                        dark === 'dark' ? 'text-[#f6e05e]' : 'text-[#c229b8]'
+                      }`}
+                    >
+                      Hospitals within 2km:
+                    </h3>
+                    <br />
+                    <div className="flex flex-col w-full">
+                      {hospitals.map((hospital, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={`mx-auto w-full  rounded-xl shadow-2xl  p-4 mb-3
+                               ${
+                                 dark === 'dark'
+                                   ? 'bg-[#2d3748] text-[#e2e8f0]'
+                                   : 'bg-[#fff] text-[#333]'
+                               }`}
+                          >
+                            <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">
+                              Hospital
+                            </div>
+                            <h1
+                              className={`block mt-1 text-lg leading-tight font-semibold  ${
+                                dark === 'dark'
+                                  ? 'text-[#f6e05e]'
+                                  : 'text-[#c229b8]'
+                              }`}
+                            >
+                              {hospital.name}
+                            </h1>
+                            {/* <div className="mt-2 text-sm">
                           <span className="text-gray-700 font-semibold">Address:</span>
                           <p className='text-xs'>{hospital.address}</p>
                         </div> */}
-                          <div className="mt-2 text-sm">
-                            <span className="text-gray-700 font-semibold">
-                              Coordinates:
-                            </span>
-                            <p className="text-xs">
-                              Lat: {hospital.lat}, Lon: {hospital.lng}
-                            </p>
+                            <div className="mt-2 text-sm">
+                              <span className="font-semibold">
+                                Coordinates:
+                              </span>
+                              <p className="text-xs">
+                                Lat: {hospital.lat}, Lon: {hospital.lng}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <p>No hospitals found nearby.</p>
-              )}
+                ) : (
+                  <p>No hospitals found nearby.</p>
+                )}
+              </div>
             </div>
-            <div id="map" className="h-screen w-[75%]"></div>
+            <div
+              id="map"
+              className="h-[50vh] w-full  md:w-[70%] md:h-screen "
+            ></div>
           </div>
         ) : (
           <p>Fetching location...</p>
