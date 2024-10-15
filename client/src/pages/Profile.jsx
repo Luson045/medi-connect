@@ -13,7 +13,7 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       if (isAuthenticated) {
         try {
-          const response = await fetch('https://medi-connect-f671.onrender.com/auth/profile', {
+          const response = await fetch('http://localhost:8080/auth/profile', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

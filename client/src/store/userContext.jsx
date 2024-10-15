@@ -13,6 +13,7 @@ export const UserProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem('token');
+    
       if (!token) {
         // If no token, consider the user as not authenticated
         setAuth(false);
@@ -21,7 +22,7 @@ export const UserProvider = ({ children }) => {
       }
 
       const response = await fetch(
-        'https://medi-connect-f671.onrender.com/auth/profile',
+        'http://localhost:8080/auth/profile',
         {
           method: 'GET',
           headers: {
@@ -66,6 +67,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{ user, isAuthenticated, setUser, setAuth, handleLogout }}
     >
+      {console.log(isAuthenticated)}
       {children}
     </UserContext.Provider>
   );
