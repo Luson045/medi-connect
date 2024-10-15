@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
       }
 
       const response = await fetch(
-        'http://localhost:8080/auth/profile',
+        'https://medi-connect-f671.onrender.com/auth/profile',
         {
           method: 'GET',
           headers: {
