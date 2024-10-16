@@ -3,8 +3,7 @@ import { Send, X, Bot, MessageCircle } from 'lucide-react';
 import { mode } from '../store/atom';
 import { useRecoilValue } from 'recoil';
 
-const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Chatbot = ({isOpen, setIsOpen}) => {
   const [messages, setMessages] = useState([
     { type: 'incoming', text: 'Hi there\nHow can I help you today?' },
   ]);
@@ -100,14 +99,6 @@ const Chatbot = () => {
 
   return (
     <div className="relative z-50">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-600 hover:shadow-inner:bg-blue-500 text-white p-3 rounded-full shadow-lg  transition-colors"
-      >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
-      </button>
-
-
       <div className={`absolute bottom-[110%] right-0 ${isOpen ? "scale-100" : "scale-0"} origin-bottom-right duration-300 z-10 w-80 md:w-96 ${dark === "dark" ? "bg-[#141B2A]/50 backdrop-blur-[9px]" : "bg-white"}  rounded-lg shadow-xl max-h-[60vh] flex flex-col`}>
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-t-lg">
           <h2 className="text-xl font-bold">Chatbot</h2>
@@ -139,7 +130,7 @@ const Chatbot = () => {
         </div>
 
         <div className={`p-4 border-t ${dark === "dark" ? "border-t-gray-700" : ""}`}>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <textarea
               ref={textareaRef}
               value={inputMessage}
