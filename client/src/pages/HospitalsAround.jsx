@@ -20,7 +20,7 @@ const HospitalsAround = () => {
   const [routeControl, setRouteControl] = useState(null); // State to store the current route
   const [distances, setDistances] = useState({}); // Store distances for each hospital
   const [address, setAddress] = useState('Fetching address...'); // State for the human-readable address
-
+  const [locationError, setLocationError] = useState(false);
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,
@@ -38,6 +38,7 @@ const HospitalsAround = () => {
 
     const errorCallback = (error) => {
       console.error('Error getting location: ', error);
+      setLocationError(true);
     };
 
     navigator.geolocation.getCurrentPosition(
@@ -302,7 +303,7 @@ const HospitalsAround = () => {
             ></div>
           </div>
         ) : (
-          <p>Fetching location...</p>
+          locationError?<p>Having trouble fetching location. Please enable location access in your browser and reload the page to retry.</p>:<p>Fetching location...</p>
         )}
       </div>
     </>
