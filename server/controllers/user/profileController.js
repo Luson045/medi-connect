@@ -113,4 +113,4 @@ const addDoctor = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, editProfile, addDoctor };
+module.exports = { getProfile, editProfileByID, addDoctor };
