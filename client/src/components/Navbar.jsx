@@ -320,7 +320,9 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         </div>
 
         <div className="flex gap-3">
-          {isAuthenticated ? (
+          
+          {localStorage?.getItem('token')? (
+            
             <button
               className={`${
                 dark === 'dark'

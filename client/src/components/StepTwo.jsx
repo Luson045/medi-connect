@@ -54,7 +54,14 @@ function StepTwo() {
 
     setOtherDetails((prevDetails) => ({
       ...prevDetails,
-      [name]: [...prevDetails.medicalHistory, ...value.split(',')],
+      [name]: [...prevDetails.medicalHistory, ...value.trim().split(',')],
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      frontend: {
+        ...prev.frontend,
+        [name]: '', // Clear frontend error for the field being edited
+      },
     }));
   };
 
@@ -219,10 +226,33 @@ function StepTwo() {
           <span className="error">{errors.backend.postalCode}</span>
         )}
       </div>
+      <h5 className="mt-2">Other Info</h5>
+      <hr />
       {basicDetails.type === 'hospital' && (
         <>
-          <h5>Other Info</h5>
-          <hr />
+          <div className="form-section">
+            <label
+              htmlFor="website"
+              className={`auth-form ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-yellow-400'
+                  : 'bg-white text-gray-700'
+              }`}
+              style={{ display: 'inline' }}
+            >
+              Website:
+            </label>
+            <input
+              id="website"
+              type="text"
+              name="website"
+              placeholder="www.hospital.com"
+              value={otherDetails.website}
+              onChange={handleChange}
+              required
+              className={`${dark === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
+            />
+          </div>
           <div className="form-section">
             <label
               htmlFor="department"
@@ -296,8 +326,6 @@ function StepTwo() {
       )}
       {basicDetails.type === 'user' && (
         <>
-          <h5>Other Info</h5>
-          <hr />
           <div className="form-section">
             <label
               htmlFor="dob"
