@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+import { FaMapPin, FaHospital } from 'react-icons/fa'; // Import the icons
+import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer to render icons to HTML
+import { useRecoilState } from 'recoil';
+import { mode } from '../store/atom';
 import 'leaflet-routing-machine'; // Import Leaflet Routing Machine
-import { FaMapPin, FaHospital } from 'react-icons/fa';
-import ReactDOMServer from 'react-dom/server';
+
 import Navbar from '../components/Navbar';
 import '../styles/Nearbyhospitals.css';
 
 const HospitalsAround = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [map, setMap] = useState(null);
+  const [dark, setDark] = useRecoilState(mode);
   const [hospitals, setHospitals] = useState([]);
   const [loadingHospitals, setLoadingHospitals] = useState(false);
   const [routeControl, setRouteControl] = useState(null); // State to store the current route
@@ -35,13 +40,19 @@ const HospitalsAround = () => {
       console.error('Error getting location: ', error);
     };
 
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
+    navigator.geolocation.getCurrentPosition(
+      successCallback,
+      errorCallback,
+      options,
+    );
   }, []);
 
   // Fetch human-readable address using reverse geocoding (Nominatim API)
   const fetchAddress = async (lat, lng) => {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+      );
       const data = await response.json();
       if (data && data.display_name) {
         setAddress(data.display_name); // Set the human-readable address
@@ -93,7 +104,10 @@ const HospitalsAround = () => {
 
         // Calculate distances to each hospital
         const calculatedDistances = hospitalData.reduce((acc, hospital) => {
-          const distance = L.latLng(lat, lng).distanceTo(L.latLng(hospital.lat, hospital.lng)) / 1000; // distance in km
+          const distance =
+            L.latLng(lat, lng).distanceTo(
+              L.latLng(hospital.lat, hospital.lng),
+            ) / 1000; // distance in km
           acc[hospital.name] = distance.toFixed(2); // Keep 2 decimal places
           return acc;
         }, {});
@@ -164,7 +178,7 @@ const HospitalsAround = () => {
       try {
         map.removeControl(routeControl);
       } catch (error) {
-        console.error("Error removing route control:", error);
+        console.error('Error removing route control:', error);
       }
     }
 
@@ -177,7 +191,7 @@ const HospitalsAround = () => {
       routeWhileDragging: true,
       addWaypoints: false, // Disable adding new waypoints
       show: false, // Disable the default instructions control (this hides the panel)
-      createMarker: () => { }, // Removes default markers (if you want custom markers)
+      createMarker: () => {}, // Removes default markers (if you want custom markers)
       lineOptions: {
         styles: [{ color: 'blue', weight: 5 }], // Set route color to blue
       },
@@ -189,52 +203,103 @@ const HospitalsAround = () => {
   return (
     <>
       <Navbar />
-      <div className="content-container"> {/* Add this wrapper for margin */}
+      <div className="content-container">
+        {' '}
+        {/* Add this wrapper for margin */}
         {location.lat && location.lng ? (
-          <div>
-            <div className="location-info"> {/* Adjust margin or padding here */}
-              <h3 style={{ fontWeight: "600" }}>Your Current Location :</h3>
-              <p style={{ fontWeight: "600" }}>{address}</p> {/* Display the human-readable address */}
-            </div>
-            <div id="map" style={{ height: '500px', width: '100%' }}></div>
-            {loadingHospitals ? (
-              <p>Loading hospitals...</p>
-            ) : hospitals.length > 0 ? (
-              <div className='container mx-auto'>
-                <div className="flex justify-center">
-  <button className='text-lg tracking-widest text-center font-bold text-black mb-3 mt-3 bg-transparent border border-blue-500 px-4 py-2 rounded transition-colors duration-300 hover:bg-blue-100 hover:text-blue-600'>
-    Hospitals within 2 km
-  </button>
-</div>
-
-
-
-                <div className='grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3'>
-                  {hospitals.map((hospital, index) => (
-                    <div key={index} className="mx-auto w-full bg-white rounded-xl shadow-md p-4">
-                      <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">Hospital</div>
-                      <h1 className="block mt-1 text-lg leading-tight font-semibold text-gray-800">{hospital.name}</h1>
-                      <div className="mt-2 text-sm">
-                        <span className="text-gray-700 font-semibold">Coordinates:</span>
-                        <p className='text-xs'>Lat: {hospital.lat}, Lon: {hospital.lng}</p>
-                      </div>
-                      <div className="mt-2 text-sm">
-                        <span className="text-gray-700 font-semibold">Distance:</span>
-                        <p className='text-xs'>{distances[hospital.name]} km</p>
-                      </div>
-                      <button
-                        onClick={() => showRouteToHospital(hospital)}
-                        className="mt-4 bg-blue-500 text-white px-3 py-1 rounded"
-                      >
-                        Show Route
-                      </button>
-                    </div>
-                  ))}
-                </div>
+          <div className="flex flex-col-reverse  py-16  md:flex-row ">
+            <div
+              className={`h-1/2 md:w-[30%] md:h-screen  md:overflow-y-scroll ${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-gray-200'
+                  : 'bg-white text-gray-800'
+              }`}
+            >
+              <div
+                className={`${
+                  dark === 'dark'
+                    ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100 shadow-2xl'
+                    : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+                } px-2 py-2.5 `}
+              >
+                <p className="font-bold">Your Location: {address}</p>
               </div>
-            ) : (
-              <p>No hospitals found nearby.</p>
-            )}
+              <div>
+                {loadingHospitals ? (
+                  <p>Loading hospitals...</p>
+                ) : hospitals.length > 0 ? (
+                  <div className="container mx-auto ">
+                    <br />
+                    <h3
+                      className={`text-lg tracking-widest text-center font-semibold ${
+                        dark === 'dark' ? 'text-[#f6e05e]' : 'text-[#c229b8]'
+                      }`}
+                    >
+                      Hospitals within 2km:
+                    </h3>
+                    <br />
+                    <div className="flex flex-col w-full">
+                      {hospitals.map((hospital, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={`mx-auto w-full  rounded-xl shadow-2xl  p-4 mb-3
+                               ${
+                                 dark === 'dark'
+                                   ? 'bg-[#2d3748] text-[#e2e8f0]'
+                                   : 'bg-[#fff] text-[#333]'
+                               }`}
+                          >
+                            <div className="uppercase tracking-wide text-[10px] text-custom-blue font-semibold ">
+                              Hospital
+                            </div>
+                            <h1
+                              className={`block mt-1 text-lg leading-tight font-semibold  ${
+                                dark === 'dark'
+                                  ? 'text-[#f6e05e]'
+                                  : 'text-[#c229b8]'
+                              }`}
+                            >
+                              {hospital.name}
+                            </h1>
+                            {/* <div className="mt-2 text-sm">
+                          <span className="text-gray-700 font-semibold">Address:</span>
+                          <p className='text-xs'>{hospital.address}</p>
+                        </div> */}
+                            <div className="mt-2 text-sm">
+                              <span className="font-semibold">
+                                Coordinates:
+                              </span>
+                              <p className="text-xs">
+                                Lat: {hospital.lat}, Lon: {hospital.lng}
+                              </p>
+                            </div>
+                            <div className="mt-2 text-sm">
+                              <span className=" font-semibold">Distance:</span>
+                              <p className="text-xs">
+                                {distances[hospital.name]} km
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => showRouteToHospital(hospital)}
+                              className="mt-4 bg-blue-500 text-white px-3 py-1 rounded"
+                            >
+                              Show Route
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <p>No hospitals found nearby.</p>
+                )}
+              </div>
+            </div>
+            <div
+              id="map"
+              className="h-[50vh] w-full  md:w-[70%] md:h-screen "
+            ></div>
           </div>
         ) : (
           <p>Fetching location...</p>
