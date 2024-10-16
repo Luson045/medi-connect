@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import { TailSpin } from 'react-loader-spinner';
 import { notify } from '../components/notification';
 import '../styles/Login.css';
@@ -11,7 +11,6 @@ import { databaseUrls } from '../data/databaseUrls';
 const AuthPage = () => {
   const [formData, setFormData] = useState({
     type: 'hospital',
-    name: '',
     email: '',
     password: '',
   });
@@ -23,7 +22,6 @@ const AuthPage = () => {
 
   const [showPassword, setShowPassword] = useState({
     password: false,
-    confirmPassword: false,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,7 +46,6 @@ const AuthPage = () => {
     if (!formData.email) newErrors.email = 'Email is required (frontend)';
     if (!formData.password || formData.password.length < 8)
       newErrors.password = 'Password must be at least 8 characters long';
-
     return newErrors;
   };
 
@@ -114,6 +111,29 @@ const AuthPage = () => {
     }));
   };
 
+  // Function to handle Google Sign-In button click
+  const handleGoogleSignIn = () => {
+    // Open a new window for Google OAuth sign-in
+    const googleSignInWindow = window.open(
+      'https://medi-connect-f671.onrender.com/auth/google',
+      '_blank',
+      'width=500,height=600'
+    );
+  
+    // Listen for messages from the OAuth window (token response)
+    window.addEventListener('message', (event) => {
+      if (event.origin === 'https://medi-connect-f671.onrender.com') { // Ensure the event is from the correct origin
+        const { token } = event.data;
+        if (token) {
+          localStorage.setItem('token', token); // Store the token in localStorage
+          notify('Login successful', 'success');
+          window.location.href = '/profile'; // Redirect to profile page
+        }
+      }
+    });
+  };
+  
+
   return (
     <div
       className={`login_background ${
@@ -134,26 +154,6 @@ const AuthPage = () => {
             Login
           </h2>
           <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-section">
-              <label
-                className={`auth-form ${
-                  dark === 'dark'
-                    ? ' text-yellow-400'
-                    : 'bg-white text-gray-700'
-                }`}
-              >
-                User Type:
-              </label>
-              <select
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                className="px-2.5 py-2"
-              >
-                <option value="user">User</option>
-                <option value="hospital">Hospital</option>
-              </select>
-            </div>
             <div className="form-section">
               <label
                 className={`auth-form ${
@@ -235,6 +235,22 @@ const AuthPage = () => {
                 }`}
               >
                 Login
+              </button>
+            </div>
+
+            {/* Google Sign-In Button */}
+            <div className="google-signin flex items-center justify-center">
+              <button
+                type="button"
+                onClick={handleGoogleSignIn}
+                className={`google-button flex items-center justify-center ${
+                  dark === 'dark'
+                    ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
+                    : 'bg-red-600 text-white hover:bg-red-700'
+                }`}
+              >
+                <FaGoogle className="mr-2" />
+                Sign in with Google
               </button>
             </div>
 

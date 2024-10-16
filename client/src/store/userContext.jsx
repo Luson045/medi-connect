@@ -15,6 +15,7 @@ export const UserProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem('token');
+    
       if (!token) {
         // If no token, consider the user as not authenticated
         setAuth(false);
@@ -68,6 +69,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{ user, isAuthenticated, setUser, setAuth, handleLogout }}
     >
+      {console.log(isAuthenticated)}
       {children}
     </UserContext.Provider>
   );

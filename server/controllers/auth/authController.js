@@ -9,7 +9,7 @@ const {
 } = require("../../validators/authSchemas.js");
 const { hashPassword, comparePassword } = require("../../utils/index.js");
 const jwt = require("jsonwebtoken");
-const jwtSecret = process.env.JWT;
+const jwtSecret = process.env.JWT_SECRET;
 
 const registerUser = async (req, res) => {
   try {
@@ -133,4 +133,49 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const createUserFromGoogleSignIn = async (googleProfile) => {
+  try {
+    const { id,displayName, emails } = googleProfile;
+    const email = emails[0].value;
+    const hashedPassword = await hashPassword(id);
+    // Default values for fields that are not available from Google
+    const userObject = {
+      type: "user", // Assuming the type is "user"
+      name: displayName || "Google User", // Use displayName or fallback
+      email: email,
+      password: hashedPassword, // No password for Google sign-in users
+      phone: "0000000000", // Placeholder, since phone isn't provided by Google
+      address: {
+        street: "Unknown", // Placeholder, since no address from Google
+        city: "Unknown",
+        state: "Unknown",
+        postalCode: "000000", // Placeholder
+      },
+      gender: "Male", // Placeholder since gender is not provided
+      dob: new Date(), // Default to current date for dob
+      medicalHistory: [], // Empty array if no medical history
+    };
+
+    // Validate the userObject with Zod schema
+    const parsedUser = userSchema.parse(userObject);
+
+    // Save to the database (MongoDB)
+    const user = new User(parsedUser);
+    await user.save();
+
+    // Generate JWT token
+    const payload = { user: { id: user.id } };
+    const token = jwt.sign(payload, jwtSecret, { expiresIn: "3d" });
+
+    return { user, token }; // Return the user object and token
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error("Validation error:", error.errors);
+      throw new Error("Validation failed");
+    }
+    console.error("Error creating user from Google sign-in:", error);
+    throw new Error("Failed to create user");
+  }
+};
+
+module.exports = { registerUser, loginUser, createUserFromGoogleSignIn};
