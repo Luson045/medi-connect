@@ -98,7 +98,6 @@ function Layout() {
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </div>
-      <Chatbot />
       {/* Conditionally render Footer */}
       {showNavAndFooter && <Footer />}
       {!showNavAndFooter && (
