@@ -3,6 +3,9 @@ const rateLimit = require("express-rate-limit");
 const {
   registerUser,
   loginUser,
+  forgotPassword,
+  verifyOTPApi,
+  resetPassword
 } = require("../../controllers/auth/authController.js");
 const router = express.Router();
 
@@ -16,6 +19,9 @@ const loginLimiter = rateLimit({
 });
 
 router.post("/register", registerUser);
-router.post("/login", loginLimiter, loginUser); 
+router.post("/login", loginUser);
+router.post("/forgot-password", forgotPassword);
+router.post("/otpverify", verifyOTPApi);
+router.post("/reset-password", resetPassword);
 
 module.exports = router;

@@ -21,16 +21,11 @@ const userSchema = new mongoose.Schema(
         hospitalId: { type: mongoose.Schema.Types.ObjectId, ref: "Hospital" },
         date: Date,
         reason: String,
-        status: {
-          type: String,
-          enum: ["pending", "completed", "canceled"],
-          default: "pending",
-        },
-      },
-    ],
-  },
-  { timestamps: true }
-);
+        status: { type: String, enum: ['pending', 'completed', 'canceled'], default: 'pending' }
+      }],
+    otp: { type: String, default: null },
+    otpExpiry: { type: Date, default: null },
+  }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

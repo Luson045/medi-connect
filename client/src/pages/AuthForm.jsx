@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil'; // Import recoil
 import { mode } from '../store/atom'; // Import dark mode atom
 import { databaseUrls } from '../data/databaseUrls';
+import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ const AuthPage = () => {
     password: false,
   });
 
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dark = useRecoilValue(mode); // Get dark mode state
 
@@ -263,6 +265,15 @@ const AuthPage = () => {
               Don't have an account? Register
             </Link>
           </form>
+          <div className="mt-4">
+        <button onClick={() => navigate('/forgot-password')}className={`auth-button ${
+                  dark === 'dark'
+                    ? 'bg-yellow-400 text-gray-900 hover:bg-yellow-500'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}>
+          Forgot Password?
+        </button>
+      </div>
         </div>
       </div>
       {isSubmitting && (
