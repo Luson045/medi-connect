@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import {
@@ -9,23 +9,32 @@ import {
   FaHospitalAlt,
 } from 'react-icons/fa'; // Import FaHospitalAlt
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { MdOutlineLocalHospital, MdLogin, MdDarkMode } from 'react-icons/md';
+import { MdOutlineLocalHospital, MdLogin, MdDarkMode, MdLogout } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
 import { useRecoilState } from 'recoil';
 import { mode } from '../store/atom';
 import PropTypes from 'prop-types';
+import { UserContext } from '../store/userContext';
 
-const Navbar = ({ isAuthenticated, user, handleLogout }) => {
+const Navbar = () => {
+  const {
+    user,
+    isAuthenticated = true,
+    handleLogout,
+  } = useContext(UserContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dark, setDark] = useRecoilState(mode);
+  const [dark] = useRecoilState(mode);
   const [isNavbarVisible, setNavbarVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
-
-  const handleToggleMode = () => {
-    setDark(dark === 'light' ? 'dark' : 'light');
-  };
+  const toggleMobileMenu = (val) => {
+    if (!val) {
+      document.body.style.overflow = 'auto';
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+    setMobileMenuOpen(val);
+  }
 
   // Scroll event listener
   const controlNavbar = useCallback(() => {
@@ -51,17 +60,69 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
       };
     }
   }, [lastScrollY, controlNavbar]);
+  const navLinks =
+    [
+      {
+        title: 'Home',
+        icon: <FaHome />,
+        link: '/',
+        isVisible: true
+      },
+      {
+        title: 'About',
+        icon: <AiOutlineInfoCircle />,
+        link: '/about',
+        isVisible: true
 
+      }, {
+        title: 'Lab Test',
+        icon: <MdOutlineLocalHospital />,
+        link: '/labtest',
+        isVisible: true
+
+      },
+      {
+        title: 'Blogs',
+        icon: <MdOutlineLocalHospital />,
+        link: '/blog',
+        isVisible: true
+
+      }, {
+        title: 'Hospitals Around',
+        icon: <FaHospitalAlt />,
+        link: '/hospitals-around',
+        isVisible: true
+      }, {
+        title: 'Instant OPD',
+        icon: <MdOutlineLocalHospital />,
+        link: '/registerOPD',
+        isVisible: !isAuthenticated
+      }, {
+        title: 'Profile',
+        icon: <FaUser />,
+        link: '/profile',
+        isVisible: isAuthenticated
+      }, {
+        title: 'Hospitals',
+        icon: <FaHospital />,
+        link: '/hospitals',
+        isVisible: isAuthenticated && user && user?.role === 'user'
+      }, {
+        title: 'OPD Panel',
+        icon: <MdOutlineLocalHospital />,
+        link: '/panel',
+        isVisible: isAuthenticated && user && user?.role === 'hospital'
+      }
+    ]
   return (
     <nav
-      className={`${
-        dark === 'dark'
-          ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
-          : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-      } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${
-        isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className={`${dark === 'dark'
+        ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+        : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+        } top-0 fixed z-[100] py-4 md:py-2 flex justify-between items-center w-full px-5 lg:py-2 md:px-10 transition-transform duration-300 ease-in-out ${isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
+        } `}
     >
+      <div onClick={() => toggleMobileMenu(false)} className={`absolute top-0 left-0 duration-500 w-full  min-h-[100dvh] ${dark === "dark" ? "bg-white/50" : "bg-black/50"} ${isMobileMenuOpen ? "opacity-100 visible " : "opacity-0 invisible "} z-[101]`} />
       <NavLink to="/">
         <img
           className="h-10 sm:pl-2 md:h-14"
@@ -70,287 +131,126 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           onClick={() => setMobileMenuOpen(false)}
         />
       </NavLink>
+      <IoMenu onClick={() => toggleMobileMenu(true)} className='text-3xl cursor-pointer lg:hidden' />
 
-      <div className="lg:hidden block absolute z-[101] right-3 md:right-8 text-3xl md:text-4xl">
-        {isMobileMenuOpen ? (
-          <IoClose onClick={toggleMobileMenu} />
-        ) : (
-          <IoMenu onClick={toggleMobileMenu} />
-        )}
-      </div>
 
-      {isMobileMenuOpen && (
-        <div
-          className={`${
-            dark === 'dark'
-              ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
-              : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
-          } lg:hidden absolute z-[100] flex text-xl md:text-2xl flex-col items-start pl-8 md:pl-12 gap-5 md:gap-7 top-16 md:top-[72px] w-full left-0 py-7 md:py-9 h-fit`}
-        >
-          <button
-            onClick={handleToggleMode}
-            className={`p-2 rounded-full transition-all duration-300 ${
-              dark === 'light'
-                ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
-                : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-            }`}
-          >
-            {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
-          </button>
+      {/* Nobile neu section */}
+      <div
+        className={`${dark === 'dark'
+          ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+          : 'bg-[linear-gradient(90deg,_#a1c4fd_0%,_#c2e9fb_100%)] text-black'
+          } lg:hidden fixed top-0 left-0 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-[-110%]"} duration-500 flex flex-col justify-between  text-xl md:text-2xl  w-full max-w-80 h-screen z-[102]`}
+      >
+        {/* side nav bar top section */}
+        <div className='flex justify-between items-center w-full px-2 py-3 border-b border-b-gray-400'>
 
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <FaHome />
-            <p className="hover:brightness-50 hover:font-semibold">Home</p>
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/about"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <AiOutlineInfoCircle />
-            <p className="hover:brightness-50 hover:font-semibold">About</p>
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/labtest"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/blog"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="hover:brightness-50 hover:font-semibold">Blogs</p>
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) =>
-              `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-            }
-            to="/hospitals-around"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <FaHospitalAlt />
-            <p className="hover:brightness-50 hover:font-semibold">
-              Hospitals Around
-            </p>
-          </NavLink>
-
-          {isAuthenticated ? (
-            <>
-              <NavLink
-                className={({ isActive }) =>
-                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-                }
-                to="/profile"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <FaUser />
-                <p className="hover:brightness-50 hover:font-semibold">
-                  Profile
-                </p>
-              </NavLink>
-              {user && user?.role === 'user' && (
-                <NavLink
-                  className={({ isActive }) =>
-                    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-                  }
-                  to="/hospitals"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <FaHospital />
-                  <p className="hover:brightness-50 hover:font-semibold">
-                    Hospitals
-                  </p>
-                </NavLink>
-              )}
-              {user && user?.role === 'hospital' && (
-                <NavLink
-                  className={({ isActive }) =>
-                    `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
-                  }
-                  to="/panel"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <MdOutlineLocalHospital />
-                  <p className="hover:brightness-50 hover:font-semibold">
-                    OPD Panel
-                  </p>
-                </NavLink>
-              )}
-            </>
-          ) : (
-            <NavLink
-              className={({ isActive }) =>
-                `${isActive ? 'border-b border-white ' : ''} flex items-center gap-2`
-              }
-              to="/registerOPD"
+          <NavLink to="/" className={"block"}>
+            <img
+              className="h-14 sm:pl-2 md:h-14"
+              alt="medi-connects logo"
+              src="../logo.png"
               onClick={() => setMobileMenuOpen(false)}
-            >
-              <MdOutlineLocalHospital />
-              <p className="hover:brightness-50 hover:font-semibold">
-                Instant OPD
-              </p>
-            </NavLink>
-          )}
+            />
+          </NavLink>
+          <div className='flex items-center gap-2'>
+            <ToggleTheme />
 
+            <IoClose onClick={() => toggleMobileMenu(false)} className={`text-4xl cursor-pointer ${dark === "dark" ? "text-gray-200 " : "text-gray-800"}`} />
+          </div>
+        </div>
+
+        {/* sid nav bar mid sec */}
+        <div className='flex flex-col gap-2 flex-grow'>
+          {navLinks.map(({ title, icon, link, isVisible }, index) =>
+            isVisible && <NavLink
+              key={index}
+              className={({ isActive }) =>
+                `${isActive ? `bg-white ${dark === 'dark' ? " text-gray-800" : ""}` : `${dark === 'dark' ? "hover:bg-white/60 hover:text-gray-800" : "hover:bg-white/60"}`} duration-200 flex gap-2 py-3 px-4 items-baseline`
+              }
+              to={link}
+              onClick={() => toggleMobileMenu(false)}
+            >
+              {icon}
+              <span className="">{title}</span>
+            </NavLink>
+          )
+          }
+        </div>
+
+
+
+        {/* sid nav bar bottom secti */}
+        <div className='flex justify-between gap-2 px-3 py-2 border-t border-t-gray-400'>
           {isAuthenticated ? (
             <button
-              className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+              className={`bg-white flex-grow px-3 py-2 rounded flex items-center justify-center gap-2 ${dark === "dark" ? "text-gray-800" : "text-gray-800"}`}
               onClick={handleLogout}
-            >
+            ><MdLogout />
               Log Out
             </button>
           ) : (
-            <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
+              <>
               <NavLink
-                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 xs:px-4 py-1 rounded-lg text-black font-bold hover:brightness-75 login-btn"
+                  className={`bg-white flex-grow px-3 py-2 rounded flex items-center justify-center gap-2 ${dark === " dark" ? "text-gray-800" : "text-gray-800"}`}
                 to="/login"
-                onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => toggleMobileMenu(false)}
               >
                 <MdLogin />
                 Login
               </NavLink>
               <NavLink
-                className="bg-white flex gap-2 w-full xs:w-auto items-center px-3 xs:px-4 py-1 rounded-lg text-black font-bold hover:brightness-75"
+                  className={`bg-white flex-grow px-3 py-2 rounded flex items-center justify-center gap-2 ${dark === " dark" ? "text-gray-800" : "text-gray-800"}`}
                 to="/register"
-                onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => toggleMobileMenu(false)}
               >
                 <FaUserPlus />
                 Register
               </NavLink>
-            </div>
+              </>
           )}
         </div>
-      )}
+      </div>
 
-      <div className="hidden lg:flex items-center gap-10">
-        <div className="flex items-center gap-4 text-lg font-medium">
-          <button
-            onClick={handleToggleMode}
-            className={`p-2 rounded-full transition-all duration-300 ${
-              dark === 'light'
-                ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
-                : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
-            }`}
-          >
-            {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
-          </button>
-          <NavLink to="/" className="flex justify-center items-center gap-2">
-            <FaHome />
-            <p className="font-bold text-lg hover:brightness-50">Home</p>
-          </NavLink>
-          <NavLink
-            to="/about"
-            className="flex justify-center items-center gap-2"
-          >
-            <AiOutlineInfoCircle />
-            <p className="font-bold text-lg hover:brightness-50">About</p>
-          </NavLink>
-          <NavLink
-            to="/blog"
-            className="flex justify-center items-center gap-2"
-          >
-            <MdOutlineLocalHospital />{' '}
-            <p className="font-bold text-lg hover:brightness-50">Blog</p>
-          </NavLink>
-
-          <NavLink to="/labtest" className="flex items-baseline gap-2">
-            <MdOutlineLocalHospital />{' '}
-            <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
-          </NavLink>
-
-          {/* Add the new Hospitals Around Link for Desktop */}
-          <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
-            <FaHospitalAlt />
-            <p className="font-bold text-lg hover:brightness-50">
-              Hospitals Around
-            </p>
-          </NavLink>
-
-          {isAuthenticated ? (
-            <>
-              <NavLink to="/profile" className="flex items-baseline gap-2">
-                <FaUser />
-                <p className="font-bold text-lg hover:brightness-50">Profile</p>
-              </NavLink>
-              {user && user?.role === 'user' && (
-                <NavLink to="/hospitals" className="flex items-baseline gap-2">
-                  <FaHospital />
-                  <p className="font-bold text-lg hover:brightness-50">
-                    Hospitals
-                  </p>
-                </NavLink>
-              )}
-              {user && user?.role === 'hospital' && (
-                <NavLink to="/panel" className="flex items-baseline gap-2">
-                  <MdOutlineLocalHospital />
-                  <p className="font-bold text-lg hover:brightness-50">
-                    OPD Panel
-                  </p>
-                </NavLink>
-              )}
-            </>
-          ) : (
-            <NavLink to="/registerOPD" className="flex items-baseline gap-2">
-              <MdOutlineLocalHospital />
-              <p className="font-bold text-lg hover:brightness-50">
-                Instant OPD
-              </p>
+      {/* Desktop view menu */}
+      <div className="hidden lg:flex items-center gap-4 ">
+        <div className="flex items-center gap-4">
+          {navLinks.map(({ title, icon, link, isVisible }, index) =>
+            isVisible && <NavLink key={index} to={link} className="flex justify-center items-center gap-2  hover:brightness-50">
+              {icon}
+              <span className="">{title}</span>
             </NavLink>
           )}
         </div>
 
         <div className="flex gap-3">
-          
-          {localStorage?.getItem('token')? (
-            
+          <ToggleTheme />
+          {localStorage?.getItem('token') ? (
+
             <button
-              className={`${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-gray-100'
-                  : 'bg-white text-black'
-              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+              className={`${dark === 'dark'
+                ? 'bg-gray-900 text-gray-100'
+                : 'bg-white text-black'
+                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
               onClick={handleLogout}
             >
               Log Out
             </button>
           ) : (
-            <div className="flex gap-5">
+              <div className="flex gap-4">
               <NavLink
-                className={`${
-                  dark === 'dark'
+                  className={`${dark === 'dark'
                     ? 'bg-gray-900 text-gray-100'
                     : 'bg-white text-black'
-                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+                    } flex gap-2 items-center px-3 py-2 rounded-lg font-bold hover:brightness-75`}
                 to="/login"
               >
                 <MdLogin /> Login
               </NavLink>
               <NavLink
-                className={`${
-                  dark === 'dark'
+                  className={`${dark === 'dark'
                     ? 'bg-gray-900 text-gray-100'
                     : 'bg-white text-black'
-                } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
+                    } flex gap-2 items-center px-3 py-2 rounded-lg font-bold hover:brightness-75`}
                 to="/register"
               >
                 <FaUserPlus /> Register
@@ -359,10 +259,22 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           )}
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };
-
+const ToggleTheme = () => {
+  const [dark, setDark] = useRecoilState(mode);
+  return <button
+    onClick={() => setDark(dark === 'light' ? 'dark' : 'light')
+    }
+    className={`rounded-full transition-all duration-300  justify-center items-center h-9 w-9 p-0 inline-flex ${dark === 'light'
+      ? 'bg-blue-200 text-blue-600 hover:bg-blue-300'
+      : 'bg-gray-800 text-gray-200 hover:bg-gray-700'
+      }`}
+  >
+    {dark === 'light' ? <WiDaySunny /> : <MdDarkMode />}
+  </button >
+}
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
   user: PropTypes.object,
