@@ -102,12 +102,15 @@ const registerUser = async (req, res) => {
     res.status(500).json({ message: "Error registering user/hospital", error });
   }
 };
-
 const loginUser = async (req, res) => {
   try {
+    // Log the incoming request body to see what data is being received
+    console.log("Received Data:", req.body); 
+
     const parsedData = loginSchema.parse(req.body);
     const { type, email, password } = parsedData;
 
+    // Ensure you check whether the type is user or hospital
     const userOrHospital = await (type === "user"
       ? User.findOne({ email })
       : Hospital.findOne({ email }));
@@ -137,6 +140,7 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
 
 const createUserFromGoogleSignIn = async (googleProfile) => {
   try {
