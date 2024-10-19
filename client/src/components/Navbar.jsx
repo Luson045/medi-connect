@@ -126,7 +126,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             to="/labtest"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <MdOutlineLocalHospital />{' '}
+            <MdOutlineLocalHospital  />{' '}
             <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
           </NavLink>
 
@@ -269,18 +269,18 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             to="/blog"
             className="flex justify-center items-center gap-2"
           >
-            <MdOutlineLocalHospital />{' '}
+            <MdOutlineLocalHospital   />{' '}
             <p className="font-bold text-lg hover:brightness-50">Blog</p>
           </NavLink>
 
           <NavLink to="/labtest" className="flex items-baseline gap-2">
-            <MdOutlineLocalHospital />{' '}
-            <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
-          </NavLink>
+  <MdOutlineLocalHospital className="mr-0.5 relative top-[19px] text-2xl" />
+  <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
+</NavLink>
 
           {/* Add the new Hospitals Around Link for Desktop */}
           <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
-            <FaHospitalAlt />
+            <FaHospitalAlt className="mr-0.5 relative top-[19px] text-2xl" />
             <p className="font-bold text-lg hover:brightness-50">
               Hospitals Around
             </p>
@@ -311,7 +311,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             </>
           ) : (
             <NavLink to="/registerOPD" className="flex items-baseline gap-2">
-              <MdOutlineLocalHospital />
+              <MdOutlineLocalHospital className="mr-0.5 relative top-[19px] text-2xl" />
               <p className="font-bold text-lg hover:brightness-50">
                 Instant OPD
               </p>
