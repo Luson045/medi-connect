@@ -299,7 +299,7 @@ function StepOne() {
 
         <Link
           to="/login"
-          className={`toggle-auth-button text-center ${dark === 'dark' ? 'text-yellow-400' : 'text-gray-700'
+          className={`toggle-auth-button text-center ${dark === 'dark' ? 'text-white' : 'text-black'
             }`}
         >
           Already have an account? Login
