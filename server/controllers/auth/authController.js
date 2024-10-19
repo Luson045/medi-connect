@@ -1,5 +1,5 @@
 const { z } = require("zod");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const User = require("../../models/user.js");
 const Hospital = require("../../models/hospital.js");
 const { geocodeAddress } = require("../../config/geocoder.js");
@@ -9,12 +9,15 @@ const {
   loginSchema,
   emailCheckSchema,
   otpVerificationSchema,
-  passwordResetSchema
+  passwordResetSchema,
 } = require("../../validators/authSchemas.js");
-const { hashPassword, comparePassword } = require("../../utils/bcrypt/bcryptUtils.js");
+const {
+  hashPassword,
+  comparePassword,
+} = require("../../utils/bcrypt/bcryptUtils.js");
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
-const {generateOTP, verifyOTP, clearOTP} = require('../../utils/otputils.js'); 
+const { generateOTP, verifyOTP, clearOTP } = require("../../utils/otputils.js");
 
 const registerUser = async (req, res) => {
   try {
@@ -140,7 +143,7 @@ const loginUser = async (req, res) => {
 
 const createUserFromGoogleSignIn = async (googleProfile) => {
   try {
-    const { id,displayName, emails } = googleProfile;
+    const { id, displayName, emails } = googleProfile;
     const email = emails[0].value;
     const hashedPassword = await hashPassword(id);
     // Default values for fields that are not available from Google
@@ -206,7 +209,7 @@ const forgotPassword = async (req, res) => {
 
     // Create the transporter for nodemailer
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // Use your preferred SMTP service
+      service: "gmail", // Use your preferred SMTP service
       auth: {
         user: process.env.SMTP_EMAIL,
         pass: process.env.SMTP_PASSWORD,
@@ -217,30 +220,30 @@ const forgotPassword = async (req, res) => {
     const mailOptions = {
       from: process.env.SMTP_EMAIL,
       to: email,
-      subject: 'Password Reset OTP for Med-Space',
+      subject: "Password Reset OTP for Med-Space",
       text: `Your OTP for password reset is: ${otp}. This OTP will expire in 10 minutes.`,
     };
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.error('Error sending email:', error);
-        return res.status(500).json({ message: 'Error sending OTP email' });
+        console.error("Error sending email:", error);
+        return res.status(500).json({ message: "Error sending OTP email" });
       }
-      console.log('Email sent:', info.response);
-      res.status(200).json({ message: 'OTP sent to email successfully' });
+      console.log("Email sent:", info.response);
+      res.status(200).json({ message: "OTP sent to email successfully" });
     });
   } catch (error) {
-    console.error('Forgot password error:', error);
+    console.error("Forgot password error:", error);
     if (error instanceof z.ZodError) {
       return res.status(400).json({
-        message: 'Validation error',
+        message: "Validation error",
         errors: error.errors,
       });
     }
     res.status(500).json({
-      message: 'Error processing forgot password request',
-      error: error.message || 'An unknown error occurred',
+      message: "Error processing forgot password request",
+      error: error.message || "An unknown error occurred",
     });
   }
 };
@@ -252,7 +255,8 @@ const verifyOTPApi = async (req, res) => {
     const { email, otp } = parsedData;
 
     // Search for the user by email (assuming User and Hospital collections)
-    const userOrHospital = await User.findOne({ email }) || Hospital.findOne({ email });
+    const userOrHospital =
+      (await User.findOne({ email })) || Hospital.findOne({ email });
 
     if (!userOrHospital) {
       return res.status(404).json({ message: "User or hospital not found" });
@@ -268,7 +272,6 @@ const verifyOTPApi = async (req, res) => {
 
     // OTP verified successfully, proceed with further steps (e.g., allow password reset)
     res.status(200).json({ message: "OTP verified successfully" });
-
   } catch (error) {
     console.error("OTP verification error:", error);
 
@@ -292,14 +295,14 @@ const resetPassword = async (req, res) => {
     const { type, email, newPassword } = passwordResetSchema.parse(req.body);
 
     // Find the user or hospital by email
-    const userOrHospital = type === "user"
-      ? await User.findOne({ email })
-      : await Hospital.findOne({ email });
+    const userOrHospital =
+      type === "user"
+        ? await User.findOne({ email })
+        : await Hospital.findOne({ email });
 
     if (!userOrHospital) {
       return res.status(404).json({ message: "User or hospital not found" });
     }
-
 
     // Hash the new password
     const hashedPassword = await hashPassword(newPassword);
@@ -317,12 +320,24 @@ const resetPassword = async (req, res) => {
   } catch (error) {
     console.error("Reset password error:", error);
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ message: "Validation error", errors: error.errors });
+      return res
+        .status(400)
+        .json({ message: "Validation error", errors: error.errors });
     }
-    res.status(500).json({ message: "Error resetting password", error: error.message || "An unknown error occurred" });
+    res
+      .status(500)
+      .json({
+        message: "Error resetting password",
+        error: error.message || "An unknown error occurred",
+      });
   }
 };
 
-module.exports = { registerUser, loginUser, createUserFromGoogleSignIn, forgotPassword, verifyOTPApi, resetPassword};
-
-
+module.exports = {
+  registerUser,
+  loginUser,
+  createUserFromGoogleSignIn,
+  forgotPassword,
+  verifyOTPApi,
+  resetPassword,
+};

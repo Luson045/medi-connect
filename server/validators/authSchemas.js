@@ -71,7 +71,13 @@ const passwordResetSchema = z.object({
   type: z.enum(["user", "hospital"]),
   email: z.string().email("Invalid email format"),
   newPassword: z.string().min(6, "Password must be at least 6 characters long"), // Adjust the criteria as needed
-  
 });
 
-module.exports = { userSchema, hospitalSchema, loginSchema ,emailCheckSchema, otpVerificationSchema, passwordResetSchema};
+module.exports = {
+  userSchema,
+  hospitalSchema,
+  loginSchema,
+  emailCheckSchema,
+  otpVerificationSchema,
+  passwordResetSchema,
+};

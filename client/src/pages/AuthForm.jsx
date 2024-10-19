@@ -259,7 +259,7 @@ const AuthPage = () => {
             <Link
               to="/register"
               className={`toggle-auth-button text-center ${
-                dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
+                dark === 'dark' ? 'text-white' : 'text-black'
               }`}
             >
               Don't have an account? Register

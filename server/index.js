@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require('./models/user');
+const User = require("./models/user");
 
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -14,7 +14,9 @@ const appointmentRouter = require("./routes/appointments/appointment");
 const client = require("prom-client");
 const { connectDB, corsConfig } = require("./utils");
 const Hospital = require("./models/hospital");
-const { createUserFromGoogleSignIn } = require("./controllers/auth/authController");
+const {
+  createUserFromGoogleSignIn,
+} = require("./controllers/auth/authController");
 require("dotenv").config();
 
 // JWT Secret Key
@@ -41,22 +43,27 @@ app.use(express.static("public"));
 app.use(express.json());
 
 // Session Middleware (Required for Passport)
-app.use(session({ secret: "your_secret_key", resave: false, saveUninitialized: true }));
+app.use(
+  session({ secret: "your_secret_key", resave: false, saveUninitialized: true })
+);
 
 // Initialize Passport and Sessions
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport Configuration
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
-  }
-));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+    }
+  )
+);
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
@@ -68,27 +75,36 @@ passport.deserializeUser((obj, done) => {
 });
 
 // Google OAuth2.0 Routes
-app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
     try {
-      console.log('check');
+      console.log("check");
       const { id, displayName, emails } = req.user;
       const email = emails[0].value;
-      console.log('check 1');
-      let userOrHospital = await User.findOne({ email }) || await Hospital.findOne({ email });
-      console.log('check 2');
+      console.log("check 1");
+      let userOrHospital =
+        (await User.findOne({ email })) || (await Hospital.findOne({ email }));
+      console.log("check 2");
       let token;
       if (!userOrHospital) {
-        const { user, token: newToken } = await createUserFromGoogleSignIn({ id, displayName, emails });
+        const { user, token: newToken } = await createUserFromGoogleSignIn({
+          id,
+          displayName,
+          emails,
+        });
         token = newToken;
         console.log(user, token);
       } else {
         const payload = { user: { id: userOrHospital.id } };
         token = jwt.sign(payload, jwtSecret, { expiresIn: "3d" });
-        console.log( token);
+        console.log(token);
       }
 
       // Use window.opener.postMessage to send token to parent window and close the OAuth window
@@ -99,8 +115,8 @@ app.get('/auth/google/callback',
         </script>
       `);
     } catch (error) {
-      console.error('Google sign-in error:', error);
-      res.status(500).json({ message: 'Error signing in with Google', error });
+      console.error("Google sign-in error:", error);
+      res.status(500).json({ message: "Error signing in with Google", error });
     }
   }
 );
