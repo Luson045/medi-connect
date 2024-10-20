@@ -53,7 +53,7 @@ const AuthPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors((prev) => ({
@@ -63,20 +63,20 @@ const AuthPage = () => {
       return;
     }
     setIsSubmitting(true);
+  
     try {
-      const response = await fetch(
-        databaseUrls.auth.login,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+      console.log("Form Data being sent to backend:", formData); // Log to check the data
+  
+      const response = await fetch(databaseUrls.auth.login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
-
+        body: JSON.stringify(formData), // Ensure formData includes type, email, and password
+      });
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         localStorage.setItem('token', data.token);
         notify('Login successful', 'success');
@@ -94,7 +94,7 @@ const AuthPage = () => {
         } else {
           notify(
             data.message || 'An error occurred. Please try again.',
-            'warn',
+            'warn'
           );
         }
       }
@@ -105,7 +105,7 @@ const AuthPage = () => {
       setIsSubmitting(false);
     }
   };
-
+  
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({
       ...prev,
@@ -156,6 +156,26 @@ const AuthPage = () => {
             Login
           </h2>
           <form onSubmit={handleSubmit} className="auth-form">
+          <div className="form-section">
+              <label
+                className={`auth-form ${
+                  dark === 'dark'
+                    ? ' text-yellow-400'
+                    : 'bg-white text-gray-700'
+                }`}
+              >
+                User Type:
+              </label>
+              <select
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+                className="px-2.5 py-2"
+              >
+                <option value="user">User</option>
+                <option value="hospital">Hospital</option>
+              </select>
+            </div>
             <div className="form-section">
               <label
                 className={`auth-form ${
@@ -259,7 +279,7 @@ const AuthPage = () => {
             <Link
               to="/register"
               className={`toggle-auth-button text-center ${
-                dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
+                dark === 'dark' ? 'text-white' : 'text-black'
               }`}
             >
               Don't have an account? Register
