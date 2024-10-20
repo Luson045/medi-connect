@@ -274,13 +274,13 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           </NavLink>
 
           <NavLink to="/labtest" className="flex items-baseline gap-2">
-            <MdOutlineLocalHospital />{' '}
+            <MdOutlineLocalHospital className="mr-0.5 relative top-[5px] " />{' '}
             <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
           </NavLink>
 
           {/* Add the new Hospitals Around Link for Desktop */}
           <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
-            <FaHospitalAlt />
+            <FaHospitalAlt className="mr-0.5 relative top-[3px] " />
             <p className="font-bold text-lg hover:brightness-50">
               Hospitals Around
             </p>
@@ -311,7 +311,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             </>
           ) : (
             <NavLink to="/registerOPD" className="flex items-baseline gap-2">
-              <MdOutlineLocalHospital />
+              <MdOutlineLocalHospital className="mr-0.5 relative top-[5px] " />
               <p className="font-bold text-lg hover:brightness-50">
                 Instant OPD
               </p>
@@ -320,9 +320,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         </div>
 
         <div className="flex gap-3">
-          
-          {localStorage?.getItem('token')? (
-            
+          {localStorage?.getItem('token') ? (
             <button
               className={`${
                 dark === 'dark'
