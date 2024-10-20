@@ -26,6 +26,10 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
   const handleToggleMode = () => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
+  const handleLogoutlocal = () => {
+    localStorage.removeItem('basicDetails');
+    window.location.reload();
+  };
 
   // Scroll event listener
   const controlNavbar = useCallback(() => {
@@ -212,7 +216,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             </NavLink>
           )}
 
-          {isAuthenticated ? (
+          {localStorage.getItem('basicDetails') ? (
             <button
               className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
               onClick={handleLogout}
@@ -258,12 +262,6 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <FaHome />
             <p className="font-bold text-lg hover:brightness-50">Home</p>
           </NavLink>
-
-          <NavLink to="/" className="flex justify-center items-center gap-2">
-            <FaUser />
-            <p className="font-bold text-lg hover:brightness-50">Profile</p>
-          </NavLink>
-
           <NavLink
             to="/about"
             className="flex justify-center items-center gap-2"
@@ -280,19 +278,19 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
           </NavLink>
 
           <NavLink to="/labtest" className="flex items-baseline gap-2">
-            <MdOutlineLocalHospital className="mr-0.5 relative top-[5px] " />{' '}
+            <MdOutlineLocalHospital className="mr-0.5 relative top-[4px] text-xl" />{' '}
             <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
           </NavLink>
 
           {/* Add the new Hospitals Around Link for Desktop */}
           <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
-            <FaHospitalAlt className="mr-0.5 relative top-[3px] " />
+            <FaHospitalAlt className="mr-0.5 relative top-[3px] text-xl" />
             <p className="font-bold text-lg hover:brightness-50">
               Hospitals Around
             </p>
           </NavLink>
 
-          {isAuthenticated ? (
+          {localStorage.getItem('basicDetails') ? (
             <>
               <NavLink to="/profile" className="flex items-baseline gap-2">
                 <FaUser />
@@ -317,7 +315,7 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             </>
           ) : (
             <NavLink to="/registerOPD" className="flex items-baseline gap-2">
-              <MdOutlineLocalHospital className="mr-0.5 relative top-[5px] " />
+              <MdOutlineLocalHospital className="mr-0.5 relative top-[4px] text-xl" />
               <p className="font-bold text-lg hover:brightness-50">
                 Instant OPD
               </p>
@@ -326,15 +324,17 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         </div>
 
         <div className="flex gap-3">
-          {localStorage?.getItem('basicDetails') ? (
-            <>
-              <button
-                className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75 ml-10"
-                onClick={handleLogout}
-              >
-                Log Out
-              </button>
-            </>
+          {localStorage.getItem('basicDetails') ? (
+            <button
+              className={`${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-gray-100'
+                  : 'bg-white text-black'
+              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75 ml-32`}
+              onClick={handleLogoutlocal}
+            >
+              Log Out
+            </button>
           ) : (
             <div className="flex gap-5">
               <NavLink
