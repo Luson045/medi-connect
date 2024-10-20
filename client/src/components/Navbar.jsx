@@ -258,6 +258,12 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
             <FaHome />
             <p className="font-bold text-lg hover:brightness-50">Home</p>
           </NavLink>
+
+          <NavLink to="/" className="flex justify-center items-center gap-2">
+            <FaUser />
+            <p className="font-bold text-lg hover:brightness-50">Profile</p>
+          </NavLink>
+
           <NavLink
             to="/about"
             className="flex justify-center items-center gap-2"
@@ -320,17 +326,15 @@ const Navbar = ({ isAuthenticated, user, handleLogout }) => {
         </div>
 
         <div className="flex gap-3">
-          {localStorage?.getItem('token') ? (
-            <button
-              className={`${
-                dark === 'dark'
-                  ? 'bg-gray-900 text-gray-100'
-                  : 'bg-white text-black'
-              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75`}
-              onClick={handleLogout}
-            >
-              Log Out
-            </button>
+          {localStorage?.getItem('basicDetails') ? (
+            <>
+              <button
+                className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75 ml-10"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
+            </>
           ) : (
             <div className="flex gap-5">
               <NavLink
