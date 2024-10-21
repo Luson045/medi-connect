@@ -88,7 +88,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-[#1f2937] via-[#133859] to-[#1f2937]  p-8 text-white">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="container mx-auto flex flex-wrap justify-between">
           {/* Company Section */}
           <div className="space-y-4">
             <Link
@@ -113,7 +113,7 @@ const Footer = () => {
           </div>
 
           {/* Company Links */}
-          <div>
+          <div className="-ml-40">
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
               About
             </h3>
@@ -139,7 +139,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="-ml-40">
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
               Services
             </h3>
@@ -164,8 +164,32 @@ const Footer = () => {
             </ul>
           </div>
 
+          <div className="-ml-40 -mt-6">
+            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
+              Contact Us
+            </h3>
+            <ul className="space-y-2">
+              {contactUsLinks.map((item) => (
+                <li key={item.name}>
+                  <Link to={item.path} className="flex items-center group">
+                    <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
+                      ›
+                    </span>
+                    <span className="relative overflow-hidden">
+                      <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
+                        {item.name}
+                      </span>
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+                        {item.name}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
           {/* Connect with Us and Legal */}
-          <div>
+          <div className="-ml-40">
             {/* Social Media Links */}
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
               Follow us on
@@ -196,43 +220,27 @@ const Footer = () => {
                   }}
                   aria-label={`Social media link ${index + 1}`}
                 >
-                  <Icon size={20} />
+                  <Icon size={15} />
                 </a>
               ))}
             </div>
 
-            <div className="flex items-center mt-6">
+            <div className="flex items-center mt-6 relative">
               <img
                 src="/google.png"
                 alt="Google Translate"
                 className="h-8 w-8 mr-2"
               />
-              <GoogleTranslate />
+              <div className="relative " style={{ width: '150px' }}>
+                <GoogleTranslate />
+                {/* Dropdown Menu */}
+                <div className="absolute left-10 mt-5 bg-white border rounded shadow-lg z-20" >
+                  <GoogleTranslate />
+                </div>
+              </div>
             </div>
 
             {/* Legal Links */}
-            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
-              Contact Us
-            </h3>
-            <ul className="space-y-2">
-              {contactUsLinks.map((item) => (
-                <li key={item.name}>
-                  <Link to={item.path} className="flex items-center group">
-                    <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
-                      ›
-                    </span>
-                    <span className="relative overflow-hidden">
-                      <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
-                        {item.name}
-                      </span>
-                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
-                        {item.name}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 
@@ -242,8 +250,8 @@ const Footer = () => {
           </p>
           <p className="text-gray-300 text-sm md:text-base mt-2">
             “The information provided on Med-Space is intended for general
-            informational purposes only and should not be considered as medical
-            advice, diagnosis, or treatment. Always seek the advice of a
+            informational purposes only and should not be considered as medical0
+            advice, diagnosis, or treatment. Always seek0 the advice of a
             qualified healthcare provider for any medical condition or
             treatment. Med-Space facilitates OPD appointment booking and
             hospital data sharing, but it does not endorse or guarantee the
