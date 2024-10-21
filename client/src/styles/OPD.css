@@ -333,19 +333,13 @@ input[type='file'] {
 /* Dark mode date picker styling */
 input[type="date"].input-dark {
   background-color: #333;
-  /* Dark background */
   color: #fff;
-  /* Light text */
   border: 1px solid #ccc;
-  /* Border color for contrast */
 }
 
 /* Light mode date picker styling */
 input[type="date"] {
   background-color: #fff;
-  /* Default light background */
   color: #000;
-  /* Default dark text */
   border: 1px solid #ccc;
-  /* Default border color */
 }
