@@ -7,7 +7,7 @@ import ReactDOMServer from 'react-dom/server'; // Import ReactDOMServer to rende
 import { useRecoilState } from 'recoil';
 import { mode } from '../store/atom';
 import 'leaflet-routing-machine'; // Import Leaflet Routing Machine
-
+import Skeleton from '@mui/material/Skeleton';
 import Navbar from '../components/Navbar';
 import '../styles/Nearbyhospitals.css';
 
@@ -302,8 +302,23 @@ const HospitalsAround = () => {
               className="h-[50vh] w-full  md:w-[70%] md:h-screen "
             ></div>
           </div>
+        ) : locationError ? (
+          <p>
+            Having trouble fetching location. Please enable location access in
+            your browser and reload the page to retry.
+          </p>
         ) : (
-          locationError?<p>Having trouble fetching location. Please enable location access in your browser and reload the page to retry.</p>:<p>Fetching location...</p>
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
+              gap: '3rem',
+            }}
+          >
+            <Skeleton variant="rectangular" width={400} height={400} />
+            <Skeleton variant="rectangular" width={900} height={760} />
+          </div>
         )}
       </div>
     </>
