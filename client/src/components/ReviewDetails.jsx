@@ -88,7 +88,6 @@ function ReviewDetails() {
 
       if (response.ok) {
         notify('Registration successful', 'success');
-        navigate('/login');
       } else {
         notify(data.message || 'An error occurred. Please try again.', 'warn');
       }
@@ -98,6 +97,7 @@ function ReviewDetails() {
     } finally {
       setIsLoading(false);
     }
+    navigate('/');
   };
 
   return (
