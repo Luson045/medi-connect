@@ -10,6 +10,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [isAuthenticated, setAuth] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
   const location = useLocation(); // Get location
 
   const fetchProfile = async () => {
@@ -20,6 +21,7 @@ export const UserProvider = ({ children }) => {
         // If no token, consider the user as not authenticated
         setAuth(false);
         setUser(null);
+        setLoading(false); // Stop loading when no token is found
         return;
       }
 
@@ -51,6 +53,7 @@ export const UserProvider = ({ children }) => {
       setAuth(false);
       setUser(null);
     }
+    setLoading(false); // Stop loading once profile fetch is complete
   };
 
   useEffect(() => {
@@ -67,14 +70,13 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, isAuthenticated, setUser, setAuth, handleLogout }}
+      value={{ user, isAuthenticated, loading, setUser, setAuth, handleLogout }} // Return loading in context
     >
-      {console.log(isAuthenticated)}
       {children}
     </UserContext.Provider>
   );
 };
 
-UserProvider.prototype = {
+UserProvider.propTypes = {
   children: PropTypes.node,
 };
