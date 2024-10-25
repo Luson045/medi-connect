@@ -10,13 +10,10 @@ import { useRecoilValue } from 'recoil'; // Import Recoil
 import { mode } from '../store/atom'; // Import the mode atom
 import luson from '../assets/images/luson.jpg';
 
-
-
-
 // Team member data
 const teamMembers = [
   {
-    id:1,
+    id: 1,
     name: 'Luson Basumatary',
     role: 'Lead Developer || Founder',
     description:
@@ -27,7 +24,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
-    id:2,
+    id: 2,
     name: 'Rohit Bansal',
     role: 'Frontend Developer',
     description:
@@ -38,7 +35,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
-    id:3,
+    id: 3,
     name: 'Kalpesh Jain',
     role: 'UI/UX Designer',
     description:
@@ -49,7 +46,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
-    id:4,
+    id: 4,
     name: 'Simranpreet Kaur',
     role: 'Graphic Designer',
     description:
@@ -60,7 +57,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
-    id:5,
+    id: 5,
     name: 'Kartik Kaushal',
     role: 'Healthcare Researcher',
     description:
@@ -71,7 +68,7 @@ const teamMembers = [
     email: 'mailto:luson@example.com',
   },
   {
-    id:6,
+    id: 6,
     name: 'Shubham',
     role: 'Technology Researcher',
     description:
@@ -118,11 +115,13 @@ const AboutPage = () => {
       <animated.div style={fadeIn}>
         {/* Two-box section for Vision and Mission */}
         <VisionMissionContainer>
-          <Box dark={dark} >
-            <VisionTitle dark={dark} className='font-semibold'>Our Vision</VisionTitle>
-            <VisionText dark={dark} className='font-sans '>
-              At Med-Space, we envision a world where accessing outpatient
-              care is as simple as a few clicks. By leveraging technology and
+          <Box dark={dark}>
+            <VisionTitle dark={dark} className="font-semibold">
+              Our Vision
+            </VisionTitle>
+            <VisionText dark={dark} className="font-sans ">
+              At Med-Space, we envision a world where accessing outpatient care
+              is as simple as a few clicks. By leveraging technology and
               innovation, we aim to provide a platform that bridges the gap
               between patients and healthcare providers, making high-quality
               care accessible to everyone, anywhere. We strive to ensure that
@@ -131,8 +130,10 @@ const AboutPage = () => {
             </VisionText>
           </Box>
           <Box dark={dark}>
-            <MissionTitle dark={dark} className='font-semibold'>Our Mission</MissionTitle>
-            <MissionText dark={dark} className='font-sans'>
+            <MissionTitle dark={dark} className="font-semibold">
+              Our Mission
+            </MissionTitle>
+            <MissionText dark={dark} className="font-sans">
               Our mission is to revolutionize outpatient care by creating a
               comprehensive, easy-to-use platform that empowers patients and
               healthcare providers alike. We are committed to building
@@ -146,21 +147,19 @@ const AboutPage = () => {
 
         <Title dark={dark}>Meet our awesome team</Title>
         <TeamGrid>
-        {teamMembers.map((member, index) => (
-        <animated.div key={index} style={slideIn}>
-          <TeamCard dark={dark} className="flex flex-col items-center">
-            <ProfileImage
-              src={member.imageUrl}
-              className="shadow-md"
-              alt={`${member.name}'s profile`}
-            />
-            <Name dark={dark}>
-              {member.name}
-            </Name>
-            <Role dark={dark}>{member.role}</Role>
+          {teamMembers.map((member, index) => (
+            <animated.div key={index} style={slideIn}>
+              <TeamCard dark={dark} className="flex flex-col items-center">
+                <ProfileImage
+                  src={member.imageUrl}
+                  className="shadow-md"
+                  alt={`${member.name}'s profile`}
+                />
+                <Name dark={dark}>{member.name}</Name>
+                <Role dark={dark}>{member.role}</Role>
 
-            {/* Social Media Icons */}
-            <SocialIcons className="my-3">
+                {/* Social Media Icons */}
+                {/* <SocialIcons className="my-3">
               <div className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500">
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faLinkedin} size="x" />
@@ -176,28 +175,158 @@ const AboutPage = () => {
                   <FontAwesomeIcon icon={faEnvelope} size="x" />
                 </a>
               </div>
-            </SocialIcons>
-<Description dark={dark}>
-<div className="md:hidden">{member.description}</div>
-<div className="hidden md:block">
-    {expandedIds[member.id]
-      ? member.description
-      : getLimitedText(member.description, charLimit)}
+            </SocialIcons> */}
+                <SocialIcons className="my-3 flex gap-3">
+                  <div
+                    style={{
+                      perspective: '1000px',
+                      transition: 'transform 0.3s, box-shadow 0.3s',
+                      background:
+                        'linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)',
+                      animation: 'gradientShift 4s ease infinite',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(10deg) rotateX(10deg) scale(1.1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 8px 16px rgba(0, 0, 0, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(0deg) rotateX(0deg) scale(1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 4px 8px rgba(0, 0, 0, 0.2)';
+                    }}
+                    className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500"
+                  >
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FontAwesomeIcon
+                        icon={faLinkedin}
+                        size="x"
+                        style={{
+                          transition: 'transform 0.3s ease',
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.target.style.transform = 'scale(1.2)')
+                        }
+                        onMouseLeave={(e) =>
+                          (e.target.style.transform = 'scale(1)')
+                        }
+                      />
+                    </a>
+                  </div>
 
-    {member.description.length > charLimit && (
-      <span
-        onClick={() => toggleReadMore(member.id)}
-        className="text-blue-500 cursor-pointer ml-1 text-[12px]"
-      >
-        {expandedIds[member.id] ? 'Read Less' : 'Read More'}
-      </span>
-    )}
-  </div>
-           
-            </Description>
-          </TeamCard>
-        </animated.div>
-      ))}
+                  <div
+                    style={{
+                      perspective: '1000px',
+                      transition: 'transform 0.3s, box-shadow 0.3s',
+                      background:
+                        'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+                      animation: 'gradientShift 4s ease infinite',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(10deg) rotateX(10deg) scale(1.1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 8px 16px rgba(0, 0, 0, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(0deg) rotateX(0deg) scale(1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 4px 8px rgba(0, 0, 0, 0.2)';
+                    }}
+                    className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500"
+                  >
+                    <a
+                      href={member.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FontAwesomeIcon
+                        icon={faGithub}
+                        size="x"
+                        style={{
+                          transition: 'transform 0.3s ease',
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.target.style.transform = 'scale(1.2)')
+                        }
+                        onMouseLeave={(e) =>
+                          (e.target.style.transform = 'scale(1)')
+                        }
+                      />
+                    </a>
+                  </div>
+
+                  <div
+                    style={{
+                      perspective: '1000px',
+                      transition: 'transform 0.3s, box-shadow 0.3s',
+                      background:
+                        'linear-gradient(135deg, #ff7eb3 0%, #ff65a3 100%)',
+                      animation: 'gradientShift 4s ease infinite',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(10deg) rotateX(10deg) scale(1.1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 8px 16px rgba(0, 0, 0, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform =
+                        'rotateY(0deg) rotateX(0deg) scale(1)';
+                      e.currentTarget.style.boxShadow =
+                        '0px 4px 8px rgba(0, 0, 0, 0.2)';
+                    }}
+                    className="border-2 rounded-full px-[10px] py-[4px] flex items-center border-gray-500"
+                  >
+                    <a
+                      href={`mailto:${member.email}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        size="x"
+                        style={{
+                          transition: 'transform 0.3s ease',
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.target.style.transform = 'scale(1.2)')
+                        }
+                        onMouseLeave={(e) =>
+                          (e.target.style.transform = 'scale(1)')
+                        }
+                      />
+                    </a>
+                  </div>
+                </SocialIcons>
+
+                <Description dark={dark}>
+                  <div className="md:hidden">{member.description}</div>
+                  <div className="hidden md:block">
+                    {expandedIds[member.id]
+                      ? member.description
+                      : getLimitedText(member.description, charLimit)}
+
+                    {member.description.length > charLimit && (
+                      <span
+                        onClick={() => toggleReadMore(member.id)}
+                        className="text-blue-500 cursor-pointer ml-1 text-[12px]"
+                      >
+                        {expandedIds[member.id] ? 'Read Less' : 'Read More'}
+                      </span>
+                    )}
+                  </div>
+                </Description>
+              </TeamCard>
+            </animated.div>
+          ))}
         </TeamGrid>
         <StatsSection>
           {/* First Stat */}
@@ -296,8 +425,10 @@ const AboutPage = () => {
             Nearby Hospitals
           </StatItem>
         </StatsSection>
-        <GitTeamTitle dark={dark}>Our Amazing Open Source Contributors</GitTeamTitle>
-        <div align="center">
+        <GitTeamTitle dark={dark}>
+          Our Amazing Open Source Contributors
+        </GitTeamTitle>
+        <div style={{ textAlign: 'center' }}>
           <a href="https://github.com/Luson045/medi-connect/graphs/contributors">
             <img
               alt="git team"
@@ -349,7 +480,6 @@ const Box = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 `;
 
-
 const VisionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -360,7 +490,6 @@ const VisionText = styled.p`
   font-size: 1.125rem;
   color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#161D6F')};
   line-height: 1.6;
-
 `;
 
 const MissionTitle = styled.h2`
@@ -418,18 +547,17 @@ const SocialIcons = styled.div`
 
   a {
     &:hover {
-      color:${({ dark }) => (dark === 'dark' ? 'white' : 'blue')}; /* Optional hover effect */
+      color: ${({ dark }) =>
+        dark === 'dark' ? 'white' : 'blue'}; /* Optional hover effect */
     }
   }
-   
-   
 `;
 
 const Name = styled.h4`
   font-size: 1.25rem;
   margin-bottom: 0.2rem;
-   color: ${({ dark }) => (dark === 'dark' ? '#B7E0FF' : '#333')};
-  font-weight:bold;
+  color: ${({ dark }) => (dark === 'dark' ? '#B7E0FF' : '#333')};
+  font-weight: bold;
 `;
 
 const Role = styled.h5`
@@ -442,7 +570,6 @@ const Description = styled.p`
   font-size: 0.9rem;
   color: ${({ dark }) => (dark === 'dark' ? 'white' : '#666')};
   line-height: 1.4;
-  
 `;
 
 // Community Section
@@ -473,13 +600,12 @@ const JoinUsText = styled.p`
   color: ${({ dark }) => (dark === 'dark' ? '#e2e8f0' : '#666')};
 `;
 
-
 const Title = styled.h3`
   font-size: 2.5rem;
   color: ${({ dark }) => (dark === 'dark' ? '#f6e05e' : '#c229b8')};
   text-align: center;
   margin-bottom: 2rem;
-  font-weight:bold;
+  font-weight: bold;
 `;
 
 const StatsSection = styled.div`
