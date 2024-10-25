@@ -108,7 +108,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     // Log the incoming request body to see what data is being received
-    console.log("Received Data:", req.body); 
+    console.log("Received Data:", req.body);
 
     const parsedData = loginSchema.parse(req.body);
     const { type, email, password } = parsedData;
@@ -143,7 +143,6 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
 
 const createUserFromGoogleSignIn = async (googleProfile) => {
   try {
@@ -328,12 +327,10 @@ const resetPassword = async (req, res) => {
         .status(400)
         .json({ message: "Validation error", errors: error.errors });
     }
-    res
-      .status(500)
-      .json({
-        message: "Error resetting password",
-        error: error.message || "An unknown error occurred",
-      });
+    res.status(500).json({
+      message: "Error resetting password",
+      error: error.message || "An unknown error occurred",
+    });
   }
 };
 
