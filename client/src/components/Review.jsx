@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 import { useRecoilValue } from 'recoil';
-import { mode } from '../store/atom'; // Importing the atom for mode
+import { mode } from '../store/atom';
 
 const reviews = [
   {
@@ -78,24 +78,28 @@ const infiniteReviews = [reviews[reviews.length - 1], ...reviews, reviews[0]];
 
 const ReviewCard = ({ review, dark }) => (
   <div
-    className={` rounded-lg hover:shadow-xl p-4 flex flex-col justify-between h-full transition-shadow duration-300 transform hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.3)]  ${dark === 'dark'
-                    ? 'bg-gray-800 '
-                    : 'bg-white'
-                    }`}>
+    className={`rounded-lg hover:shadow-xl p-4 flex flex-col justify-between h-full transition-shadow duration-300 transform hover:scale-105 shadow-[0_2px_10px_rgba(0,0,0,0.3)] ${dark === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+  >
     <div>
       <div className="flex items-center mb-4">
         <img
           src={review.image}
           alt={review.name}
-          className="w-16 h-16 rounded-full border-2  mr-4 object-cover"
+          className="w-16 h-16 rounded-full border-2 mr-4 object-cover"
         />
         <div>
-          <h3 className={`font-semibold text-lg  ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>{review.name}</h3>
-          <p className={` text-sm ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-500'}`}>{review.role}</p>
+          <h3 className={`font-semibold text-lg ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>
+            {review.name}
+          </h3>
+          <p className={`text-sm ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-500'}`}>
+            {review.role}
+          </p>
         </div>
       </div>
-      <p className={`text-xl font-bold mb-2  ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>"{review.quote}"</p>
-      <p className={` mb-4 ${dark === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>{review.review}</p>
+      <p className={`text-xl font-bold mb-2 ${dark === 'dark' ? 'text-gray-300' : 'text-gray-800'}`}>
+        "{review.quote}"
+      </p>
+      <p className={`mb-4 ${dark === 'dark' ? 'text-gray-200' : 'text-gray-600'}`}>{review.review}</p>
     </div>
     <div className="flex items-center">
       {[...Array(5)].map((_, i) => (
@@ -109,35 +113,41 @@ const ReviewCard = ({ review, dark }) => (
 );
 
 const Review = () => {
-  const [currentIndex, setCurrentIndex] = useState(1); // Start at the first real review
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
-  const isLargeScreen = useMediaQuery({ query: '(min-width: 641px)' });
   const dark = useRecoilValue(mode);
 
+  const reviewWidth = isSmallScreen ? 100 : 100 / 3;
+
   const nextReview = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % infiniteReviews.length);
+    setIsTransitioning(true);
+    setCurrentIndex((prevIndex) => prevIndex + 1);
   }, []);
 
   const prevReview = useCallback(() => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + infiniteReviews.length) % infiniteReviews.length,
-    );
+    setIsTransitioning(true);
+    setCurrentIndex((prevIndex) => prevIndex - 1);
   }, []);
+
+  const handleTransitionEnd = () => {
+    setIsTransitioning(false);
+    if (currentIndex === infiniteReviews.length - 1) {
+      setCurrentIndex(1); // Reset to the first real review
+    } else if (currentIndex === 0) {
+      setCurrentIndex(infiniteReviews.length - 2); // Reset to the last real review
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(nextReview, 5000);
     return () => clearInterval(timer);
   }, [nextReview]);
 
-  // Calculate the width of each review based on screen size
-  const reviewWidth = isSmallScreen ? 100 : 100 / 3; // Adjust width for small screens or large screens
-
   return (
     <section className="py-16 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <h2 className={`text-4xl font-bold text-center mb-12 text-gray-800 ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'
-                }`}>
+        <h2 className={`text-4xl font-bold text-center mb-12 text-gray-800 ${dark === 'dark' ? 'text-yellow-400' : 'text-blue-600'}`}>
           What Our Community Says
         </h2>
         <div className="relative">
@@ -145,14 +155,13 @@ const Review = () => {
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${(currentIndex - 1) * reviewWidth}%)`,
-              }} // Adjust index for translation
+                transform: `translateX(-${currentIndex * reviewWidth}%)`,
+                transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
+              }}
+              onTransitionEnd={handleTransitionEnd}
             >
               {infiniteReviews.map((review, index) => (
-                <div
-                  key={index}
-                  className={`w-full ${isSmallScreen ? 'flex-shrink-0' : 'sm:w-1/3 flex-shrink-0'} px-2`}
-                >
+                <div key={index} className={`w-full ${isSmallScreen ? 'flex-shrink-0' : 'sm:w-1/3 flex-shrink-0'} px-2`}>
                   <ReviewCard review={review} dark={dark} />
                 </div>
               ))}
@@ -160,35 +169,16 @@ const Review = () => {
           </div>
           <button
             onClick={prevReview}
-            className={`absolute top-1/2 -left-4 transform -translate-y-1/2  rounded-full p-2 shadow-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg ml-1 ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
+            className={`absolute top-1/2 -left-4 transform -translate-y-1/2 rounded-full p-2 shadow-md ml-1 ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
           >
             <ChevronLeft className={`w-6 h-6 ${dark === 'dark' ? 'text-white' : 'text-gray-600'}`} />
           </button>
           <button
             onClick={nextReview}
-            className={`absolute top-1/2 -right-4 transform -translate-y-1/2 rounded-full p-2 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 hover:shadow-lg mr-1  ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
+            className={`absolute top-1/2 -right-4 transform -translate-y-1/2 rounded-full p-2 shadow-md mr-1 ${dark === 'dark' ? 'bg-gray-600 hover:bg-gray-500' : 'bg-white hover:bg-gray-100'}`}
           >
-            <ChevronRight className={`w-6 h-6 ${dark === 'dark' ? 'text-white' : 'text-gray-600'} `} />
+            <ChevronRight className={`w-6 h-6 ${dark === 'dark' ? 'text-white' : 'text-gray-600'}`} />
           </button>
-        </div>
-        <div className="flex justify-center mt-8">
-          {/* Show all dots for smaller screens, and minus two for larger screens */}
-          {infiniteReviews
-            .slice(
-              1,
-              isLargeScreen
-                ? infiniteReviews.length
-                : infiniteReviews.length - 1,
-            )
-            .map((_, index) => (
-              <div
-                key={index}
-                onClick={() => setCurrentIndex(index + 1)}
-                className={`w-2 h-2 mx-1 rounded-full cursor-pointer transition-colors duration-200 ${
-                  index + 1 === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
-                }`}
-              />
-            ))}
         </div>
       </div>
     </section>
