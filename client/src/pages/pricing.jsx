@@ -32,7 +32,7 @@ const Pricing = () => {
           <button className="plan-button">Get Started</button>
         </div>
 
-        {/* Premium Plan */}
+        
         <div className="pricing-card">
           <h2 className="plan-title">Premium</h2>
           <p className="plan-price">$29.99/month</p>
