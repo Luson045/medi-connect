@@ -22,3 +22,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } 
+@media screen and (max-width: 640px){
+  .text-sm {
+    font-size: 0.75rem;
+  }
+}
+@media  screen and (min-width:1000px){
+  .submit-btn{
+    height: 48px !important;
+    width: 240px !important;
+    font-size: 1rem;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+@media screen and (min-width:640px) and (max-width:{
+  
+}

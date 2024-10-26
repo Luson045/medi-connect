@@ -255,7 +255,7 @@ const Footer = () => {
           <p className="flex items-center justify-center text-sm">
             <FaRegCopyright className="mx-1" /> {currentYear} All Rights
             Reserved
-            <span className="font-bold ml-2 bg-[#b6dbfc] text-[#1f2937] px-2 py-1 rounded transition-all duration-300 hover:bg-[#1f2937] hover:text-[#b6dbfc]">
+            <span id="media-connect_button" className="font-bold ml-2 bg-[#b6dbfc] text-[#1f2937] px-2 py-1 rounded transition-all duration-300 hover:bg-[#1f2937] hover:text-[#b6dbfc]">
               Medi Connect
             </span>
           </p>
