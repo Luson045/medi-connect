@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("./models/user");
+const helmet = require('helmet'); 
 
 const bodyParser = require("body-parser");
 const session = require("express-session");
@@ -41,6 +42,7 @@ corsConfig(app);
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.json());
+app.use(helmet());
 
 // Session Middleware (Required for Passport)
 app.use(

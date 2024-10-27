@@ -2,6 +2,9 @@
     <img src="logo.svg" width="328" alt="" />
 </div>
 
+<img  src="https://readme-typing-svg.herokuapp.com?color=458EEC&center=true&vCenter=true&size=40&width=900&height=80&lines=Know+More+Waiting+In+Long+Queue" />
+
+
 # Med-Space (Appointment Booking System)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -20,7 +23,7 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/SwanandD121/FeatherPerfect_fe/refs/heads/main/Untitled%20design.png" alt="GSSoC 2024 Extd" width="80%">
-  <img src="https://cdn.discordapp.com/attachments/657543125190967316/1294560786114674748/Screenshot_2024-10-12_122347.png?ex=670b752f&is=670a23af&hm=26ddd7f41740b8b19ee4985e7568b3892091384b3b85e7165770a4b10f4d1050&" alt="Hacktoberfest 2024" width="80%">
+  <img src="https://hacktoberfest.com/_next/static/media/opengraph.9dc60c9d.png" alt="HACTOBERFEST" alt="Hacktoberfest 2024" width="80%">
 </div>
 <br>
 
@@ -259,6 +262,23 @@ Make sure to run these commands in both the `client` and `server` directories.
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
+
+## Stargazers ❤️
+
+<div align='left'>
+
+[![Stargazers repo roster for @Luson045/medi-connect](https://reporoster.com/stars/dark/Luson045/medi-connect)](https://github.com/Luson045/medi-connect/stargazers)
+
+
+</div>
+
+## Forkers ❤️
+
+[![Forkers repo roster for @Luson045/medi-connect](https://reporoster.com/forks/dark/Luson045/medi-connect)](https://github.com/Luson045/medi-connect/network/members)
+
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -282,3 +302,6 @@ For any inquiries or feedback, please contact. Happy Contributing 🫡
 
 ## ⭐️ Support the Project
 If you find this project helpful, please consider giving it a ⭐ on GitHub! Your support helps to grow the project and reach more contributors.
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+

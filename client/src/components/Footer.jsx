@@ -86,22 +86,27 @@ const Footer = () => {
   // };
 
   return (
-    <footer className="bg-gradient-to-r from-[#1f2937] via-[#133859] to-[#1f2937]  p-8 text-white">
+    <footer className="bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black">
       <div className="container mx-auto">
+
         <div className="container mx-auto flex flex-wrap justify-between">
           {/* Company Section */}
           <div className="space-y-4">
+
+        <div className="flex flex-wrap justify-between space-x-4">
+          {/* Med Space Section */}
+          <div className="space-y-4 w-full md:w-auto">
+
             <Link
               to="/"
               className="flex items-center gap-2 group transition-all duration-300 ease-in-out transform hover:scale-105"
             >
-              {/* Adjusted hover text colors */}
               <img
                 src="../favicon.png"
                 className="h-10 w-10 transition-transform duration-300 group-hover:rotate-6"
                 alt="AgroTech AI Logo"
               />
-              <span className="text-2xl font-bold bg-gradient-to-r from-[#b6dbfc] to-[#b6dbfc] bg-clip-text text-transparent group-hover:from-[#133859] group-hover:to-[#b6dbfc] transition-all duration-300">
+              <span className="text-2xl font-bold bg-gradient-to-r from-[#1f2937] to-[#b6dbfc] bg-clip-text text-transparent group-hover:from-[#133859] group-hover:to-[#b6dbfc] transition-all duration-300">
                 Med Space
               </span>
             </Link>
@@ -112,9 +117,15 @@ const Footer = () => {
             </p>
           </div>
 
+
           {/* Company Links */}
           <div className="-ml-40">
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
+          {/* About Section */}
+          <div className="space-y-4 w-full md:w-auto">
+            <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               About
             </h3>
             <ul className="space-y-2">
@@ -128,7 +139,7 @@ const Footer = () => {
                       <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
                         {link.name}
                       </span>
-                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#1f2937]">
                         {link.name}
                       </span>
                     </span>
@@ -138,14 +149,20 @@ const Footer = () => {
             </ul>
           </div>
 
+
           {/* Quick Links */}
           <div className="-ml-40">
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
+          {/* Services Section */}
+          <div className="space-y-4 w-full md:w-auto">
+            <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Services
             </h3>
             <ul className="space-y-2">
               {servicesLinks.map((link) => (
-                <li key={link.name} className="w-full">
+                <li key={link.name}>
                   <Link to={link.path} className="flex items-center group">
                     <span className="mr-2 transition-transform duration-300 group-hover:translate-x-1">
                       ›
@@ -154,7 +171,7 @@ const Footer = () => {
                       <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
                         {link.name}
                       </span>
-                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#1f2937]">
                         {link.name}
                       </span>
                     </span>
@@ -164,8 +181,14 @@ const Footer = () => {
             </ul>
           </div>
 
+
           <div className="-ml-40 -mt-6">
             <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
+
+          {/* Contact Us Section */}
+          <div className="space-y-4 w-full md:w-auto">
+            <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Contact Us
             </h3>
             <ul className="space-y-2">
@@ -179,7 +202,11 @@ const Footer = () => {
                       <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
                         {item.name}
                       </span>
+
                       <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#1f2937]">
+
                         {item.name}
                       </span>
                     </span>
@@ -188,10 +215,17 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+
           {/* Connect with Us and Legal */}
           <div className="-ml-40">
             {/* Social Media Links */}
             <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
+
+          {/* Follow Us Section */}
+          <div className="space-y-4 w-full md:w-auto">
+            <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Follow us on
             </h3>
             <div className="flex space-x-4 mb-6">
@@ -218,14 +252,18 @@ const Footer = () => {
                     e.currentTarget.style.boxShadow =
                       '0 0 0 0 rgba(255,255,255,0.7)';
                   }}
-                  aria-label={`Social media link ${index + 1}`}
                 >
                   <Icon size={15} />
                 </a>
               ))}
             </div>
 
+
             <div className="flex items-center mt-6 relative">
+
+            {/* Google Translate Section */}
+            <div className="flex items-center mt-6">
+
               <img
                 src="/google.png"
                 alt="Google Translate"
@@ -240,7 +278,9 @@ const Footer = () => {
               </div>
             </div>
 
+
             {/* Legal Links */}
+
           </div>
         </div>
 
