@@ -185,24 +185,19 @@ const Navbar = () => {
 
           {isAuthenticated ? (
             <>
+
               {/* Profile Avatar with Name */}
-              <div className="flex items-center gap-2">
-                {/* Check if the user has an avatar, else use a placeholder */}
-                {user?.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt="User Avatar"
-                    className="w-10 h-10 rounded-full object-cover border border-gray-300"
-                  />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center border border-gray-300">
-                    <FiUser className="text-xl" />
-                  </div>
-                )}
-                <span className="font-bold">
-                  {user?.name || user?.hospitalName}
-                </span>
-              </div>
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+                }
+                to="/[profile"
+                onClick={() => setMobileMenuOpen(false)}
+              > <FiUser className="text-xl" />
+              <p className="hover:brightness-50 hover:font-semibold">
+              {user?.name || user?.hospitalName}
+              </p>
+              </NavLink>
 
               <button
                 className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
@@ -305,23 +300,17 @@ const Navbar = () => {
           {isAuthenticated ? (
             <>
               {/* Profile Avatar with Name */}
-              <div className="flex items-center gap-2">
-                {/* Check if the user has an avatar, else use a placeholder */}
-                {user?.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt="User Avatar"
-                    className="w-10 h-10 rounded-full object-cover border border-gray-300"
-                  />
-                ) : (
-                  <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center border border-gray-300">
-                    <FiUser className="text-xl" />
-                  </div>
-                )}
-                <span className="font-bold">
-                  {user?.name || user?.hospitalName}
-                </span>
-              </div>
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? 'border-b border-white ' : ''} flex gap-2 items-baseline`
+                }
+                to="/profile"
+                onClick={() => setMobileMenuOpen(false)}
+              > <FiUser className="text-xl" />
+              <p className="font-bold text-lg hover:brightness-50">
+              {user?.name || user?.hospitalName}
+              </p>
+              </NavLink>
 
               <button
                 className={`${
