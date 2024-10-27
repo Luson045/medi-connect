@@ -104,7 +104,7 @@ const PatientDistributionChart = () => {
     return (
       <ul className="list-none p-0 flex flex-col sm:flex-row flex-wrap">
         {payload.map((entry, index) => (
-          <li key={`item-${index}`} className="flex items-center mb-2 sm:w-1/2">
+          <li key={`item-${index}`} className="flex items-center mb-2 sm:w-1/2" style={{color:'white'}}>
             <span
               className="inline-block w-3 h-3 mr-2 rounded-full"
               style={{ backgroundColor: entry.color }}

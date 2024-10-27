@@ -226,7 +226,7 @@ function Home() {
             </motion.h2>
 
             <motion.div
-              className="mt-8 bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-6 overflow-x-auto"
+              className="mt-8 bg-black rounded-lg shadow-lg p-4 sm:p-6 mb-6 overflow-x-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -239,7 +239,7 @@ function Home() {
             </motion.div>
 
             <motion.div
-              className="bg-white rounded-lg shadow-lg p-4 sm:p-6 mb-6"
+              className="bg-black rounded-lg shadow-lg p-4 sm:p-6 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -256,7 +256,7 @@ function Home() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <motion.div
-                className="bg-white rounded-lg shadow-lg p-4 sm:p-6"
+                className="bg-black color-white rounded-lg shadow-lg p-4 sm:p-6"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

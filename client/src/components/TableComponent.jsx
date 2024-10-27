@@ -48,9 +48,9 @@ const TableComponent = () => {
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white border border-gray-200 text-sm">
         <thead>
-          <tr className="bg-gray-50">
+          <tr className="bg-gray-50" style={{backgroundColor:'black',color:'white'}} >
             <th
-              className="py-3 px-4 border-b font-semibold text-gray-700"
+              className="py-3 bg-black px-4 border-b font-semibold text-gray-700"
               rowSpan={2}
             >
               Patient Arrival Schedule

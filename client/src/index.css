@@ -37,6 +37,7 @@ code {
     border-radius: 5px;
   }
 }
-@media screen and (min-width:640px) and (max-width:{
-  
+th,td{
+  color: white !important;
+  background-color: #5d5e5e;
 }
