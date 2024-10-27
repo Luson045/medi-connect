@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoMenu, IoClose } from 'react-icons/io5';
-import {
-  FaHome,
-  FaUser,
-  FaHospital,
-  FaUserPlus,
-  FaHospitalAlt,
-} from 'react-icons/fa';
+import { FaHome, FaHospital, FaUserPlus, FaHospitalAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { MdOutlineLocalHospital, MdLogin, MdDarkMode } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
@@ -136,7 +130,9 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               <FaHospital />
-              <p className="hover:brightness-50 hover:font-semibold">Hospitals</p>
+              <p className="hover:brightness-50 hover:font-semibold">
+                Hospitals
+              </p>
             </NavLink>
           )}
 
@@ -151,7 +147,9 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <MdOutlineLocalHospital />
-                <p className="hover:brightness-50 hover:font-semibold">Lab Tests</p>
+                <p className="hover:brightness-50 hover:font-semibold">
+                  Lab Tests
+                </p>
               </NavLink>
 
               <NavLink
@@ -274,10 +272,15 @@ const Navbar = () => {
             <>
               <NavLink to="/labtest" className="flex items-baseline gap-2">
                 <MdOutlineLocalHospital />
-                <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
+                <p className="font-bold text-lg hover:brightness-50">
+                  Lab Test
+                </p>
               </NavLink>
 
-              <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
+              <NavLink
+                to="/hospitals-around"
+                className="flex items-baseline gap-2"
+              >
                 <FaHospitalAlt />
                 <p className="font-bold text-lg hover:brightness-50">
                   Hospitals Around
@@ -288,7 +291,10 @@ const Navbar = () => {
 
           {/* Show only Hospitals Around for hospital */}
           {isAuthenticated && user?.role === 'hospital' && (
-            <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
+            <NavLink
+              to="/hospitals-around"
+              className="flex items-baseline gap-2"
+            >
               <FaHospitalAlt />
               <p className="font-bold text-lg hover:brightness-50">
                 Hospitals Around
@@ -330,7 +336,7 @@ const Navbar = () => {
             </>
           ) : (
             <div className="flex gap-5">
-              <NavLink
+              {/* <NavLink
                 className={`${
                   dark === 'dark'
                     ? 'bg-gray-900 text-gray-100'
@@ -349,6 +355,81 @@ const Navbar = () => {
                 to="/register"
               >
                 <FaUserPlus /> Register
+              </NavLink> */}
+              <NavLink
+                style={{
+                  backgroundColor: dark === 'dark' ? '#1a1a1a' : '#ffffff',
+                  color: dark === 'dark' ? '#f1f1f1' : '#000000',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  transform: 'scale(1)',
+                  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                  animation: 'slideIn 0.5s ease forwards',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.1)';
+                  e.currentTarget.style.boxShadow =
+                    '0px 8px 16px rgba(0, 0, 0, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow =
+                    '0px 4px 8px rgba(0, 0, 0, 0.2)';
+                }}
+                className="flex gap-2 items-center px-5 py-1 rounded-lg font-bold"
+                to="/login"
+              >
+                <MdLogin
+                  style={{
+                    transition:
+                      'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform =
+                      'rotate(360deg) scale(1.2)')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = 'rotate(0deg) scale(1)')
+                  }
+                />{' '}
+                Login
+              </NavLink>
+
+              <NavLink
+                style={{
+                  backgroundColor: dark === 'dark' ? '#1a1a1a' : '#ffffff',
+                  color: dark === 'dark' ? '#f1f1f1' : '#000000',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  transform: 'scale(1)',
+                  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                  animation: 'slideIn 0.5s ease forwards',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.1)';
+                  e.currentTarget.style.boxShadow =
+                    '0px 8px 16px rgba(0, 0, 0, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow =
+                    '0px 4px 8px rgba(0, 0, 0, 0.2)';
+                }}
+                className="flex gap-2 items-center px-5 py-1 rounded-lg font-bold"
+                to="/register"
+              >
+                <FaUserPlus
+                  style={{
+                    transition:
+                      'transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform =
+                      'rotate(-360deg) scale(1.2)')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = 'rotate(0deg) scale(1)')
+                  }
+                />{' '}
+                Register
               </NavLink>
             </div>
           )}
