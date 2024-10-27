@@ -121,7 +121,7 @@ const Footer = () => {
   // };
 
   return (
-    <footer className="bg-gradient-to-r from-[#1f2937] via-[#133859] to-[#1f2937]  p-8 text-white">
+    <footer className="bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black">
       <div className="container mx-auto">
         {/* Newsletter Subscription Section */}
         <div className="text-center md:col-span-2 lg:col-span-4 my-4">

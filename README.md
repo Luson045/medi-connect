@@ -262,6 +262,23 @@ Make sure to run these commands in both the `client` and `server` directories.
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
+
+## Stargazers ❤️
+
+<div align='left'>
+
+[![Stargazers repo roster for @Luson045/medi-connect](https://reporoster.com/stars/dark/Luson045/medi-connect)](https://github.com/Luson045/medi-connect/stargazers)
+
+
+</div>
+
+## Forkers ❤️
+
+[![Forkers repo roster for @Luson045/medi-connect](https://reporoster.com/forks/dark/Luson045/medi-connect)](https://github.com/Luson045/medi-connect/network/members)
+
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
@@ -285,3 +302,6 @@ For any inquiries or feedback, please contact. Happy Contributing 🫡
 
 ## ⭐️ Support the Project
 If you find this project helpful, please consider giving it a ⭐ on GitHub! Your support helps to grow the project and reach more contributors.
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+
