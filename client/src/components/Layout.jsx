@@ -24,6 +24,7 @@ import HospitalAppointments from '../pages/HospitalPanal';
 import BusinessContactForm from './BusinessContactForm';
 import ForgotPassword from './ForgotPassword';
 import PrivateRoute from '../privateroute/privateroute';
+import Newsletters from '../pages/Newsletters';
 
 function Layout() {
   const location = useLocation();
@@ -48,7 +49,8 @@ function Layout() {
     path === '/Labtest' ||
     path === '/blog' ||
     path === '/business' ||
-    path === '/forgot-password'
+    path === '/forgot-password' ||
+    path === '/newsletter-dashboard'
   ) {
     showNavAndFooter = true;
   }
@@ -95,6 +97,7 @@ function Layout() {
           <Route path="/business" element={<BusinessContactForm />}></Route>
           <Route path="/not-found" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
+          <Route path="/newsletter-dashboard" element={<Newsletters />} />
         </Routes>
       </div>
       <Chatbot />
