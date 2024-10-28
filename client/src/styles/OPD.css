@@ -5,8 +5,9 @@
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 
-  transition: background-color 0.3s ease, color 0.3s ease;
-
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .dark .form-container {
@@ -66,8 +67,10 @@ input[type='file'] {
   font-size: 1rem;
   background-color: #f9f9f9;
 
-  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .dark input[type='text'],
@@ -91,7 +94,6 @@ input[type='date'] {
 .form-buttons {
   grid-column-start: 1;
   grid-column-end: 3;
-
 }
 
 input:focus,
@@ -236,7 +238,6 @@ input[type='file'] {
 
 .back-home-container {
   text-align: center;
-
 }
 
 .back-btn {
@@ -270,8 +271,9 @@ input[type='file'] {
   text-align: center;
   position: relative;
 
-  transition: background-color 0.3s ease, color 0.3s ease;
-
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .dark .modal-content {
@@ -329,17 +331,26 @@ input[type='file'] {
   color: #f1f1f1;
 }
 
-
 /* Dark mode date picker styling */
-input[type="date"].input-dark {
+input[type='date'].input-dark {
   background-color: #333;
   color: #fff;
   border: 1px solid #ccc;
 }
 
 /* Light mode date picker styling */
-input[type="date"] {
+input[type='date'] {
   background-color: #fff;
   color: #000;
   border: 1px solid #ccc;
+}
+
+.MuiBox-root {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.css-0{
+  flex-direction: row;
 }

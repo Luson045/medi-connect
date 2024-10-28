@@ -11,6 +11,28 @@ import { TailSpin } from 'react-loader-spinner';
 import { useRecoilValue } from 'recoil';
 import { mode } from '../store/atom';
 import { databaseUrls } from '../data/databaseUrls';
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+  Upload,
+  Steps,
+  message,
+} from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
+// form with steps
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+// import Button  from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+//steps name
+const steps = ['Personal information', 'Contact information', 'upload image'];
 
 function OPDRegistrationForm() {
   const dark = useRecoilValue(mode); // Using Recoil state for dark mode
@@ -29,11 +51,43 @@ function OPDRegistrationForm() {
     report: [],
   });
 
+  const [currentStep, setCurrentStep] = useState(0);
+  const [form] = Form.useForm();
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registrationDetails, setRegistrationDetails] = useState(null);
   const [appointmentDetails, setAppointmentDetails] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  // steps state
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  // steps method
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
   const validate = () => {
     const newErrors = {};
@@ -171,221 +225,275 @@ function OPDRegistrationForm() {
 
   return (
     <>
-        <div className={`${dark === 'dark' ? 'dark' : ''}`}>
-      <section className={`form-container ${dark === 'dark' ? 'dark' : ''}`}>
-        <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>
-          OPD Registration
-        </h2>
+      <div className={`${dark === 'dark' ? 'dark' : ''}`}>
+        <section className={`form-container ${dark === 'dark' ? 'dark' : ''} `}>
+          <h2 className={dark === 'dark' ? 'text-yellow-400' : 'text-gray-900'}>
+            OPD Registration
+          </h2>
 
-          <form onSubmit={handleSubmit} className="opd-registration-form ">
-            <div className={`form-group ${dark === 'dark' ? 'dark-mode' : ''}`}>
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your full name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.name && <span className="error">{errors.name}</span>}
-            </div>
+          <Box sx={{ width: '100%' }}>
+            <Stepper activeStep={activeStep} className="w-full">
+              {steps.map((label, index) => {
+                const stepProps = {};
+                const labelProps = {};
 
-            <div className="form-group">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.email && <span className="error">{errors.email}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="age">Age:</label>
-              <input
-                type="number"
-                id="age"
-                name="age"
-                placeholder="Enter your age"
-                value={formData.age}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.age && <span className="error">{errors.age}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="gender">Gender:</label>
-              <select
-                id="gender"
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+            <React.Fragment>
+              <form
+                onSubmit={handleSubmit}
+                className="opd-registration-form justify-center !flex flex-col w-3/4 mt-5"
               >
-                <option value="" disabled>
-                  Select gender
-                </option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.gender && <span className="error">{errors.gender}</span>}
-            </div>
+                {activeStep === 0 && (
+                  <React.Fragment>
+                    <div
+                      className={`form-group ${dark === 'dark' ? 'dark-mode' : ''}`}
+                    >
+                      <label htmlFor="name">Name:</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.name && (
+                        <span className="error">{errors.name}</span>
+                      )}
+                    </div>
 
-            <div className="form-group">
-              <label htmlFor="contact">Contact Number:</label>
-              <input
-                type="tel"
-                id="contact"
-                name="contact"
-                placeholder="Enter your contact number"
-                value={formData.contact}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.contact && <span className="error">{errors.contact}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email:</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.email && (
+                        <span className="error">{errors.email}</span>
+                      )}
+                    </div>
 
-            <div className="form-group">
-              <label htmlFor="address">Address:</label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                placeholder="Enter your address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.address && <span className="error">{errors.address}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="age">Age:</label>
+                      <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.age && (
+                        <span className="error">{errors.age}</span>
+                      )}
+                    </div>
 
-            <div className="form-group">
-              <label htmlFor="pincode">Pincode:</label>
-              <input
-                type="text"
-                id="pincode"
-                name="pincode"
-                placeholder="Enter your pincode"
-                value={formData.pincode}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.pincode && <span className="error">{errors.pincode}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="gender">Gender:</label>
+                      <select
+                        id="gender"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      >
+                        <option value="" disabled>
+                          Select gender
+                        </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      {errors.gender && (
+                        <span className="error">{errors.gender}</span>
+                      )}
+                    </div>
+                  </React.Fragment>
+                )}
+                {activeStep === 1 && (
+                  <React.Fragment>
+                    <div className="form-group">
+                      <label htmlFor="contact">Contact Number:</label>
+                      <input
+                        type="tel"
+                        id="contact"
+                        name="contact"
+                        placeholder="Enter your contact number"
+                        value={formData.contact}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.contact && (
+                        <span className="error">{errors.contact}</span>
+                      )}
+                    </div>
 
-            <div className="form-group">
-              <label htmlFor="department">Department:</label>
-              <select
-                id="department"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              >
-                <option value="" disabled>
-                  Select Department
-                </option>
-                <option value="cardiology">Cardiology</option>
-                <option value="neurology">Neurology</option>
-                <option value="orthopedics">Orthopedics</option>
-                <option value="pediatrics">Pediatrics</option>
-                <option value="gynecology">Gynecology</option>
-                <option value="dermatology">Dermatology</option>
-              </select>
-              {errors.department && (
-                <span className="error">{errors.department}</span>
-              )}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="address">Address:</label>
+                      <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        placeholder="Enter your address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.address && (
+                        <span className="error">{errors.address}</span>
+                      )}
+                    </div>
 
-            <div className="form-group  form-textarea">
-              <label htmlFor="reason">Reason:</label>
-              <textarea
-                id="reason"
-                name="reason"
-                placeholder="Enter the reason for your visit"
-                value={formData.reason}
-                onChange={handleChange}
-                required
-                className={dark === 'dark' ? 'input-dark' : ''}
-              ></textarea>
-              {errors.reason && <span className="error">{errors.reason}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="pincode">Pincode:</label>
+                      <input
+                        type="text"
+                        id="pincode"
+                        name="pincode"
+                        placeholder="Enter your pincode"
+                        value={formData.pincode}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.pincode && (
+                        <span className="error">{errors.pincode}</span>
+                      )}
+                    </div>
 
-            <div className={`form-group ${dark === 'dark' ? 'input-dark' : ''}`}>
-              <label htmlFor="date">Date:</label>
-              <input
-                className={dark === 'dark' ? 'input-dark' : ''}
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                required
-                min={today} // Set the minimum value to today's date
-              />
-              {errors.date && <span className="error">{errors.date}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="department">Department:</label>
+                      <select
+                        id="department"
+                        name="department"
+                        value={formData.department}
+                        onChange={handleChange}
+                        required
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      >
+                        <option value="" disabled>
+                          Select Department
+                        </option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="neurology">Neurology</option>
+                        <option value="orthopedics">Orthopedics</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="gynecology">Gynecology</option>
+                        <option value="dermatology">Dermatology</option>
+                      </select>
+                      {errors.department && (
+                        <span className="error">{errors.department}</span>
+                      )}
+                    </div>
+                  </React.Fragment>
+                )}
+                {activeStep === 2 && (
+                  <React.Fragment>
+                    <div
+                      className={`form-group ${dark === 'dark' ? 'input-dark' : ''}`}
+                    >
+                      <label htmlFor="date">Date:</label>
+                      <input
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        required
+                        min={today} // Set the minimum value to today's date
+                      />
+                      {errors.date && (
+                        <span className="error">{errors.date}</span>
+                      )}
+                    </div>
 
-            <div className="form-group">
-              <label htmlFor="report">Upload Report (Optional):</label>
-              <input
-                type="file"
-                id="report"
-                name="report"
-                multiple
-                onChange={handleChange}
-                className={dark === 'dark' ? 'input-dark' : ''}
-              />
-              {errors.report && <span className="error">{errors.report}</span>}
-            </div>
-            <div className="form-group form-textarea">
-              <label htmlFor="reason">Reason:</label>
-              <textarea
-                id="reason"
-                name="reason"
-                placeholder="Enter the reason for your visit"
-                value={formData.reason}
-                onChange={handleChange}
-                required
-              ></textarea>
-              {errors.reason && <span className="error">{errors.reason}</span>}
-            </div>
+                    <div className="form-group">
+                      <label htmlFor="report">Upload Report (Optional):</label>
+                      <input
+                        type="file"
+                        id="report"
+                        name="report"
+                        multiple
+                        onChange={handleChange}
+                        className={dark === 'dark' ? 'input-dark' : ''}
+                      />
+                      {errors.report && (
+                        <span className="error">{errors.report}</span>
+                      )}
+                    </div>
+                    <div className="form-group form-textarea">
+                      <label htmlFor="reason">Reason:</label>
+                      <textarea
+                        id="reason"
+                        name="reason"
+                        placeholder="Enter the reason for your visit"
+                        value={formData.reason}
+                        onChange={handleChange}
+                        required
+                      ></textarea>
+                      {errors.reason && (
+                        <span className="error">{errors.reason}</span>
+                      )}
+                    </div>
+                  </React.Fragment>
+                )}
 
-            <div className="form-actions form-buttons">
-              <button
-                type="submit"
-                className={`submit-btn ${dark === 'dark' ? 'btn-dark' : ''}`}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Registering...' : 'Register'}
-              </button>
+                <div className="flex !w-full justify-between items-center">
+                  <Button
+                    color="inherit"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
+                  >
+                    Back
+                  </Button>
 
-              <Link
-                to="/"
-                className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}
-              >
-                Back to Home
-              </Link>
-            </div>
-          </form>
-      </section>
-        </div>
+                  {activeStep === steps.length - 1 ? (
+                    <div className="form-actions form-buttons w-full">
+                      <button
+                        type="submit"
+                        className={`submit-btn ${dark === 'dark' ? 'btn-dark' : ''} `}
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? 'Registering...' : 'Register'}
+                      </button>
+
+                      {/* <Link
+                          to="/"
+                          className={`back-btn ${dark === 'dark' ? 'link-dark' : ''}`}
+                        >
+                          Back to Home
+                        </Link> */}
+                    </div>
+                  ) : (
+                    <Button onClick={handleNext}>Next</Button>
+                  )}
+                </div>
+              </form>
+            </React.Fragment>
+          </Box>
+        </section>
+      </div>
       {showModal && (
         <div className={`modal ${dark === 'dark' ? 'modal-dark' : ''}`}>
           <div className="modal-content">

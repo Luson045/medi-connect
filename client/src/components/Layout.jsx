@@ -21,10 +21,9 @@ import Success from '../pages/Success';
 import Home from '../pages/Home';
 import HospitalDetails from '../pages/HospitalDetail';
 import HospitalAppointments from '../pages/HospitalPanal';
-import BusinessContactForm from "./BusinessContactForm";
-import ForgotPassword from "./ForgotPassword";
+import BusinessContactForm from './BusinessContactForm';
+import ForgotPassword from './ForgotPassword';
 import PrivateRoute from '../privateroute/privateroute';
-
 
 function Layout() {
   const location = useLocation();
@@ -48,7 +47,7 @@ function Layout() {
     path === '/terms-and-conditions' ||
     path === '/Labtest' ||
     path === '/blog' ||
-    path === '/business'||
+    path === '/business' ||
     path === '/forgot-password'
   ) {
     showNavAndFooter = true;
