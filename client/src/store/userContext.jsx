@@ -18,31 +18,26 @@ export const UserProvider = ({ children }) => {
       const token = localStorage.getItem('token');
     
       if (!token) {
-        // If no token, consider the user as not authenticated
         setAuth(false);
         setUser(null);
-        setLoading(false); // Stop loading when no token is found
+        setLoading(false);
         return;
       }
-
-      const response = await fetch(
-        databaseUrls.auth.profile,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': token,
-          },
+  
+      const response = await fetch(databaseUrls.auth.profile, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': token,
         },
-      );
-
+      });
+  
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('userid', data._id); // Store user ID if needed elsewhere
-        setUser(data);
+        localStorage.setItem('userid', data._id);
+        setUser(data); // `data` should include `isAdmin` from backend if user is an admin
         setAuth(true);
       } else {
-        // Handle cases where token might be invalid or expired
         setAuth(false);
         setUser(null);
         localStorage.removeItem('token');
@@ -53,9 +48,8 @@ export const UserProvider = ({ children }) => {
       setAuth(false);
       setUser(null);
     }
-    setLoading(false); // Stop loading once profile fetch is complete
+    setLoading(false);
   };
-
   useEffect(() => {
     fetchProfile();
   }, [location.pathname]); // Refetch profile when location changes or on refresh

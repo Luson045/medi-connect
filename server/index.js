@@ -11,6 +11,7 @@ const authRouter = require("./routes/auth/auth");
 const profileRouter = require("./routes/user/profile");
 const hospitalRouter = require("./routes/hospital/hospital");
 const appointmentRouter = require("./routes/appointments/appointment");
+const otherroutes = require("./routes/otherroutes/otherroutes");
 // const hospitalroute = require("./modules/hospital/index");   ⭕ ***Deprecated***
 const client = require("prom-client");
 const { connectDB, corsConfig } = require("./utils");
@@ -172,6 +173,8 @@ app.use("/hospitalapi", hospitalRouter);
 // Appointment Routes
 app.use("/hospitalapi", appointmentRouter);
 
+// other routes
+app.use("/otherroutes", otherroutes)
 // Start the Server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
