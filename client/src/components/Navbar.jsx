@@ -25,6 +25,10 @@ const Navbar = () => {
   const handleToggleMode = () => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
+  const handleLogoutlocal = () => {
+    localStorage.removeItem('basicDetails');
+    window.location.reload();
+  };
 
   // Scroll event listener
   const controlNavbar = useCallback(() => {
@@ -183,6 +187,15 @@ const Navbar = () => {
             </NavLink>
           )}
 
+
+          {localStorage.getItem('basicDetails') ? (
+            <button
+              className="bg-white px-5 py-1 rounded-lg text-black font-bold hover:brightness-75"
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
+
           {isAuthenticated ? (
             <>
 
@@ -206,6 +219,7 @@ const Navbar = () => {
                 Log Out
               </button>
             </>
+
           ) : (
             <div className="flex gap-2 flex-col xs:flex-row w-full xs:w-auto pr-4 xs:pr-0">
               <NavLink
@@ -254,6 +268,22 @@ const Navbar = () => {
             <p className="font-bold text-lg hover:brightness-50">About</p>
           </NavLink>
 
+
+          <NavLink to="/labtest" className="flex items-baseline gap-2">
+            <MdOutlineLocalHospital className="mr-0.5 relative top-[4px] text-xl" />{' '}
+            <p className="font-bold text-lg hover:brightness-50">Lab Test</p>
+          </NavLink>
+
+          {/* Add the new Hospitals Around Link for Desktop */}
+          <NavLink to="/hospitals-around" className="flex items-baseline gap-2">
+            <FaHospitalAlt className="mr-0.5 relative top-[3px] text-xl" />
+            <p className="font-bold text-lg hover:brightness-50">
+              Hospitals Around
+            </p>
+          </NavLink>
+
+          {localStorage.getItem('basicDetails') ? (
+
           {/* Conditional Links */}
           {!isAuthenticated && (
             <NavLink to="/hospitals" className="flex items-baseline gap-2">
@@ -264,6 +294,7 @@ const Navbar = () => {
 
           {/* Show Lab Tests and Hospitals Around for regular user */}
           {isAuthenticated && user?.role === 'user' && (
+
             <>
               <NavLink to="/labtest" className="flex items-baseline gap-2">
                 <MdOutlineLocalHospital />
@@ -282,6 +313,11 @@ const Navbar = () => {
                 </p>
               </NavLink>
             </>
+
+          ) : (
+            <NavLink to="/registerOPD" className="flex items-baseline gap-2">
+              <MdOutlineLocalHospital className="mr-0.5 relative top-[4px] text-xl" />
+
           )}
 
           {/* Show only Hospitals Around for hospital */}
@@ -291,11 +327,26 @@ const Navbar = () => {
               className="flex items-baseline gap-2"
             >
               <FaHospitalAlt />
+
               <p className="font-bold text-lg hover:brightness-50">
                 Hospitals Around
               </p>
             </NavLink>
           )}
+
+
+        <div className="flex gap-3">
+          {localStorage.getItem('basicDetails') ? (
+            <button
+              className={`${
+                dark === 'dark'
+                  ? 'bg-gray-900 text-gray-100'
+                  : 'bg-white text-black'
+              } flex gap-2 items-center px-5 py-1 rounded-lg font-bold hover:brightness-75 ml-32`}
+              onClick={handleLogoutlocal}
+            >
+              Log Out
+            </button>
 
           {isAuthenticated ? (
             <>
@@ -323,6 +374,7 @@ const Navbar = () => {
                 Log Out
               </button>
             </>
+
           ) : (
             <div className="flex gap-5">
               {/* <NavLink
