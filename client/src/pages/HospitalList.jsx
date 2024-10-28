@@ -55,7 +55,7 @@ const HospitalsList = () => {
     try {
       let userId = user ? user._id : '';
       const response = await axios.post(
-        databaseUrls.hospitals.bookHospital.replace('{_id}', hospitalId),
+        databaseUrls.hospitals.bookHospital.replace('_id', hospitalId),
         {
           userId,
           ...bookingData,
