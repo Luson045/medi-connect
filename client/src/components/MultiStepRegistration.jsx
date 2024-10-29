@@ -3,6 +3,7 @@ import { Steps, message } from 'antd';
 import StepOne from './StepOne';
 import { Provider } from '../store/RegistrationContext';
 import StepTwo from './StepTwo';
+import '../styles/Login.css';
 import ReviewDetails from './ReviewDetails';
 import { useRecoilValue } from 'recoil'; // Import Recoil for dark mode state
 import { mode } from '../store/atom'; // Import the dark mode atom
