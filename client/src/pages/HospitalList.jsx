@@ -7,9 +7,15 @@ import { UserContext } from '../store/userContext';
 import hospitalsData from '../data/hospitalsData'; // Import local hospital data
 import { databaseUrls } from '../data/databaseUrls';
 
+import { useRecoilState } from 'recoil'; 
+import { mode } from '../store/atom';
+
+
 const mindate = new Date().toISOString().split('T')[0];
 
 const HospitalsList = () => {
+  
+  const [dark] = useRecoilState(mode);
   const { user } = useContext(UserContext);
   const [hospitals, setHospitals] = useState([]);
   const [filteredHospitals, setFilteredHospitals] = useState([]);
@@ -55,7 +61,7 @@ const HospitalsList = () => {
     try {
       let userId = user ? user._id : '';
       const response = await axios.post(
-        databaseUrls.hospitals.bookHospital.replace('{_id}', hospitalId),
+        databaseUrls.hospitals.bookHospital.replace('_id', hospitalId),
         {
           userId,
           ...bookingData,
@@ -134,8 +140,17 @@ const HospitalsList = () => {
   return (
     <>
       <Navbar />
-      <div className="hospital-list-container container mx-auto mt-8 px-4">
-        <h2 className="text-center mb-4 mt-8 text-2xl font-bold">Hospitals</h2>
+      <div className={`${
+          dark === 'dark'
+            ? 'relative text-white py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-gray-700 via-gray-900 to-black overflow-hidden'
+            : 'relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden'
+        } `} 
+      >
+        <h2 className={`${
+          dark === 'dark'
+            ? 'text-white'
+            : 'text-black'
+} `} >Hospitals</h2>
 
         {/* Search bar */}
         <div className="search-bar mb-4">

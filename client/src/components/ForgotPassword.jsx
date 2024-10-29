@@ -1,104 +1,114 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 const ForgotPassword = () => {
-    const [step, setStep] = useState(1);
-    const [email, setEmail] = useState('');
-    const [otp, setOtp] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [userType, setUserType] = useState('user');
-    const navigate = useNavigate();
-    const [messageType, setMessageType] = useState(''); 
+  const [step, setStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [userType, setUserType] = useState('user');
+  const navigate = useNavigate();
+  const [messageType, setMessageType] = useState('');
+  const [showPassword, setShowPassword] = useState({
+    newPassword: false,
+    confirmPassword: false,
+  });
+  const togglePasswordVisibility = (field) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+  const sendOtp = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, type: userType }), // Send the selected type
+      });
 
-    const sendOtp = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/auth/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, type: userType }), // Send the selected type
-            });
+      const data = await response.json();
+      if (response.ok) {
+        setStep(2);
+        setMessage('OTP sent successfully. Please check your email.');
+        setMessageType('success');
+      } else {
+        setMessage(data.message || 'Failed to send OTP.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      setMessage('Error sending OTP. Please try again.');
+      setMessageType('error');
+    }
+  };
 
-            const data = await response.json();
-            if (response.ok) {
-                setStep(2);
-                setMessage('OTP sent successfully. Please check your email.');
-                setMessageType('success');
-              } else {
-                setMessage(data.message || 'Failed to send OTP.');
-                setMessageType('error');
-              }
-            } catch (error) {
-              console.error('Error sending OTP:', error);
-              setMessage('Error sending OTP. Please try again.');
-              setMessageType('error');
-            }
-    };
+  const verifyOtp = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/auth/otpverify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp, type: userType }), // Include type
+      });
 
-    const verifyOtp = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/auth/otpverify', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, otp, type: userType }), // Include type
-            });
+      const data = await response.json();
+      if (response.ok) {
+        setStep(3);
+        setMessage('OTP verified successfully. Please set your new password.');
+        setMessageType('success');
+      } else {
+        setMessage(data.message || 'Invalid OTP. Please try again.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      setMessage('Error verifying OTP. Please try again.');
+      setMessageType('error');
+    }
+  };
 
-            const data = await response.json();
-            if (response.ok) {
-                setStep(3);
-                setMessage('OTP verified successfully. Please set your new password.');
-                setMessageType('success');
-              } else {
-                setMessage(data.message || 'Invalid OTP. Please try again.');
-                setMessageType('error');
-              }
-            } catch (error) {
-              console.error('Error verifying OTP:', error);
-              setMessage('Error verifying OTP. Please try again.');
-              setMessageType('error');
-            }
-    };
+  const resetPassword = async () => {
+    if (newPassword !== confirmPassword) {
+      setMessage("Passwords don't match.");
+      return;
+    }
 
-    const resetPassword = async () => {
-        if (newPassword !== confirmPassword) {
-            setMessage("Passwords don't match.");
-            return;
-        }
+    try {
+      const response = await fetch('http://localhost:8080/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ type: userType, email, newPassword }), // Include type here
+      });
 
-        try {
-            const response = await fetch('http://localhost:8080/auth/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ type: userType, email, newPassword }), // Include type here
-            });
+      const data = await response.json();
+      if (response.ok) {
+        setMessage('Password updated successfully. Redirecting to the login page...');
+        setMessageType('success');
 
-            const data = await response.json();
-            if (response.ok) {
-                setMessage('Password updated successfully. Redirecting to the login page...');
-                setMessageType('success');
-        
-                // Redirect to the login page after 3 seconds
-                setTimeout(() => {
-                  navigate('/login');
-                }, 3000);
-              } else {
-                setMessage(data.message || 'Failed to reset password.');
-                setMessageType('error');
-              }
-            } catch (error) {
-              console.error('Error resetting password:', error);
-              setMessage('Error resetting password. Please try again.');
-              setMessageType('error');
-            }
-    };
+        // Redirect to the login page after 3 seconds
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
+      } else {
+        setMessage(data.message || 'Failed to reset password.');
+        setMessageType('error');
+      }
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      setMessage('Error resetting password. Please try again.');
+      setMessageType('error');
+    }
+  };
 
-     return (
+  return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
         <h1 className="text-3xl font-bold text-center mb-6">Forgot Password</h1>
@@ -168,33 +178,52 @@ const ForgotPassword = () => {
             Verify OTP
           </button>
         )}
+{step >= 3 && (
+  <>
+    <div className="mb-4 relative">
+      <label className="block mb-2 font-semibold">New Password</label>
+      <div className="password-wrapper flex items-center border rounded p-2 w-full">
+        <input
+          type={showPassword.newPassword ? 'text' : 'password'}
+          placeholder="New Password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          className="flex-grow text-gray-900"
+          required
+        />
+        <button
+          type="button"
+          onClick={() => togglePasswordVisibility('newPassword')}
+          className="password-toggle text-gray-500"
+        >
+          {showPassword.newPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
+    </div>
 
-        {step >= 3 && (
-          <>
-            <div className="mb-4">
-              <label className="block mb-2 font-semibold">New Password</label>
-              <input
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="border p-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-2 font-semibold">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="border p-2 w-full"
-                required
-              />
-            </div>
-          </>
-        )}
+    <div className="mb-4 relative">
+      <label className="block mb-2 font-semibold">Confirm Password</label>
+      <div className="password-wrapper flex items-center border rounded p-2 w-full">
+        <input
+          type={showPassword.confirmPassword ? 'text' : 'password'}
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="flex-grow text-gray-900"
+          required
+        />
+        <button
+          type="button"
+          onClick={() => togglePasswordVisibility('confirmPassword')}
+          className="password-toggle text-gray-500"
+        >
+          {showPassword.confirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
+    </div>
+  </>
+)}
+
 
         {step === 3 && (
           <div className="flex justify-between">

@@ -2,6 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import FloatingIcons from '../components/FloatingIcons';
 import { services } from '../data';
+import { useRecoilState } from 'recoil'; 
+import { mode } from '../store/atom';
+
 
 const ServiceCard = ({ icon: Icon, title, details }) => (
   <>
@@ -24,9 +27,15 @@ const ServiceCard = ({ icon: Icon, title, details }) => (
   </>
 );
 export default function ServicePage() {
+  const [dark] = useRecoilState(mode);
   return (
     <>
-      <header className="relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden">
+      <header className={`${
+      dark === 'dark'
+        ? 'relative text-white py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-gray-700 via-gray-900 to-black overflow-hidden'
+        : 'relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden'
+    } `} 
+      >
         <div className="absolute inset-0">
           <svg
             className="absolute bottom-0 left-0 right-0"
@@ -51,7 +60,11 @@ export default function ServicePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, type: 'spring' }}
                 >
-                  <span>Our Services</span>
+                  <span className={`${
+                    dark === 'dark'
+                      ? 'text-white'
+                      : 'text-black'
+    } `} >Our Services</span>
                 </motion.h2>
                 <motion.p className="flex flex-col items-center text-center mb-12">
                   <span> A better life starts with a beautiful smile</span>

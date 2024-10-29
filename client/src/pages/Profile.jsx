@@ -72,7 +72,7 @@ const ProfilePage = () => {
   const handleDoctorScheduleDataChange = (e) => {
     var { name, value } = e.target;
     const day = name.split('-')[0];
-    if (value == ' ') {
+    if (value === ' ') {
       value = '';
     }
 

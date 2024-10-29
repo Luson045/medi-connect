@@ -210,18 +210,84 @@ function OPDRegistrationForm() {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    doc.text('OPD Registration Details', 20, 20);
-    doc.text(`Name: ${registrationDetails.name}`, 20, 30);
-    doc.text(`Age: ${registrationDetails.age}`, 20, 40);
+    
+    // Add light cream background for main content
+    doc.setFillColor(252, 248, 230); // Light cream for body
+    doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
+    
+    // Add darker header background for logo
+    doc.setFillColor(41, 128, 185); // Professional blue for header
+    doc.rect(0, 0, doc.internal.pageSize.width, 45, 'F');
+    
+    // Set text color to white for header content
+    doc.setTextColor(255, 255, 255);
+    
+    // Logo (add your base64 logo image here)
+    var img = new Image();
+    img.src = '/1.png';
+    doc.addImage(img, 'png', 85, 5, 40, 15);
+    
+    // Header text in white
+    doc.setFontSize(14);
+    doc.text('Hospital Appointment Confirmation', 105, 30, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('Generated from Med-Space', 105, 36, { align: 'center' });
+    
+    // Switch to dark text for body content
+    doc.setTextColor(44, 62, 80); // Dark blue-grey for better readability
+    
+    // Body
+    doc.setFontSize(12);
+    doc.text('OPD Registration Details', 20, 60);
+    doc.setDrawColor(41, 128, 185); // Blue line color
+    doc.line(20, 65, 190, 65); // Decorative line under section header
+    
+    doc.text(`Name: ${registrationDetails.name}`, 20, 75);
+    doc.text(`Age: ${registrationDetails.age}`, 20, 85);
     doc.text(
-      `Date of Appointment: ${appointmentDetails.appointment.date}`,
-      20,
-      50,
+        `Date of Appointment: ${appointmentDetails.appointment.date}`,
+        20,
+        95
     );
-    doc.text(`Reason: ${appointmentDetails.appointment.reason}`, 20, 60);
-    doc.text(`Hospital: ${appointmentDetails.hospital.name}`, 20, 70);
+    doc.text(`Reason: ${appointmentDetails.appointment.reason}`, 20, 105);
+    doc.text(`Hospital: ${appointmentDetails.hospital.name}`, 20, 115);
+    doc.text(
+        `Address: ${appointmentDetails.hospital.address.street}, ${appointmentDetails.hospital.address.city}, ${appointmentDetails.hospital.address.state}, ${appointmentDetails.hospital.address.postalCode}`,
+        20,
+        125
+    );
+    doc.text(`Contact: ${appointmentDetails.hospital.phone}`, 20, 135);
+    
+    // Footer with blue background
+    const pageCount = doc.internal.getNumberOfPages();
+    doc.setFontSize(10);
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        
+        // Add footer background
+        doc.setFillColor(41, 128, 185);
+        doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
+        
+        // Footer text in white
+        doc.setTextColor(255, 255, 255);
+        doc.text(
+            `Page ${i} of ${pageCount}`,
+            doc.internal.pageSize.width / 2,
+            doc.internal.pageSize.height - 12,
+            { align: 'center' }
+        );
+        doc.text(
+            'Thank you for choosing Our Hospital. Please bring this document on the day of your appointment.\n 2024 Med-Space. All rights reserved.',
+            105,
+            doc.internal.pageSize.height - 6,
+            { align: 'center' }
+        );
+    }
+    
+    // Save PDF
     doc.save('appointment-details.pdf');
   };
+
 
   return (
     <>
@@ -249,6 +315,7 @@ function OPDRegistrationForm() {
                 onSubmit={handleSubmit}
                 className="opd-registration-form justify-center !flex flex-col w-3/4 mt-5"
               >
+
                 {activeStep === 0 && (
                   <React.Fragment>
                     <div
@@ -494,6 +561,7 @@ function OPDRegistrationForm() {
           </Box>
         </section>
       </div>
+
       {showModal && (
         <div className={`modal ${dark === 'dark' ? 'modal-dark' : ''}`}>
           <div className="modal-content">
@@ -525,6 +593,15 @@ function OPDRegistrationForm() {
               <li>
                 Hospital:{' '}
                 {appointmentDetails?.hospital?.name || 'City Hospital'}
+              </li>
+              <li>
+                Address:{' '}
+                {appointmentDetails?.hospital?.address.street || 'Null'},{appointmentDetails?.hospital?.address.city || 'Null'},{appointmentDetails?.hospital?.address.state || 'Null'}
+              </li>
+              
+              <li>
+                Phone:{' '}
+                {appointmentDetails?.hospital?.phone || 'City Hospital'}
               </li>
             </ul>
 
