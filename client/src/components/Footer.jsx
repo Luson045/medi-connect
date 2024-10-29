@@ -13,6 +13,9 @@ import GoogleTranslate from './GoogleTranslate';
 import Chatbot from '../Medical-Chatbot/Chatbot';
 import { X, MessageCircle } from 'lucide-react';
 // import { FaArrowUp } from 'react-icons/fa';
+  
+import { useRecoilValue, useRecoilState } from 'recoil'; 
+import { mode } from '../store/atom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +24,10 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
-  const navigate = useNavigate();
+  const isDarkMode = useRecoilValue(mode); // Use the Recoil state for dark mode
+ const navigate = useNavigate(); 
+ 
+ const [dark, setDark] = useRecoilState(mode);
 
   const handleScroll = () => {
     if (window.scrollY > 200) {
@@ -121,7 +127,13 @@ const Footer = () => {
   // };
 
   return (
-    <footer className="bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black">
+    <footer className={`${
+      dark === 'dark'
+        ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+        : 'bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black'
+    } `}
+>
+    
       <div className="container mx-auto">
         {/* Newsletter Subscription Section */}
         <div className="text-center md:col-span-2 lg:col-span-4 my-4">
@@ -300,7 +312,12 @@ const Footer = () => {
           <p className="font-bold bg-gradient-to-r from-[#b6dbfc] to-[#b6dbfc] bg-clip-text text-transparent group-hover:from-[#133859] group-hover:to-[#b6dbfc] transition-all duration-300">
             DISCLAIMER
           </p>
-          <p className="text-gray-300 text-sm md:text-base mt-2">
+          <p 
+          className={`${
+            dark === 'dark'
+              ? 'text-gray-300 text-sm md:text-base mt-2'
+              : 'text-gray-900 text-sm md:text-base mt-2'
+          } `}>
             “The information provided on Med-Space is intended for general
             informational purposes only and should not be considered as medical
             advice, diagnosis, or treatment. Always seek the advice of a

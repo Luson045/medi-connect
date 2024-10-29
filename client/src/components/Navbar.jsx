@@ -25,6 +25,7 @@ const Navbar = () => {
   const handleToggleMode = () => {
     setDark(dark === 'light' ? 'dark' : 'light');
   };
+  
 
   // Scroll event listener
   const controlNavbar = useCallback(() => {
@@ -420,6 +421,7 @@ const Navbar = () => {
                 />{' '}
                 Register
               </NavLink>
+              
             </div>
           )}
         </div>
