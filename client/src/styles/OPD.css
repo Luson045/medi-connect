@@ -13,7 +13,7 @@
   position: absolute;
   top: -50px;
   left: -50px;
-  width: 200%;
+  width: 60%;
   height: 63%;
   background: linear-gradient(
     45deg,
@@ -21,7 +21,7 @@
     rgba(255, 255, 255, 0)
   );
   transform: rotate(0deg);
-  animation: shine 6s infinite;
+  animation: shine 2s infinite;
   pointer-events: none;
 }
 .dark .form-container::before {
@@ -29,15 +29,15 @@
   position: absolute;
   top: -50px;
   left: -50px;
-  width: 200%;
-  height: 63%;
+  width: 60%;
+  height: 65%;
   background: linear-gradient(
     45deg,
     #525356,
     rgba(255, 255, 255, 0)
   );
   transform: rotate(0deg);
-  animation: shine 6s infinite;
+  animation: shine 2s infinite;
   pointer-events: none;
 }
 
