@@ -9,9 +9,41 @@
     background-color 0.3s ease,
     color 0.3s ease;
 }
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 60%;
+  height: 63%;
+  background: linear-gradient(
+    45deg,
+    #ABCFFC,
+    rgba(255, 255, 255, 0)
+  );
+  transform: rotate(0deg);
+  animation: shine 2s infinite;
+  pointer-events: none;
+}
+.dark .form-container::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 60%;
+  height: 65%;
+  background: linear-gradient(
+    45deg,
+    #525356,
+    rgba(255, 255, 255, 0)
+  );
+  transform: rotate(0deg);
+  animation: shine 2s infinite;
+  pointer-events: none;
+}
 
 .dark .form-container {
-  background-color: #333;
+  background-color: #111827;
   color: #f1f1f1;
   box-shadow: 0 6px 16px rgba(255, 255, 255, 0.1);
 }

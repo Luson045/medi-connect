@@ -40,11 +40,11 @@
   height: 200%;
   background: linear-gradient(
     45deg,
-    rgba(255, 255, 255, 0.4),
+    #111827,
     rgba(255, 255, 255, 0)
   );
   transform: rotate(0deg);
-  animation: shine 3s infinite;
+  animation: shine 5s infinite;
   pointer-events: none;
 }
 
