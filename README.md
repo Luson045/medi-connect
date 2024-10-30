@@ -18,6 +18,15 @@
 <!--Line-->
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 
+## 📈 GitHub Repository Stats
+| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** | ✅ **Contributors** |
+|--------------|--------------|---------------|-----------------|------------------|------------------|
+| ![GitHub stars](https://img.shields.io/github/stars/Luson045/medi-connect) | ![forks](https://img.shields.io/github/forks/Luson045/medi-connect) | ![issues](https://img.shields.io/github/issues/Luson045/medi-connect?color=32CD32) | ![pull requests](https://img.shields.io/github/issues-pr/Luson045/medi-connect?color=FFFF8F) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/Luson045/medi-connect?color=20B2AA) | ![Contributors](https://img.shields.io/github/contributors/Luson045/medi-connect?color=00FA9A) |
+
+<!--Line-->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+
+
 <!-- Added Hacktoberfest 2024 and GSSoc Extended 2024 banners -->
 ### This project is now OFFICIALLY accepted for
 

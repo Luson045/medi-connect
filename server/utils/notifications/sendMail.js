@@ -31,4 +31,4 @@ const sendMail = (htmlContent, receiverEmail) => {
   });
 };
 
-exports.sendMail = sendMail;
+module.exports = sendMail;

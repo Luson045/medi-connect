@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import playstore from "../assets/favicon2.png";
 import {
   FaGithub,
@@ -13,11 +13,21 @@ import GoogleTranslate from './GoogleTranslate';
 import Chatbot from '../Medical-Chatbot/Chatbot';
 import { X, MessageCircle } from 'lucide-react';
 // import { FaArrowUp } from 'react-icons/fa';
+  
+import { useRecoilValue, useRecoilState } from 'recoil'; 
+import { mode } from '../store/atom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const isDarkMode = useRecoilValue(mode); // Use the Recoil state for dark mode
+ const navigate = useNavigate(); 
+ 
+ const [dark, setDark] = useRecoilState(mode);
 
   const handleScroll = () => {
     if (window.scrollY > 200) {
@@ -40,6 +50,36 @@ const Footer = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleSubscribe = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/otherroutes/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      if (response.ok) {
+        setMessage('Subscription successful! Confirmation mail sent');
+        setMessageType('success');
+        setEmail('');
+      } else {
+        setMessage('Subscription failed. Try again.');
+        setMessageType('error');
+      }
+      setTimeout(() => {
+        setMessage('');
+        setEmail('');
+      }, 5000); // Clear the message and input after 5 seconds
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setMessage('An error occurred. Please try again later.');
+      setMessageType('error');
+
+      setTimeout(() => setMessage(''), 5000);
+    }
+  };
 
   // Define company links with distinct paths
   const aboutLinks = [
@@ -72,6 +112,7 @@ const Footer = () => {
     { name: 'Business', path: '/business' },
     { name: 'Support Us', path: '/support-us' },
     { name: 'Customer Care', path: '/customer-care' },
+    { name: 'Newsletter', path: '/newsletter-dashboard' },
   ];
 
   // const handleRating = (value) => {
@@ -86,12 +127,45 @@ const Footer = () => {
   // };
 
   return (
-    <footer className="bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black">
+    <footer className={`${
+      dark === 'dark'
+        ? 'bg-gradient-to-r from-gray-700 via-gray-900 to-black text-gray-100'
+        : 'bg-gradient-to-r from-[#b6dbfc] via-[#8faed9] to-[#b6dbfc] p-8 text-white shadow-lg shadow-black'
+    } `}
+>
+    
       <div className="container mx-auto">
+
 
         <div className="container mx-auto flex flex-wrap justify-between">
           {/* Company Section */}
           <div className="space-y-4">
+
+        {/* Newsletter Subscription Section */}
+        <div className="text-center md:col-span-2 lg:col-span-4 my-4">
+          <h3 className="text-2xl font-semibold mb-4">Subscribe to our Newsletter</h3>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="p-2 rounded border border-gray-300 text-black w-full max-w-[300px]"
+            />
+            <button
+              onClick={handleSubscribe}
+              className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded w-full max-w-[150px]"
+            >
+              Subscribe
+            </button>
+          </div>
+          {message && (
+            <p className={`text-2xl mt-2 ${messageType === 'success' ? 'text-green-500' : 'text-red-500'}`}>
+              {message}
+            </p>
+          )}
+        </div>
+
 
         <div className="flex flex-wrap justify-between space-x-4">
           {/* Med Space Section */}
@@ -288,7 +362,12 @@ const Footer = () => {
           <p className="font-bold bg-gradient-to-r from-[#b6dbfc] to-[#b6dbfc] bg-clip-text text-transparent group-hover:from-[#133859] group-hover:to-[#b6dbfc] transition-all duration-300">
             DISCLAIMER
           </p>
-          <p className="text-gray-300 text-sm md:text-base mt-2">
+          <p 
+          className={`${
+            dark === 'dark'
+              ? 'text-gray-300 text-sm md:text-base mt-2'
+              : 'text-gray-900 text-sm md:text-base mt-2'
+          } `}>
             “The information provided on Med-Space is intended for general
             informational purposes only and should not be considered as medical0
             advice, diagnosis, or treatment. Always seek0 the advice of a
@@ -327,8 +406,8 @@ const Footer = () => {
           </button>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 
-export default Footer;
+export default Footer;  

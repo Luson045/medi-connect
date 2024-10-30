@@ -111,7 +111,11 @@ const AboutPage = () => {
 
   const dark = useRecoilValue(mode); // Get dark mode value from Recoil
   return (
-    <Container dark={dark}>
+    <Container className={`${
+      dark === 'dark'
+        ? 'relative text-white py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-gray-700 via-gray-900 to-black overflow-hidden'
+        : 'relative text-black py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 to-white overflow-hidden'
+    } `}  dark={dark}>
       <animated.div style={fadeIn}>
         {/* Two-box section for Vision and Mission */}
         <VisionMissionContainer>

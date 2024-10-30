@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { z } = require("zod");
 const asyncHandler = require("express-async-handler");
 const NodeGeocoder = require("node-geocoder");
+const axios = require("axios");
 const sendMail = require("../../utils/notifications/sendMail.js");
 const {
   appointmentSchema,
@@ -293,6 +294,8 @@ const addEmergencyAppointment = asyncHandler(async (req, res) => {
       hospital: {
         id: hospital._id,
         name: hospital.name,
+        address: hospital.address,
+        phone: hospital.phone
       },
     });
   } catch (error) {
