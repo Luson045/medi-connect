@@ -150,7 +150,9 @@ function MultiStepRegistration() {
       }}
     >
       <div
-        className={`steps-container ${dark === 'dark' ? 'bg-gray-900 text-yellow-400' : 'bg-white text-gray-700'} transition-colors duration-300 p-4 rounded-lg`}
+        className={`steps-container ${dark === 'dark'
+          ? 'bg-gray-900 text-purple-400'
+          : 'bg-gray-200 text-gray-900'} transition-colors duration-300 p-4 rounded-lg`}
       >
         <Steps current={currentStep} onChange={handleNextStepValidation}>
           <Step
@@ -158,8 +160,8 @@ function MultiStepRegistration() {
               <span
                 className={
                   dark === 'dark'
-                    ? 'font-bold text-yellow-400'
-                    : 'font-bold text-gray-700'
+          ? ' font-bold text-purple-400'
+          : ' font-bold text-gray-900'
                 }
               >
                 Basic details
@@ -172,8 +174,8 @@ function MultiStepRegistration() {
               <span
                 className={
                   dark === 'dark'
-                    ? 'font-bold text-yellow-400'
-                    : 'font-bold text-gray-700'
+          ? ' font-bold text-purple-400'
+          : ' font-bold text-gray-900'
                 }
               >
                 Other details
@@ -186,8 +188,8 @@ function MultiStepRegistration() {
               <span
                 className={
                   dark === 'dark'
-                    ? 'font-bold text-yellow-400'
-                    : 'font-bold text-gray-700'
+          ? ' font-bold text-purple-400'
+          : ' font-bold text-gray-900'
                 }
               >
                 Review and Register
