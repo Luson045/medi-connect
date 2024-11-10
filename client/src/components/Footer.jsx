@@ -135,6 +135,12 @@ const Footer = () => {
 >
     
       <div className="container mx-auto">
+
+
+        <div className="container mx-auto flex flex-wrap justify-between">
+          {/* Company Section */}
+          <div className="space-y-4">
+
         {/* Newsletter Subscription Section */}
         <div className="text-center md:col-span-2 lg:col-span-4 my-4">
           <h3 className="text-2xl font-semibold mb-4">Subscribe to our Newsletter</h3>
@@ -160,9 +166,11 @@ const Footer = () => {
           )}
         </div>
 
+
         <div className="flex flex-wrap justify-between space-x-4">
           {/* Med Space Section */}
           <div className="space-y-4 w-full md:w-auto">
+
             <Link
               to="/"
               className="flex items-center gap-2 group transition-all duration-300 ease-in-out transform hover:scale-105"
@@ -183,9 +191,15 @@ const Footer = () => {
             </p>
           </div>
 
+
+          {/* Company Links */}
+          <div className="-ml-40">
+            <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
           {/* About Section */}
           <div className="space-y-4 w-full md:w-auto">
             <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               About
             </h3>
             <ul className="space-y-2">
@@ -209,9 +223,15 @@ const Footer = () => {
             </ul>
           </div>
 
+
+          {/* Quick Links */}
+          <div className="-ml-40">
+            <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
           {/* Services Section */}
           <div className="space-y-4 w-full md:w-auto">
             <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Services
             </h3>
             <ul className="space-y-2">
@@ -235,9 +255,14 @@ const Footer = () => {
             </ul>
           </div>
 
+
+          <div className="-ml-40 -mt-6">
+            <h3 className='text-lg font-semibold mt-6 mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full text-yellow'>
+
           {/* Contact Us Section */}
           <div className="space-y-4 w-full md:w-auto">
             <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Contact Us
             </h3>
             <ul className="space-y-2">
@@ -251,7 +276,11 @@ const Footer = () => {
                       <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
                         {item.name}
                       </span>
+
+                      <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#b6dbfc]">
+
                       <span className="absolute top-0 left-0 inline-block transition-transform duration-300 translate-y-full group-hover:translate-y-0 text-[#1f2937]">
+
                         {item.name}
                       </span>
                     </span>
@@ -261,9 +290,16 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Connect with Us and Legal */}
+          <div className="-ml-40">
+            {/* Social Media Links */}
+            <h3 className='text-lg font-semibold mb-4 relative inline-block after:content-[""] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full'>
+
+
           {/* Follow Us Section */}
           <div className="space-y-4 w-full md:w-auto">
             <h3 className="text-lg font-semibold mb-4 relative inline-block after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-[#b6dbfc] after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">
+
               Follow us on
             </h3>
             <div className="flex space-x-4 mb-6">
@@ -291,20 +327,34 @@ const Footer = () => {
                       '0 0 0 0 rgba(255,255,255,0.7)';
                   }}
                 >
-                  <Icon size={20} />
+                  <Icon size={15} />
                 </a>
               ))}
             </div>
 
+
+            <div className="flex items-center mt-6 relative">
+
             {/* Google Translate Section */}
             <div className="flex items-center mt-6">
+
               <img
                 src="/google.png"
                 alt="Google Translate"
                 className="h-8 w-8 mr-2"
               />
-              <GoogleTranslate />
+              <div className="relative " style={{ width: '150px' }}>
+                <GoogleTranslate />
+                {/* Dropdown Menu */}
+                <div className="absolute left-10 mt-5 bg-white border rounded shadow-lg z-20" >
+                  <GoogleTranslate />
+                </div>
+              </div>
             </div>
+
+
+            {/* Legal Links */}
+
           </div>
         </div>
 
@@ -319,8 +369,8 @@ const Footer = () => {
               : 'text-gray-900 text-sm md:text-base mt-2'
           } `}>
             “The information provided on Med-Space is intended for general
-            informational purposes only and should not be considered as medical
-            advice, diagnosis, or treatment. Always seek the advice of a
+            informational purposes only and should not be considered as medical0
+            advice, diagnosis, or treatment. Always seek0 the advice of a
             qualified healthcare provider for any medical condition or
             treatment. Med-Space facilitates OPD appointment booking and
             hospital data sharing, but it does not endorse or guarantee the
