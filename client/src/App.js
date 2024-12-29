@@ -21,6 +21,8 @@ function App() {
   }, []);
 
   return (
+    <>
+    google-site-verification: google702f0a7aa8f19d22.html
     <div className="App">
       {isPreloaderVisible ? (
         <Preloader />
@@ -35,6 +37,7 @@ function App() {
         </>
       )}
     </div>
+    </>
   );
 }
 
