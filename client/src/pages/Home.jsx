@@ -93,7 +93,7 @@ function Home() {
 
   return (
     <>
-      google-site-verification: google702f0a7aa8f19d22.html
+      {/*google-site-verification: google702f0a7aa8f19d22.html*/}
       <div
         className={`min-h-screen ${dark === 'dark' ? 'bg-gradient-to-b from-gray-900 to-gray-800' : 'bg-gradient-to-b from-blue-100 to-blue-50'
           }`}
