@@ -1,0 +1,57 @@
+name: Auto PR Description with Gemini
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  generate-pr-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install google-generativeai
+
+      - name: Generate PR Description with Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          python <<EOF
+          import google.generativeai as genai
+          import os
+
+          genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+          model = genai.GenerativeModel("gemini-pro")
+
+          pr_body = os.getenv("PR_BODY", "No description provided.")
+          prompt = f"Improve this GitHub PR description:\n\n{pr_body}"
+          response = model.generate_content(prompt)
+          
+          with open("pr_description.txt", "w") as f:
+              f.write(response.text)
+
+          print("Generated PR Description:", response.text)
+          EOF
+
+      - name: Update PR Description
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const description = fs.readFileSync('pr_description.txt', 'utf8');
+            github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: description
+            });
+
