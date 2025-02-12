@@ -1,57 +1,57 @@
-name: PR Issue Checker
-# Created by @smog-root.
+name: Auto Respond to Issues with Gemini
+
 on:
-  pull_request:
-    types: [opened, edited]
+  issues:
+    types: [opened]
 
 jobs:
-  check_pr_details:
+  auto-respond:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
 
-      - name: Install dependencies (if needed)
-        run: pip install re  # Install Python's regex library (not needed if using built-in)
+      - name: Install Dependencies
+        run: pip install google-generativeai
 
-      - name: Check PR Description and Title
-        id: check_pr_details
-        run: |
-          python -c "
-import re
-import sys
-import os
-
-pr_description = os.getenv('GITHUB_EVENT_PULL_REQUEST_BODY', '')
-pr_title = os.getenv('GITHUB_EVENT_PULL_REQUEST_TITLE', '')
-
-# Check if PR description is present
-if not pr_description:
-    print('PR description is missing.')
-    sys.exit(1)
-
-# Check if the PR description contains 'Fixes #<issue-number>'
-if not re.search(r'Fixes #[0-9]+', pr_description):
-    print('The PR description should include Fixes #<issue-number>.')
-    sys.exit(1)
-
-# Check if the PR title starts with FIX, FEAT, or DOC
-if not re.match(r'^(FIX|FEAT|DOC)', pr_title):
-    print('The PR title should start with Fixes, Closes, or FIX.')
-    sys.exit(1)
-
-print('PR description and title are valid.')
-"
+      - name: Generate Response with Gemini
         env:
-          GITHUB_EVENT_PULL_REQUEST_BODY: ${{ github.event.pull_request.body }}
-          GITHUB_EVENT_PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          import google.generativeai as genai
+          import os
 
-      - name: Output result
-        run: echo "All checks passed."
-        
+          genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+          model = genai.GenerativeModel("gemini-pro")
+
+          issue_title = os.getenv("ISSUE_TITLE", "No Title")
+          issue_body = os.getenv("ISSUE_BODY", "No Description")
+
+          prompt = f"Respond to this GitHub issue in a helpful way:\n\nTitle: {issue_title}\nDescription: {issue_body}"
+          response = model.generate_content(prompt)
+
+          with open("issue_response.txt", "w") as f:
+              f.write(response.text)
+
+          print("Generated Response:", response.text)
+
+      - name: Comment on Issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const response = fs.readFileSync('issue_response.txt', 'utf8');
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: response
+            });
