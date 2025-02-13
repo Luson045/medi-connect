@@ -18,7 +18,7 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
-            core.setOutput("number", 593);  // Ensure it's a string
+            core.setOutput("number", issue.number.toString());  // Ensure it's a string
             core.setOutput("body", issue.body);
 
       - name: Generate Response with Gemini Pro API
