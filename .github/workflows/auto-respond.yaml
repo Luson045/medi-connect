@@ -18,10 +18,8 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
-            return {
-              number: issue.number,
-              body: issue.body
-            };
+            core.setOutput("number", issue.number);
+            core.setOutput("body", issue.body);
 
       - name: Generate Response with Gemini Pro API
         id: generate_response
@@ -42,22 +40,22 @@ jobs:
               ]
             }')
           
-          # Extract the response text and escape special characters
+          # Extract response text
           RESPONSE_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text' | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           
-          # Set the output
-          echo "response=$RESPONSE_TEXT" >> $GITHUB_OUTPUT
+          # Set output
+          echo "response=$RESPONSE_TEXT" >> "$GITHUB_ENV"
 
       - name: Post Response as Comment
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issueNumber = ${{ steps.issue.number }};
-            const response = `${{ steps.generate_response.outputs.response }}`;
+            const issueNumber = process.env.ISSUE_NUMBER;
+            const response = process.env.response;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.payload.issue,
+              issue_number: issueNumber,
               body: response
             });
