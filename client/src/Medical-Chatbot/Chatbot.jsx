@@ -17,7 +17,7 @@ const Chatbot = ({isOpen, setIsOpen}) => {
     'At Med-Space, we envision a world where accessing outpatient care is as simple as a few clicks. By leveraging technology and innovation, we aim to provide a platform that bridges the gap between patients and healthcare providers, making high-quality care accessible to everyone, anywhere. Founder of Med-space is Luson Basumatary.';
   const loadConfig = useCallback(async () => {
     try {
-      setApiKey('AIzaSyCfkCLUWHRRDB2OZeY9ro5y8pMcDtnCNCo'); //add your api key
+      setApiKey('...'); //add your api key
       setApiUrl(
         `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
       );
