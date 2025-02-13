@@ -18,7 +18,7 @@ jobs:
         with:
           script: |
             const issue = context.payload.issue;
-            core.setOutput("number", issue.number);
+            core.setOutput("number", issue.number.toString());  // Ensure it's a string
             core.setOutput("body", issue.body);
 
       - name: Generate Response with Gemini Pro API
@@ -26,7 +26,12 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
+          ISSUE_NUMBER="${{ steps.issue.outputs.number }}"
           ISSUE_TEXT="${{ steps.issue.outputs.body }}"
+
+          echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+          echo "ISSUE_TEXT=$ISSUE_TEXT" >> $GITHUB_ENV
+
           RESPONSE=$(curl -s -X POST \
             "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$GEMINI_API_KEY" \
             -H "Content-Type: application/json" \
@@ -39,23 +44,28 @@ jobs:
                 }
               ]
             }')
-          
-          # Extract response text
+
           RESPONSE_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text' | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           
-          # Set output
-          echo "response=$RESPONSE_TEXT" >> "$GITHUB_ENV"
+          echo "response=$RESPONSE_TEXT" >> $GITHUB_ENV
 
       - name: Post Response as Comment
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issueNumber = process.env.ISSUE_NUMBER;
+            const issueNumber = process.env.ISSUE_NUMBER;  // Correct way to get env variables
             const response = process.env.response;
+
+            console.log("Issue Number:", issueNumber);  // Debugging log
+
+            if (!issueNumber) {
+              throw new Error("Issue number is missing!");
+            }
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issueNumber,
+              issue_number: parseInt(issueNumber),  // Ensure it's a number
               body: response
             });
