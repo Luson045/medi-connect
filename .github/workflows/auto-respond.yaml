@@ -53,11 +53,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issueNumber = ${{ steps.issue.outputs.number }};
+            const issueNumber = ${{ steps.issue.number }};
             const response = `${{ steps.generate_response.outputs.response }}`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: issueNumber,
+              issue_number: context.payload.issue,
               body: response
             });
