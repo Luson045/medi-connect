@@ -1,0 +1,59 @@
+name: Auto Respond to GitHub Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  respond:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Issue Data
+        id: issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = context.payload.issue
+            return {
+              number: issue.number,
+              body: issue.body
+            }
+
+      - name: Generate Response with Gemini Pro API
+        id: generate_response
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          ISSUE_TEXT="${{ steps.issue.outputs.body }}"
+          RESPONSE=$(curl -s -X POST \
+            "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=$GEMINI_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "contents": [
+                {
+                  "parts": [
+                    {"text": "Respond to this GitHub issue in a helpful and professional manner:\n\n'"$ISSUE_TEXT"'"}
+                  ]
+                }
+              ]
+            }')
+          echo "Generated Response: $RESPONSE"
+          echo "response=$(echo $RESPONSE | jq -r '.candidates[0].content.parts[0].text')" >> $GITHUB_OUTPUT
+
+      - name: Post Response as Comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = ${{ steps.issue.outputs.number }}
+            const response = `${{ steps.generate_response.outputs.response }}`
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: response
+            })
